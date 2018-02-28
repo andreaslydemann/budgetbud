@@ -1,3 +1,4 @@
+export const CPR_NUMBER_CHANGED = 'cpr_number_changed';
 export const PHONE_CHANGED = 'phone_changed';
 export const CODE_CHANGED = 'code_changed';
 export const SIGN_UP = 'sign_up';

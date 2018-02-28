@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Header, Content, Item, Input, Button, Form, Label} from 'native-base';
 import {signUp, phoneChanged} from '../actions/index';
-import styles from './styles';
+import styles from './ScreenStyles';
 
 class SignUp extends Component {
     onPhoneChange = (text) => {

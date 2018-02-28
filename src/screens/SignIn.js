@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {Container, Content, Item, Input, Button, Form, Label} from 'native-base';
 import {connect} from 'react-redux';
-import {signIn, phoneChanged, codeChanged} from '../actions/index';
-import styles from './styles';
+import {signIn, cprNumberChanged, codeChanged} from '../actions/index';
+import screenStyles from './ScreenStyles';
 
 class SignIn extends Component {
-    onPhoneChange = (text) => {
-        this.props.phoneChanged(text);
+    onCprNumberChange = (text) => {
+        this.props.cprNumberChanged(text);
     };
 
     onCodeChange = (text) => {
@@ -15,15 +15,15 @@ class SignIn extends Component {
     };
 
     handleSubmit = () => {
-        const {phone, code} = this.props;
-        this.props.signIn({phone, code});
+        const {cprNumber, code} = this.props;
+        this.props.signIn({cprNumber, code});
     };
 
     renderError() {
         if (this.props.error) {
             return (
                 <View style={{backgroundColor: 'white'}}>
-                    <Text style={styles.errorTextStyle}>
+                    <Text style={screenStyles.errorTextStyle}>
                         {this.props.error}
                     </Text>
                 </View>
@@ -33,43 +33,71 @@ class SignIn extends Component {
 
     render() {
         return (
-            <Container style={styles.container}>
-                <Content>
-                    <Form>
-                        <Item floatingLabel>
-                            <Label>Telefonnummer</Label>
-                            <Input value={this.props.phone}
-                                   onChangeText={this.onPhoneChange}
-                            />
-                        </Item>
-                        <Item floatingLabel>
-                            <Label>Pinkode</Label>
-                            <Input secureTextEntry
-                                   value={this.props.code}
-                                   onChangeText={this.onCodeChange}
-                            />
-                        </Item>
-                    </Form>
+            <Container style={screenStyles.container}>
+                <View style={{paddingTop: 100, paddingBottom: 50, alignItems: 'center'}}>
+                    <Image
+                        style={{width: 150, height: 150}}
+                        source={require('../../assets/logo.png')}
+                    />
+                    <Label>BudgetBud</Label>
+                </View>
 
-                    {this.renderError()}
+                <Form>
+                    <Item floatingLabel>
+                        <Label>CPR-nummer</Label>
+                        <Input value={this.props.cprNumber}
+                               onChangeText={this.onCprNumberChange}
+                        />
+                    </Item>
 
-                    <Button onPress={this.handleSubmit}
-                            block style={{margin: 15, marginTop: 50}}>
-                        <Text>Log ind</Text>
-                    </Button>
+                    <Item floatingLabel>
+                        <Label>Pinkode</Label>
+                        <Input secureTextEntry
+                               value={this.props.code}
+                               onChangeText={this.onCodeChange}
+                        />
+                    </Item>
+                </Form>
+
+                {this.renderError()}
+
+                <Button onPress={this.handleSubmit}
+                        block style={{margin: 15, marginTop: 50}}>
+                    <Text>Log ind</Text>
+                </Button>
+
+                <Content padder>
+                    <TouchableOpacity
+                        style={styles.buttonStyle}
+                        onPress={this.onPress}
+                    >
+                        <Text>Glemt pinkode?</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.buttonStyle}
+                        onPress={this.onPress}
+                    >
+                        <Text>Ny bruger?</Text>
+                    </TouchableOpacity>
                 </Content>
-
-            </Container>);
+            </Container>
+        );
     };
 }
 
-const mapStateToProps = ({auth}) => {
-    const {phone, code, error} = auth;
+const styles = StyleSheet.create({
+    buttonStyle: {
+        padding: 7
+    }
+});
 
-    return {phone, code, error};
+const mapStateToProps = ({auth}) => {
+    const {cprNumber, code, error} = auth;
+    return {cprNumber, code, error};
 };
 
 export default connect(mapStateToProps, {
-    signIn, phoneChanged, codeChanged
+    signIn, cprNumberChanged, codeChanged
 })(SignIn);
 

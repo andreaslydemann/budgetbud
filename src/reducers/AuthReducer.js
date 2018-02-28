@@ -4,10 +4,11 @@ import {
     SIGN_UP,
     SIGN_UP_FAIL,
     SIGN_IN,
-    SIGN_IN_FAIL
+    SIGN_IN_FAIL, CPR_NUMBER_CHANGED
 } from '../actions/types';
 
 const INITIAL_STATE = {
+    cprNumber: '',
     phone: '',
     code: '',
     error: ''
@@ -15,6 +16,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case CPR_NUMBER_CHANGED:
+            return {...state, cprNumber: action.payload};
         case PHONE_CHANGED:
             return {...state, phone: action.payload};
         case CODE_CHANGED:

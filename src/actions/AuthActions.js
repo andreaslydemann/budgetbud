@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import axios from 'axios';
 
 import {
+    CPR_NUMBER_CHANGED,
     PHONE_CHANGED,
     CODE_CHANGED,
     SIGN_UP,
@@ -11,6 +12,13 @@ import {
 } from './types';
 
 const ROOT_URL = 'https://us-central1-budgetbud-4950d.cloudfunctions.net';
+
+export const cprNumberChanged = (text) => {
+    return {
+        type: CPR_NUMBER_CHANGED,
+        payload: text
+    };
+};
 
 export const phoneChanged = (text) => {
     return {
