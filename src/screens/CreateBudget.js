@@ -25,42 +25,65 @@ class CreateBudget extends Component {
         var items = ['Kategori 1', 'Kategori 2', 'Kategori 3', 'Kategori 4', 'Kategori 5', 'Kategori 6', 'Kategori 7'];
         return (
             <Container style={screenStyles.container}>
-                <Header style={{paddingTop: 15}}>
-                    <Body>
-                    <Title>Opret budget</Title>
-                    </Body>
-                </Header>
-                <Form style={styles.formStyle}>
-                    <Item style={styles.inputStyle} stackedLabel>
-                        <Label style={styles.labelStyle}>Indkomst</Label>
-                        <Input
-                            value={this.props.indkomst}
-                            onChangeText={this.onIndkomstChange}
-                        >
-                        </Input>
-                    </Item>
-                </Form>
-                <Form style={styles.formStyle}>
-                    <Item>
-                        <List dataArray={items}
-                              renderRow={(item) =>
-                                  <ListItem noBorder>
-                                      <Item style={styles.inputStyle} stackedLabel>
-                                          <Label style={styles.labelStyle}>{item}</Label>
-                                          <Input
-                                              onChangeText={this.onKategoriChange}>
-                                          </Input>
-                                      </Item>
-                                  </ListItem>
-                              }>
-                        </List>
-                    </Item>
-                </Form>
-                <Form>
-                    <Button style={styles.buttonStyle} onPress={this.handleSubmit}>
-                        <Text> Opret budget </Text>
-                    </Button>
-                </Form>
+                {/*---HEADER---*/}
+                <Container style={{paddingTop: 25, flex: 2}}>
+                    <Header>
+                        <Body>
+                        <Title>Opret budget</Title>
+                        </Body>
+                    </Header>
+                    <Form>
+                        <Item style={styles.inputStyle} stackedLabel>
+                            <Label style={styles.itemStyle}>Indkomst</Label>
+                            <Input
+                                value={this.props.indkomst}
+                                onChangeText={this.onIndkomstChange}
+                            >
+                            </Input>
+                        </Item>
+                    </Form>
+                </Container>
+
+                {/*---LISTVIEW---*/}
+                <Container style={{flexGrow: 3}}>
+                    <Form>
+                        <Item>
+                            <List dataArray={items}
+                                  renderRow={(item) =>
+                                      <ListItem noBorder >
+                                          <Item stackedLabel>
+                                              <Label style={styles.itemStyle}>{item}</Label>
+                                              <Input
+                                                  onChangeText={this.onKategoriChange}>
+                                              </Input>
+                                          </Item>
+                                      </ListItem>
+                                  }>
+                            </List>
+                        </Item>
+                    </Form>
+                </Container>
+
+                {/*---CALCULATED TOTAL---*/}
+                <Container style={{flexGrow: 1, backgroundColor: '#1c313a'}}>
+                    <Form style={styles.leftContainer}>
+                        <Item noBorder>
+                            <Label style={styles.itemStyle}>Totale udgifter</Label>
+                        </Item>
+                        <Item noBorder>
+                            <Label style={styles.itemStyle}>Til rådighed</Label>
+                        </Item>
+                    </Form>
+                </Container>
+
+                {/*---CREATE BUTTON---*/}
+                <Container style={{flexGrow: 1}}>
+                    <Form>
+                        <Button style={styles.buttonStyle} rounded onPress={this.handleSubmit}>
+                            <Text style={styles.itemStyle}> Opret budget </Text>
+                        </Button>
+                    </Form>
+                </Container>
             </Container>
         );
     }
@@ -68,15 +91,24 @@ class CreateBudget extends Component {
 
 const styles = {
     buttonStyle: {
-        alignSelf: 'center'
+        width: 300,
+        height: 40,
+        backgroundColor: '#1c313a',
+        marginTop: 20,
+        justifyContent: 'center'
     },
-    labelStyle: {
-        fontWeight: '600'
+    itemStyle: {
+        fontWeight: '600',
+        color: 'white'
     },
     formStyle: {
         height: 40,
         flexDirection: 'row',
         alignItems: 'center'
+    },
+    leftContainer: {
+        flex: 1,
+        justifyContent: 'flex-start'
     }
 };
 

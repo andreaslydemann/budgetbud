@@ -14,7 +14,7 @@ const Button = ({ onPress, children }) => {
 };
 
 const styles = {
-    textStyle: {
+    itemStyle: {
         alignSelf: 'center',
         color: '#007aff',
         fontSize: 16,

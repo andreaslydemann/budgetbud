@@ -28,7 +28,7 @@ const styles = {
         lineHeight: 23,
         flex: 2
     },
-    labelStyle: {
+    itemStyle: {
         fontSize: 18,
         paddingLeft: 20,
         flex: 1
