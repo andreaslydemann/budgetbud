@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {
-    StyleSheet
-} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Container, Item, Input, Button, Form, Label} from 'native-base';
-import screenStyles from "../screens/ScreenStyles";
 
 class SignInForm extends Component {
+    renderError() {
+        //Toast.show('This is a long toast.',Toast.LONG);
+    };
 
     render() {
         return (
@@ -13,24 +13,33 @@ class SignInForm extends Component {
                 <Form style={{width: 300}}>
                     <Item rounded style={styles.itemStyle}>
                         <Input value={this.props.cprNumber}
-                               onChangeText={this.onCprNumberChange}
+                               onChangeText={this.props.onCprNumberChange}
+                               keyboardType="numeric"
                                placeholder="CPR-nummer"
-                               placeholderTextColor="#bdbdbd"
+                               placeholderTextColor='rgba(255,255,255,0.6)'
                                style={styles.inputStyle}
                         />
                     </Item>
 
-                    <Item noBorder rounded style={styles.itemStyle}>
+                    <Item rounded style={styles.itemStyle}>
                         <Input secureTextEntry
                                value={this.props.code}
                                onChangeText={this.props.onCodeChange}
+                               keyboardType="numeric"
                                placeholder="Pinkode"
-                               placeholderTextColor="#bdbdbd"
+                               placeholderTextColor='rgba(255,255,255,0.6)'
                                style={styles.inputStyle}
                         />
                     </Item>
 
-                    <Button rounded style={styles.buttonStyle}>
+                    {
+                        this.renderError()
+                    }
+
+                    <Button rounded
+
+                            style={styles.buttonStyle}
+                    >
                         <Label style={styles.buttonText}>Log ind</Label>
                     </Button>
                 </Form>
@@ -42,8 +51,8 @@ class SignInForm extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems:'center',
-        justifyContent :'flex-end'
+        alignItems: 'center',
+        justifyContent: 'flex-end'
     },
     itemStyle: {
         marginTop: 10,

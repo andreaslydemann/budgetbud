@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {Container, Content, Item, Input, Button, Form, Label, Body} from 'native-base';
+import {StyleSheet, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
+import {Container, Button, Label, Toast} from 'native-base';
 import {signIn, cprNumberChanged, codeChanged} from '../actions/index';
-import screenStyles from './ScreenStyles';
 import Logo from '../components/Logo';
 import SignInForm from '../components/SignInForm';
+import screenStyles from './ScreenStyles';
 
 class SignIn extends Component {
     onCprNumberChange = (text) => {
@@ -22,82 +22,36 @@ class SignIn extends Component {
     };
 
     renderError() {
-        if (this.props.error) {
-            return (
-                <View style={{backgroundColor: 'white'}}>
-                    <Text style={screenStyles.errorTextStyle}>
-                        {this.props.error}
-                    </Text>
-                </View>
-            );
+        if (!this.props.error) {
         }
     };
 
     render() {
         return (
-            <Container style={screenStyles.container}>
+            <KeyboardAvoidingView behavior='padding' style={screenStyles.container}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                    <Container style={{alignSelf: 'stretch'}}>
+                        <Logo/>
+                        <SignInForm handleSubmit={this.handleSubmit}
+                                    onCprNumberChange={this.onCprNumberChange}
+                                    onCodeChange={this.onCodeChange}
+                                    cprNumber={this.cprNumber}
+                                    code={this.code}
+                        />
 
-                <Logo/>
-                <SignInForm/>
+                        <Container style={styles.optionContainer}>
+                            <Button transparent style={styles.optionButton}>
+                                <Label style={styles.optionText}>Glemt pinkode?</Label>
+                            </Button>
 
-                <Container style={{flexShrink: 1, padding: 13}}>
-                    <Container style={styles.optionContainer}>
-
-                        <Button transparent style={styles.optionButton}>
-                            <Text style={styles.optionText}>Glempinkode?</Text>
-                        </Button>
-
-                        <Button transparent style={styles.optionButton}>
-                            <Text style={styles.optionText}>Ny bruger?</Text>
-                        </Button>
-
+                            <Button transparent style={styles.optionButton}>
+                                <Label style={styles.optionText}>Ny bruger?</Label>
+                            </Button>
+                        </Container>
                     </Container>
-                </Container>
-
-            </Container>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         );
-
-        {/*
-                <Form>
-                    <Item floatingLabel>
-                        <Label>CPR-nummer</Label>
-                        <Input value={this.props.cprNumber}
-                               onChangeText={this.onCprNumberChange}
-                        />
-                    </Item>
-
-                    <Item floatingLabel>
-                        <Label>Pinkode</Label>
-                        <Input secureTextEntry
-                               value={this.props.code}
-                               onChangeText={this.onCodeChange}
-                        />
-                    </Item>
-                </Form>
-
-                {this.renderError()}
-
-                <Button onPress={this.handleSubmit}
-                        block style={{margin: 15, marginTop: 50}}>
-                    <Text>Log ind</Text>
-                </Button>
-
-                <Content padder>
-                    <TouchableOpacity
-                        style={styles.buttonStyle}
-                        onPress={this.onPress}
-                    >
-                        <Text>Glemt pinkode?</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.buttonStyle}
-                        onPress={this.onPress}
-                    >
-                        <Text>Ny bruger?</Text>
-                    </TouchableOpacity>
-                </Content>*/
-        }
     };
 }
 
@@ -110,8 +64,11 @@ const styles = StyleSheet.create({
         width: 300
     },
     optionContainer: {
+        flexShrink: 1,
+        alignItems: 'flex-start',
+        alignSelf: 'center',
         width: 300,
-        alignItems: 'flex-start'
+        paddingTop: 13
     },
     optionText: {
         color: 'rgba(255,255,255,0.6)',
@@ -131,4 +88,3 @@ const mapStateToProps = ({auth}) => {
 export default connect(mapStateToProps, {
     signIn, cprNumberChanged, codeChanged
 })(SignIn);
-

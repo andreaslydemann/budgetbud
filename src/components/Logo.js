@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     logoText: {
-        marginVertical: 20,
+        marginTop: 20,
+        marginBottom: 40,
         fontSize: 18,
         color: 'rgba(255, 255, 255, 1)'
     }
