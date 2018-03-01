@@ -18,41 +18,46 @@ class CreateBudget extends Component {
 
     handleSubmit = () => {
         const {indkomst, kategori} = this.props;
-        this.props.signIn({indkomst, kategori});
+        this.props.createBudget({indkomst, kategori});
     };
 
     render() {
-        var items = ['Kategori 1', 'Kategori 2', 'Kategori 3', 'Kategori 4', 'Kategori 5'];
+        var items = ['Kategori 1', 'Kategori 2', 'Kategori 3', 'Kategori 4', 'Kategori 5', 'Kategori 6', 'Kategori 7'];
         return (
             <Container style={screenStyles.container}>
-                <Header>
+                <Header style={{paddingTop: 15}}>
                     <Body>
-                        <Title>Opret budget</Title>
+                    <Title>Opret budget</Title>
                     </Body>
                 </Header>
-                <Form>
-                    <Item>
+                <Form style={styles.formStyle}>
+                    <Item style={styles.inputStyle} stackedLabel>
+                        <Label style={styles.labelStyle}>Indkomst</Label>
                         <Input
                             value={this.props.indkomst}
                             onChangeText={this.onIndkomstChange}
                         >
-                            <Label>Indkomst</Label>
                         </Input>
                     </Item>
+                </Form>
+                <Form style={styles.formStyle}>
                     <Item>
                         <List dataArray={items}
-                            renderRow={(item) =>
-                                  <ListItem>
-                                      <Label>{item}</Label>
-                                      <Input
-                                          onChangeText={this.onIndkomstChange}
-                                      >
-                                      </Input>
+                              renderRow={(item) =>
+                                  <ListItem noBorder>
+                                      <Item style={styles.inputStyle} stackedLabel>
+                                          <Label style={styles.labelStyle}>{item}</Label>
+                                          <Input
+                                              onChangeText={this.onKategoriChange}>
+                                          </Input>
+                                      </Item>
                                   </ListItem>
                               }>
                         </List>
                     </Item>
-                    <Button style={styles.buttonStyle} primary onPress={this.handleSubmit}>
+                </Form>
+                <Form>
+                    <Button style={styles.buttonStyle} onPress={this.handleSubmit}>
                         <Text> Opret budget </Text>
                     </Button>
                 </Form>
@@ -61,11 +66,19 @@ class CreateBudget extends Component {
     }
 }
 
-const styles = StyleSheet.create({
+const styles = {
     buttonStyle: {
         alignSelf: 'center'
+    },
+    labelStyle: {
+        fontWeight: '600'
+    },
+    formStyle: {
+        height: 40,
+        flexDirection: 'row',
+        alignItems: 'center'
     }
-});
+};
 
 const mapStateToProps = state => {
     return {
