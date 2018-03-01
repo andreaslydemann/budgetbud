@@ -7,6 +7,7 @@ import firebaseConfig from './config/firebase_config';
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import store from './store';
+import CreateBudget from "./screens/CreateBudget";
 
 export default class App extends Component {
     componentDidMount() {
@@ -18,9 +19,10 @@ export default class App extends Component {
             {
                 SignIn: {screen: SignIn},
                 SignUp: {screen: SignUp},
+                CreateBudget: {screen: CreateBudget},
             },
             {
-                initialRouteName: "SignIn",
+                initialRouteName: "CreateBudget",
                 headerMode: "none"
             }
         );
