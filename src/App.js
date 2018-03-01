@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StackNavigator} from "react-navigation";
+import {Root} from 'native-base';
 import {Provider} from 'react-redux';
-import {Root} from "native-base";
 import firebase from 'firebase';
 import firebaseConfig from './config/firebase_config';
 import SignIn from './screens/SignIn';
@@ -29,7 +29,9 @@ export default class App extends Component {
 
         return (
             <Provider store={store}>
-                <AppNavigator/>
+                <Root>
+                    <AppNavigator/>
+                </Root>
             </Provider>
         );
     }

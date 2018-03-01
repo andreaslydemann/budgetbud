@@ -1,75 +1,94 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
-import {Container, Header, Content, Item, Input, Button} from 'native-base';
-import {connect} from 'react-redux';
-import {signIn, phoneChanged, codeChanged} from '../actions/index';
+import {StyleSheet} from 'react-native';
+import {Container, Item, Input, Button, Form, Label} from 'native-base';
 
 class SignInForm extends Component {
-    onPhoneChange = (text) => {
-        this.props.phoneChanged(text);
-    };
-
-    onCodeChange = (text) => {
-        this.props.codeChanged(text);
-    };
-
-    handleSubmit = () => {
-        const {phone, code} = this.props;
-        this.props.signIn({phone, code});
-    };
-
     renderError() {
         if (this.props.error) {
             return (
-                <View style={{backgroundColor: 'white'}}>
-                    <Text style={styles.errorTextStyle}>
+                <Container style={{backgroundColor: 'white'}}>
+                    <Label style={styles.errorTextStyle}>
                         {this.props.error}
-                    </Text>
-                </View>
+                    </Label>
+                </Container>
             );
         }
     };
 
     render() {
         return (
-            <Container style={{width: 250}}>
-                <Item rounded>
-                    <Input placeholder='Tlf: 12 34 56 78'
-                           value={this.props.phone}
-                           onChangeText={this.onPhoneChange}
-                    />
-                </Item>
+            <Container style={styles.container}>
+                <Form style={{width: 300}}>
+                    <Item rounded style={styles.itemStyle}>
+                        <Input value={this.props.cprNumber}
+                               onChangeText={this.props.onCprNumberChange}
+                               keyboardType="numeric"
+                               placeholder="CPR-nummer"
+                               placeholderTextColor='rgba(255,255,255,0.6)'
+                               style={styles.inputStyle}
+                        />
+                    </Item>
 
-                <Item rounded>
-                    <Input placeholder='Pinkode: 1234'
-                           value={this.props.code}
-                           onChangeText={this.onCodeChange}
-                    />
-                </Item>
+                    <Item rounded style={styles.itemStyle}>
+                        <Input secureTextEntry
+                               value={this.props.code}
+                               onChangeText={this.props.onCodeChange}
+                               keyboardType="numeric"
+                               placeholder="Pinkode"
+                               placeholderTextColor='rgba(255,255,255,0.6)'
+                               style={styles.inputStyle}
+                        />
+                    </Item>
 
-                {this.renderError()}
+                    {this.renderError()}
 
-                <Button block>
-                    <Text onPress={this.handleSubmit}>Primary</Text>
-                </Button>
-            </Container>);
+                    <Button rounded
+                            onPress={this.props.handleSubmit}
+                            style={styles.buttonStyle}
+                    >
+                        <Label style={styles.buttonText}>Log ind</Label>
+                    </Button>
+                </Form>
+            </Container>
+        )
     };
 }
 
-const styles = {
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
+    itemStyle: {
+        marginTop: 10,
+        height: 40,
+        backgroundColor: 'rgba(255, 255,255,0.2)',
+        borderBottomWidth: 0,
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0
+    },
+    inputStyle: {
+        color: '#ffffff'
+    },
+    buttonStyle: {
+        width: 300,
+        height: 40,
+        backgroundColor: '#1c313a',
+        marginTop: 20,
+        justifyContent: 'center'
+    },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: '#ffffff'
+    },
     errorTextStyle: {
         fontSize: 20,
         alignSelf: 'center',
         color: 'red'
     }
-};
+});
 
-const mapStateToProps = ({auth}) => {
-    const {phone, code, error} = auth;
-
-    return {phone, code, error};
-};
-
-export default connect(mapStateToProps, {
-    signIn, phoneChanged, codeChanged
-})(SignInForm);
+export default SignInForm;

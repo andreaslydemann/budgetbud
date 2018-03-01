@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {Container, Content, Item, Input, Button, Form, Label} from 'native-base';
+import {StyleSheet, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
+import {Container, Button, Label, Toast} from 'native-base';
 import {signIn, cprNumberChanged, codeChanged} from '../actions/index';
+import Logo from '../components/Logo';
+import SignInForm from '../components/SignInForm';
 import screenStyles from './ScreenStyles';
 
 class SignIn extends Component {
@@ -19,76 +21,61 @@ class SignIn extends Component {
         this.props.signIn({cprNumber, code});
     };
 
-    renderError() {
-        if (this.props.error) {
-            return (
-                <View style={{backgroundColor: 'white'}}>
-                    <Text style={screenStyles.errorTextStyle}>
-                        {this.props.error}
-                    </Text>
-                </View>
-            );
-        }
-    };
-
     render() {
         return (
-            <Container style={screenStyles.container}>
-                <View style={{paddingTop: 100, paddingBottom: 50, alignItems: 'center'}}>
-                    <Image
-                        style={{width: 150, height: 150}}
-                        source={require('../../assets/logo.png')}
-                    />
-                    <Label>BudgetBud</Label>
-                </View>
+            <KeyboardAvoidingView behavior='padding' style={screenStyles.container}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                    <Container style={{alignSelf: 'stretch'}}>
 
-                <Form>
-                    <Item floatingLabel>
-                        <Label>CPR-nummer</Label>
-                        <Input value={this.props.cprNumber}
-                               onChangeText={this.onCprNumberChange}
+                        <Logo/>
+
+                        <SignInForm handleSubmit={this.handleSubmit}
+                                    onCprNumberChange={this.onCprNumberChange}
+                                    onCodeChange={this.onCodeChange}
+                                    cprNumber={this.cprNumber}
+                                    code={this.code}
+                                    error={this.error}
                         />
-                    </Item>
 
-                    <Item floatingLabel>
-                        <Label>Pinkode</Label>
-                        <Input secureTextEntry
-                               value={this.props.code}
-                               onChangeText={this.onCodeChange}
-                        />
-                    </Item>
-                </Form>
+                        <Container style={styles.optionContainer}>
+                            <Button transparent style={styles.optionButton}>
+                                <Label style={styles.optionText}>Glemt pinkode?</Label>
+                            </Button>
 
-                {this.renderError()}
+                            <Button transparent style={styles.optionButton}>
+                                <Label style={styles.optionText}>Ny bruger?</Label>
+                            </Button>
+                        </Container>
 
-                <Button onPress={this.handleSubmit}
-                        block style={{margin: 15, marginTop: 50}}>
-                    <Text>Log ind</Text>
-                </Button>
-
-                <Content padder>
-                    <TouchableOpacity
-                        style={styles.buttonStyle}
-                        onPress={this.onPress}
-                    >
-                        <Text>Glemt pinkode?</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.buttonStyle}
-                        onPress={this.onPress}
-                    >
-                        <Text>Ny bruger?</Text>
-                    </TouchableOpacity>
-                </Content>
-            </Container>
+                    </Container>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         );
     };
 }
 
 const styles = StyleSheet.create({
-    buttonStyle: {
-        padding: 7
+    container: {
+        backgroundColor: '#455a64',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 300
+    },
+    optionContainer: {
+        flexShrink: 1,
+        alignItems: 'flex-start',
+        alignSelf: 'center',
+        width: 300,
+        paddingTop: 13
+    },
+    optionText: {
+        color: 'rgba(255,255,255,0.6)',
+        fontSize: 16
+    },
+    optionButton: {
+        height: 30,
+        paddingLeft: 5
     }
 });
 
@@ -100,4 +87,3 @@ const mapStateToProps = ({auth}) => {
 export default connect(mapStateToProps, {
     signIn, cprNumberChanged, codeChanged
 })(SignIn);
-

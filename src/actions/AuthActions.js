@@ -47,13 +47,13 @@ export const signUp = ({phone}) => {
     };
 };
 
-export const signIn = ({phone, code}) => {
+export const signIn = ({cprNumber, code}) => {
     return async (dispatch) => {
         dispatch({type: SIGN_IN});
 
         try {
             let {data} = await axios.post(`${ROOT_URL}/verifyOneTimePassword`, {
-                phone: phone, code: code
+                cprNumber: cprNumber, code: code
             });
 
             firebase.auth().signInWithCustomToken(data.token);
