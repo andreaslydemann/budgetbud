@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {StackNavigator} from "react-navigation";
 import {Provider} from 'react-redux';
-import {Root} from "native-base";
 import firebase from 'firebase';
 import firebaseConfig from './config/firebase_config';
 import SignIn from './screens/SignIn';

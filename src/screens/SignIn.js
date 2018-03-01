@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {Container, Content, Item, Input, Button, Form, Label} from 'native-base';
+import {Container, Content, Item, Input, Button, Form, Label, Body} from 'native-base';
 import {connect} from 'react-redux';
 import {signIn, cprNumberChanged, codeChanged} from '../actions/index';
 import screenStyles from './ScreenStyles';
+import Logo from '../components/Logo';
+import SignInForm from '../components/SignInForm';
 
 class SignIn extends Component {
     onCprNumberChange = (text) => {
@@ -34,14 +36,28 @@ class SignIn extends Component {
     render() {
         return (
             <Container style={screenStyles.container}>
-                <View style={{paddingTop: 100, paddingBottom: 50, alignItems: 'center'}}>
-                    <Image
-                        style={{width: 150, height: 150}}
-                        source={require('../../assets/logo.png')}
-                    />
-                    <Label>BudgetBud</Label>
-                </View>
 
+                <Logo/>
+                <SignInForm/>
+
+                <Container style={{flexShrink: 1, padding: 13}}>
+                    <Container style={styles.optionContainer}>
+
+                        <Button transparent style={styles.optionButton}>
+                            <Text style={styles.optionText}>Glempinkode?</Text>
+                        </Button>
+
+                        <Button transparent style={styles.optionButton}>
+                            <Text style={styles.optionText}>Ny bruger?</Text>
+                        </Button>
+
+                    </Container>
+                </Container>
+
+            </Container>
+        );
+
+        {/*
                 <Form>
                     <Item floatingLabel>
                         <Label>CPR-nummer</Label>
@@ -80,15 +96,30 @@ class SignIn extends Component {
                     >
                         <Text>Ny bruger?</Text>
                     </TouchableOpacity>
-                </Content>
-            </Container>
-        );
+                </Content>*/
+        }
     };
 }
 
 const styles = StyleSheet.create({
-    buttonStyle: {
-        padding: 7
+    container: {
+        backgroundColor: '#455a64',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 300
+    },
+    optionContainer: {
+        width: 300,
+        alignItems: 'flex-start'
+    },
+    optionText: {
+        color: 'rgba(255,255,255,0.6)',
+        fontSize: 16
+    },
+    optionButton: {
+        height: 30,
+        paddingLeft: 5
     }
 });
 
