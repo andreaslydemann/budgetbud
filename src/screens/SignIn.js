@@ -21,22 +21,20 @@ class SignIn extends Component {
         this.props.signIn({cprNumber, code});
     };
 
-    renderError() {
-        if (!this.props.error) {
-        }
-    };
-
     render() {
         return (
             <KeyboardAvoidingView behavior='padding' style={screenStyles.container}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <Container style={{alignSelf: 'stretch'}}>
+
                         <Logo/>
+
                         <SignInForm handleSubmit={this.handleSubmit}
                                     onCprNumberChange={this.onCprNumberChange}
                                     onCodeChange={this.onCodeChange}
                                     cprNumber={this.cprNumber}
                                     code={this.code}
+                                    error={this.error}
                         />
 
                         <Container style={styles.optionContainer}>
@@ -48,6 +46,7 @@ class SignIn extends Component {
                                 <Label style={styles.optionText}>Ny bruger?</Label>
                             </Button>
                         </Container>
+
                     </Container>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>

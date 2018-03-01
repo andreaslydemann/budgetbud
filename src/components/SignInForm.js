@@ -4,7 +4,15 @@ import {Container, Item, Input, Button, Form, Label} from 'native-base';
 
 class SignInForm extends Component {
     renderError() {
-        //Toast.show('This is a long toast.',Toast.LONG);
+        if (this.props.error) {
+            return (
+                <Container style={{backgroundColor: 'white'}}>
+                    <Label style={styles.errorTextStyle}>
+                        {this.props.error}
+                    </Label>
+                </Container>
+            );
+        }
     };
 
     render() {
@@ -32,12 +40,10 @@ class SignInForm extends Component {
                         />
                     </Item>
 
-                    {
-                        this.renderError()
-                    }
+                    {this.renderError()}
 
                     <Button rounded
-
+                            onPress={this.props.handleSubmit}
                             style={styles.buttonStyle}
                     >
                         <Label style={styles.buttonText}>Log ind</Label>
@@ -77,6 +83,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500',
         color: '#ffffff'
+    },
+    errorTextStyle: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red'
     }
 });
 
