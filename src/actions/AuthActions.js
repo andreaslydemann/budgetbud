@@ -34,13 +34,13 @@ export const codeChanged = (text) => {
     };
 };
 
-export const signUp = ({phoneNumber}) => {
+export const signUp = ({cprNumber, phoneNumber}) => {
     return async (dispatch) => {
         dispatch({type: SIGN_UP});
 
         try {
-            await axios.post(`${ROOT_URL}/createUser`, {phoneNumber: phoneNumber});
-            await axios.post(`${ROOT_URL}/requestCode`, {phoneNumber: phoneNumber});
+            await axios.post(`${ROOT_URL}/createUser`, {cprNumber: cprNumber});
+            await axios.post(`${ROOT_URL}/requestCodeTest`, {cprNumber: cprNumber, phoneNumber: phoneNumber});
         } catch (err) {
             signUpFail(dispatch);
         }

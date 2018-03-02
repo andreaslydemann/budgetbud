@@ -18,8 +18,8 @@ class SignUp extends Component {
     };
 
     handleSubmit = () => {
-        const {phoneNumber} = this.props;
-        this.props.signUp({phoneNumber});
+        const {cprNumber, phoneNumber} = this.props;
+        this.props.signUp({cprNumber, phoneNumber});
     };
 
     render() {
