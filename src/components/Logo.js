@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Image} from 'react-native';
+import {Image} from 'react-native';
 import {Container, Label} from 'native-base';
 
 class Logo extends Component {
@@ -14,7 +14,7 @@ class Logo extends Component {
     }
 }
 
-const styles = StyleSheet.create({
+const styles = {
     container: {
         flex: 2,
         justifyContent: 'flex-end',
@@ -23,9 +23,8 @@ const styles = StyleSheet.create({
     logoText: {
         marginTop: 20,
         marginBottom: 40,
-        fontSize: 18,
         color: 'rgba(255, 255, 255, 1)'
     }
-});
+};
 
 export default Logo;

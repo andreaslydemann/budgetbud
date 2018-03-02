@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
+import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
 import {signUp, cprNumberChanged, phoneNumberChanged} from '../actions/index';
 import Logo from '../components/Logo';
 import AuthForm from '../components/AuthForm';
+import ErrorInfo from '../components/ErrorInfo';
 import screenStyles from './ScreenStyles';
-
 
 class SignUp extends Component {
     onCprNumberChange = (text) => {
@@ -18,6 +18,7 @@ class SignUp extends Component {
     };
 
     handleSubmit = () => {
+        Keyboard.dismiss();
         const {cprNumber, phoneNumber} = this.props;
         this.props.signUp({cprNumber, phoneNumber});
     };
@@ -39,10 +40,14 @@ class SignUp extends Component {
                                   isSignIn={false}
                         />
 
-                        <Container style={styles.optionContainer}>
-                            <Button transparent style={styles.optionButton}>
-                                <Label style={styles.optionText}>Allerede registreret?</Label>
-                            </Button>
+                        <Container>
+                            <Container style={styles.optionContainer}>
+                                <Button transparent style={styles.optionButton}>
+                                    <Label style={styles.optionText}>Allerede registreret?</Label>
+                                </Button>
+                            </Container>
+
+                            <ErrorInfo error={this.props.error}/>
                         </Container>
 
                     </Container>
@@ -52,7 +57,7 @@ class SignUp extends Component {
     };
 }
 
-const styles = StyleSheet.create({
+const styles = {
     container: {
         backgroundColor: '#455a64',
         flex: 1,
@@ -68,14 +73,13 @@ const styles = StyleSheet.create({
         paddingTop: 13
     },
     optionText: {
-        color: 'rgba(255,255,255,0.6)',
-        fontSize: 16
+        color: 'rgba(255,255,255,0.6)'
     },
     optionButton: {
         height: 30,
         paddingLeft: 5
     }
-});
+};
 
 const mapStateToProps = ({auth}) => {
     const {cprNumber, phoneNumber, error} = auth;

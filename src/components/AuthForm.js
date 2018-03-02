@@ -1,38 +1,8 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Container, Item, Input, Button, Form, Label} from 'native-base';
+import {Container, Item, Input, Button, Form, Label, Icon} from 'native-base';
 
 class AuthForm extends Component {
-    renderError() {
-        if (this.props.error) {
-            return (
-                <Container style={{backgroundColor: 'white'}}>
-                    <Label style={styles.errorTextStyle}>
-                        {this.props.error}
-                    </Label>
-                </Container>
-            );
-        }
-    };
-
-    getPlaceholderText() {
-        if (this.props.isSignIn)
-            return ("Pinkode");
-        else
-            return ("Telefonnummer");
-    };
-
-    getButtonText() {
-        if (this.props.isSignIn)
-            return ("Log ind");
-        else
-            return ("Godkend");
-    };
-
     render() {
-        const placeholderText = this.getPlaceholderText();
-        const buttonText = this.getButtonText();
-
         return (
             <Container style={styles.container}>
                 <Form style={{width: '80%'}}>
@@ -50,19 +20,17 @@ class AuthForm extends Component {
                         <Input value={this.props.secondInput}
                                onChangeText={this.props.onSecondInputChange}
                                keyboardType="numeric"
-                               placeholder={placeholderText}
+                               placeholder={this.props.isSignIn ? 'Pinkode' : 'Telefonnummer'}
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={styles.inputStyle}
                         />
                     </Item>
 
-                    {this.renderError()}
-
                     <Button rounded
                             onPress={this.props.handleSubmit}
                             style={styles.buttonStyle}
                     >
-                        <Label style={styles.buttonText}>{buttonText}</Label>
+                        <Label style={styles.buttonText}>{this.props.isSignIn ? 'Log ind' : 'Godkend'}</Label>
                     </Button>
                 </Form>
             </Container>
@@ -70,7 +38,7 @@ class AuthForm extends Component {
     };
 }
 
-const styles = StyleSheet.create({
+const styles = {
     container: {
         flex: 1,
         alignItems: 'center',
@@ -96,15 +64,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonText: {
-        fontSize: 16,
-        fontWeight: '500',
         color: '#ffffff'
     },
-    errorTextStyle: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'red'
-    }
-});
+};
 
 export default AuthForm;
