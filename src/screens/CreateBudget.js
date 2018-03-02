@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {Container, Content, Item, Form, Label, Input, Button, List, ListItem, Header, Body, Title} from 'native-base';
+import {StyleSheet, Text} from 'react-native';
+import {Body, Button, Container, Form, Header, Input, Item, Label, List, ListItem, Title} from 'native-base';
 import {connect} from 'react-redux';
 import screenStyles from '../screens/ScreenStyles';
 import {indkomstChanged, kategoriChanged} from '../actions/index';
+import {Seperator} from "../components/common";
 
 
 class CreateBudget extends Component {
@@ -26,53 +27,52 @@ class CreateBudget extends Component {
         return (
             <Container style={screenStyles.container}>
                 {/*---HEADER---*/}
-                <Container style={{paddingTop: 25, flex: 2}}>
+                <Container style={{alignSelf: 'stretch', paddingTop: '6%'}}>
                     <Header>
                         <Body>
                         <Title>Opret budget</Title>
                         </Body>
                     </Header>
+                </Container>
+                <Container style={{justifyContent: 'flex-start', alignSelf: 'flex-start'}}>
                     <Form>
                         <Item style={styles.inputStyle} stackedLabel>
                             <Label style={styles.itemStyle}>Indkomst</Label>
                             <Input
                                 value={this.props.indkomst}
-                                onChangeText={this.onIndkomstChange}
-                            >
+                                onChangeText={this.onIndkomstChange}>
                             </Input>
                         </Item>
                     </Form>
                 </Container>
 
+                <Seperator/>
+
                 {/*---LISTVIEW---*/}
-                <Container style={{flexGrow: 3}}>
-                    <Form>
-                        <Item>
-                            <List dataArray={items}
-                                  renderRow={(item) =>
-                                      <ListItem noBorder >
-                                          <Item stackedLabel>
-                                              <Label style={styles.itemStyle}>{item}</Label>
-                                              <Input
-                                                  onChangeText={this.onKategoriChange}>
-                                              </Input>
-                                          </Item>
-                                      </ListItem>
-                                  }>
-                            </List>
-                        </Item>
-                    </Form>
+                <Container style={{flex: 4}}>
+                        <List dataArray={items}
+                              renderRow={(item) =>
+                                  <ListItem noBorder style={{paddingBottom: 0}}>
+                                      <Item stackedLabel style={{paddingLeft: 0, marginLeft: 0}}>
+                                          <Label style={styles.itemStyle}>{item}</Label>
+                                          <Input
+                                              onChangeText={this.onKategoriChange}>
+                                          </Input>
+                                      </Item>
+                                  </ListItem>
+                              }>
+                        </List>
                 </Container>
 
+                <Seperator/>
+
                 {/*---CALCULATED TOTAL---*/}
-                <Container style={{flexGrow: 1, backgroundColor: '#1c313a'}}>
+                <Container style={{flexGrow: 1, alignSelf: 'stretch'}}>
                     <Form style={styles.leftContainer}>
-                        <Item noBorder>
-                            <Label style={styles.itemStyle}>Totale udgifter</Label>
-                        </Item>
-                        <Item noBorder>
-                            <Label style={styles.itemStyle}>Til rådighed</Label>
-                        </Item>
+                        <Text style={styles.itemStyle}>Totale udgifter</Text>
+                    </Form>
+                    <Form style={styles.leftContainer}>
+                        <Text style={styles.itemStyle}>Til rådighed</Text>
                     </Form>
                 </Container>
 
@@ -89,7 +89,7 @@ class CreateBudget extends Component {
     }
 }
 
-const styles = {
+const styles = StyleSheet.create({
     buttonStyle: {
         width: 300,
         height: 40,
@@ -108,9 +108,15 @@ const styles = {
     },
     leftContainer: {
         flex: 1,
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: '5%',
+    },
+    cardStyle: {
+        color: '#1c313a',
     }
-};
+});
 
 const mapStateToProps = state => {
     return {
