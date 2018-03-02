@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
-import {Container, Button, Label, Toast} from 'native-base';
+import {Container, Button, Label} from 'native-base';
 import {signIn, cprNumberChanged, codeChanged} from '../actions/index';
 import Logo from '../components/Logo';
-import SignInForm from '../components/SignInForm';
+import AuthForm from '../components/AuthForm';
 import screenStyles from './ScreenStyles';
 
 class SignIn extends Component {
@@ -29,12 +29,13 @@ class SignIn extends Component {
 
                         <Logo/>
 
-                        <SignInForm handleSubmit={this.handleSubmit}
-                                    onCprNumberChange={this.onCprNumberChange}
-                                    onCodeChange={this.onCodeChange}
-                                    cprNumber={this.cprNumber}
-                                    code={this.code}
-                                    error={this.error}
+                        <AuthForm handleSubmit={this.handleSubmit}
+                                  onCprNumberChange={this.onCprNumberChange}
+                                  onSecondInputChange={this.onCodeChange}
+                                  cprNumber={this.cprNumber}
+                                  secondInput={this.code}
+                                  error={this.error}
+                                  isSignIn={true}
                         />
 
                         <Container style={styles.optionContainer}>
@@ -60,13 +61,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        width: 300
+        width: '80%'
     },
     optionContainer: {
         flexShrink: 1,
         alignItems: 'flex-start',
         alignSelf: 'center',
-        width: 300,
+        width: '80%',
         paddingTop: 13
     },
     optionText: {

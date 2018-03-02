@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import {
     CPR_NUMBER_CHANGED,
-    PHONE_CHANGED,
+    PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
     SIGN_UP,
     SIGN_UP_FAIL,
@@ -20,9 +20,9 @@ export const cprNumberChanged = (text) => {
     };
 };
 
-export const phoneChanged = (text) => {
+export const phoneNumberChanged = (text) => {
     return {
-        type: PHONE_CHANGED,
+        type: PHONE_NUMBER_CHANGED,
         payload: text
     };
 };
@@ -34,13 +34,13 @@ export const codeChanged = (text) => {
     };
 };
 
-export const signUp = ({phone}) => {
+export const signUp = ({phoneNumber}) => {
     return async (dispatch) => {
         dispatch({type: SIGN_UP});
 
         try {
-            await axios.post(`${ROOT_URL}/createUser`, {phone: phone});
-            await axios.post(`${ROOT_URL}/requestOneTimePassword`, {phone: phone});
+            await axios.post(`${ROOT_URL}/createUser`, {phoneNumber: phoneNumber});
+            await axios.post(`${ROOT_URL}/requestOneTimePassword`, {phoneNumber: phoneNumber});
         } catch (err) {
             signUpFail(dispatch);
         }

@@ -1,21 +1,38 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {Container, Item, Input, Button, Form, Label} from 'native-base';
 
-class SignInForm extends Component {
+class AuthForm extends Component {
     renderError() {
         if (this.props.error) {
             return (
-                <Container style={{backgroundColor: 'white'}}>
-                    <Label style={styles.errorTextStyle}>
+                <View style={{backgroundColor: 'white'}}>
+                    <Text style={styles.errorTextStyle}>
                         {this.props.error}
-                    </Label>
-                </Container>
+                    </Text>
+                </View>
             );
         }
     };
 
+    getPlaceholderText() {
+        if (this.props.isSignIn)
+            return ("Pinkode")
+        else
+            return ("Telefonnummer");
+    }
+
+    getButtonText() {
+        if (this.props.isSignIn)
+            return ("Log ind")
+        else
+            return ("Godkend");
+    }
+
     render() {
+        const placeholderText = this.getPlaceholderText();
+        const buttonText = this.getButtonText();
+
         return (
             <Container style={styles.container}>
                 <Form style={{width: 300}}>
@@ -30,11 +47,10 @@ class SignInForm extends Component {
                     </Item>
 
                     <Item rounded style={styles.itemStyle}>
-                        <Input secureTextEntry
-                               value={this.props.code}
-                               onChangeText={this.props.onCodeChange}
+                        <Input value={this.props.secondInput}
+                               onChangeText={this.props.onSecondInputChange}
                                keyboardType="numeric"
-                               placeholder="Pinkode"
+                               placeholder={placeholderText}
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={styles.inputStyle}
                         />
@@ -46,7 +62,7 @@ class SignInForm extends Component {
                             onPress={this.props.handleSubmit}
                             style={styles.buttonStyle}
                     >
-                        <Label style={styles.buttonText}>Log ind</Label>
+                        <Label style={styles.buttonText}>{buttonText}</Label>
                     </Button>
                 </Form>
             </Container>
@@ -91,4 +107,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SignInForm;
+export default AuthForm;
