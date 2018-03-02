@@ -6,28 +6,28 @@ class AuthForm extends Component {
     renderError() {
         if (this.props.error) {
             return (
-                <View style={{backgroundColor: 'white'}}>
-                    <Text style={styles.errorTextStyle}>
+                <Container style={{backgroundColor: 'white'}}>
+                    <Label style={styles.errorTextStyle}>
                         {this.props.error}
-                    </Text>
-                </View>
+                    </Label>
+                </Container>
             );
         }
     };
 
     getPlaceholderText() {
         if (this.props.isSignIn)
-            return ("Pinkode")
+            return ("Pinkode");
         else
             return ("Telefonnummer");
-    }
+    };
 
     getButtonText() {
         if (this.props.isSignIn)
-            return ("Log ind")
+            return ("Log ind");
         else
             return ("Godkend");
-    }
+    };
 
     render() {
         const placeholderText = this.getPlaceholderText();
@@ -35,7 +35,7 @@ class AuthForm extends Component {
 
         return (
             <Container style={styles.container}>
-                <Form style={{width: 300}}>
+                <Form style={{width: '80%'}}>
                     <Item rounded style={styles.itemStyle}>
                         <Input value={this.props.cprNumber}
                                onChangeText={this.props.onCprNumberChange}
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         color: '#ffffff'
     },
     buttonStyle: {
-        width: 300,
+        width: '100%',
         height: 40,
         backgroundColor: '#1c313a',
         marginTop: 20,

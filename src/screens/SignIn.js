@@ -32,9 +32,9 @@ class SignIn extends Component {
                         <AuthForm handleSubmit={this.handleSubmit}
                                   onCprNumberChange={this.onCprNumberChange}
                                   onSecondInputChange={this.onCodeChange}
-                                  cprNumber={this.cprNumber}
-                                  secondInput={this.code}
-                                  error={this.error}
+                                  cprNumber={this.props.cprNumber}
+                                  secondInput={this.props.code}
+                                  error={this.props.error}
                                   isSignIn={true}
                         />
 

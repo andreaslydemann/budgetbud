@@ -25,11 +25,11 @@ export default (state = INITIAL_STATE, action) => {
         case SIGN_UP:
             return {...state, ...INITIAL_STATE, error: ''};
         case SIGN_UP_FAIL:
-            return {...state, ...INITIAL_STATE, error: 'Sign Up Failed.'};
+            return {...state, ...INITIAL_STATE, error: 'Det lykkedes ikke at registrere dig.'};
         case SIGN_IN:
             return {...state, ...INITIAL_STATE, error: ''};
         case SIGN_IN_FAIL:
-            return {...state, ...INITIAL_STATE, signInError: 'Sign In Failed.'};
+            return {...state, ...INITIAL_STATE, error: 'Det lykkedes ikke at logge ind.'};
         default:
             return state;
     }

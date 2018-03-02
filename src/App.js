@@ -20,7 +20,7 @@ export default class App extends Component {
                 SignUp: {screen: SignUp},
             },
             {
-                initialRouteName: "SignUp",
+                initialRouteName: "SignIn",
                 headerMode: "none"
             }
         );

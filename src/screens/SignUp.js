@@ -17,7 +17,6 @@ class SignUp extends Component {
         this.props.phoneNumberChanged(text);
     };
 
-    // This arrow function doesn't need .bind(this)
     handleSubmit = () => {
         const {phoneNumber} = this.props;
         this.props.signUp({phoneNumber});
@@ -34,9 +33,9 @@ class SignUp extends Component {
                         <AuthForm handleSubmit={this.handleSubmit}
                                   onCprNumberChange={this.onCprNumberChange}
                                   onSecondInputChange={this.onPhoneNumberChange}
-                                  cprNumber={this.cprNumber}
-                                  secondInput={this.phoneNumber}
-                                  error={this.error}
+                                  cprNumber={this.props.cprNumber}
+                                  secondInput={this.props.phoneNumber}
+                                  error={this.props.error}
                                   isSignIn={false}
                         />
 
@@ -59,13 +58,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        width: 300
+        width: '80%'
     },
     optionContainer: {
         flexShrink: 1,
         alignItems: 'flex-start',
         alignSelf: 'center',
-        width: 300,
+        width: '80%',
         paddingTop: 13
     },
     optionText: {
@@ -79,9 +78,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({auth}) => {
-    const {phone, error} = auth;
-
-    return {phone, error};
+    const {cprNumber, phoneNumber, error} = auth;
+    return {cprNumber, phoneNumber, error};
 };
 
 export default connect(mapStateToProps, {

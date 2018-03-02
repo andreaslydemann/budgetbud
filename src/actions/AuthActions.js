@@ -40,7 +40,7 @@ export const signUp = ({phoneNumber}) => {
 
         try {
             await axios.post(`${ROOT_URL}/createUser`, {phoneNumber: phoneNumber});
-            await axios.post(`${ROOT_URL}/requestOneTimePassword`, {phoneNumber: phoneNumber});
+            await axios.post(`${ROOT_URL}/requestCode`, {phoneNumber: phoneNumber});
         } catch (err) {
             signUpFail(dispatch);
         }
@@ -52,12 +52,13 @@ export const signIn = ({cprNumber, code}) => {
         dispatch({type: SIGN_IN});
 
         try {
-            let {data} = await axios.post(`${ROOT_URL}/verifyOneTimePassword`, {
+            let {data} = await axios.post(`${ROOT_URL}/verifyCode`, {
                 cprNumber: cprNumber, code: code
             });
 
             firebase.auth().signInWithCustomToken(data.token);
         } catch (err) {
+            console.log(err);
             signInFail(dispatch);
         }
     };
