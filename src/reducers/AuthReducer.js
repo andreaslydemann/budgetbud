@@ -11,7 +11,8 @@ const INITIAL_STATE = {
     cprNumber: '',
     phoneNumber: '',
     code: '',
-    error: ''
+    error: '',
+    loading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -23,13 +24,13 @@ export default (state = INITIAL_STATE, action) => {
         case CODE_CHANGED:
             return {...state, code: action.payload};
         case SIGN_UP:
-            return {...state, ...INITIAL_STATE, error: ''};
+            return {...state, loading: true, error: ''};
         case SIGN_UP_FAIL:
-            return {...state, ...INITIAL_STATE, error: 'Det lykkedes ikke at registrere dig.'};
+            return {...state, ...INITIAL_STATE, error: 'Registrering mislykkedes.'};
         case SIGN_IN:
-            return {...state, ...INITIAL_STATE, error: ''};
+            return {...state, loading: true, error: ''};
         case SIGN_IN_FAIL:
-            return {...state, ...INITIAL_STATE, error: 'Det lykkedes ikke at logge ind.'};
+            return {...state, ...INITIAL_STATE, error: 'Login-forsøg mislykkedes.'};
         default:
             return state;
     }

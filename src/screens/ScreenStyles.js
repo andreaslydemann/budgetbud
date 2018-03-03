@@ -4,10 +4,5 @@ export default {
         flex: 2,
         alignItems:'center',
         justifyContent :'center'
-    },
-    errorTextStyle: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'red'
     }
 };

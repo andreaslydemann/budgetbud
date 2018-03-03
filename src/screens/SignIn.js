@@ -36,6 +36,7 @@ class SignIn extends Component {
                                   onSecondInputChange={this.onCodeChange}
                                   cprNumber={this.props.cprNumber}
                                   secondInput={this.props.code}
+                                  loading={this.props.loading}
                                   error={this.props.error}
                                   isSignIn={true}
                         />
@@ -88,8 +89,8 @@ const styles = {
 };
 
 const mapStateToProps = ({auth}) => {
-    const {cprNumber, code, error} = auth;
-    return {cprNumber, code, error};
+    const {cprNumber, code, error, loading} = auth;
+    return {cprNumber, code, error, loading};
 };
 
 export default connect(mapStateToProps, {

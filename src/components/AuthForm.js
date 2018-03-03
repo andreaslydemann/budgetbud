@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Item, Input, Button, Form, Label, Icon} from 'native-base';
+import {Container, Item, Input, Button, Form, Label, Spinner} from 'native-base';
 
 class AuthForm extends Component {
     render() {
@@ -30,7 +30,12 @@ class AuthForm extends Component {
                             onPress={this.props.handleSubmit}
                             style={styles.buttonStyle}
                     >
-                        <Label style={styles.buttonText}>{this.props.isSignIn ? 'Log ind' : 'Godkend'}</Label>
+                        {this.props.loading ? (
+                            <Spinner color='#D0D0D0'/>) : (
+                            <Label style={styles.buttonText}>
+                                {this.props.isSignIn ? 'Log ind' : 'Registrér dig'}
+                            </Label>
+                        )}
                     </Button>
                 </Form>
             </Container>

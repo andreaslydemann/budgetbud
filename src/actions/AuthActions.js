@@ -58,7 +58,6 @@ export const signIn = ({cprNumber, code}) => {
 
             firebase.auth().signInWithCustomToken(data.token);
         } catch (err) {
-            console.log(err);
             signInFail(dispatch);
         }
     };
