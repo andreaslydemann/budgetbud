@@ -8,8 +8,21 @@ import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import SideBar from "./screens/SideBar";
 import store from './store';
+import {AsyncStorage} from "react-native";
 
 export default class App extends Component {
+    state = {signedIn: false};
+
+    async componentWillMount() {
+        // await AsyncStorage.removeItem('sign_in_token');
+        let token = await AsyncStorage.getItem('sign_in_token');
+
+        if (token)
+            this.setState({signedIn: true});
+        else
+            this.setState({signedIn: false});
+    };
+
     componentDidMount() {
         firebase.initializeApp(firebaseConfig);
     };
@@ -24,6 +37,7 @@ export default class App extends Component {
                 contentOptions: {
                     activeTintColor: "#e91e63"
                 },
+                lazy: "true",
                 contentComponent:
                     props => <SideBar {...props} />
             }
@@ -36,8 +50,12 @@ export default class App extends Component {
                 SignUp: {screen: SignUp},
             },
             {
-                initialRouteName: "SignIn",
-                headerMode: "none"
+                navigationOptions: {
+                    gesturesEnabled: false
+                },
+                initialRouteName: this.state.signedIn ? 'Drawer' : 'SignIn',
+                headerMode: "none",
+                lazy: "true"
             }
         );
 

@@ -2,13 +2,24 @@ import React, {Component} from 'react';
 import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {signUp, cprNumberChanged, phoneNumberChanged} from '../actions/index';
+import {signUp, cprNumberChanged, phoneNumberChanged, authScreenSwitched} from '../actions/index';
 import Logo from '../components/Logo';
 import AuthForm from '../components/AuthForm';
 import ErrorInfo from '../components/ErrorInfo';
 import screenStyles from './ScreenStyles';
 
 class SignUp extends Component {
+    componentWillReceiveProps(nextProps) {
+        this.onSignUpComplete(nextProps);
+    };
+
+    onSignUpComplete(props) {
+        if (props.signedUp) {
+            this.props.navigation.pop();
+            this.props.authScreenSwitched();
+        }
+    };
+
     onCprNumberChange = (text) => {
         this.props.cprNumberChanged(text);
     };
@@ -83,10 +94,10 @@ const styles = {
 };
 
 const mapStateToProps = ({auth}) => {
-    const {cprNumber, phoneNumber, error, loading} = auth;
-    return {cprNumber, phoneNumber, error, loading};
+    const {cprNumber, phoneNumber, error, loading, signedUp} = auth;
+    return {cprNumber, phoneNumber, error, loading, signedUp};
 };
 
 export default connect(mapStateToProps, {
-    signUp, cprNumberChanged, phoneNumberChanged,
+    signUp, cprNumberChanged, phoneNumberChanged, authScreenSwitched
 })(SignUp);

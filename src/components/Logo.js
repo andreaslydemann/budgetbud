@@ -6,7 +6,6 @@ const deviceHeight = Dimensions.get("window").height;
 
 class Logo extends Component {
     render() {
-        console.log(deviceHeight);
         return (
             <Container style={styles.container}>
                 <Image style={{width: 140, height: 140}}

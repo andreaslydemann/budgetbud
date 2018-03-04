@@ -17,7 +17,8 @@ class AuthForm extends Component {
                     </Item>
 
                     <Item rounded style={styles.itemStyle}>
-                        <Input value={this.props.secondInput}
+                        <Input secureTextEntry={this.props.isSignIn}
+                               value={this.props.secondInput}
                                onChangeText={this.props.onSecondInputChange}
                                keyboardType="numeric"
                                placeholder={this.props.isSignIn ? 'Pinkode' : 'Telefonnummer'}
