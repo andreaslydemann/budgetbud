@@ -1,70 +1,92 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
-import {Container, Header, Content, Item, Input, Button, Form, Label} from 'native-base';
-import {signUp, phoneChanged} from '../actions/index';
-import styles from './ScreenStyles';
+import {Container, Button, Label} from 'native-base';
+import {signUp, cprNumberChanged, phoneNumberChanged} from '../actions/index';
+import Logo from '../components/Logo';
+import AuthForm from '../components/AuthForm';
+import ErrorInfo from '../components/ErrorInfo';
+import screenStyles from './ScreenStyles';
 
 class SignUp extends Component {
-    onPhoneChange = (text) => {
-        this.props.phoneChanged(text);
+    onCprNumberChange = (text) => {
+        this.props.cprNumberChanged(text);
     };
 
-    // This arrow function doesn't need .bind(this)
+    onPhoneNumberChange = (text) => {
+        this.props.phoneNumberChanged(text);
+    };
+
     handleSubmit = () => {
-        const {phone} = this.props;
-        this.props.signUp({phone});
-    };
-
-    renderError() {
-        if (this.props.error) {
-            return (
-                <View style={{backgroundColor: 'white'}}>
-                    <Text style={styles.errorTextStyle}>
-                        {this.props.error}
-                    </Text>
-                </View>
-            );
-        }
+        Keyboard.dismiss();
+        const {cprNumber, phoneNumber} = this.props;
+        this.props.signUp({cprNumber, phoneNumber});
     };
 
     render() {
         return (
-            <Container style={styles.container}>
-                <Content>
-                    <Form>
-                        <Item floatingLabel>
-                            <Label>CPR-nummer</Label>
-                            {/*
-                            <Input value={this.props.cpr}
-                                   onChangeText={this.onCPRChange}*/}
-                            />
-                        </Item>
-                        <Item floatingLabel>
-                            <Label>Telefonnummer</Label>
-                            <Input value={this.props.code}
-                                   onChangeText={this.onPhoneChange}
-                            />
-                        </Item>
-                    </Form>
+            <KeyboardAvoidingView behavior='padding' style={screenStyles.container}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                    <Container style={{alignSelf: 'stretch'}}>
 
-                    {this.renderError()}
+                        <Logo/>
 
-                    <Button onPress={this.handleSubmit}
-                            block style={{margin: 15, marginTop: 50}}>
-                        <Text>Godkend</Text>
-                    </Button>
-                </Content>
-            </Container>);
+                        <AuthForm handleSubmit={this.handleSubmit}
+                                  onCprNumberChange={this.onCprNumberChange}
+                                  onSecondInputChange={this.onPhoneNumberChange}
+                                  cprNumber={this.props.cprNumber}
+                                  secondInput={this.props.phoneNumber}
+                                  loading={this.props.loading}
+                                  error={this.props.error}
+                                  isSignIn={false}
+                        />
+
+                        <Container>
+                            <Container style={styles.optionContainer}>
+                                <Button transparent style={styles.optionButton}>
+                                    <Label style={styles.optionText}>Allerede registreret?</Label>
+                                </Button>
+                            </Container>
+
+                            <ErrorInfo error={this.props.error}/>
+                        </Container>
+
+                    </Container>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+        );
     };
 }
 
-const mapStateToProps = ({auth}) => {
-    const {phone, error} = auth;
+const styles = {
+    container: {
+        backgroundColor: '#455a64',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '80%'
+    },
+    optionContainer: {
+        flexShrink: 1,
+        alignItems: 'flex-start',
+        alignSelf: 'center',
+        width: '80%',
+        paddingTop: 13
+    },
+    optionText: {
+        color: 'rgba(255,255,255,0.6)'
+    },
+    optionButton: {
+        height: 30,
+        paddingLeft: 5
+    }
+};
 
-    return {phone, error};
+const mapStateToProps = ({auth}) => {
+    const {cprNumber, phoneNumber, error, loading} = auth;
+    return {cprNumber, phoneNumber, error, loading};
 };
 
 export default connect(mapStateToProps, {
-    signUp, phoneChanged
+    signUp, cprNumberChanged, phoneNumberChanged,
 })(SignUp);

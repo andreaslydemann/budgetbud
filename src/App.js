@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {StackNavigator} from "react-navigation";
+import {StackNavigator, DrawerNavigator} from "react-navigation";
 import {Root} from 'native-base';
 import {Provider} from 'react-redux';
 import firebase from 'firebase';
 import firebaseConfig from './config/firebase_config';
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
+import SideBar from "./screens/SideBar";
 import store from './store';
 import CreateBudget from "./screens/CreateBudget";
 
@@ -15,8 +16,23 @@ export default class App extends Component {
     };
 
     render() {
+        const Drawer = DrawerNavigator(
+            {
+                SignIn: {screen: SignIn}
+            },
+            {
+                initialRouteName: "SignIn",
+                contentOptions: {
+                    activeTintColor: "#e91e63"
+                },
+                contentComponent:
+                    props => <SideBar {...props} />
+            }
+        );
+
         const AppNavigator = StackNavigator(
             {
+                Drawer: {screen: Drawer},
                 SignIn: {screen: SignIn},
                 SignUp: {screen: SignUp},
                 CreateBudget: {screen: CreateBudget},

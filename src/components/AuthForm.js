@@ -1,24 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
-import {Container, Item, Input, Button, Form, Label} from 'native-base';
+import {Container, Item, Input, Button, Form, Label, Spinner} from 'native-base';
 
-class SignInForm extends Component {
-    renderError() {
-        if (this.props.error) {
-            return (
-                <Container style={{backgroundColor: 'white'}}>
-                    <Label style={styles.errorTextStyle}>
-                        {this.props.error}
-                    </Label>
-                </Container>
-            );
-        }
-    };
-
+class AuthForm extends Component {
     render() {
         return (
             <Container style={styles.container}>
-                <Form style={{width: 300}}>
+                <Form style={{width: '80%'}}>
                     <Item rounded style={styles.itemStyle}>
                         <Input value={this.props.cprNumber}
                                onChangeText={this.props.onCprNumberChange}
@@ -30,23 +17,25 @@ class SignInForm extends Component {
                     </Item>
 
                     <Item rounded style={styles.itemStyle}>
-                        <Input secureTextEntry
-                               value={this.props.code}
-                               onChangeText={this.props.onCodeChange}
+                        <Input value={this.props.secondInput}
+                               onChangeText={this.props.onSecondInputChange}
                                keyboardType="numeric"
-                               placeholder="Pinkode"
+                               placeholder={this.props.isSignIn ? 'Pinkode' : 'Telefonnummer'}
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={styles.inputStyle}
                         />
                     </Item>
 
-                    {this.renderError()}
-
                     <Button rounded
                             onPress={this.props.handleSubmit}
                             style={styles.buttonStyle}
                     >
-                        <Label style={styles.buttonText}>Log ind</Label>
+                        {this.props.loading ? (
+                            <Spinner color='#D0D0D0'/>) : (
+                            <Label style={styles.buttonText}>
+                                {this.props.isSignIn ? 'Log ind' : 'Registrér dig'}
+                            </Label>
+                        )}
                     </Button>
                 </Form>
             </Container>
@@ -54,7 +43,7 @@ class SignInForm extends Component {
     };
 }
 
-const styles = StyleSheet.create({
+const styles = {
     container: {
         flex: 1,
         alignItems: 'center',
@@ -73,22 +62,15 @@ const styles = StyleSheet.create({
         color: '#ffffff'
     },
     buttonStyle: {
-        width: 300,
+        width: '100%',
         height: 40,
         backgroundColor: '#1c313a',
         marginTop: 20,
         justifyContent: 'center'
     },
     buttonText: {
-        fontSize: 16,
-        fontWeight: '500',
         color: '#ffffff'
     },
-    errorTextStyle: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'red'
-    }
-});
+};
 
-export default SignInForm;
+export default AuthForm;
