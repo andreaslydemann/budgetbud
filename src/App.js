@@ -9,6 +9,13 @@ import SignUp from './screens/SignUp';
 import SideBar from "./screens/SideBar";
 import store from './store';
 import CreateBudget from "./screens/CreateBudget";
+import MyBudget from "./screens/MyBudget";
+import SpendingOverview from "./screens/SpendingOverview";
+import MonthlyReports from "./screens/MonthlyReports";
+import CategorizeTransactions from "./screens/CategorizeTransactions";
+import Settings from "./screens/Settings";
+import SignOut from "./screens/SignOut";
+import BudgetPreview from "./screens/BudgetPreview"
 
 export default class App extends Component {
     componentDidMount() {
@@ -18,10 +25,19 @@ export default class App extends Component {
     render() {
         const Drawer = DrawerNavigator(
             {
-                SignIn: {screen: SignIn}
+                SignIn: {screen: SignIn},
+                SignUp: {screen: SignUp},
+                SignOut: {screen: SignOut},
+                MyBudget: {screen: MyBudget},
+                CreateBudget: {screen: CreateBudget},
+                BudgetPreview: {screen: BudgetPreview},
+                SpendingOverview: {screen: SpendingOverview},
+                MonthlyReports: {screen: MonthlyReports},
+                CategorizeTransactions: {screen: CategorizeTransactions},
+                Settings: {screen: Settings}
             },
             {
-                initialRouteName: "SignIn",
+                initialRouteName: "CreateBudget",
                 contentOptions: {
                     activeTintColor: "#e91e63"
                 },
@@ -35,10 +51,17 @@ export default class App extends Component {
                 Drawer: {screen: Drawer},
                 SignIn: {screen: SignIn},
                 SignUp: {screen: SignUp},
+                SignOut: {screen: SignOut},
+                MyBudget: {screen: MyBudget},
                 CreateBudget: {screen: CreateBudget},
+                BudgetPreview: {screen: BudgetPreview},
+                SpendingOverview: {screen: SpendingOverview},
+                MonthlyReports: {screen: MonthlyReports},
+                CategorizeTransactions: {screen: CategorizeTransactions},
+                Settings: {screen: Settings}
             },
             {
-                initialRouteName: "CreateBudget",
+                initialRouteName: "Drawer",
                 headerMode: "none"
             }
         );

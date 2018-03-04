@@ -3,7 +3,7 @@ export default {
         backgroundColor: "#166a97",
         flex: 2,
         alignItems:'center',
-        justifyContent :'center'
+        justifyContent :'center',
     },
     budgetContainer: {
         backgroundColor: "#000",
