@@ -9,22 +9,22 @@ import {Separator} from "../components/common";
 
 class CreateBudget extends Component {
 
-    onIndkomstChange = (text) => {
-        this.props.indkomstChanged(text);
+    onIncomeChange = (text) => {
+        this.props.incomeChanged(text);
     };
 
-    onKategoriChange = (text) => {
-        this.props.kategoriChanged(text);
+    onCategoryChange = (text) => {
+        this.props.categoryChanged(text);
     };
 
     handleSubmit = ({navigate}) => {
-        const {indkomst, kategori} = this.props;
-        this.props.createBudget({indkomst, kategori});
+        const {income, category} = this.props;
+        this.props.createBudget({income, category});
         navigate('budgetPreview')
     };
 
     render() {
-        var items = ['Kategori 1', 'Kategori 2', 'Kategori 3', 'Kategori 4', 'Kategori 5', 'Kategori 6', 'Kategori 7'];
+        const items = ['Kategori 1', 'Kategori 2', 'Kategori 3', 'Kategori 4', 'Kategori 5', 'Kategori 6', 'Kategori 7'];
         return (
             <Container style={[{alignItems: 'stretch'}]}>
                 {/*---HEADER---*/}
@@ -51,8 +51,8 @@ class CreateBudget extends Component {
                         <Item rounded style={styles.inputStyle}>
                             <Input
                                 keyboardType="numeric"
-                                value={this.props.indkomst}
-                                onChangeText={this.onIndkomstChange}>
+                                value={this.props.income}
+                                onChangeText={this.onIncomeChange}>
                             </Input>
                         </Item>
                     </Form>
@@ -69,7 +69,7 @@ class CreateBudget extends Component {
                                   <Item rounded style={styles.inputStyle}>
                                       <Input
                                           keyboardType="numeric"
-                                          onChangeText={this.onKategoriChange}>
+                                          onChangeText={this.onCategoryChange}>
                                       </Input>
                                   </Item>
                               </ListItem>
@@ -155,11 +155,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        indkomst: state.auth.indkomst,
-        kategori: state.auth.kategori
+        income: state.auth.income,
+        category: state.auth.category
     };
 };
 
 export default connect(mapStateToProps, {
-    indkomstChanged: incomeChanged, kategoriChanged: categoryChanged
+    incomeChanged: incomeChanged, categoryChanged: categoryChanged
 })(CreateBudget);

@@ -3,8 +3,8 @@ import {
 } from "../actions/types";
 
 const INITIAL_STATE = {
-    indkomst: '',
-    kategori: ''
+    income: '',
+    category: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
