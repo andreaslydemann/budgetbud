@@ -16,8 +16,22 @@ import CategorizeTransactions from "./screens/CategorizeTransactions";
 import Settings from "./screens/Settings";
 import SignOut from "./screens/SignOut";
 import BudgetPreview from "./screens/BudgetPreview"
+import {AsyncStorage} from "react-native";
+
 
 export default class App extends Component {
+    state = {signedIn: false};
+
+    async componentWillMount() {
+        // await AsyncStorage.removeItem('sign_in_token');
+        let token = await AsyncStorage.getItem('sign_in_token');
+
+        if (token)
+            this.setState({signedIn: true});
+        else
+            this.setState({signedIn: false});
+    };
+
     componentDidMount() {
         firebase.initializeApp(firebaseConfig);
     };
@@ -27,7 +41,7 @@ export default class App extends Component {
             {
                 SignIn: {screen: SignIn},
                 SignUp: {screen: SignUp},
-                SignOut: {screen: SignOut},
+                SignOut: {screen: SignIn},
                 MyBudget: {screen: MyBudget},
                 CreateBudget: {screen: CreateBudget},
                 BudgetPreview: {screen: BudgetPreview},
@@ -37,10 +51,14 @@ export default class App extends Component {
                 Settings: {screen: Settings}
             },
             {
-                initialRouteName: "CreateBudget",
+                navigationOptions: {
+                    gesturesEnabled: false
+                },
+                initialRouteName: "MyBudget",
                 contentOptions: {
                     activeTintColor: "#e91e63"
                 },
+                lazy: "true",
                 contentComponent:
                     props => <SideBar {...props} />
             }
@@ -51,7 +69,7 @@ export default class App extends Component {
                 Drawer: {screen: Drawer},
                 SignIn: {screen: SignIn},
                 SignUp: {screen: SignUp},
-                SignOut: {screen: SignOut},
+                SignOut: {screen: SignIn},
                 MyBudget: {screen: MyBudget},
                 CreateBudget: {screen: CreateBudget},
                 BudgetPreview: {screen: BudgetPreview},
@@ -61,8 +79,12 @@ export default class App extends Component {
                 Settings: {screen: Settings}
             },
             {
-                initialRouteName: "Drawer",
-                headerMode: "none"
+                navigationOptions: {
+                    gesturesEnabled: false
+                },
+                initialRouteName: this.state.signedIn ? 'Drawer' : 'SignIn',
+                headerMode: "none",
+                lazy: "true"
             }
         );
 

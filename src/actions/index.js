@@ -1,2 +1,2 @@
-export * from './AuthActions';
+export * from './auth_actions';
 export * from './BudgetActions';

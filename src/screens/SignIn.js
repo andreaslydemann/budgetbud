@@ -2,13 +2,24 @@ import React, {Component} from 'react';
 import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {signIn, cprNumberChanged, codeChanged} from '../actions/index';
+import {signIn, cprNumberChanged, codeChanged, authScreenSwitched} from '../actions/index';
 import Logo from '../components/Logo';
 import AuthForm from '../components/AuthForm';
 import ErrorInfo from '../components/ErrorInfo';
 import screenStyles from './ScreenStyles';
 
 class SignIn extends Component {
+    componentWillReceiveProps(nextProps) {
+        this.onSignInComplete(nextProps);
+    };
+
+    onSignInComplete(props) {
+        if (props.token !== null) {
+            this.props.navigation.navigate('Drawer');
+            this.props.authScreenSwitched();
+        }
+    };
+
     onCprNumberChange = (text) => {
         this.props.cprNumberChanged(text);
     };
@@ -89,10 +100,10 @@ const styles = {
 };
 
 const mapStateToProps = ({auth}) => {
-    const {cprNumber, code, error, loading} = auth;
-    return {cprNumber, code, error, loading};
+    const {cprNumber, code, error, loading, token} = auth;
+    return {cprNumber, code, error, loading, token};
 };
 
 export default connect(mapStateToProps, {
-    signIn, cprNumberChanged, codeChanged
+    signIn, cprNumberChanged, codeChanged, authScreenSwitched
 })(SignIn);
