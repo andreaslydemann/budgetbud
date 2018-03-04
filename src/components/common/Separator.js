@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-const Seperator = (props) => {
+const Separator = (props) => {
     return (
         <View style={styles.containerStyle}>
             {props.children}
@@ -22,4 +22,4 @@ const styles = {
     }
 };
 
-export {Seperator};
+export {Separator};

@@ -3,8 +3,8 @@ import {StyleSheet, Text, Platform} from 'react-native';
 import {Body, Button, Container, Form, Header, Input, Item, Label, List, ListItem, Title, Left, Icon} from 'native-base';
 import {connect} from 'react-redux';
 import screenStyles from '../screens/ScreenStyles';
-import {indkomstChanged, kategoriChanged} from '../actions/index';
-import {Seperator} from "../components/common";
+import {incomeChanged, categoryChanged} from '../actions/index';
+import {Separator} from "../components/common";
 
 
 class CreateBudget extends Component {
@@ -58,7 +58,7 @@ class CreateBudget extends Component {
                     </Form>
                 </Container>
 
-                <Seperator/>
+                <Separator/>
 
                 {/*---LISTVIEW---*/}
                 <Container style={{flex: 4, alignItems: 'stretch'}}>
@@ -77,7 +77,7 @@ class CreateBudget extends Component {
                     </List>
                 </Container>
 
-                <Seperator/>
+                <Separator/>
 
                 {/*---CALCULATED TOTAL---*/}
                 <Container style={{flexGrow: 1, alignSelf: 'stretch'}}>
@@ -161,5 +161,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-    indkomstChanged, kategoriChanged
+    indkomstChanged: incomeChanged, kategoriChanged: categoryChanged
 })(CreateBudget);

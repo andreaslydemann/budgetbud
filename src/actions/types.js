@@ -10,6 +10,6 @@ export const SIGN_IN_FAIL = 'sign_in_fail';
 export const SIGN_IN_SUCCESS = 'sign_in_success';
 
 // ----------BUDGET RELATED TYPES----------
-export const INDKOMST_CHANGED = 'indkomst_changed';
-export const KATEGORI_CHANGED = 'kategori_changed';
+export const INCOME_CHANGED = 'indkomst_changed';
+export const CATEGORY_CHANGED = 'kategori_changed';
 export const BUDGET_CREATE = 'budget_create';
