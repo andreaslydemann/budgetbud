@@ -23,7 +23,7 @@ export default class App extends Component {
     state = {signedIn: false};
 
     async componentWillMount() {
-        // await AsyncStorage.removeItem('sign_in_token');
+        //await AsyncStorage.removeItem('sign_in_token');
         let token = await AsyncStorage.getItem('sign_in_token');
 
         if (token)

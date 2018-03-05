@@ -10,10 +10,8 @@ import {
     CODE_CHANGED,
     SIGN_UP,
     SIGN_UP_FAIL,
-    SIGN_UP_SUCCESS,
     SIGN_IN,
-    SIGN_IN_FAIL,
-    SIGN_IN_SUCCESS
+    SIGN_IN_FAIL
 } from './types';
 
 const ROOT_URL = firebaseFunctionsURL;
@@ -43,14 +41,15 @@ export const codeChanged = text => {
     };
 };
 
-export const signUp = ({cprNumber, phoneNumber}) => async dispatch => {
+export const signUp = ({cprNumber, phoneNumber}, callback) => async dispatch => {
     dispatch({type: SIGN_UP});
 
     try {
         await axios.post(`${ROOT_URL}/createUser`, {cprNumber: cprNumber});
         await axios.post(`${ROOT_URL}/requestCodeTest`, {cprNumber: cprNumber, phoneNumber: phoneNumber});
 
-        dispatch({type: SIGN_UP_SUCCESS});
+        dispatch({type: AUTH_SCREEN_SWITCHED});
+        callback();
     } catch (err) {
         let {data} = err.response;
         signUpFail(dispatch, data.error);
@@ -61,7 +60,7 @@ const signUpFail = (dispatch, error) => {
     dispatch({type: SIGN_UP_FAIL, payload: error});
 };
 
-export const signIn = ({cprNumber, code}) => async dispatch => {
+export const signIn = ({cprNumber, code}, callback) => async dispatch => {
     dispatch({type: SIGN_IN});
 
     try {
@@ -72,7 +71,8 @@ export const signIn = ({cprNumber, code}) => async dispatch => {
         await firebase.auth().signInWithCustomToken(data.token);
         await AsyncStorage.setItem('sign_in_token', data.token);
 
-        dispatch({type: SIGN_IN_SUCCESS, payload: data.token});
+        dispatch({type: AUTH_SCREEN_SWITCHED});
+        callback();
     } catch (err) {
         let {data} = err.response;
         signInFail(dispatch, data.error);

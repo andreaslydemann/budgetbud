@@ -2,24 +2,13 @@ import React, {Component} from 'react';
 import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {signIn, cprNumberChanged, codeChanged, authScreenSwitched} from '../actions/index';
+import {signIn, cprNumberChanged, codeChanged} from '../actions/index';
 import Logo from '../components/Logo';
 import AuthForm from '../components/AuthForm';
 import ErrorInfo from '../components/ErrorInfo';
 import screenStyles from './ScreenStyles';
 
 class SignIn extends Component {
-    componentWillReceiveProps(nextProps) {
-        this.onSignInComplete(nextProps);
-    };
-
-    onSignInComplete(props) {
-        if (props.token !== null) {
-            this.props.navigation.navigate('Drawer');
-            this.props.authScreenSwitched();
-        }
-    };
-
     onCprNumberChange = (text) => {
         this.props.cprNumberChanged(text);
     };
@@ -31,7 +20,9 @@ class SignIn extends Component {
     handleSubmit = () => {
         Keyboard.dismiss();
         const {cprNumber, code} = this.props;
-        this.props.signIn({cprNumber, code});
+        this.props.signIn({cprNumber, code}, () => {
+            this.props.navigation.navigate('Drawer');
+        });
     };
 
     render() {
@@ -100,10 +91,10 @@ const styles = {
 };
 
 const mapStateToProps = ({auth}) => {
-    const {cprNumber, code, error, loading, token} = auth;
-    return {cprNumber, code, error, loading, token};
+    const {cprNumber, code, error, loading} = auth;
+    return {cprNumber, code, error, loading};
 };
 
 export default connect(mapStateToProps, {
-    signIn, cprNumberChanged, codeChanged, authScreenSwitched
+    signIn, cprNumberChanged, codeChanged
 })(SignIn);

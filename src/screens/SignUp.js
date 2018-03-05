@@ -20,7 +20,9 @@ class SignUp extends Component {
     handleSubmit = () => {
         Keyboard.dismiss();
         const {cprNumber, phoneNumber} = this.props;
-        this.props.signUp({cprNumber, phoneNumber});
+        this.props.signUp({cprNumber, phoneNumber}, () => {
+            this.props.navigation.navigate('SignIn');
+        });
     };
 
     render() {
