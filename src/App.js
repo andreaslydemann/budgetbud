@@ -82,7 +82,7 @@ export default class App extends Component {
                 navigationOptions: {
                     gesturesEnabled: false
                 },
-                initialRouteName: this.state.signedIn ? 'Drawer' : 'SignUp',
+                initialRouteName: this.state.signedIn ? 'Drawer' : 'SignIn',
                 headerMode: "none",
                 lazy: "true"
             }
