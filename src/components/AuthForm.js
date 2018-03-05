@@ -1,7 +1,23 @@
 import React, {Component} from 'react';
-import {Container, Item, Input, Button, Form, Label, Spinner} from 'native-base';
+import {Container, Item, Input, Button, Form, Label, Spinner, Icon} from 'native-base';
 
 class AuthForm extends Component {
+    renderCprNumberIcon() {
+        if (0 < this.props.cprNumber.length && this.props.cprNumber.length < 10)
+            return (<Icon name='close-circle' style={{color: '#FF000E'}}/>);
+        else if (this.props.cprNumber.length === 10)
+            return (<Icon name='checkmark-circle' style={{color: '#00f119'}}/>);
+    }
+
+    renderSecondInputIcon() {
+        const correctLength = this.props.isSignIn ? 4 : 8;
+
+        if (0 < this.props.secondInput.length && this.props.secondInput.length < correctLength)
+            return (<Icon name='close-circle' style={{color: '#FF000E'}}/>);
+        else if (this.props.secondInput.length === correctLength)
+            return (<Icon name='checkmark-circle' style={{color: '#00f119'}}/>);
+    }
+
     render() {
         return (
             <Container style={styles.container}>
@@ -10,10 +26,12 @@ class AuthForm extends Component {
                         <Input value={this.props.cprNumber}
                                onChangeText={this.props.onCprNumberChange}
                                keyboardType="numeric"
+                               maxLength={10}
                                placeholder="CPR-nummer"
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={styles.inputStyle}
                         />
+                        {this.renderCprNumberIcon()}
                     </Item>
 
                     <Item rounded style={styles.itemStyle}>
@@ -21,10 +39,12 @@ class AuthForm extends Component {
                                value={this.props.secondInput}
                                onChangeText={this.props.onSecondInputChange}
                                keyboardType="numeric"
+                               maxLength={this.props.isSignIn ? 4 : 8}
                                placeholder={this.props.isSignIn ? 'Pinkode' : 'Telefonnummer'}
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={styles.inputStyle}
                         />
+                        {this.renderSecondInputIcon()}
                     </Item>
 
                     <Button rounded

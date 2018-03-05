@@ -2,6 +2,9 @@
 export const AUTH_SCREEN_SWITCHED = 'auth_screen_switched';
 export const CPR_NUMBER_CHANGED = 'cpr_number_changed';
 export const PHONE_NUMBER_CHANGED = 'phone_number_changed';
+export const VALIDATE_CPR_NUMBER_FAIL = 'validate_cpr_number_fail';
+export const VALIDATE_PHONE_NUMBER_FAIL = 'validate_phone_number_fail';
+export const VALIDATE_CODE_FAIL = 'validate_code_fail';
 export const CODE_CHANGED = 'code_changed';
 export const SIGN_UP = 'sign_up';
 export const SIGN_UP_FAIL = 'sign_up_fail';

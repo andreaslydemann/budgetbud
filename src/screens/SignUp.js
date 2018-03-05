@@ -21,7 +21,7 @@ class SignUp extends Component {
         Keyboard.dismiss();
         const {cprNumber, phoneNumber} = this.props;
         this.props.signUp({cprNumber, phoneNumber}, () => {
-            this.props.navigation.navigate('SignIn');
+            this.props.navigation.navigate.pop();
         });
     };
 

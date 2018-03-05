@@ -42,8 +42,8 @@ const styles = {
         color: '#fff800'
     },
     warningIcon: {
-        paddingLeft: 14,
-        paddingRight: 8,
+        paddingLeft: 12,
+        paddingRight: 5,
         color: '#fff800'
     }
 };

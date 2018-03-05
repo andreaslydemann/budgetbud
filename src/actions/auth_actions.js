@@ -8,10 +8,13 @@ import {
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
-    SIGN_UP,
-    SIGN_UP_FAIL,
+    VALIDATE_CPR_NUMBER_FAIL,
+    VALIDATE_PHONE_NUMBER_FAIL,
+    VALIDATE_CODE_FAIL,
     SIGN_IN,
-    SIGN_IN_FAIL
+    SIGN_IN_FAIL,
+    SIGN_UP,
+    SIGN_UP_FAIL
 } from './types';
 
 const ROOT_URL = firebaseFunctionsURL;
@@ -42,6 +45,11 @@ export const codeChanged = text => {
 };
 
 export const signUp = ({cprNumber, phoneNumber}, callback) => async dispatch => {
+    if (cprNumber.length !== 10) {
+        dispatch({type: VALIDATE_CPR_NUMBER_FAIL}); return;
+    } else if (phoneNumber.length !== 8) {
+        dispatch({type: VALIDATE_PHONE_NUMBER_FAIL}); return; }
+
     dispatch({type: SIGN_UP});
 
     try {
@@ -61,6 +69,11 @@ const signUpFail = (dispatch, error) => {
 };
 
 export const signIn = ({cprNumber, code}, callback) => async dispatch => {
+    if (cprNumber.length !== 10) {
+        dispatch({type: VALIDATE_CPR_NUMBER_FAIL}); return;
+    } else if (code.length !== 4) {
+        dispatch({type: VALIDATE_CODE_FAIL}); return; }
+
     dispatch({type: SIGN_IN});
 
     try {
