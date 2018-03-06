@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {signUp, cprNumberChanged, phoneNumberChanged} from '../actions/index';
+import {signUp, cprNumberChanged, phoneNumberChanged, authScreenSwitched} from '../actions/index';
 import Logo from '../components/Logo';
 import AuthForm from '../components/AuthForm';
 import ErrorInfo from '../components/ErrorInfo';
@@ -21,7 +21,13 @@ class SignUp extends Component {
         Keyboard.dismiss();
         const {cprNumber, phoneNumber} = this.props;
         this.props.signUp({cprNumber, phoneNumber}, () => {
-            this.props.navigation.navigate.pop();
+            this.props.navigation.pop();
+        });
+    };
+
+    onGoToSignInButtonPress = () => {
+        this.props.authScreenSwitched(() => {
+            this.props.navigation.pop();
         });
     };
 
@@ -45,7 +51,8 @@ class SignUp extends Component {
 
                         <Container>
                             <Container style={styles.optionContainer}>
-                                <Button transparent style={styles.optionButton}>
+                                <Button transparent style={styles.optionButton}
+                                        onPress={() => this.onGoToSignInButtonPress()}>
                                     <Label style={styles.optionText}>Allerede registreret?</Label>
                                 </Button>
                             </Container>
@@ -90,5 +97,5 @@ const mapStateToProps = ({auth}) => {
 };
 
 export default connect(mapStateToProps, {
-    signUp, cprNumberChanged, phoneNumberChanged,
+    signUp, cprNumberChanged, phoneNumberChanged, authScreenSwitched
 })(SignUp);

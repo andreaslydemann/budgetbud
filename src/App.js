@@ -18,7 +18,6 @@ import SignOut from "./screens/SignOut";
 import BudgetPreview from "./screens/BudgetPreview"
 import {AsyncStorage} from "react-native";
 
-
 export default class App extends Component {
     state = {signedIn: false};
 
@@ -51,9 +50,6 @@ export default class App extends Component {
                 Settings: {screen: Settings}
             },
             {
-                navigationOptions: {
-                    gesturesEnabled: false
-                },
                 initialRouteName: "MyBudget",
                 contentOptions: {
                     activeTintColor: "#e91e63"

@@ -19,8 +19,9 @@ import {
 
 const ROOT_URL = firebaseFunctionsURL;
 
-export const authScreenSwitched = () => {
-    return {type: AUTH_SCREEN_SWITCHED};
+export const authScreenSwitched = (callback) => async dispatch => {
+    dispatch({type: AUTH_SCREEN_SWITCHED});
+    callback();
 };
 
 export const cprNumberChanged = text => {
@@ -46,9 +47,12 @@ export const codeChanged = text => {
 
 export const signUp = ({cprNumber, phoneNumber}, callback) => async dispatch => {
     if (cprNumber.length !== 10) {
-        dispatch({type: VALIDATE_CPR_NUMBER_FAIL}); return;
+        dispatch({type: VALIDATE_CPR_NUMBER_FAIL});
+        return;
     } else if (phoneNumber.length !== 8) {
-        dispatch({type: VALIDATE_PHONE_NUMBER_FAIL}); return; }
+        dispatch({type: VALIDATE_PHONE_NUMBER_FAIL});
+        return;
+    }
 
     dispatch({type: SIGN_UP});
 
@@ -70,9 +74,12 @@ const signUpFail = (dispatch, error) => {
 
 export const signIn = ({cprNumber, code}, callback) => async dispatch => {
     if (cprNumber.length !== 10) {
-        dispatch({type: VALIDATE_CPR_NUMBER_FAIL}); return;
+        dispatch({type: VALIDATE_CPR_NUMBER_FAIL});
+        return;
     } else if (code.length !== 4) {
-        dispatch({type: VALIDATE_CODE_FAIL}); return; }
+        dispatch({type: VALIDATE_CODE_FAIL});
+        return;
+    }
 
     dispatch({type: SIGN_IN});
 

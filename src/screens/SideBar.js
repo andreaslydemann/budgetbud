@@ -39,14 +39,6 @@ const elements = [
 ];
 
 class SideBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            shadowOffsetWidth: 1,
-            shadowRadius: 4
-        };
-    }
-
     render() {
         return (
             <Container>
@@ -72,7 +64,7 @@ class SideBar extends Component {
                                     <Icon
                                         active
                                         name={data.icon}
-                                        style={{color: "#777", fontSize: 26, width: 30}}
+                                        style={{color: "#777", fontSize: 26, width: 30, marginLeft: 5}}
                                     />
                                     <Text style={styles.text}>
                                         {data.name}
@@ -93,7 +85,7 @@ styles = {
         width: null,
         position: "relative",
         marginBottom: 10,
-        backgroundColor: '#455a64'
+        backgroundColor: '#002940'
     },
     drawerImage: {
         position: "absolute",

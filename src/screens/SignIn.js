@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {signIn, cprNumberChanged, codeChanged} from '../actions/index';
+import {signIn, cprNumberChanged, codeChanged, authScreenSwitched} from '../actions/index';
 import Logo from '../components/Logo';
 import AuthForm from '../components/AuthForm';
 import ErrorInfo from '../components/ErrorInfo';
@@ -22,6 +22,20 @@ class SignIn extends Component {
         const {cprNumber, code} = this.props;
         this.props.signIn({cprNumber, code}, () => {
             this.props.navigation.navigate('Drawer');
+        });
+    };
+
+    onForgotCodeButtonPress = () => {
+        /*
+        this.props.authScreenSwitched(() => {
+            this.props.navigation.navigate('SignUp');
+        });*/
+    };
+
+    onGoToSignUpButtonPress = () => {
+        console.log("hello");
+        this.props.authScreenSwitched(() => {
+            this.props.navigation.navigate('SignUp');
         });
     };
 
@@ -45,11 +59,13 @@ class SignIn extends Component {
 
                         <Container>
                             <Container style={styles.optionContainer}>
-                                <Button transparent style={styles.optionButton}>
+                                <Button transparent style={styles.optionButton}
+                                        onPress={() => this.onForgotCodeButtonPress()}>
                                     <Label style={styles.optionText}>Glemt pinkode?</Label>
                                 </Button>
 
-                                <Button transparent style={styles.optionButton}>
+                                <Button transparent style={styles.optionButton}
+                                        onPress={() => this.onGoToSignUpButtonPress()}>
                                     <Label style={styles.optionText}>Ny bruger?</Label>
                                 </Button>
                             </Container>
@@ -96,5 +112,5 @@ const mapStateToProps = ({auth}) => {
 };
 
 export default connect(mapStateToProps, {
-    signIn, cprNumberChanged, codeChanged
+    signIn, cprNumberChanged, codeChanged, authScreenSwitched
 })(SignIn);
