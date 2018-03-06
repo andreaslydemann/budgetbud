@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {Body, Button, Header, Icon, Left, Right, Title, Container, Label} from "native-base";
 import PopupDialog, {DialogTitle, DialogButton} from 'react-native-popup-dialog';
+import {Platform} from "react-native";
 
 class AppHeader extends Component {
     render() {
         return (
-            <Container>
+            <Container style={{marginTop: Platform.OS === 'android' ? 24 : 0}}>
                 <Header style={styles.headerStyle}>
                     <Left>
                         <Button

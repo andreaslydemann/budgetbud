@@ -14,4 +14,6 @@ export const SIGN_IN_FAIL = 'sign_in_fail';
 // ----------BUDGET RELATED TYPES----------
 export const INCOME_CHANGED = 'income_changed';
 export const CATEGORY_CHANGED = 'category_changed';
-export const BUDGET_CREATE = 'budget_create';
+export const CREATE_BUDGET = 'create_budget';
+export const CREATE_BUDGET_FAIL = 'create_budget_fail';
+export const CREATE_BUDGET_SCREEN_SWITCHED = 'create_budget_screen_switched';

@@ -18,6 +18,7 @@ import SignOut from "./screens/SignOut";
 import BudgetPreview from "./screens/BudgetPreview"
 import {AsyncStorage} from "react-native";
 
+
 export default class App extends Component {
     state = {signedIn: false};
 
