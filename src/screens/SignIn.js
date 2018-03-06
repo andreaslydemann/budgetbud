@@ -33,7 +33,6 @@ class SignIn extends Component {
     };
 
     onGoToSignUpButtonPress = () => {
-        console.log("hello");
         this.props.authScreenSwitched(() => {
             this.props.navigation.navigate('SignUp');
         });

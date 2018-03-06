@@ -4,7 +4,7 @@ import {Body, Button, Container, Form, Header, Input, Item, Label, List, ListIte
 import {connect} from 'react-redux';
 import screenStyles from '../screens/ScreenStyles';
 import {incomeChanged, categoryChanged} from '../actions/index';
-import {Separator} from "../components/common";
+import Separator from "../components/Separator";
 
 
 class CreateBudget extends Component {

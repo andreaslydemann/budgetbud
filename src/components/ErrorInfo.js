@@ -21,7 +21,7 @@ class ErrorInfo extends Component {
             <View>
                 {this.renderError()}
             </View>
-        )
+        );
     }
 }
 

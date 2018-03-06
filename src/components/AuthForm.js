@@ -60,8 +60,8 @@ class AuthForm extends Component {
                     </Button>
                 </Form>
             </Container>
-        )
-    };
+        );
+    }
 }
 
 const styles = {
