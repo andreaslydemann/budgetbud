@@ -4,18 +4,18 @@ import {Container, Item, Input, Button, Form, Label, Spinner, Icon} from 'native
 class AuthForm extends Component {
     renderCprNumberIcon() {
         if (0 < this.props.cprNumber.length && this.props.cprNumber.length < 10)
-            return (<Icon name='close-circle' style={{color: '#FF000E'}}/>);
+            return (<Icon name='close-circle' style={{color: '#db000e'}}/>);
         else if (this.props.cprNumber.length === 10)
-            return (<Icon name='checkmark-circle' style={{color: '#00f119'}}/>);
+            return (<Icon name='checkmark-circle' style={{color: '#00d219'}}/>);
     }
 
     renderSecondInputIcon() {
         const correctLength = this.props.isSignIn ? 4 : 8;
 
         if (0 < this.props.secondInput.length && this.props.secondInput.length < correctLength)
-            return (<Icon name='close-circle' style={{color: '#FF000E'}}/>);
+            return (<Icon name='close-circle' style={{color: '#db000e'}}/>);
         else if (this.props.secondInput.length === correctLength)
-            return (<Icon name='checkmark-circle' style={{color: '#00f119'}}/>);
+            return (<Icon name='checkmark-circle' style={{color: '#00d219'}}/>);
     }
 
     render() {
