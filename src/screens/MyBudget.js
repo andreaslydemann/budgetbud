@@ -6,8 +6,8 @@ class MyBudget extends Component {
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>
-                {/*---HEADER---*/}
-                <AppHeader headerText={'MyBudget'}/>
+                <AppHeader headerText={'Mit budget'}
+                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
             </Container>
         );
     }

@@ -6,8 +6,8 @@ class MonthlyReports extends Component {
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>
-                {/*---HEADER---*/}
-                <AppHeader headerText={'MonthlyReports'}/>
+                <AppHeader headerText={'Månedsrapporter'}
+                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
             </Container>
         );
     }

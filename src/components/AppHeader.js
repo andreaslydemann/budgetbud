@@ -8,7 +8,7 @@ class AppHeader extends Component {
         return (
             <Container style={{marginTop: Platform.OS === 'android' ? 24 : 0}}>
                 <Header style={styles.headerStyle}>
-                    <Left>
+                    <Left style={{flex: 1}}>
                         <Button
                             transparent
                             onPress={() => this.props.onLeftButtonPress()}
@@ -16,10 +16,10 @@ class AppHeader extends Component {
                             <Icon name="menu"/>
                         </Button>
                     </Left>
-                    <Body>
-                    <Title>Settings</Title>
+                    <Body style={{flex: 3}}>
+                    <Title style={{width: '100%'}}>{this.props.headerText}</Title>
                     </Body>
-                    <Right>
+                    <Right style={{flex: 1}}>
                         <Button
                             transparent
                             onPress={() => this.popupDialog.show()}

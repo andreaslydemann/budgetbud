@@ -6,8 +6,8 @@ class BudgetPreview extends Component {
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>
-                {/*---HEADER---*/}
-                <AppHeader headerText={'BudgetPreview'}/>
+                <AppHeader headerText={'Forhåndsvisning'}
+                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
             </Container>
         );
     }

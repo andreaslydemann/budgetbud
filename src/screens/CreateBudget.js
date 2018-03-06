@@ -35,7 +35,6 @@ class CreateBudget extends Component {
                                   category={this.props.category}
                                   loading={this.props.loading}
                                   error={this.props.error}
-
                 />
             </Container>
         );

@@ -6,8 +6,8 @@ class CategorizeTransactions extends Component {
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>
-                {/*---HEADER---*/}
-                <AppHeader headerText={'CategorizeTransactions'}/>
+                <AppHeader headerText={'Kategorisér transaktioner'}
+                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
             </Container>
         );
     }

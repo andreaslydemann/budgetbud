@@ -5,20 +5,9 @@ import {Platform} from 'react-native';
 class SpendingOverview extends Component {
     render() {
         return (
-            <Container style={{marginTop: Platform.OS === 'android' ? 24 : 0}}>
-                <Header style={styles.headerStyle}>
-                    <Left>
-                        <Button
-                            transparent
-                            onPress={() => this.props.navigation.navigate("DrawerOpen")}
-                        >
-                            <Icon name="menu"/>
-                        </Button>
-                    </Left>
-                    <Body>
-                    <Title>SpendingOverview</Title>
-                    </Body>
-                </Header>
+            <Container style={{alignItems: 'stretch'}}>
+                <AppHeader headerText={'MyBudget'}
+                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
             </Container>
         );
     }

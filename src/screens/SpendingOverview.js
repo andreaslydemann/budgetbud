@@ -6,8 +6,8 @@ class SpendingOverview extends Component {
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>
-                {/*---HEADER---*/}
-                <AppHeader headerText={'SpendingOverview'}/>
+                <AppHeader headerText={'Forbrugsoversigt'}
+                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
             </Container>
         );
     }
