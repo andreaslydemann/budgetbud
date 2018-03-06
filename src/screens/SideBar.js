@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {Image, View, Platform, Dimensions} from "react-native";
 import {Content, Text, List, ListItem, Icon, Container, Left} from "native-base";
+import {connect} from "react-redux";
+import {signOut} from "../actions";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
@@ -39,6 +41,12 @@ const elements = [
 ];
 
 class SideBar extends Component {
+    onSignOutPress = () => {
+        this.props.signOut(() => {
+            this.props.navigation.pop();
+        });
+    };
+
     render() {
         return (
             <Container>
@@ -58,7 +66,8 @@ class SideBar extends Component {
                             <ListItem
                                 button
                                 noBorder
-                                onPress={() => this.props.navigation.navigate(data.route)}
+                                onPress={data.route === "SignOut" ? () => this.onSignOutPress()
+                                    : () => this.props.navigation.navigate(data.route)}
                             >
                                 <Left>
                                     <Icon
@@ -101,4 +110,4 @@ styles = {
     }
 };
 
-export default SideBar;
+export default connect(null, {signOut})(SideBar);

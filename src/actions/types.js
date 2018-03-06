@@ -1,5 +1,5 @@
 // ----------AUTH RELATED TYPES----------
-export const AUTH_SCREEN_SWITCHED = 'auth_screen_switched';
+export const AUTH_SCREEN_RESET = 'auth_screen_reset';
 export const CPR_NUMBER_CHANGED = 'cpr_number_changed';
 export const PHONE_NUMBER_CHANGED = 'phone_number_changed';
 export const VALIDATE_CPR_NUMBER_FAIL = 'validate_cpr_number_fail';

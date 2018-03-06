@@ -4,7 +4,7 @@ import firebase from 'firebase';
 import axios from 'axios';
 
 import {
-    AUTH_SCREEN_SWITCHED,
+    AUTH_SCREEN_RESET,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
@@ -20,7 +20,7 @@ import {
 const ROOT_URL = firebaseFunctionsURL;
 
 export const authScreenSwitched = (callback) => async dispatch => {
-    dispatch({type: AUTH_SCREEN_SWITCHED});
+    dispatch({type: AUTH_SCREEN_RESET});
     callback();
 };
 
@@ -60,7 +60,7 @@ export const signUp = ({cprNumber, phoneNumber}, callback) => async dispatch => 
         await axios.post(`${ROOT_URL}/createUser`, {cprNumber: cprNumber});
         await axios.post(`${ROOT_URL}/requestCodeTest`, {cprNumber: cprNumber, phoneNumber: phoneNumber});
 
-        dispatch({type: AUTH_SCREEN_SWITCHED});
+        dispatch({type: AUTH_SCREEN_RESET});
         callback();
     } catch (err) {
         let {data} = err.response;
@@ -91,7 +91,7 @@ export const signIn = ({cprNumber, code}, callback) => async dispatch => {
         await firebase.auth().signInWithCustomToken(data.token);
         await AsyncStorage.setItem('sign_in_token', data.token);
 
-        dispatch({type: AUTH_SCREEN_SWITCHED});
+        dispatch({type: AUTH_SCREEN_RESET});
         callback();
     } catch (err) {
         let {data} = err.response;
@@ -101,4 +101,17 @@ export const signIn = ({cprNumber, code}, callback) => async dispatch => {
 
 const signInFail = (dispatch, error) => {
     dispatch({type: SIGN_IN_FAIL, payload: error});
+};
+
+export const signOut = (callback) => async dispatch => {
+    try {
+        await firebase.auth().signOut();
+        await AsyncStorage.removeItem('sign_in_token');
+
+        dispatch({type: AUTH_SCREEN_RESET});
+        callback();
+    } catch (err) {
+        let {data} = err.response;
+        console.log(data.error);
+    }
 };

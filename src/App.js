@@ -14,10 +14,8 @@ import SpendingOverview from "./screens/SpendingOverview";
 import MonthlyReports from "./screens/MonthlyReports";
 import CategorizeTransactions from "./screens/CategorizeTransactions";
 import Settings from "./screens/Settings";
-import SignOut from "./screens/SignOut";
 import BudgetPreview from "./screens/BudgetPreview"
 import {AsyncStorage} from "react-native";
-
 
 export default class App extends Component {
     state = {signedIn: false};
@@ -41,7 +39,6 @@ export default class App extends Component {
             {
                 SignIn: {screen: SignIn},
                 SignUp: {screen: SignUp},
-                SignOut: {screen: SignIn},
                 MyBudget: {screen: MyBudget},
                 CreateBudget: {screen: CreateBudget},
                 BudgetPreview: {screen: BudgetPreview},
@@ -52,12 +49,9 @@ export default class App extends Component {
             },
             {
                 initialRouteName: "MyBudget",
-                contentOptions: {
-                    activeTintColor: "#e91e63"
-                },
-                lazy: "true",
-                contentComponent:
-                    props => <SideBar {...props} />
+                contentComponent: props => <SideBar {...props} />,
+                contentOptions: {activeTintColor: "#e91e63"},
+                lazy: "true"
             }
         );
 
@@ -65,20 +59,10 @@ export default class App extends Component {
             {
                 Drawer: {screen: Drawer},
                 SignIn: {screen: SignIn},
-                SignUp: {screen: SignUp},
-                SignOut: {screen: SignIn},
-                MyBudget: {screen: MyBudget},
-                CreateBudget: {screen: CreateBudget},
-                BudgetPreview: {screen: BudgetPreview},
-                SpendingOverview: {screen: SpendingOverview},
-                MonthlyReports: {screen: MonthlyReports},
-                CategorizeTransactions: {screen: CategorizeTransactions},
-                Settings: {screen: Settings}
+                SignUp: {screen: SignUp}
             },
             {
-                navigationOptions: {
-                    gesturesEnabled: false
-                },
+                navigationOptions: {gesturesEnabled: false},
                 initialRouteName: this.state.signedIn ? 'Drawer' : 'SignIn',
                 headerMode: "none",
                 lazy: "true"

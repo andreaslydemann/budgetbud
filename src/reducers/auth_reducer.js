@@ -1,5 +1,5 @@
 import {
-    AUTH_SCREEN_SWITCHED,
+    AUTH_SCREEN_RESET,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
@@ -22,7 +22,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case AUTH_SCREEN_SWITCHED:
+        case AUTH_SCREEN_RESET:
             return INITIAL_STATE;
         case CPR_NUMBER_CHANGED:
             return {...state, cprNumber: action.payload};
