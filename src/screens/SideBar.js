@@ -43,7 +43,7 @@ const elements = [
 class SideBar extends Component {
     onSignOutPress = () => {
         this.props.signOut(() => {
-            this.props.navigation.pop();
+            this.props.navigation.popToTop();
         });
     };
 

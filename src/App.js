@@ -16,6 +16,7 @@ import CategorizeTransactions from "./screens/CategorizeTransactions";
 import Settings from "./screens/Settings";
 import BudgetPreview from "./screens/BudgetPreview"
 import {AsyncStorage} from "react-native";
+import UserDetails from "./screens/UserDetails";
 
 export default class App extends Component {
     state = {signedIn: false};
@@ -35,6 +36,17 @@ export default class App extends Component {
     };
 
     render() {
+        const SettingsStack= StackNavigator(
+            {
+                Settings: {screen: Settings},
+                UserDetails: {screen: UserDetails}
+            },
+            {
+                initialRouteName: "Settings",
+                headerMode: "none"
+            }
+        );
+
         const Drawer = DrawerNavigator(
             {
                 SignIn: {screen: SignIn},
@@ -45,13 +57,12 @@ export default class App extends Component {
                 SpendingOverview: {screen: SpendingOverview},
                 MonthlyReports: {screen: MonthlyReports},
                 CategorizeTransactions: {screen: CategorizeTransactions},
-                Settings: {screen: Settings}
+                Settings: {screen: SettingsStack}
             },
             {
                 initialRouteName: "MyBudget",
                 contentComponent: props => <SideBar {...props} />,
-                contentOptions: {activeTintColor: "#e91e63"},
-                lazy: "true"
+                contentOptions: {activeTintColor: "#e91e63"}
             }
         );
 
@@ -64,8 +75,7 @@ export default class App extends Component {
             {
                 navigationOptions: {gesturesEnabled: false},
                 initialRouteName: this.state.signedIn ? 'Drawer' : 'SignIn',
-                headerMode: "none",
-                lazy: "true"
+                headerMode: "none"
             }
         );
 

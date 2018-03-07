@@ -2,21 +2,22 @@ import React, {Component} from 'react';
 import {Container, Content, List, ListItem, Label, Body, Left, Right, Icon} from "native-base";
 import AppHeader from "../components/AppHeader";
 
-class Settings extends Component {
+class UserDetails extends Component {
     render() {
         return (
             <Container>
-                <AppHeader headerText={'Indstillinger'}
-                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
+                <AppHeader headerText={'Brugeroplysninger'}
+                           showBackButton={true}
+                           onLeftButtonPress={() => this.props.navigation.pop()}/>
 
                 <Content>
                     <List>
-                        <ListItem icon onPress={() => this.props.navigation.navigate("UserDetails")}>
+                        <ListItem icon>
                             <Left>
-                                <Icon name="md-person" />
+                                <Icon name="md-phone-portrait" />
                             </Left>
                             <Body>
-                            <Label>Brugeroplysninger</Label>
+                            <Label>Ændr telefonnummer</Label>
                             </Body>
                             <Right>
                                 <Icon name="arrow-forward" />
@@ -24,10 +25,10 @@ class Settings extends Component {
                         </ListItem>
                         <ListItem icon>
                             <Left>
-                                <Icon name="md-card" />
+                                <Icon name="md-lock" />
                             </Left>
                             <Body>
-                            <Label>Konti</Label>
+                            <Label>Ændr pinkode</Label>
                             </Body>
                             <Right>
                                 <Icon name="arrow-forward" />
@@ -38,18 +39,7 @@ class Settings extends Component {
                                 <Icon name="md-notifications-outline" />
                             </Left>
                             <Body>
-                            <Label>Alarmer</Label>
-                            </Body>
-                            <Right>
-                                <Icon name="arrow-forward" />
-                            </Right>
-                        </ListItem>
-                        <ListItem icon>
-                            <Left>
-                                <Icon name="md-trash" />
-                            </Left>
-                            <Body>
-                            <Label>Slet budget</Label>
+                            <Label>Slet bruger</Label>
                             </Body>
                             <Right>
                                 <Icon name="arrow-forward" />
@@ -62,4 +52,4 @@ class Settings extends Component {
     }
 }
 
-export default Settings;
+export default UserDetails;

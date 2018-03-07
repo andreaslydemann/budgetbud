@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
 import {Body, Button, Header, Icon, Left, Right, Title, Container, Label} from "native-base";
 import PopupDialog, {DialogTitle, DialogButton} from 'react-native-popup-dialog';
-import {Platform} from "react-native";
+import {Platform, View} from "react-native";
 
 class AppHeader extends Component {
     render() {
         return (
-            <Container style={{marginTop: Platform.OS === 'android' ? 24 : 0}}>
+            <View style={{marginTop: Platform.OS === 'android' ? 24 : 0}}>
                 <Header style={styles.headerStyle}>
                     <Left style={{flex: 1}}>
                         <Button
                             transparent
                             onPress={() => this.props.onLeftButtonPress()}
                         >
-                            <Icon name="menu"/>
+                            {this.props.showBackButton ? (<Icon name="arrow-back" />)
+                                : (<Icon name="menu"/>)}
                         </Button>
                     </Left>
                     <Body style={{flex: 3}}>
@@ -51,7 +52,7 @@ class AppHeader extends Component {
                         <Label>{this.props.infoButtonText}</Label>
                     </Container>
                 </PopupDialog>
-            </Container>
+            </View>
         );
     }
 }
