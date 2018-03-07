@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Image, View, Platform, Dimensions} from "react-native";
+import {NavigationActions} from "react-navigation";
 import {Content, Text, List, ListItem, Icon, Container, Left} from "native-base";
 import {connect} from "react-redux";
 import {signOut} from "../actions";
@@ -43,7 +44,12 @@ const elements = [
 class SideBar extends Component {
     onSignOutPress = () => {
         this.props.signOut(() => {
-            this.props.navigation.popToTop();
+            this.props.navigation.dispatch(NavigationActions.reset({
+                index: 0,
+                key: null,
+                actions: [NavigationActions.navigate({
+                    routeName: "SignIn"})],
+            }));
         });
     };
 

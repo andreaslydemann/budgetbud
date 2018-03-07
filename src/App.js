@@ -36,7 +36,7 @@ export default class App extends Component {
     };
 
     render() {
-        const SettingsStack= StackNavigator(
+        const SettingsStack = StackNavigator(
             {
                 Settings: {screen: Settings},
                 UserDetails: {screen: UserDetails}
@@ -49,8 +49,6 @@ export default class App extends Component {
 
         const Drawer = DrawerNavigator(
             {
-                SignIn: {screen: SignIn},
-                SignUp: {screen: SignUp},
                 MyBudget: {screen: MyBudget},
                 CreateBudget: {screen: CreateBudget},
                 BudgetPreview: {screen: BudgetPreview},
