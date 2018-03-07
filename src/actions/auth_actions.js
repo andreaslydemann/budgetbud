@@ -57,8 +57,8 @@ export const signUp = ({cprNumber, phoneNumber}, callback) => async dispatch => 
     dispatch({type: SIGN_UP});
 
     try {
-        await axios.post(`${ROOT_URL}/createUser`, {cprNumber: cprNumber});
-        await axios.post(`${ROOT_URL}/requestCodeTest`, {cprNumber: cprNumber, phoneNumber: phoneNumber});
+        await axios.post(`${ROOT_URL}/createUser`, {cprNumber});
+        await axios.post(`${ROOT_URL}/requestCodeTest`, {cprNumber, phoneNumber});
 
         dispatch({type: AUTH_SCREEN_RESET});
         callback();
@@ -85,7 +85,7 @@ export const signIn = ({cprNumber, code}, callback) => async dispatch => {
 
     try {
         let {data} = await axios.post(`${ROOT_URL}/verifyCode`, {
-            cprNumber: cprNumber, code: code
+            cprNumber, code
         });
 
         await firebase.auth().signInWithCustomToken(data.token);
@@ -118,7 +118,8 @@ export const signOut = (callback) => async dispatch => {
 
 export const deleteUser = (callback) => async dispatch => {
     try {
-        firebase.auth().currentUser().delete();
+        let token = await AsyncStorage.getItem('sign_in_token');
+        await axios.post(`${ROOT_URL}/deleteUser`, {token});
         await AsyncStorage.removeItem('sign_in_token');
 
         dispatch({type: AUTH_SCREEN_RESET});
