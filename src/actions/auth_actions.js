@@ -115,3 +115,16 @@ export const signOut = (callback) => async dispatch => {
         console.log(data.error);
     }
 };
+
+export const deleteUser = (callback) => async dispatch => {
+    try {
+        firebase.auth().currentUser().delete();
+        await AsyncStorage.removeItem('sign_in_token');
+
+        dispatch({type: AUTH_SCREEN_RESET});
+        callback();
+    } catch (err) {
+        let {data} = err.response;
+        console.log(data.error);
+    }
+};
