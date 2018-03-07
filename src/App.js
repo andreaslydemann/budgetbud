@@ -42,6 +42,7 @@ export default class App extends Component {
                 UserDetails: {screen: UserDetails}
             },
             {
+                navigationOptions: {gesturesEnabled: false},
                 initialRouteName: "Settings",
                 headerMode: "none"
             }
@@ -60,7 +61,8 @@ export default class App extends Component {
             {
                 initialRouteName: "MyBudget",
                 contentComponent: props => <SideBar {...props} />,
-                contentOptions: {activeTintColor: "#e91e63"}
+                contentOptions: {activeTintColor: "#e91e63"},
+                navigationOptions: {drawerLockMode: 'locked-closed'}
             }
         );
 
