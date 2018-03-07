@@ -6,7 +6,7 @@ import {Platform, View} from "react-native";
 class AppHeader extends Component {
     render() {
         return (
-            <View style={{marginTop: Platform.OS === 'android' ? 24 : 0}}>
+            <View style={{marginTop: Platform.OS === 'android' ? 24 : 0, zIndex: 1}}>
                 <Header style={styles.headerStyle}>
                     <Left style={{flex: 1}}>
                         <Button

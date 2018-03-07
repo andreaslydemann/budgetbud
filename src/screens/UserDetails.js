@@ -14,35 +14,35 @@ class UserDetails extends Component {
                     <List>
                         <ListItem icon>
                             <Left>
-                                <Icon name="md-phone-portrait" />
+                                <Icon name="md-phone-portrait"/>
                             </Left>
                             <Body>
                             <Label>Ændr telefonnummer</Label>
                             </Body>
                             <Right>
-                                <Icon name="arrow-forward" />
+                                <Icon name="arrow-forward"/>
                             </Right>
                         </ListItem>
                         <ListItem icon>
                             <Left>
-                                <Icon name="md-lock" />
+                                <Icon name="md-lock"/>
                             </Left>
                             <Body>
                             <Label>Ændr pinkode</Label>
                             </Body>
                             <Right>
-                                <Icon name="arrow-forward" />
+                                <Icon name="arrow-forward"/>
                             </Right>
                         </ListItem>
                         <ListItem icon>
                             <Left>
-                                <Icon name="md-notifications-outline" />
+                                <Icon name="md-trash"/>
                             </Left>
                             <Body>
                             <Label>Slet bruger</Label>
                             </Body>
                             <Right>
-                                <Icon name="arrow-forward" />
+                                <Icon name="arrow-forward"/>
                             </Right>
                         </ListItem>
                     </List>
