@@ -59,7 +59,7 @@ export default class App extends Component {
                 Settings: {screen: SettingsStack}
             },
             {
-                initialRouteName: "MyBudget",
+                initialRouteName: "CreateBudget",
                 contentComponent: props => <SideBar {...props} />,
                 contentOptions: {activeTintColor: "#e91e63"},
                 navigationOptions: {drawerLockMode: 'locked-closed'}
