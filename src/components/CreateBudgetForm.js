@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {FlatList, StyleSheet, Text} from 'react-native';
 import {
     Button,
     Container,
@@ -10,20 +10,51 @@ import {
     List,
     ListItem,
     View,
-    Spinner
+    Spinner, Body
 } from 'native-base';
 import Separator from "./Separator";
 import AppHeader from "./AppHeader";
 
 
 class CreateBudgetForm extends Component {
+    constructor() {
+        super();
+        this.state = {
+            data: [
+                { name: "Kategori 1", value: '10' },
+                { name: "Kategori 2", value: '20' },
+                { name: "Kategori 3", value: '30' },
+                { name: "Kategori 4", value: '40' },
+                { name: "Kategori 5", value: '50' },
+                { name: "Kategori 6", value: '60' },
+                { name: "Kategori 7", value: '70' },
+            ]
+        };
+    }
+
+    renderItem = ({ item }) => {
+        return (
+            <ListItem style={{marginLeft: 0}}>
+                <Body>
+                <Label style={styles.textStyle}>{item.name}</Label>
+                <Item rounded style={styles.inputStyle}>
+                    <Input
+                        onChangeText={this.props.onCategoryChanged}
+                        value={item.value}
+                        keyboardType="numeric">
+                    </Input>
+                </Item>
+                </Body>
+            </ListItem>
+        );
+    };
 
     render() {
-        const items = ['Kategori 1', 'Kategori 2', 'Kategori 3', 'Kategori 4', 'Kategori 5', 'Kategori 6', 'Kategori 7'];
         return (
             <Container style={[{alignItems: 'stretch'}]}>
                 {/*---HEADER---*/}
-                <AppHeader headerText={'Opret budget'} />
+                <AppHeader headerText={'Create budget'}
+                           onLeftButtonPress={this.props.onMenuPressed}/>
 
                 {/*---INCOME FIELD<---*/}
                 <Container>
@@ -31,8 +62,8 @@ class CreateBudgetForm extends Component {
                         <Label style={styles.textStyle}>Indkomst</Label>
                         <Item rounded style={styles.inputStyle}>
                             <Input
+                                onChangeText={this.props.onIncomeChanged}
                                 value={this.props.income}
-                                onChangeText={this.onIncomeChange}
                                 keyboardType="numeric"
                             />
                         </Item>
@@ -43,21 +74,13 @@ class CreateBudgetForm extends Component {
 
                 {/*---LISTVIEW---*/}
                 <Container style={{flex: 4, alignItems: 'stretch'}}>
-                    <List dataArray={items}
-                          renderRow={(item) =>
-                              <ListItem style={styles.listItemStyle}>
-                                  <Label style={styles.textStyle}>
-                                      {item}
-                                  </Label>
-                                  <Item rounded style={styles.inputStyle}>
-                                      <Input
-                                          keyboardType="numeric"
-                                          onChangeText={this.onCategoryChange}>
-                                      </Input>
-                                  </Item>
-                              </ListItem>
-                          }>
-                    </List>
+                    <FlatList
+                        data={this.state.data}
+                        value={this.state.data}
+                        renderItem={this.renderItem}
+                        keyExtractor={item => item.name}
+                        onChangeText={(text) => this.setState({text})}/>
+                    />
                 </Container>
 
                 <Separator/>
@@ -78,7 +101,7 @@ class CreateBudgetForm extends Component {
                 <Container style={{flexGrow: 1}}>
                     <Form>
                         <Button rounded
-                                onPress={() => this.props.handleSubmit}
+                                onPress={this.props.handleSubmit}
                                 style={styles.buttonStyle}
                         >
                             {this.props.loading ? (
@@ -121,11 +144,12 @@ const styles = StyleSheet.create({
         marginRight: 0,
         alignSelf: 'center',
         paddingLeft: 0,
-        paddingRight: 0
+        paddingRight: 0,
     },
     textStyle: {
         fontWeight: 'bold',
-        fontSize: 14
+        fontSize: 14,
+        alignSelf: 'center'
     },
     inputStyle: {
         borderColor: '#001',

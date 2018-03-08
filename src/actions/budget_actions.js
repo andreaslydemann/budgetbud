@@ -2,7 +2,7 @@ import {
     INCOME_CHANGED,
     CATEGORY_CHANGED,
     CREATE_BUDGET,
-    CREATE_BUDGET_FAIL
+    CREATE_BUDGET_FAIL, OPEN_DRAWER
 } from './types';
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
@@ -12,31 +12,31 @@ const ROOT_URL = firebaseFunctionsURL;
 
 
 
-export const incomeChanged = (text) => {
+export const incomeChanged = text => {
     return {
         type: INCOME_CHANGED,
         payload: text
     };
 };
 
-export const categoryChanged = (text) => {
+export const categoryChanged = text => {
     return {
         type: CATEGORY_CHANGED,
         payload: text
     };
 };
 
-export const createBudget = ({income, category}, callBack) => async dispatch => {
+export const createBudget = ({income, categoryName, categoryVal}, callBack) => async dispatch => {
     if (income.length === 0) {
         income = 0;
-    } else if (category.length === 0) {
+    } else if (categoryVal.length === 0) {
         category = 0;
     }
 
     dispatch({type: CREATE_BUDGET});
 
     try {
-        await axios.post(`${ROOT_URL}/createBudget`, {income: income});
+        await axios.post(`${ROOT_URL}/createBudget`, {income, categoryName, value: categoryVal});
 
     } catch (err) {
         let {data} = err.response;
@@ -46,4 +46,9 @@ export const createBudget = ({income, category}, callBack) => async dispatch => 
 
 const createBudgetFail = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
+};
+
+export const openDrawer = (callback) => async dispatch => {
+    dispatch({type: OPEN_DRAWER});
+    callback();
 };
