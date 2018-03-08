@@ -10,6 +10,7 @@ export const SIGN_UP = 'sign_up';
 export const SIGN_UP_FAIL = 'sign_up_fail';
 export const SIGN_IN = 'sign_in';
 export const SIGN_IN_FAIL = 'sign_in_fail';
+export const DELETE_USER = 'delete_user';
 
 // ----------BUDGET RELATED TYPES----------
 export const INCOME_CHANGED = 'income_changed';

@@ -23,11 +23,12 @@ class UserDetails extends Component {
             <Container>
                 <ConfirmDialog
                     title="Bekræft sletning"
-                    text="Er du sikker på, at du vil slette din bruger? Handlingen kan ikke fortrydes."
-                    confirmCallback={this.deleteUser()}
-                    ref={(popupDialog) => {
-                    this.comfirmDialog = popupDialog
-                }}/>
+                    text="Er du sikker på, at du vil gennemføre sletningen af din bruger? Handlingen kan ikke fortrydes."
+                    confirmCallback={() => this.deleteUser()}
+                    loading={this.props.loading}
+                    ref={(confirmDialog) => {
+                    this.comfirmDialog = confirmDialog }}
+                />
 
                 <Container>
                     <AppHeader headerText={'Brugeroplysninger'}
@@ -77,6 +78,10 @@ class UserDetails extends Component {
     }
 }
 
-export default connect(null, {
+const mapStateToProps = ({auth}) => {
+    return {loading} = auth;
+};
+
+export default connect(mapStateToProps, {
     deleteUser
 })(UserDetails);

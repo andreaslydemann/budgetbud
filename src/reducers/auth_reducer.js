@@ -9,7 +9,8 @@ import {
     SIGN_UP,
     SIGN_UP_FAIL,
     SIGN_IN,
-    SIGN_IN_FAIL
+    SIGN_IN_FAIL,
+    DELETE_USER
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -44,6 +45,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, loading: true, error: ''};
         case SIGN_IN_FAIL:
             return {...state, ...INITIAL_STATE, error: action.payload};
+        case DELETE_USER:
+            return {...state, loading: true};
         default:
             return state;
     }

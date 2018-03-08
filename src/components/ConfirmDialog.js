@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Body, Button, Header, Icon, Left, Right, Title, Container, Label} from "native-base";
+import {View} from "react-native";
+import {Container, Label, Spinner} from "native-base";
 import PopupDialog, {DialogTitle, DialogButton} from 'react-native-popup-dialog';
-import {Platform, View} from "react-native";
 
 class ConfirmDialog extends Component {
     showDialog() {
@@ -20,6 +20,7 @@ class ConfirmDialog extends Component {
                     dismissOnTouchOutside={false}
                 >
                     <Container style={styles.dialogContentView}>
+                        {this.props.loading ? (<Spinner color='#002940' style={styles.spinner}/>) : (<View/>)}
                         <View style={styles.dialogLabelContainer}>
                             <Label style={styles.dialogLabel}>{this.props.text}</Label>
                         </View>
@@ -30,7 +31,8 @@ class ConfirmDialog extends Component {
                                 textStyle={styles.dialogButtonText}
                                 text="Afbryd"
                                 onPress={() => {
-                                    this.popupDialog.dismiss();
+                                    if (!this.props.loading)
+                                        this.popupDialog.dismiss();
                                 }}
                                 key="button-1"
                             />
@@ -40,7 +42,8 @@ class ConfirmDialog extends Component {
                                 textStyle={styles.dialogButtonText}
                                 text="Ok"
                                 onPress={() => {
-                                    this.props.confirmCallback();
+                                    if (!this.props.loading)
+                                        this.props.confirmCallback();
                                 }}
                                 key="button-2"
                             />
@@ -79,7 +82,7 @@ const styles = {
         borderLeftColor: '#fff',
         borderLeftWidth: 1
     },
-    dialogButtonsContainer: {
+    dialogButtonsContainer: {
         flexDirection: 'row',
         flex: 1
     },
@@ -92,6 +95,12 @@ const styles = {
     },
     dialogLabel: {
         textAlign: 'center'
+    },
+    spinner: {
+        position: 'absolute',
+        alignItems: 'center',
+        justifyContent: 'center',
+        top: 63,
     }
 };
 
