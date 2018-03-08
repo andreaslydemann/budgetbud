@@ -13,15 +13,16 @@ class CreateBudget extends Component {
     };
 
     onCategoryChange = (text) => {
-        console.log("Category change");
+        console.log("BEFORE: Category change " + text);
         this.props.categoryChanged(text);
+        console.log("AFTER: Category change " + text);
     };
 
     handleSubmit = () => {
         console.log("Submit");
         Keyboard.dismiss();
-        const {income, category} = this.props;
-        this.props.createBudget({income, category}, () => {
+        const {income, categoryValue} = this.props;
+        this.props.createBudget({income, categoryValue}, () => {
             this.props.navigation.navigate('MyBudget');
         });
     };
@@ -41,7 +42,7 @@ class CreateBudget extends Component {
                                   onCategoryChanged={this.onCategoryChange}
                                   handleSubmit={this.handleSubmit}
                                   income={this.props.income}
-                                  category={this.props.category}
+                                  categoryValue={this.props.categoryValue}
                                   loading={this.props.loading}
                                   error={this.props.error}
                 />
@@ -51,8 +52,8 @@ class CreateBudget extends Component {
 }
 
 const mapStateToProps = ({budget}) => {
-    const {income, category} = budget;
-    return {income, category}
+    const {income, categoryValue} = budget;
+    return {income, categoryValue}
 };
 
 export default connect(mapStateToProps, {openDrawer,

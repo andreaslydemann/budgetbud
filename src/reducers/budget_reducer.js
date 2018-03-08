@@ -7,7 +7,7 @@ import {
 
 const INITIAL_STATE = {
     income: '',
-    category: '',
+    categoryValue: '',
     error: '',
     loading: false
 };
@@ -17,7 +17,7 @@ export default (state = INITIAL_STATE, action) => {
         case INCOME_CHANGED:
             return {...state, income: action.payload};
         case CATEGORY_CHANGED:
-            return {...state, category: action.payload};
+            return {...state, categoryValue: action.payload};
         case CREATE_BUDGET:
             return {...state, loading: true, error: ''};
         case CREATE_BUDGET_SCREEN_SWITCHED:

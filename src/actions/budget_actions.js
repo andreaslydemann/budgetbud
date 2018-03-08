@@ -36,7 +36,7 @@ export const createBudget = ({income, categoryName, categoryVal}, callBack) => a
     dispatch({type: CREATE_BUDGET});
 
     try {
-        await axios.post(`${ROOT_URL}/createBudget`, {income, categoryName, value: categoryVal});
+        await axios.post(`${ROOT_URL}/createBudget`, {income, categoryName, categoryValue: categoryVal});
 
     } catch (err) {
         let {data} = err.response;
