@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {FlatList, StyleSheet, Text} from 'react-native';
 import {
     Button,
@@ -16,20 +16,21 @@ import Separator from "./Separator";
 import AppHeader from "./AppHeader";
 
 
-class CreateBudgetForm extends Component {
+class CreateBudgetForm extends PureComponent {
     constructor() {
         super();
         this.state = {
             data: [
-                { name: "Kategori 1", value: '10' },
-                { name: "Kategori 2", value: '20' },
-                { name: "Kategori 3", value: '30' },
-                { name: "Kategori 4", value: '40' },
-                { name: "Kategori 5", value: '50' },
-                { name: "Kategori 6", value: '60' },
-                { name: "Kategori 7", value: '70' },
+                { name: "Kategori 1", categoryValue: '10' },
+                { name: "Kategori 2", categoryValue: '20' },
+                { name: "Kategori 3", categoryValue: '30' },
+                { name: "Kategori 4", categoryValue: '40' },
+                { name: "Kategori 5", categoryValue: '50' },
+                { name: "Kategori 6", categoryValue: '60' },
+                { name: "Kategori 7", categoryValue: '70' },
             ]
         };
+        console.log("Constructor");
     }
 
     renderItem = ({ item }) => {
@@ -40,7 +41,7 @@ class CreateBudgetForm extends Component {
                 <Item rounded style={styles.inputStyle}>
                     <Input
                         onChangeText={this.props.onCategoryChanged}
-                        value={item.value}
+                        value={item.categoryValue}
                         keyboardType="numeric">
                     </Input>
                 </Item>
@@ -76,10 +77,9 @@ class CreateBudgetForm extends Component {
                 <Container style={{flex: 4, alignItems: 'stretch'}}>
                     <FlatList
                         data={this.state.data}
-                        value={this.state.data}
+                        extraData={this.state.onCategoryChange}
                         renderItem={this.renderItem}
                         keyExtractor={item => item.name}
-                        onChangeText={(text) => this.setState({text})}/>
                     />
                 </Container>
 
@@ -87,13 +87,13 @@ class CreateBudgetForm extends Component {
 
                 {/*---CALCULATED TOTAL---*/}
                 <Container style={{flexGrow: 1, alignSelf: 'stretch'}}>
-                    <View style={styles.leftContainer}>
-                        <Text style={[styles.textStyle, {alignSelf: 'flex-start'}]}>Totale udgifter</Text>
-                        <Text style={[styles.textStyle, {alignSelf: 'flex-end'}]}>Some number</Text>
+                    <View style={[styles.leftContainer, {justifyContent: 'space-between'}]}>
+                        <Text style={[styles.textStyle, {flex: 1}]}>Totale udgifter</Text>
+                        <Text style={[styles.textStyle, {flex: 1}]}>Some number</Text>
                     </View>
-                    <View style={styles.leftContainer}>
-                        <Text style={[styles.textStyle, {alignSelf: 'flex-start'}]}>Til rådighed</Text>
-                        <Text style={[styles.textStyle, {alignSelf: 'flex-end'}]}>Some number</Text>
+                    <View style={[styles.leftContainer, {justifyContent: 'space-between'}]}>
+                        <Text style={[styles.textStyle, {flex: 1}]}>Til rådighed</Text>
+                        <Text style={[styles.textStyle, {flex: 1}]}>Some number</Text>
                     </View>
                 </Container>
 
