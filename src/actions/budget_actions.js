@@ -2,7 +2,7 @@ import {
     INCOME_CHANGED,
     CATEGORY_CHANGED,
     CREATE_BUDGET,
-    CREATE_BUDGET_FAIL, OPEN_DRAWER
+    CREATE_BUDGET_FAIL, OPEN_DRAWER, LOAD_INITIAL
 } from './types';
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
@@ -10,9 +10,14 @@ import {firebaseFunctionsURL} from "../config/firebase_config";
 import firebase from 'firebase';
 const ROOT_URL = firebaseFunctionsURL;
 
+export const loadInitialState = text => {
+    return {
+        type: LOAD_INITIAL,
+        payload: text
+    };
+};
 
-
-export const incomeChanged = text => {
+    export const incomeChanged = text => {
     return {
         type: INCOME_CHANGED,
         payload: text

@@ -12,6 +12,7 @@ export const SIGN_IN = 'sign_in';
 export const SIGN_IN_FAIL = 'sign_in_fail';
 
 // ----------BUDGET RELATED TYPES----------
+export const LOAD_INITIAL = 'load_initial';
 export const INCOME_CHANGED = 'income_changed';
 export const CATEGORY_CHANGED = 'category_changed';
 export const CREATE_BUDGET = 'create_budget';

@@ -7,10 +7,10 @@ import {
     Input,
     Item,
     Label,
-    List,
     ListItem,
     View,
-    Spinner, Body
+    Spinner,
+    Body
 } from 'native-base';
 import Separator from "./Separator";
 import AppHeader from "./AppHeader";
@@ -19,29 +19,32 @@ import AppHeader from "./AppHeader";
 class CreateBudgetForm extends PureComponent {
     constructor() {
         super();
-        this.state = {
-            data: [
-                { name: "Kategori 1", categoryValue: '10' },
-                { name: "Kategori 2", categoryValue: '20' },
-                { name: "Kategori 3", categoryValue: '30' },
-                { name: "Kategori 4", categoryValue: '40' },
-                { name: "Kategori 5", categoryValue: '50' },
-                { name: "Kategori 6", categoryValue: '60' },
-                { name: "Kategori 7", categoryValue: '70' },
-            ]
-        };
-        console.log("Constructor");
+        // this.state = {
+        //     // name: ['Kategori 1', 'Kategori 2', 'Kategori 3', 'Kategori 4', 'Kategori 5', 'Kategori 6', 'Kategori 7'],
+        //
+        //
+        //     // categoryValue: ['10', '20', '30', '40', '50', '60', '70']
+        //     category: [
+        //         {name: "Kategori 1", categoryValue: '10'},
+        //         {name: "Kategori 2", categoryValue: '20'},
+        //         {name: "Kategori 3", categoryValue: '30'},
+        //         {name: "Kategori 4", categoryValue: '40'},
+        //         {name: "Kategori 5", categoryValue: '50'},
+        //         {name: "Kategori 6", categoryValue: '60'},
+        //         {name: "Kategori 7", categoryValue: '70'},
+        //     ]
+        // };
     }
 
-    renderItem = ({ item }) => {
+    renderItem = ({item}) => {
         return (
             <ListItem style={{marginLeft: 0}}>
                 <Body>
                 <Label style={styles.textStyle}>{item.name}</Label>
                 <Item rounded style={styles.inputStyle}>
                     <Input
-                        onChangeText={this.props.onCategoryChanged}
                         value={item.categoryValue}
+                        onChangeText={this.props.onCategoryChanged}
                         keyboardType="numeric">
                     </Input>
                 </Item>
@@ -76,8 +79,7 @@ class CreateBudgetForm extends PureComponent {
                 {/*---LISTVIEW---*/}
                 <Container style={{flex: 4, alignItems: 'stretch'}}>
                     <FlatList
-                        data={this.state.data}
-                        extraData={this.state.onCategoryChange}
+                        data={this.props.data}
                         renderItem={this.renderItem}
                         keyExtractor={item => item.name}
                     />

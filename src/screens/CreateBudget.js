@@ -4,8 +4,14 @@ import {Container} from 'native-base';
 import {connect} from 'react-redux';
 import {incomeChanged, categoryChanged, createBudget, openDrawer} from '../actions/index';
 import CreateBudgetForm from "../components/CreateBudgetForm";
+import {loadInitialState} from "../actions/budget_actions";
 
 class CreateBudget extends Component {
+
+    // loadInitialState = () => {
+    //     console.log("hej");
+    //     this.props.loadInitialState();
+    // };
 
     onIncomeChange = (text) => {
         console.log("Income change");
@@ -43,6 +49,7 @@ class CreateBudget extends Component {
                                   handleSubmit={this.handleSubmit}
                                   income={this.props.income}
                                   categoryValue={this.props.categoryValue}
+                                  data={this.props.data}
                                   loading={this.props.loading}
                                   error={this.props.error}
                 />
@@ -52,10 +59,10 @@ class CreateBudget extends Component {
 }
 
 const mapStateToProps = ({budget}) => {
-    const {income, categoryValue} = budget;
-    return {income, categoryValue}
+    const {income, categoryValue, data} = budget;
+    return {income, categoryValue, data}
 };
 
-export default connect(mapStateToProps, {openDrawer,
+export default connect(mapStateToProps, { openDrawer,
     createBudget, incomeChanged, categoryChanged
 })(CreateBudget);
