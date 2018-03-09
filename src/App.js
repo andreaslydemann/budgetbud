@@ -70,11 +70,12 @@ export default class App extends Component {
             {
                 Drawer: {screen: Drawer},
                 SignIn: {screen: SignIn},
-                SignUp: {screen: SignUp}
+                SignUp: {screen: SignUp},
+                CreateBudget: {screen: CreateBudget},
             },
             {
                 navigationOptions: {gesturesEnabled: false},
-                initialRouteName: this.state.signedIn ? 'Drawer' : 'SignIn',
+                initialRouteName: this.state.signedIn ? 'Drawer' : 'CreateBudget',
                 headerMode: "none"
             }
         );

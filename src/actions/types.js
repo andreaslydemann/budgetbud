@@ -13,6 +13,7 @@ export const SIGN_IN_FAIL = 'sign_in_fail';
 export const DELETE_USER = 'delete_user';
 
 // ----------BUDGET RELATED TYPES----------
+export const LOAD_INITIAL = 'load_initial';
 export const INCOME_CHANGED = 'income_changed';
 export const CATEGORY_CHANGED = 'category_changed';
 export const CREATE_BUDGET = 'create_budget';
