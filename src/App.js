@@ -22,8 +22,8 @@ export default class App extends Component {
     state = {signedIn: false};
 
     async componentWillMount() {
-        //await AsyncStorage.removeItem('sign_in_token');
-        let token = await AsyncStorage.getItem('sign_in_token');
+        // await AsyncStorage.removeItem('jwt');
+        let token = await AsyncStorage.getItem('jwt');
 
         if (token)
             this.setState({signedIn: true});

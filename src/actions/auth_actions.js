@@ -89,8 +89,10 @@ export const signIn = ({cprNumber, code}, callback) => async dispatch => {
             cprNumber, code
         });
 
-        await firebase.auth().signInWithCustomToken(data.token);
-        await AsyncStorage.setItem('sign_in_token', data.token);
+        let user = await firebase.auth().signInWithCustomToken(data.token);
+        let idToken = await user.getIdToken();
+
+        await AsyncStorage.setItem('jwt', idToken);
 
         dispatch({type: AUTH_SCREEN_RESET});
         callback();
@@ -107,7 +109,7 @@ const signInFail = (dispatch, error) => {
 export const signOut = (callback) => async dispatch => {
     try {
         await firebase.auth().signOut();
-        await AsyncStorage.removeItem('sign_in_token');
+        await AsyncStorage.removeItem('jwt');
 
         dispatch({type: AUTH_SCREEN_RESET});
         callback();
@@ -120,11 +122,14 @@ export const signOut = (callback) => async dispatch => {
 export const deleteUser = (callback) => async dispatch => {
     try {
         dispatch({type: DELETE_USER});
-        let token = await AsyncStorage.getItem('sign_in_token');
-        let user = await firebase.auth().signInWithCustomToken(token);
+        let token = await AsyncStorage.getItem('jwt');
+        let uid = await firebase.auth().currentUser.uid;
 
-        await axios.post(`${ROOT_URL}/deleteUser`, {cprNumber: user.uid});
-        await AsyncStorage.removeItem('sign_in_token');
+        await axios.post(`${ROOT_URL}/deleteUser`, {cprNumber: uid}, {
+            headers: { Authorization: 'Bearer ' + token }
+        });
+
+        await AsyncStorage.removeItem('jwt');
 
         dispatch({type: AUTH_SCREEN_RESET});
         callback();
