@@ -59,7 +59,7 @@ export const signUp = ({cprNumber, phoneNumber}, callback) => async dispatch => 
 
     try {
         await axios.post(`${ROOT_URL}/createUser`, {cprNumber});
-        await axios.post(`${ROOT_URL}/requestCodeTest`, {cprNumber, phoneNumber});
+        await axios.post(`${ROOT_URL}/requestCode`, {cprNumber, phoneNumber});
 
         dispatch({type: AUTH_SCREEN_RESET});
         callback();
