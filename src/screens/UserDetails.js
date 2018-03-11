@@ -27,7 +27,7 @@ class UserDetails extends Component {
                     confirmCallback={() => this.deleteUser()}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
-                    this.comfirmDialog = confirmDialog }}
+                    this.confirmDialog = confirmDialog }}
                 />
 
                 <Container>
@@ -59,7 +59,7 @@ class UserDetails extends Component {
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </ListItem>
-                            <ListItem icon onPress={() => this.comfirmDialog.showDialog()}>
+                            <ListItem icon onPress={() => this.confirmDialog.showDialog()}>
                                 <Left>
                                     <Icon name="md-trash"/>
                                 </Left>

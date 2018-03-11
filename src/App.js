@@ -17,6 +17,8 @@ import Settings from "./screens/Settings";
 import BudgetPreview from "./screens/BudgetPreview"
 import {AsyncStorage} from "react-native";
 import UserDetails from "./screens/UserDetails";
+import Intro from "./screens/Intro";
+import EditBudget from "./screens/EditBudget";
 
 export default class App extends Component {
     state = {signedIn: false};
@@ -56,10 +58,12 @@ export default class App extends Component {
                 SpendingOverview: {screen: SpendingOverview},
                 MonthlyReports: {screen: MonthlyReports},
                 CategorizeTransactions: {screen: CategorizeTransactions},
-                Settings: {screen: SettingsStack}
+                Settings: {screen: SettingsStack},
+                Intro: {screen: Intro},
+                EditBudget: {screen: EditBudget}
             },
             {
-                initialRouteName: "CreateBudget",
+                initialRouteName: "EditBudget",
                 contentComponent: props => <SideBar {...props} />,
                 contentOptions: {activeTintColor: "#e91e63"},
                 navigationOptions: {drawerLockMode: 'locked-closed'}
@@ -72,10 +76,12 @@ export default class App extends Component {
                 SignIn: {screen: SignIn},
                 SignUp: {screen: SignUp},
                 CreateBudget: {screen: CreateBudget},
+                Intro: {screen: Intro},
+                EditBudget: {screen: EditBudget}
             },
             {
                 navigationOptions: {gesturesEnabled: false},
-                initialRouteName: this.state.signedIn ? 'Drawer' : 'CreateBudget',
+                initialRouteName: this.state.signedIn ? 'Drawer' : 'EditBudget',
                 headerMode: "none"
             }
         );
