@@ -31,7 +31,6 @@
   },
   "jest": {
     "collectCoverage": true,
-    "coverageDirectory": "./__tests__/__coverage__/",
     "preset": "jest-expo",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
