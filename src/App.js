@@ -4,6 +4,8 @@ import {Root} from 'native-base';
 import {Provider} from 'react-redux';
 import firebase from 'firebase';
 import firebaseConfig from './config/firebase_config';
+
+
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import SideBar from "./screens/SideBar";
@@ -19,6 +21,8 @@ import {AsyncStorage} from "react-native";
 import UserDetails from "./screens/UserDetails";
 import Intro from "./screens/Intro";
 import EditBudget from "./screens/EditBudget";
+import DebtOverview from "./screens/DebtOverview";
+
 
 export default class App extends Component {
     state = {signedIn: false};
@@ -38,6 +42,19 @@ export default class App extends Component {
     };
 
     render() {
+        const MyBudgetStack = StackNavigator(
+            {
+                MyBudget: {screen: MyBudget},
+                EditBudget: {screen: EditBudget},
+                DebtOverview: {screen: DebtOverview}
+            },
+            {
+                navigationOptions: {gesturesEnabled: false},
+                initialRouteName: "MyBudget",
+                headerMode: "none"
+            }
+        );
+
         const SettingsStack = StackNavigator(
             {
                 Settings: {screen: Settings},
@@ -52,7 +69,7 @@ export default class App extends Component {
 
         const Drawer = DrawerNavigator(
             {
-                MyBudget: {screen: MyBudget},
+                MyBudget: {screen: MyBudgetStack},
                 CreateBudget: {screen: CreateBudget},
                 BudgetPreview: {screen: BudgetPreview},
                 SpendingOverview: {screen: SpendingOverview},
@@ -60,7 +77,6 @@ export default class App extends Component {
                 CategorizeTransactions: {screen: CategorizeTransactions},
                 Settings: {screen: SettingsStack},
                 Intro: {screen: Intro},
-                EditBudget: {screen: EditBudget},
             },
             {
                 initialRouteName: "MyBudget",
