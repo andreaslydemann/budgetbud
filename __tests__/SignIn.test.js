@@ -9,20 +9,18 @@ Enzyme.configure({adapter: new Adapter()});
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-const initialState = {
-    auth: {
-        cprNumber: '',
-        code: '',
-        error: '',
-        loading: false
-    }
-};
-
 describe('Testing SignIn', () => {
     it('renders as expected', () => {
+        const state = {
+            cprNumber: '',
+            code: '',
+            error: '',
+            loading: false
+        };
+
         const wrapper = shallow(
             <SignIn/>,
-            {context: {store: mockStore(initialState)}},
+            {context: {store: mockStore({auth: state})}},
         );
         expect(wrapper.dive()).toMatchSnapshot();
     });
