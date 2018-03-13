@@ -6,14 +6,14 @@ import {Platform, View} from "react-native";
 class AppHeader extends Component {
     render() {
         return (
-            <View style={{marginTop: Platform.OS === 'android' ? 24 : 0, zIndex: 1}}>
+            <View style={styles.container}>
                 <Header style={styles.headerStyle}>
                     <Left style={{flex: 1}}>
                         <Button
                             transparent
                             onPress={() => this.props.onLeftButtonPress()}
                         >
-                            {this.props.showBackButton ? (<Icon name="arrow-back" />)
+                            {this.props.showBackButton ? (<Icon name="arrow-back"/>)
                                 : (<Icon name="menu"/>)}
                         </Button>
                     </Left>
@@ -33,7 +33,9 @@ class AppHeader extends Component {
                 <PopupDialog
                     width={0.8}
                     dialogTitle={<DialogTitle title="Hjælpeinformation"/>}
-                    ref={(popupDialog) => {this.popupDialog = popupDialog}}
+                    ref={(popupDialog) => {
+                        this.popupDialog = popupDialog
+                    }}
                     dismissOnTouchOutside={false}
                     actions={[
                         <DialogButton
@@ -58,6 +60,16 @@ class AppHeader extends Component {
 }
 
 const styles = {
+    container: {
+        ...Platform.select({
+            ios: {
+                zIndex: 1,
+            },
+            android: {
+                marginTop: 24,
+            },
+        }),
+    },
     dialogContentView: {
         flex: 1,
         alignItems: 'center',

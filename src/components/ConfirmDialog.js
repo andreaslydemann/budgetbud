@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View} from "react-native";
+import {Platform, View} from "react-native";
 import {Container, Label, Spinner} from "native-base";
 import PopupDialog, {DialogTitle, DialogButton} from 'react-native-popup-dialog';
 
@@ -10,7 +10,7 @@ class ConfirmDialog extends Component {
 
     render() {
         return (
-            <View style={{zIndex: 1}}>
+            <View style={styles.container}>
                 <PopupDialog
                     width={0.8}
                     dialogTitle={<DialogTitle title={this.props.title}/>}
@@ -56,21 +56,35 @@ class ConfirmDialog extends Component {
 }
 
 const styles = {
+    container: {
+        ...Platform.select({
+            ios: {
+                zIndex: 1,
+            },
+        }),
+    },
     dialogContentView: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
     },
     dialogButton: {
         flex: 1,
         height: 31,
-        alignSelf: 'stretch'
+        alignSelf: 'stretch',
+        justifyContent: 'flex-start',
+        ...Platform.select({
+            android: {
+                paddingBottom: 50,
+                height: 80
+            }
+        })
     },
     dialogButton1TextContainer: {
         backgroundColor: '#002940',
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0,
+        borderBottomLeftRadius: 8,
         borderRightColor: '#fff',
         borderRightWidth: 1
     },
@@ -79,6 +93,7 @@ const styles = {
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
         borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 8,
         borderLeftColor: '#fff',
         borderLeftWidth: 1
     },
@@ -87,7 +102,12 @@ const styles = {
         flex: 1
     },
     dialogButtonText: {
-        color: '#fff'
+        color: '#fff',
+        ...Platform.select({
+            android: {
+                fontSize: 16
+            }
+        })
     },
     dialogLabelContainer: {
         flex: 4,

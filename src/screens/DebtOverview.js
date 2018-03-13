@@ -9,6 +9,7 @@ class DebtOverview extends Component {
     render() {
         return (
             <Container>
+
                 <ConfirmDialog
                     title="Bekræft sletning"
                     text="Er du sikker på, at du vil gennemføre sletningen af din bruger? Handlingen kan ikke fortrydes."
@@ -18,7 +19,7 @@ class DebtOverview extends Component {
                 />
 
                 <Container>
-                    <AppHeader headerText={'Brugeroplysninger'}
+                    <AppHeader headerText={'Gældsoversigt'}
                                showBackButton={true}
                                onLeftButtonPress={() => this.props.navigation.pop()}/>
 
