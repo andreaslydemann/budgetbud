@@ -33,7 +33,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    console.log("Reducer");
     switch (action.type) {
         case GET_INITIAL_STATE:
             return {...state, category: action.payload};

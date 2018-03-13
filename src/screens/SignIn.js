@@ -10,7 +10,6 @@ import screenStyles from './ScreenStyles';
 
 class SignIn extends Component {
     onCprNumberChange = (text) => {
-        console.log("Hello");
         this.props.cprNumberChanged(text);
     };
 
