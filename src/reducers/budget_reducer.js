@@ -11,7 +11,7 @@ const INITIAL_STATE = {
     estimatedIncome: '0',
     error: '',
     loading: false,
-    accountCreated: true,
+    accountCreated: false,
     expenses: '0',
     disposable: '0',
     category: [
@@ -33,13 +33,14 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+    console.log("Reducer");
     switch (action.type) {
         case GET_INITIAL_STATE:
             return {...state, category: action.payload};
         case INCOME_CHANGED:
             return {...state, income: action.payload};
         case CATEGORY_CHANGED:
-            return {...state, categoryValue: action.payload};
+            return {...state, category: {...state.category, value: action.payload}};
         case CREATE_BUDGET:
             return {...state, loading: true, error: ''};
         case CREATE_BUDGET_SCREEN_SWITCHED:

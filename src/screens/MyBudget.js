@@ -73,7 +73,8 @@ class MyBudget extends Component {
                                     onPress={() => this.refs.bottomModal.open()}
                                     style={styles.buttonStyle}
                             >
-                                <Text style={styles.itemStyle}><Icon name="ios-arrow-dropup-circle" /></Text>
+                                <Icon name="ios-arrow-dropup-circle"
+                                            style={{color: "#1c313a"}}/>
                             </Button>
                         </Form>
 
@@ -83,21 +84,21 @@ class MyBudget extends Component {
                             <Form style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20}}>
                                 <Button
                                     transparent
-                                    onPress={() => this.navigation.navigate("EditBudget")}
+                                    onPress={() => this.props.navigation.navigate("EditBudget")}
                                 >
-                                    <Icon name="ios-information-circle-outline"/>
+                                    <Icon name="md-clipboard"/>
                                 </Button>
 
                                 <Button
                                     transparent
-                                    onPress={() => this.navigation.navigate("EditDisposable")}
+                                    onPress={() => this.props.navigation.navigate("EditDisposable")}
                                 >
-                                    <Icon name="ios-information-circle-outline"/>
+                                    <Icon name="logo-usd"/>
                                 </Button>
 
                                 <Button
                                     transparent
-                                    onPress={() => this.navigation.navigate("EditDebt")}
+                                    onPress={() => this.props.navigation.navigate("EditDebt")}
                                 >
                                     <Icon name="ios-information-circle-outline"/>
                                 </Button>
@@ -106,7 +107,8 @@ class MyBudget extends Component {
                                     onPress={() => this.refs.bottomModal.close()}
                                     style={styles.buttonStyle}
                             >
-                                <Text style={styles.itemStyle}><Icon name="ios-arrow-dropdown-circle" /></Text>
+                                <Icon name="ios-arrow-dropdown-circle"
+                                            style={{color: "#1c313a"}}/>
                             </Button>
                         </Modal>
                     </View>

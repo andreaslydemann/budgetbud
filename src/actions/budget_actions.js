@@ -24,6 +24,7 @@ export const incomeChanged = text => {
 };
 
 export const categoryChanged = text => {
+    console.log("Changing")
     return {
         type: CATEGORY_CHANGED,
         payload: text

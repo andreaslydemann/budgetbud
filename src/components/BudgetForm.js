@@ -10,8 +10,6 @@ import {
     Body
 } from 'native-base';
 import Separator from "./Separator";
-import AppHeader from "./AppHeader";
-
 
 class BudgetForm extends PureComponent {
     render() {

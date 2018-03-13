@@ -33,7 +33,7 @@ class Intro extends Component {
 
                         {/*---Logo---*/}
                         <Container style={styles.logoContainer}>
-                            <Image style={{width: '60%', height: '60%'}}
+                            <Image style={{width: 200, height: 200}}
                                    source={require('../../assets/logo.png')}/>
                         </Container>
 

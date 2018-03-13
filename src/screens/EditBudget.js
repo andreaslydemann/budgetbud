@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Keyboard} from 'react-native';
 import {Button, Container, Form, Spinner, Text} from 'native-base';
 import {connect} from 'react-redux';
-import CurrencyInput from 'react-currency-input';
 import {incomeChanged, categoryChanged, createBudget, openDrawer} from '../actions/index';
 import BudgetForm from "../components/BudgetForm";
 import {editBudget, getInitialState} from "../actions/budget_actions";

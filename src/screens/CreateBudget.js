@@ -12,7 +12,9 @@ class CreateBudget extends Component {
     };
 
     onCategoryChange = (text) => {
+        console
         this.props.categoryChanged(text);
+        console
     };
 
     handleSubmit = () => {

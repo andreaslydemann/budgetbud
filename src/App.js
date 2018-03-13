@@ -63,7 +63,7 @@ export default class App extends Component {
                 EditBudget: {screen: EditBudget},
             },
             {
-                initialRouteName: "Intro",
+                initialRouteName: "MyBudget",
                 contentComponent: props => <SideBar {...props} />,
                 contentOptions: {activeTintColor: "#e91e63"},
                 navigationOptions: {drawerLockMode: 'locked-closed'}
