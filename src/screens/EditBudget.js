@@ -4,24 +4,26 @@ import {Button, Container, Form, Spinner, Text} from 'native-base';
 import {connect} from 'react-redux';
 import {incomeChanged, categoryChanged, createBudget, openDrawer} from '../actions/index';
 import BudgetForm from "../components/BudgetForm";
+import {editBudget, getInitialState} from "../actions/budget_actions";
 import AppHeader from "../components/AppHeader";
 
-class CreateBudget extends Component {
+class EditBudget extends Component {
     onIncomeChange = (text) => {
+        console.log("Income change");
         this.props.incomeChanged(text);
     };
 
     onCategoryChange = (text) => {
-        console
+        console.log("BEFORE: Category change " + text);
         this.props.categoryChanged(text);
-        console
     };
 
     handleSubmit = () => {
+        console.log("Submit");
         Keyboard.dismiss();
         const {income, categoryValue} = this.props;
-        this.props.createBudget({income, categoryValue}, () => {
-            this.props.navigation.navigate('MyBudget');
+        this.props.editBudget({income, categoryValue}, () => {
+            this.props.navigation.navigate.pop();
         });
     };
 
@@ -36,8 +38,9 @@ class CreateBudget extends Component {
         return (
             <Container style={[{alignItems: 'stretch'}]}>
                 {/*---HEADER---*/}
-                <AppHeader headerText={'Opret budget'}
-                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
+                <AppHeader headerText={'Redigér budget'}
+                           showBackButton={true}
+                           onLeftButtonPress={() => this.props.navigation.pop()}/>
 
                 <BudgetForm onMenuPressed={this.onMenuPressed}
                             onIncomeChanged={this.onIncomeChange}
@@ -54,15 +57,22 @@ class CreateBudget extends Component {
                             error={this.props.error}
                 />
 
-                {/*---CREATE BUTTON---*/}
-                <Form>
+                {/*---BUTTONS---*/}
+                <Form style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Button rounded
+                            onPress={() => this.props.navigation.pop()}
+                            style={styles.buttonStyle}
+                    >
+                        <Text style={styles.itemStyle}>Afbryd</Text>
+                    </Button>
+
                     <Button rounded
                             onPress={this.props.handleSubmit}
                             style={styles.buttonStyle}
                     >
                         {this.props.loading ? (
                             <Spinner color='#D0D0D0'/>) : (
-                            <Text style={styles.itemStyle}>Opret budget</Text>
+                            <Text style={styles.itemStyle}>Gem</Text>
                         )}
                     </Button>
                 </Form>
@@ -73,11 +83,13 @@ class CreateBudget extends Component {
 
 const styles = {
     buttonStyle: {
-        width: '90%',
+        width: '30%',
         height: 40,
         backgroundColor: '#1c313a',
         marginTop: 20,
         marginBottom: 20,
+        marginLeft: 10,
+        marginRight: 10,
         justifyContent: 'center',
         alignSelf: 'center'
     },
@@ -94,8 +106,6 @@ const mapStateToProps = ({budget}) => {
 };
 
 export default connect(mapStateToProps, {
-    openDrawer,
-    createBudget,
-    incomeChanged,
-    categoryChanged
-})(CreateBudget);
+    openDrawer, editBudget,
+    incomeChanged, categoryChanged
+})(EditBudget);

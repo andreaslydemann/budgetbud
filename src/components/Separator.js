@@ -11,14 +11,16 @@ const Separator = (props) => {
 
 const styles = {
     containerStyle: {
-        height: 5,
+        height: 2,
         width: '100%',
         backgroundColor: '#999999',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 1, height: 3 },
         shadowOpacity: 0.1,
         shadowRadius: 2,
-        elevation: 1,
+        elevation: 3,
+        borderBottomColor: '#001',
+        borderBottomWidth: 2
     }
 };
 

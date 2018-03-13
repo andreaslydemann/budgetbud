@@ -17,6 +17,8 @@ import Settings from "./screens/Settings";
 import BudgetPreview from "./screens/BudgetPreview"
 import {AsyncStorage} from "react-native";
 import UserDetails from "./screens/UserDetails";
+import Intro from "./screens/Intro";
+import EditBudget from "./screens/EditBudget";
 
 export default class App extends Component {
     state = {signedIn: false};
@@ -56,7 +58,9 @@ export default class App extends Component {
                 SpendingOverview: {screen: SpendingOverview},
                 MonthlyReports: {screen: MonthlyReports},
                 CategorizeTransactions: {screen: CategorizeTransactions},
-                Settings: {screen: SettingsStack}
+                Settings: {screen: SettingsStack},
+                Intro: {screen: Intro},
+                EditBudget: {screen: EditBudget},
             },
             {
                 initialRouteName: "MyBudget",
@@ -70,7 +74,7 @@ export default class App extends Component {
             {
                 Drawer: {screen: Drawer},
                 SignIn: {screen: SignIn},
-                SignUp: {screen: SignUp}
+                SignUp: {screen: SignUp},
             },
             {
                 navigationOptions: {gesturesEnabled: false},

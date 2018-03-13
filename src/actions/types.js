@@ -13,8 +13,11 @@ export const SIGN_IN_FAIL = 'sign_in_fail';
 export const DELETE_USER = 'delete_user';
 
 // ----------BUDGET RELATED TYPES----------
+export const GET_INITIAL_STATE = 'get_initial_state';
 export const INCOME_CHANGED = 'income_changed';
 export const CATEGORY_CHANGED = 'category_changed';
 export const CREATE_BUDGET = 'create_budget';
 export const CREATE_BUDGET_FAIL = 'create_budget_fail';
 export const CREATE_BUDGET_SCREEN_SWITCHED = 'create_budget_screen_switched';
+export const OPEN_DRAWER = 'open_drawer';
+export const SHOW_DIALOG = 'show_dialog';

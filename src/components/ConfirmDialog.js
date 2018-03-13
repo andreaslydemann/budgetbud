@@ -43,7 +43,7 @@ class ConfirmDialog extends Component {
                                 text="Ok"
                                 onPress={() => {
                                     if (!this.props.loading)
-                                        this.props.confirmCallback();
+                                        this.popupDialog.show();
                                 }}
                                 key="button-2"
                             />
