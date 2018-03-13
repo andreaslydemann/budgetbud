@@ -58,16 +58,16 @@ class BudgetForm extends PureComponent {
         );
     }
 
-    renderItem = ({item, index}) => {
+    renderItem = ({item}) => {
         return (
             <ListItem>
                 <Body>
                 <Label style={styles.textStyle}>{item.name + ":"}</Label>
                 <Item rounded style={styles.inputStyle}>
                     <Input
-                        onChangeText={this.props.onCategoryChanged}
+                        onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
                         placeholder={item.value + " KR"}
-                        value={this.props.categoryValue}
+                        value={item.value}
                         keyboardType="numeric"
                         style={{width: '90%', fontSize: 13}}
                     />

@@ -24,7 +24,7 @@ export default class App extends Component {
     state = {signedIn: false};
 
     async componentWillMount() {
-        // await AsyncStorage.removeItem('jwt');
+        //await AsyncStorage.removeItem('jwt');
         let token = await AsyncStorage.getItem('jwt');
 
         if (token)
@@ -63,7 +63,7 @@ export default class App extends Component {
                 EditBudget: {screen: EditBudget},
             },
             {
-                initialRouteName: "MyBudget",
+                initialRouteName: "CreateBudget",
                 contentComponent: props => <SideBar {...props} />,
                 contentOptions: {activeTintColor: "#e91e63"},
                 navigationOptions: {drawerLockMode: 'locked-closed'}

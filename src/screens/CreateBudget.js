@@ -11,10 +11,8 @@ class CreateBudget extends Component {
         this.props.incomeChanged(text);
     };
 
-    onCategoryChange = (text) => {
-        console
-        this.props.categoryChanged(text);
-        console
+    onCategoryChange = (value, name) => {
+        this.props.categoryChanged(value, name);
     };
 
     handleSubmit = () => {
@@ -33,6 +31,7 @@ class CreateBudget extends Component {
     };
 
     render() {
+        console.log("List", this.props.category);
         return (
             <Container style={[{alignItems: 'stretch'}]}>
                 {/*---HEADER---*/}

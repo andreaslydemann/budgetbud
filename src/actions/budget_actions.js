@@ -23,11 +23,11 @@ export const incomeChanged = text => {
     };
 };
 
-export const categoryChanged = text => {
-    console.log("Changing")
+export const categoryChanged = (name, value) => {
     return {
         type: CATEGORY_CHANGED,
-        payload: text
+        name: name,
+        payload: value
     };
 };
 
