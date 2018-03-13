@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Body, Button, Container, Form, Icon, ListItem, Text, View} from "native-base";
+import {Body, Button, Container, Form, Icon, ListItem, Text, View, Label} from "native-base";
 import AppHeader from "../components/AppHeader";
 import Separator from "../components/Separator";
 import {FlatList} from "react-native";
@@ -80,27 +80,36 @@ class MyBudget extends Component {
 
 
                         <Modal style={styles.modal} position={"bottom"} ref={"bottomModal"}>
-                            <Text style={[styles.textStyle, {alignSelf: 'center', marginTop: 10}]}>Redigér:</Text>
-                            <Form style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20}}>
+                            <Label style={[styles.textStyle, {alignSelf: 'center', marginTop: 10}]}>Redigér:</Label>
+                            <Form style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 40, marginHorizontal: 40}}>
                                 <Button
                                     transparent
                                     onPress={() => this.props.navigation.navigate("EditBudget")}
                                 >
-                                    <Icon name="md-clipboard"/>
+                                    <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                                        <Icon name="md-clipboard" style={{color: "#1c313a"}}/>
+                                        <Label style={styles.textStyle}>Budget</Label>
+                                    </View>
                                 </Button>
 
                                 <Button
                                     transparent
                                     onPress={() => this.props.navigation.navigate("EditDisposable")}
                                 >
-                                    <Icon name="logo-usd"/>
+                                    <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                                        <Icon name="logo-usd" style={{color: "#1c313a"}}/>
+                                        <Label style={styles.textStyle}>Rådighedsbeløb</Label>
+                                    </View>
                                 </Button>
 
                                 <Button
                                     transparent
-                                    onPress={() => this.props.navigation.navigate("EditDebt")}
+                                    onPress={() => this.props.navigation.navigate("DebtOverview")}
                                 >
-                                    <Icon name="ios-information-circle-outline"/>
+                                    <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                                        <Icon name="ios-archive" style={{color: "#1c313a"}}/>
+                                        <Label style={styles.textStyle}>Gæld</Label>
+                                    </View>
                                 </Button>
                             </Form>
                             <Button transparent

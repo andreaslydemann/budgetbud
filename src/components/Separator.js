@@ -17,8 +17,6 @@ const styles = {
         shadowColor: '#000',
         shadowOffset: { width: 1, height: 3 },
         shadowOpacity: 0.1,
-        shadowRadius: 2,
-        elevation: 3,
         borderBottomColor: '#001',
         borderBottomWidth: 2
     }
