@@ -4,8 +4,9 @@ import {Button, Container, Form, Spinner, Text} from 'native-base';
 import {connect} from 'react-redux';
 import CurrencyInput from 'react-currency-input';
 import {incomeChanged, categoryChanged, createBudget, openDrawer} from '../actions/index';
-import CreateBudgetForm from "../components/BudgetForm";
+import BudgetForm from "../components/BudgetForm";
 import {editBudget, getInitialState} from "../actions/budget_actions";
+import AppHeader from "../components/AppHeader";
 
 class EditBudget extends Component {
     onIncomeChange = (text) => {
@@ -23,7 +24,7 @@ class EditBudget extends Component {
         Keyboard.dismiss();
         const {income, categoryValue} = this.props;
         this.props.editBudget({income, categoryValue}, () => {
-            this.props.navigation.navigate('MyBudget');
+            this.props.navigation.navigate.pop();
         });
     };
 
@@ -37,17 +38,24 @@ class EditBudget extends Component {
     render() {
         return (
             <Container style={[{alignItems: 'stretch'}]}>
-                <CreateBudgetForm onMenuPressed={this.onMenuPressed}
-                                  onIncomeChanged={this.onIncomeChange}
-                                  onCategoryChanged={this.onCategoryChange}
-                                  handleSubmit={this.handleSubmit}
-                                  income={this.props.income}
-                                  categoryValue={this.props.categoryValue}
-                                  data={this.props.data}
-                                  loading={this.props.loading}
-                                  error={this.props.error}
-                                  isBudgetCreated={false}
-                                  isEditBudget={false}
+                {/*---HEADER---*/}
+                <AppHeader headerText={'Redigér budget'}
+                           showBackButton={true}
+                           onLeftButtonPress={() => this.props.navigation.pop()}/>
+
+                <BudgetForm onMenuPressed={this.onMenuPressed}
+                            onIncomeChanged={this.onIncomeChange}
+                            onCategoryChanged={this.onCategoryChange}
+                            handleSubmit={this.handleSubmit}
+                            income={this.props.income}
+                            categoryValue={this.props.categoryValue}
+                            expenses={this.props.expenses}
+                            disposable={this.props.disposable}
+                            estimatedIncome={this.props.estimatedIncome}
+                            category={this.props.category}
+                            debt={this.props.debt}
+                            loading={this.props.loading}
+                            error={this.props.error}
                 />
 
                 {/*---BUTTONS---*/}
@@ -94,8 +102,8 @@ const styles = {
 };
 
 const mapStateToProps = ({budget}) => {
-    const {income, categoryValue, data} = budget;
-    return {income, categoryValue, data}
+    const {income, categoryValue, category, debt, expenses, disposable, estimatedIncome} = budget;
+    return {income, categoryValue, category, debt, expenses, disposable, estimatedIncome}
 };
 
 export default connect(mapStateToProps, {

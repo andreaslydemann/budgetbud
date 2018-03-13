@@ -2,24 +2,20 @@ import React, {Component} from 'react';
 import {Keyboard} from 'react-native';
 import {Button, Container, Form, Spinner, Text} from 'native-base';
 import {connect} from 'react-redux';
-import CurrencyInput from 'react-currency-input';
 import {incomeChanged, categoryChanged, createBudget, openDrawer} from '../actions/index';
-import CreateBudgetForm from "../components/BudgetForm";
-import {getInitialState} from "../actions/budget_actions";
+import BudgetForm from "../components/BudgetForm";
+import AppHeader from "../components/AppHeader";
 
 class CreateBudget extends Component {
     onIncomeChange = (text) => {
-        console.log("Income change");
         this.props.incomeChanged(text);
     };
 
     onCategoryChange = (text) => {
-        console.log("BEFORE: Category change " + text);
         this.props.categoryChanged(text);
     };
 
     handleSubmit = () => {
-        console.log("Submit");
         Keyboard.dismiss();
         const {income, categoryValue} = this.props;
         this.props.createBudget({income, categoryValue}, () => {
@@ -37,19 +33,23 @@ class CreateBudget extends Component {
     render() {
         return (
             <Container style={[{alignItems: 'stretch'}]}>
-                <CreateBudgetForm onMenuPressed={this.onMenuPressed}
-                                  onIncomeChanged={this.onIncomeChange}
-                                  onCategoryChanged={this.onCategoryChange}
-                                  handleSubmit={this.handleSubmit}
-                                  income={this.props.income}
-                                  categoryValue={this.props.categoryValue}
-                                  expenses={this.props.expenses}
-                                  available={this.props.available}
-                                  data={this.props.data}
-                                  loading={this.props.loading}
-                                  error={this.props.error}
-                                  isBudgetCreated={false}
-                                  isEditBudget={false}
+                {/*---HEADER---*/}
+                <AppHeader headerText={'Opret budget'}
+                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
+
+                <BudgetForm onMenuPressed={this.onMenuPressed}
+                            onIncomeChanged={this.onIncomeChange}
+                            onCategoryChanged={this.onCategoryChange}
+                            handleSubmit={this.handleSubmit}
+                            income={this.props.income}
+                            categoryValue={this.props.categoryValue}
+                            expenses={this.props.expenses}
+                            disposable={this.props.disposable}
+                            estimatedIncome={this.props.estimatedIncome}
+                            category={this.props.category}
+                            debt={this.props.debt}
+                            loading={this.props.loading}
+                            error={this.props.error}
                 />
 
                 {/*---CREATE BUTTON---*/}
@@ -87,8 +87,8 @@ const styles = {
 };
 
 const mapStateToProps = ({budget}) => {
-    const {income, categoryValue, data, expenses, available} = budget;
-    return {income, categoryValue, data, expenses, available}
+    const {income, categoryValue, category, debt, expenses, disposable, estimatedIncome} = budget;
+    return {income, categoryValue, category, debt, expenses, disposable, estimatedIncome}
 };
 
 export default connect(mapStateToProps, {

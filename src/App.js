@@ -60,10 +60,10 @@ export default class App extends Component {
                 CategorizeTransactions: {screen: CategorizeTransactions},
                 Settings: {screen: SettingsStack},
                 Intro: {screen: Intro},
-                EditBudget: {screen: EditBudget}
+                EditBudget: {screen: EditBudget},
             },
             {
-                initialRouteName: "EditBudget",
+                initialRouteName: "Intro",
                 contentComponent: props => <SideBar {...props} />,
                 contentOptions: {activeTintColor: "#e91e63"},
                 navigationOptions: {drawerLockMode: 'locked-closed'}
@@ -75,13 +75,10 @@ export default class App extends Component {
                 Drawer: {screen: Drawer},
                 SignIn: {screen: SignIn},
                 SignUp: {screen: SignUp},
-                CreateBudget: {screen: CreateBudget},
-                Intro: {screen: Intro},
-                EditBudget: {screen: EditBudget}
             },
             {
                 navigationOptions: {gesturesEnabled: false},
-                initialRouteName: this.state.signedIn ? 'Drawer' : 'EditBudget',
+                initialRouteName: this.state.signedIn ? 'Drawer' : 'SignIn',
                 headerMode: "none"
             }
         );

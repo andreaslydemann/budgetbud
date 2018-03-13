@@ -3,6 +3,7 @@ import {Button, Container, Form, Label, Text} from "native-base";
 import AppHeader from "../components/AppHeader";
 import {Image} from "react-native";
 import ConfirmDialog from "../components/ConfirmDialog";
+import {connect} from "react-redux";
 
 
 class Intro extends Component {
@@ -45,7 +46,7 @@ class Intro extends Component {
 
                         <Button rounded
                             onPress={this.props.accountCreated ?
-                            this.props.navigation.navigate("EditBudget") : () => this.confirmDialog.showDialog()}
+                            this.props.navigation.navigate("CreateBudget") : () => this.confirmDialog.showDialog()}
                             style={styles.buttonStyle}
                             >
                             {this.props.loading ? (
@@ -113,4 +114,10 @@ const styles = {
     },
 };
 
-export default Intro;
+const mapStateToProps = ({budget}) => {
+    const {accountCreated} = budget;
+    return {accountCreated};
+};
+
+export default connect(mapStateToProps, {
+})(Intro);

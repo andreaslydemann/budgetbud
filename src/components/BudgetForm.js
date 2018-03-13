@@ -17,17 +17,14 @@ class BudgetForm extends PureComponent {
     render() {
         return (
             <Container>
-                {/*---HEADER---*/}
-                <AppHeader headerText={'Opret budget'}
-                           onLeftButtonPress={() => this.props.navigation.pop()}/>
-
                 {/*---INCOME FIELD<---*/}
                 <Form style={styles.incomeFormStyle}>
                     <Label style={styles.textStyle}>Indkomst:</Label>
                     <Item rounded style={styles.inputStyle}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
-                            value={this.props.income + " KR"}
+                            placeholder={this.props.estimatedIncome + " KR"}
+                            value={this.props.income}
                             keyboardType="numeric"
                         />
                     </Item>
@@ -38,7 +35,8 @@ class BudgetForm extends PureComponent {
                 {/*---LISTVIEW---*/}
                 <Form style={{flex: 4, alignItems: 'stretch'}}>
                     <FlatList
-                        data={this.props.data}
+                        data={this.props.category}
+                        extraData={this.props.categoryValue}
                         renderItem={this.renderItem}
                         keyExtractor={item => item.name}
                         style={styles.listStyle}
@@ -55,7 +53,7 @@ class BudgetForm extends PureComponent {
                     </View>
                     <View style={[styles.leftContainer, {justifyContent: 'space-between'}]}>
                         <Text style={[styles.textStyle, {flex: 1}]}>Til rådighed:</Text>
-                        <Text style={[styles.textStyle, {flex: 1}]}>{this.props.available}</Text>
+                        <Text style={[styles.textStyle, {flex: 1}]}>{this.props.disposable}</Text>
                     </View>
                 </Form>
             </Container>
@@ -66,11 +64,12 @@ class BudgetForm extends PureComponent {
         return (
             <ListItem>
                 <Body>
-                <Label style={styles.textStyle}>{this.props.data[index].name + ":"}</Label>
+                <Label style={styles.textStyle}>{item.name + ":"}</Label>
                 <Item rounded style={styles.inputStyle}>
                     <Input
                         onChangeText={this.props.onCategoryChanged}
-                        value={this.props.data[index].categoryValue + " KR"}
+                        placeholder={item.value + " KR"}
+                        value={this.props.categoryValue}
                         keyboardType="numeric"
                         style={{width: '90%', fontSize: 13}}
                     />
