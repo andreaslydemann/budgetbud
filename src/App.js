@@ -5,7 +5,6 @@ import {Provider} from 'react-redux';
 import firebase from 'firebase';
 import firebaseConfig from './config/firebase_config';
 
-
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import SideBar from "./screens/SideBar";
@@ -22,7 +21,6 @@ import UserDetails from "./screens/UserDetails";
 import Intro from "./screens/Intro";
 import EditBudget from "./screens/EditBudget";
 import DebtOverview from "./screens/DebtOverview";
-
 
 export default class App extends Component {
     state = {signedIn: false};
@@ -79,7 +77,7 @@ export default class App extends Component {
                 Intro: {screen: Intro},
             },
             {
-                initialRouteName: "CreateBudget",
+                initialRouteName: "MyBudget",
                 contentComponent: props => <SideBar {...props} />,
                 contentOptions: {activeTintColor: "#e91e63"},
                 navigationOptions: {drawerLockMode: 'locked-closed'}

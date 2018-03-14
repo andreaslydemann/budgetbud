@@ -1,75 +1,65 @@
 import React, {Component} from 'react';
-import {Container, Content, List, ListItem, Label, Body, Left, Right, Icon} from "native-base";
+import {View} from 'react-native';
+import {Container, Content, Button, List, ListItem, Body, Right, Icon, Text} from 'native-base';
 import {connect} from 'react-redux';
 import AppHeader from "../components/AppHeader";
-import ConfirmDialog from '../components/ConfirmDialog';
-import {deleteUser} from "../actions";
 
 class DebtOverview extends Component {
     render() {
         return (
             <Container>
+                <AppHeader headerText={'Gældsoversigt'}
+                           showBackButton={true}
+                           onLeftButtonPress={() => this.props.navigation.pop()}/>
+                <Content style={{flex: 4}}>
+                    <List dataArray={this.props.debtItems}
+                          renderRow={(item) =>
+                              <ListItem>
+                                  <Body>
+                                  <Text>{item.name}</Text>
+                                  <Text note>{item.value} kr</Text>
+                                  </Body>
+                                  <Right>
+                                      <View style={{flexDirection: 'row'}}>
+                                      <Icon style={{marginRight: 7, fontSize: 30}} name="md-create"/>
+                                      <Icon style={{marginHorizontal: 7, fontSize: 30}} name="md-trash"/>
+                                      </View>
+                                  </Right>
+                              </ListItem>
+                          }>
+                    </List>
+                </Content>
+                <Button rounded
+                        onPress={this.props.handleSubmit}
+                        style={styles.buttonStyle}
+                >
+                    <Text style={styles.itemStyle}>Opret gæld</Text>
 
-                <ConfirmDialog
-                    title="Bekræft sletning"
-                    text="Er du sikker på, at du vil gennemføre sletningen af din bruger? Handlingen kan ikke fortrydes."
-                    loading={this.props.loading}
-                    ref={(confirmDialog) => {
-                        this.confirmDialog = confirmDialog }}
-                />
-
-                <Container>
-                    <AppHeader headerText={'Gældsoversigt'}
-                               showBackButton={true}
-                               onLeftButtonPress={() => this.props.navigation.pop()}/>
-
-                    <Content>
-                        <List>
-                            <ListItem icon>
-                                <Left>
-                                    <Icon name="md-phone-portrait"/>
-                                </Left>
-                                <Body>
-                                <Label>Ændr telefonnummer</Label>
-                                </Body>
-                                <Right>
-                                    <Icon name="arrow-forward"/>
-                                </Right>
-                            </ListItem>
-                            <ListItem icon>
-                                <Left>
-                                    <Icon name="md-lock"/>
-                                </Left>
-                                <Body>
-                                <Label>Ændr pinkode</Label>
-                                </Body>
-                                <Right>
-                                    <Icon name="arrow-forward"/>
-                                </Right>
-                            </ListItem>
-                            <ListItem icon onPress={() => this.confirmDialog.showDialog()}>
-                                <Left>
-                                    <Icon name="md-trash"/>
-                                </Left>
-                                <Body>
-                                <Label>Slet bruger</Label>
-                                </Body>
-                                <Right>
-                                    <Icon name="arrow-forward"/>
-                                </Right>
-                            </ListItem>
-                        </List>
-                    </Content>
-                </Container>
+                </Button>
             </Container>
         );
     }
 }
 
-const mapStateToProps = ({auth}) => {
-    return {loading} = auth;
+const styles = {
+    buttonStyle: {
+        width: '90%',
+        height: 40,
+        backgroundColor: '#1c313a',
+        marginTop: 20,
+        marginBottom: 20,
+        justifyContent: 'center',
+        alignSelf: 'center'
+    },
+    itemStyle: {
+        fontWeight: '600',
+        alignSelf: 'center',
+        color: 'white'
+    }
 };
 
-export default connect(mapStateToProps, {
-    deleteUser
-})(DebtOverview);
+const mapStateToProps = ({debt}) => {
+    return {debtItems} = debt;
+};
+
+export default connect(mapStateToProps, {})(DebtOverview);
