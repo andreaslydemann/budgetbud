@@ -93,11 +93,6 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         width: '90%'
     },
-    itemStyle: {
-        fontWeight: '600',
-        alignSelf: 'flex-start',
-        color: 'white'
-    },
     leftContainer: {
         flex: 1,
         flexDirection: 'row',
