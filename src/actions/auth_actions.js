@@ -1,10 +1,10 @@
 import {AsyncStorage} from 'react-native';
-import {firebaseFunctionsURL} from "../config/firebase_config";
-import firebase from 'firebase';
 import axios from 'axios';
+import firebase from 'firebase';
+import {firebaseFunctionsURL} from "../config/firebase_config";
 
 import {
-    AUTH_SCREEN_RESET,
+    GET_INITIAL_STATE,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
@@ -15,13 +15,13 @@ import {
     SIGN_IN_FAIL,
     SIGN_UP,
     SIGN_UP_FAIL,
-    DELETE_USER
+    DELETE_USER,
 } from './types';
 
 const ROOT_URL = firebaseFunctionsURL;
 
 export const authScreenSwitched = (callback) => async dispatch => {
-    dispatch({type: AUTH_SCREEN_RESET});
+    dispatch({type: GET_INITIAL_STATE});
     callback();
 };
 
@@ -61,7 +61,7 @@ export const signUp = ({cprNumber, phoneNumber}, callback) => async dispatch => 
         await axios.post(`${ROOT_URL}/createUser`, {cprNumber});
         await axios.post(`${ROOT_URL}/requestCode`, {cprNumber, phoneNumber});
 
-        dispatch({type: AUTH_SCREEN_RESET});
+        dispatch({type: GET_INITIAL_STATE});
         callback();
     } catch (err) {
         let {data} = err.response;
@@ -94,7 +94,7 @@ export const signIn = ({cprNumber, code}, callback) => async dispatch => {
 
         await AsyncStorage.setItem('jwt', idToken);
 
-        dispatch({type: AUTH_SCREEN_RESET});
+        dispatch({type: GET_INITIAL_STATE});
         callback();
     } catch (err) {
         let {data} = err.response;
@@ -111,7 +111,7 @@ export const signOut = (callback) => async dispatch => {
         await firebase.auth().signOut();
         await AsyncStorage.removeItem('jwt');
 
-        dispatch({type: AUTH_SCREEN_RESET});
+        dispatch({type: GET_INITIAL_STATE});
         callback();
     } catch (err) {
         let {data} = err.response;
@@ -131,7 +131,7 @@ export const deleteUser = (callback) => async dispatch => {
 
         await AsyncStorage.removeItem('jwt');
 
-        dispatch({type: AUTH_SCREEN_RESET});
+        dispatch({type: GET_INITIAL_STATE});
         callback();
     } catch (err) {
         let {data} = err.response;
