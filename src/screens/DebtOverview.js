@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Container, Content, Button, List, ListItem, Left, Body, Right, Icon, Text} from 'native-base';
+import {View} from 'react-native';
+import {Container, Content, Button, List, ListItem, Body, Right, Icon, Text} from 'native-base';
 import {connect} from 'react-redux';
 import AppHeader from "../components/AppHeader";
 
@@ -11,7 +12,7 @@ class DebtOverview extends Component {
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
                 <Content style={{flex: 4}}>
-                    <List dataArray={this.props.debtList}
+                    <List dataArray={this.props.debtItems}
                           renderRow={(item) =>
                               <ListItem>
                                   <Body>
@@ -19,8 +20,10 @@ class DebtOverview extends Component {
                                   <Text note>{item.value} kr</Text>
                                   </Body>
                                   <Right>
-                                      <Icon name="md-create"/>
-                                      <Icon name="md-trash"/>
+                                      <View style={{flexDirection: 'row'}}>
+                                      <Icon style={{marginRight: 7, fontSize: 30}} name="md-create"/>
+                                      <Icon style={{marginHorizontal: 7, fontSize: 30}} name="md-trash"/>
+                                      </View>
                                   </Right>
                               </ListItem>
                           }>
@@ -56,7 +59,7 @@ const styles = {
 };
 
 const mapStateToProps = ({debt}) => {
-    return {debtList} = debt;
+    return {debtItems} = debt;
 };
 
 export default connect(mapStateToProps, {})(DebtOverview);

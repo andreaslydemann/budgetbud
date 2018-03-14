@@ -3,7 +3,7 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    debtList: [
+    debtItems: [
         {name: "Gæld 1", value: '10'},
         {name: "Gæld 2", value: '20'},
         {name: "Gæld 3", value: '30'},
