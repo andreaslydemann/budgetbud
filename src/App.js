@@ -47,8 +47,7 @@ export default class App extends Component {
                 DebtOverview: {screen: DebtOverview}
             },
             {
-                navigationOptions: {gesturesEnabled: false},
-                initialRouteName: "MyBudget",
+                navigationOptions: {gesturesEnabled: true},
                 headerMode: "none"
             }
         );
@@ -59,8 +58,7 @@ export default class App extends Component {
                 UserDetails: {screen: UserDetails}
             },
             {
-                navigationOptions: {gesturesEnabled: false},
-                initialRouteName: "Settings",
+                navigationOptions: {gesturesEnabled: true},
                 headerMode: "none"
             }
         );
@@ -91,7 +89,7 @@ export default class App extends Component {
                 SignUp: {screen: SignUp},
             },
             {
-                navigationOptions: {gesturesEnabled: false},
+                navigationOptions: {gesturesEnabled: true},
                 initialRouteName: this.state.signedIn ? 'Drawer' : 'SignIn',
                 headerMode: "none"
             }
