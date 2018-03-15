@@ -2,14 +2,18 @@ import {
     INCOME_CHANGED,
     CATEGORY_CHANGED,
     CREATE_BUDGET,
-    CREATE_BUDGET_FAIL, OPEN_DRAWER, GET_INITIAL_STATE, SHOW_DIALOG
+    CREATE_BUDGET_FAIL,
+    OPEN_DRAWER,
+    GET_INITIAL_STATE
 } from './types';
 import axios from 'axios';
 import {firebaseFunctionsURL} from "../config/firebase_config";
+import firebase from "../reducers/index";
+import {AsyncStorage} from 'react-native';
 
 const ROOT_URL = firebaseFunctionsURL;
 
-export const getInitialState = text => {
+export const getInitialBudget = text => {
     return {
         type: GET_INITIAL_STATE,
         payload: text
@@ -31,17 +35,20 @@ export const categoryChanged = (name, value) => {
     };
 };
 
-export const createBudget = ({income, categoryName, categoryValue}, callBack) => async dispatch => {
+export const createBudget = ({income, category}, callBack) => async dispatch => {
     if (income.length === 0) {
         income = 0;
-    } else if (categoryValue.length === 0) {
-        categoryValue = 0;
+    } else if (category.value.length === 0) {
+        category.value = 0;
     }
 
     dispatch({type: CREATE_BUDGET});
+    let token = await AsyncStorage.getItem('jwt');
 
     try {
-        await axios.post(`${ROOT_URL}/createBudget`, {income, categoryName, categoryValue});
+        let uid = await firebase.auth().currentUser.uid;
+        await axios.post(`${ROOT_URL}/createBudget`, {income, category, cprNumber: uid},
+            {headers: { Authorization: 'Bearer ' + token }});
 
     } catch (err) {
         let {data} = err.response;
