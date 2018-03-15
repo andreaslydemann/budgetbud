@@ -13,7 +13,7 @@ const styles = {
     containerStyle: {
         height: 2,
         width: '100%',
-        backgroundColor: '#999999',
+        backgroundColor: '#777777',
         shadowColor: '#000',
         shadowOffset: { width: 1, height: 3 },
         shadowOpacity: 0.1,

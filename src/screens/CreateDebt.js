@@ -6,6 +6,10 @@ import {View} from 'react-native';
 import {connect} from "react-redux";
 
 class CreateDebt extends Component {
+    onContinuePress = () => {
+        this.props.navigation.navigate('DebtPreview');
+    };
+
     render() {
         return (
             <Container>
@@ -13,7 +17,8 @@ class CreateDebt extends Component {
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <DebtForm categoryItems={this.props.categoryItems}/>
+                <DebtForm categoryItems={this.props.categoryItems}
+                          onContinuePress={this.onContinuePress}/>
             </Container>
         );
     }

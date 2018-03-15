@@ -35,12 +35,12 @@ class DebtForm extends Component {
                             style={[styles.inputStyle, {width: '100%'}]}
                             cancelBtnText="Afbryd"
                             confirmBtnText="Ok"
-                            iconComponent={<Icon name="md-calendar"/>}
+                            iconComponent={<Icon style={{color: '#777777'}} name="md-calendar"/>}
                             customStyles={{
                                 dateInput: {
                                     borderRadius: 100,
                                     borderColor: '#001',
-                                    borderWidth: 0.5,
+                                    borderWidth: 1,
                                     marginRight: 5
                                 },
                                 dateText: {
@@ -78,6 +78,7 @@ class DebtForm extends Component {
                     </View>
 
                     <Button rounded
+                            onPress={() => this.props.onContinuePress()}
                             style={styles.buttonStyle}
                     >
                         <Text style={styles.itemStyle}>Fortsæt</Text>
