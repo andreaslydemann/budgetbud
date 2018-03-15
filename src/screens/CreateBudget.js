@@ -24,14 +24,12 @@ class CreateBudget extends Component {
     };
 
     onMenuPressed = () => {
-        console.log("Menu pressed");
         this.props.openDrawer(() => {
             this.props.navigation.navigate('DrawerOpen');
         });
     };
 
     render() {
-        console.log("List", this.props.category);
         return (
             <Container style={[{alignItems: 'stretch'}]}>
                 {/*---HEADER---*/}

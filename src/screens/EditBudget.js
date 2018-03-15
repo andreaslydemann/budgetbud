@@ -9,17 +9,14 @@ import AppHeader from "../components/AppHeader";
 
 class EditBudget extends Component {
     onIncomeChange = (text) => {
-        console.log("Income change");
         this.props.incomeChanged(text);
     };
 
     onCategoryChange = (text) => {
-        console.log("BEFORE: Category change " + text);
         this.props.categoryChanged(text);
     };
 
     handleSubmit = () => {
-        console.log("Submit");
         Keyboard.dismiss();
         const {income, categoryValue} = this.props;
         this.props.editBudget({income, categoryValue}, () => {
@@ -28,7 +25,6 @@ class EditBudget extends Component {
     };
 
     onMenuPressed = () => {
-        console.log("Menu pressed");
         this.props.openDrawer(() => {
             this.props.navigation.navigate('DrawerOpen');
         });
