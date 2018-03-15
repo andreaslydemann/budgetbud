@@ -5,8 +5,7 @@ import {
     INCOME_CHANGED,
     GET_INITIAL_STATE
 } from "../actions/types";
-import Immutable from 'immutable';
-import {fromJS, Record} from "../../node_modules/immutable/dist/immutable";
+import {fromJS, Record} from "immutable";
 
 const categoryList = fromJS({category: [
     {name: "Kategori 1", value: '10'},

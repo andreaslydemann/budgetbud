@@ -21,6 +21,7 @@ import UserDetails from "./screens/UserDetails";
 import Intro from "./screens/Intro";
 import EditBudget from "./screens/EditBudget";
 import DebtOverview from "./screens/DebtOverview";
+import CreateDebt from './screens/CreateDebt';
 
 export default class App extends Component {
     state = {signedIn: false};
@@ -44,10 +45,11 @@ export default class App extends Component {
             {
                 MyBudget: {screen: MyBudget},
                 EditBudget: {screen: EditBudget},
-                DebtOverview: {screen: DebtOverview}
+                DebtOverview: {screen: DebtOverview},
+                CreateDebt: {screen: CreateDebt}
             },
             {
-                navigationOptions: {gesturesEnabled: true},
+                navigationOptions: {gesturesEnabled: false},
                 headerMode: "none"
             }
         );
@@ -58,7 +60,7 @@ export default class App extends Component {
                 UserDetails: {screen: UserDetails}
             },
             {
-                navigationOptions: {gesturesEnabled: true},
+                navigationOptions: {gesturesEnabled: false},
                 headerMode: "none"
             }
         );
@@ -89,7 +91,7 @@ export default class App extends Component {
                 SignUp: {screen: SignUp},
             },
             {
-                navigationOptions: {gesturesEnabled: true},
+                navigationOptions: {gesturesEnabled: false},
                 initialRouteName: this.state.signedIn ? 'Drawer' : 'SignIn',
                 headerMode: "none"
             }
