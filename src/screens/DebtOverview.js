@@ -1,16 +1,25 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import {Container, Content, Button, List, ListItem, Body, Right, Icon, Text} from 'native-base';
+import Separator from '../components/Separator';
 import {connect} from 'react-redux';
+import {resetDebtForm} from "../actions/debt_actions";
 import AppHeader from "../components/AppHeader";
 
 class DebtOverview extends Component {
+    onCreateDebtPress = () => {
+        this.props.resetDebtForm(() => {
+            this.props.navigation.navigate('CreateDebt');
+        });
+    };
+
     render() {
         return (
             <Container>
                 <AppHeader headerText={'Gældsoversigt'}
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
+
                 <Content style={{flex: 4}}>
                     <List dataArray={this.props.debtItems}
                           renderRow={(item) =>
@@ -29,8 +38,11 @@ class DebtOverview extends Component {
                           }>
                     </List>
                 </Content>
+
+                <Separator/>
+
                 <Button rounded
-                        onPress={this.props.handleSubmit}
+                        onPress={() => this.onCreateDebtPress()}
                         style={styles.buttonStyle}
                 >
                     <Text style={styles.itemStyle}>Opret gæld</Text>
@@ -62,4 +74,4 @@ const mapStateToProps = ({debt}) => {
     return {debtItems} = debt;
 };
 
-export default connect(mapStateToProps, {})(DebtOverview);
+export default connect(mapStateToProps, {resetDebtForm})(DebtOverview);

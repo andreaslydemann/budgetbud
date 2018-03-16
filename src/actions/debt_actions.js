@@ -9,9 +9,10 @@ import {
 
 const ROOT_URL = firebaseFunctionsURL;
 
-export const getInitialState = text => {
-    return {
-        type: GET_INITIAL_STATE,
-        payload: text
-    };
+export const resetDebtForm = (callback) => async dispatch => {
+    dispatch({
+        type: GET_INITIAL_STATE
+    });
+
+    callback();
 };

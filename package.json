@@ -9,6 +9,7 @@
     "native-base": "^2.3.9",
     "react": "^16.2.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
+    "react-native-datepicker": "^1.6.0",
     "react-native-modalbox": "^1.4.2",
     "react-native-popup-dialog": "^0.10.46",
     "react-navigation": "^1.2.1",

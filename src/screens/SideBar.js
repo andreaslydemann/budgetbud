@@ -69,8 +69,8 @@ class SideBar extends Component {
                     bounces={false}
                     style={{flex: 1, backgroundColor: "#fff", top: -1}}
                 >
-                    <View style={styles.drawerCover}>
-                        <Image square style={styles.drawerImage}
+                    <View style={styling.drawerCover}>
+                        <Image square style={styling.drawerImage}
                                source={require("../../assets/drawer-image.png")}/>
                     </View>
 
@@ -89,7 +89,7 @@ class SideBar extends Component {
                                         name={data.icon}
                                         style={{color: "#777", fontSize: 26, width: 30, marginLeft: 5}}
                                     />
-                                    <Text style={styles.text}>
+                                    <Text style={styling.text}>
                                         {data.name}
                                     </Text>
                                 </Left>
@@ -101,7 +101,7 @@ class SideBar extends Component {
     }
 }
 
-styles = {
+styling = {
     drawerCover: {
         alignSelf: "stretch",
         height: deviceHeight / 7.5,
