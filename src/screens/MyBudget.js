@@ -10,12 +10,6 @@ import {AsyncStorage} from 'react-native';
 
 
 class MyBudget extends Component {
-
-    async componentWillMount() {
-        let token = await AsyncStorage.getItem('jwt');
-        console.log(token);
-    };
-
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>
