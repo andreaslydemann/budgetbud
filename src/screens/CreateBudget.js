@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Keyboard} from 'react-native';
 import {Button, Container, Form, Spinner, Text} from 'native-base';
 import {connect} from 'react-redux';
-import {incomeChanged, categoryChanged, createBudget, openDrawer} from '../actions/index';
+import {incomeChanged, categoryChanged, createBudget} from '../actions/index';
 import BudgetForm from "../components/BudgetForm";
 import AppHeader from "../components/AppHeader";
+import {getInitialBudget} from "../actions/budget_actions";
 
 class CreateBudget extends Component {
     onIncomeChange = (text) => {
@@ -23,12 +24,6 @@ class CreateBudget extends Component {
         });
     };
 
-    onMenuPressed = () => {
-        this.props.openDrawer(() => {
-            this.props.navigation.navigate('DrawerOpen');
-        });
-    };
-
     render() {
         return (
             <Container style={[{alignItems: 'stretch'}]}>
@@ -36,8 +31,7 @@ class CreateBudget extends Component {
                 <AppHeader headerText={'Opret budget'}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
 
-                <BudgetForm onMenuPressed={this.onMenuPressed}
-                            onIncomeChanged={this.onIncomeChange}
+                <BudgetForm onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
                             handleSubmit={this.handleSubmit}
                             income={this.props.income}
@@ -91,8 +85,8 @@ const mapStateToProps = ({budget}) => {
 };
 
 export default connect(mapStateToProps, {
-    openDrawer,
     createBudget,
     incomeChanged,
-    categoryChanged
+    categoryChanged,
+    getInitialBudget
 })(CreateBudget);

@@ -12,12 +12,6 @@ import {
 import Separator from "./Separator";
 
 class BudgetForm extends PureComponent {
-    constructor() {
-        super();
-        this.categoryRef = firebase.firestore().collection('categories').where("userID", "==", userID);
-        this.unsubscribe = null;
-    }
-
     render() {
         return (
             <Container>
