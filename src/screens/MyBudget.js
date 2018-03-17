@@ -6,6 +6,7 @@ import {FlatList} from "react-native";
 import {connect} from "react-redux";
 import {openDrawer} from "../actions/budget_actions";
 import Modal from 'react-native-modalbox';
+import {AsyncStorage} from 'react-native';
 
 
 class MyBudget extends Component {

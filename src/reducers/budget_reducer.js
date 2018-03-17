@@ -3,18 +3,9 @@ import {
     CREATE_BUDGET,
     CREATE_BUDGET_SCREEN_SWITCHED,
     INCOME_CHANGED,
-    GET_INITIAL_STATE
+    GET_INITIAL_STATE, CREATE_BUDGET_FAIL
 } from "../actions/types";
 import {fromJS, Record} from "immutable";
-
-const categoryList = fromJS({category: [
-    {name: "Kategori 1", value: '10'},
-    {name: "Kategori 2", value: '20'},
-    {name: "Kategori 3", value: '30'},
-    {name: "Kategori 4", value: '40'},
-    {name: "Kategori 5", value: '50'},
-    {name: "Kategori 6", value: '60'},
-    {name: "Kategori 7", value: '70'}]});
 
 const INITIAL_STATE = {
     income: '',
@@ -53,12 +44,13 @@ export default (state = INITIAL_STATE, action) => {
                 return listItem.get('name') === action.name;
             });
             list = list.setIn([indexOfListToUpdate, 'value'], action.payload)
-
             return {...state, category: list.toJS()};
         case CREATE_BUDGET:
             return {...state, loading: true, error: ''};
         case CREATE_BUDGET_SCREEN_SWITCHED:
             return INITIAL_STATE;
+        case CREATE_BUDGET_FAIL:
+            return {...state, ...INITIAL_STATE, error: action.payload};
         default:
             return state;
     }

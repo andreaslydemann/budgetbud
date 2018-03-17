@@ -4,7 +4,7 @@ import {Button, Container, Form, Spinner, Text} from 'native-base';
 import {connect} from 'react-redux';
 import {incomeChanged, categoryChanged, createBudget, openDrawer} from '../actions/index';
 import BudgetForm from "../components/BudgetForm";
-import {editBudget, getInitialState} from "../actions/budget_actions";
+import {editBudget, getInitialBudget, getInitialState} from "../actions/budget_actions";
 import AppHeader from "../components/AppHeader";
 
 class EditBudget extends Component {
@@ -24,12 +24,6 @@ class EditBudget extends Component {
         });
     };
 
-    onMenuPressed = () => {
-        this.props.openDrawer(() => {
-            this.props.navigation.navigate('DrawerOpen');
-        });
-    };
-
     render() {
         return (
             <Container style={[{alignItems: 'stretch'}]}>
@@ -38,8 +32,7 @@ class EditBudget extends Component {
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <BudgetForm onMenuPressed={this.onMenuPressed}
-                            onIncomeChanged={this.onIncomeChange}
+                <BudgetForm onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
                             handleSubmit={this.handleSubmit}
                             income={this.props.income}
@@ -103,5 +96,5 @@ const mapStateToProps = ({budget}) => {
 
 export default connect(mapStateToProps, {
     openDrawer, editBudget,
-    incomeChanged, categoryChanged
+    incomeChanged, categoryChanged, getInitialBudget
 })(EditBudget);
