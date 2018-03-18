@@ -20,7 +20,7 @@ class ConfirmDialog extends Component {
                     dismissOnTouchOutside={false}
                 >
                     <Container style={styles.dialogContentView}>
-                        {this.props.loading ? (<Spinner color='#002940' style={styles.spinner}/>) : (<View/>)}
+                        {this.props.loading ? (<Spinner color='#1c313a' style={styles.spinner}/>) : (<View/>)}
                         <View style={styles.dialogLabelContainer}>
                             <Label style={styles.dialogLabel}>{this.props.text}</Label>
                         </View>
@@ -43,7 +43,7 @@ class ConfirmDialog extends Component {
                                 text="Ok"
                                 onPress={() => {
                                     if (!this.props.loading)
-                                        this.popupDialog.show();
+                                        this.props.confirmCallback();
                                 }}
                                 key="button-2"
                             />

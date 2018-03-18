@@ -25,18 +25,6 @@ import CreateDebt from './screens/CreateDebt';
 import DebtPreview from './screens/DebtPreview';
 
 export default class App extends Component {
-    state = {signedIn: false};
-
-    async componentWillMount() {
-        //await AsyncStorage.removeItem('jwt');
-        let token = await AsyncStorage.getItem('jwt');
-
-        if (token)
-            this.setState({signedIn: true});
-        else
-            this.setState({signedIn: false});
-    };
-
     componentDidMount() {
         firebase.initializeApp(firebaseConfig);
     };
@@ -94,7 +82,7 @@ export default class App extends Component {
             },
             {
                 navigationOptions: {gesturesEnabled: false},
-                initialRouteName: this.state.signedIn ? 'Drawer' : 'SignIn',
+                initialRouteName: this.props.signedIn ? 'Drawer' : 'SignIn',
                 headerMode: "none"
             }
         );

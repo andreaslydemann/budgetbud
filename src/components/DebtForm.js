@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {View, Keyboard, TouchableWithoutFeedback} from 'react-native';
-import {Container, Item, Input, Button, Text, Label, List, ListItem, CheckBox, Body, Icon} from 'native-base';
+import {View, FlatList, Keyboard, TouchableWithoutFeedback} from 'react-native';
+import {Container, Item, Input, Button, Text, Label, ListItem, CheckBox, Body, Icon} from 'native-base';
 import DatePicker from 'react-native-datepicker'
 import Separator from '../components/Separator';
 
@@ -59,17 +59,11 @@ class DebtForm extends Component {
                         <View style={styles.incomeFormStyle}>
                             <Label style={styles.textStyle}>Angiv kategorier, hvor gælden skal trækkes.</Label>
                         </View>
-                        <List
 
-                            dataArray={this.props.categoryItems}
-                            renderRow={(item) =>
-                                <ListItem>
-                                    <CheckBox checked={false}/>
-                                    <Body>
-                                    <Text>{item.name}</Text>
-                                    </Body>
-                                </ListItem>
-                            }
+                        <FlatList
+                            data={this.props.categoryItems}
+                            renderItem={this.renderItem}
+                            keyExtractor={item => item.name}
                         />
                     </View>
 
@@ -86,6 +80,17 @@ class DebtForm extends Component {
                     </Button>
                 </Container>
             </TouchableWithoutFeedback>
+        );
+    }
+
+    renderItem = ({item}) => {
+        return (
+            <ListItem>
+                <CheckBox style={{borderColor: '#777777'}} checked={false}/>
+                <Body>
+                <Text>{item.name}</Text>
+                </Body>
+            </ListItem>
         );
     }
 }
