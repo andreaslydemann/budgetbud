@@ -6,7 +6,8 @@ import {
     GET_INITIAL_STATE,
     GET_DEBTS,
     GET_DEBTS_SUCCESS,
-    GET_DEBTS_FAIL
+    GET_DEBTS_FAIL,
+    DEBT_SELECTED
 } from './types';
 
 const ROOT_URL = firebaseFunctionsURL;
@@ -17,6 +18,13 @@ export const resetDebtForm = (callback) => async dispatch => {
     });
 
     callback();
+};
+
+export const debtSelected = key => {
+    return {
+        type: DEBT_SELECTED,
+        payload: key
+    };
 };
 
 export const getDebts = (budgetID) => async dispatch => {

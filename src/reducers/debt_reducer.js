@@ -2,7 +2,7 @@ import {
     RESET_DEBT_FORM,
     GET_DEBTS,
     GET_DEBTS_SUCCESS,
-    GET_DEBTS_FAIL
+    GET_DEBTS_FAIL, DEBT_SELECTED
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -17,13 +17,16 @@ const INITIAL_STATE = {
         {name: "Kategori 6", value: '60'},
         {name: "Kategori 7", value: '70'}
     ],
-    loading: false
+    loading: false,
+    selectedDebt: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case RESET_DEBT_FORM:
             return {...state, categoryItems: INITIAL_STATE.categoryItems};
+        case DEBT_SELECTED:
+            return {...state, selectedDebt: action.payload};
         case GET_DEBTS:
             return {...state, loading: true, error: ''};
         case GET_DEBTS_SUCCESS:

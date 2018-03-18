@@ -1,10 +1,10 @@
 import React, {PureComponent} from 'react';
 import {View, FlatList} from 'react-native';
-import {Container, Content, Button, ListItem, Body, Right, Icon, Text, Spinner} from 'native-base';
+import {Container, Button, ListItem, Body, Right, Icon, Text, Spinner} from 'native-base';
 import Separator from '../components/Separator';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {resetDebtForm, getDebts} from "../actions/debt_actions";
+import {resetDebtForm, getDebts, debtSelected} from "../actions/debt_actions";
 import AppHeader from "../components/AppHeader";
 import ConfirmDialog from '../components/ConfirmDialog';
 
@@ -20,13 +20,21 @@ class DebtOverview extends PureComponent {
         });
     };
 
+    deleteDebt = () => {
+
+    };
+
+    onDebtSelect = (key) => {
+        this.props.debtSelected(key);
+    };
+
     render() {
         return (
             <Container>
                 <ConfirmDialog
                     title="Bekræft sletning"
                     text="Er du sikker på, at du vil slette den valgte gæld?"
-                    confirmCallback={() => this.deleteUser()}
+                    confirmCallback={() => this.deleteDebt()}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
                         this.confirmDialog = confirmDialog
@@ -40,8 +48,10 @@ class DebtOverview extends PureComponent {
 
                     <Container style={{flex: 4, justifyContent: 'center'}}>
                         {this.props.loading ? (
-                            <Spinner style={{alignItems: 'center',
-                                justifyContent: 'center'}} color='#1c313a'/>) : (
+                            <Spinner style={{
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }} color='#1c313a'/>) : (
 
                             <FlatList
                                 data={this.props.debtItems}
@@ -57,7 +67,6 @@ class DebtOverview extends PureComponent {
                             style={styles.buttonStyle}
                     >
                         <Text style={styles.itemStyle}>Opret gæld</Text>
-
                     </Button>
                 </Container>
             </Container>
@@ -66,7 +75,9 @@ class DebtOverview extends PureComponent {
 
     renderItem = ({item}) => {
         return (
-            <ListItem>
+            <ListItem onPress={() => {
+                this.onDebtSelect(item.key)
+            }}>
                 <Body>
                 <Text>{item.name}</Text>
                 <Text note>{item.totalVal} kr</Text>
@@ -104,13 +115,13 @@ const styles = {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {loading} = state.debt;
+    const {loading, selectedDebt} = state.debt;
 
     const debtItems = _.map(state.debt.debtItems, (item) => {
         return {...item.data, key: item.id};
     });
 
-    return {budgetID, debtItems, loading};
+    return {budgetID, debtItems, loading, selectedDebt};
 };
 
-export default connect(mapStateToProps, {resetDebtForm, getDebts})(DebtOverview);
+export default connect(mapStateToProps, {resetDebtForm, getDebts, debtSelected})(DebtOverview);
