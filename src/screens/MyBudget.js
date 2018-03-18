@@ -185,7 +185,7 @@ const styles = {
     },
     textStyle: {
         fontWeight: '400',
-        fontSize: 14,
+        fontSize: 16,
         alignSelf: 'flex-start',
         marginLeft: 5,
     },

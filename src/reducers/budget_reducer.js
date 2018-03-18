@@ -8,7 +8,7 @@ import {
 import {fromJS, Record} from "immutable";
 
 const INITIAL_STATE = {
-    income: '',
+    income: '0',
     estimatedIncome: '0',
     error: '',
     loading: false,
@@ -37,13 +37,14 @@ export default (state = INITIAL_STATE, action) => {
         case GET_INITIAL_STATE:
             return {category: action.payload};
         case INCOME_CHANGED:
-            return {...state, income: action.payload};
+            let newDisposable = state.income - state.expenses;
+            return {...state, income: action.payload, disposable: newDisposable};
         case CATEGORY_CHANGED:
             let list = fromJS(state.category);
             const indexOfListToUpdate = list.findIndex(listItem => {
                 return listItem.get('name') === action.name;
             });
-            list = list.setIn([indexOfListToUpdate, 'value'], action.payload)
+            list = list.setIn([indexOfListToUpdate, 'value'], action.payload);
             return {...state, category: list.toJS()};
         case CREATE_BUDGET:
             return {...state, loading: true, error: ''};

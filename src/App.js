@@ -23,6 +23,7 @@ import EditBudget from "./screens/EditBudget";
 import DebtOverview from "./screens/DebtOverview";
 import CreateDebt from './screens/CreateDebt';
 import DebtPreview from './screens/DebtPreview';
+import EditDisposable from "./screens/EditDisposable";
 
 export default class App extends Component {
     state = {signedIn: false};
@@ -46,6 +47,7 @@ export default class App extends Component {
             {
                 MyBudget: {screen: MyBudget},
                 EditBudget: {screen: EditBudget},
+                EditDisposable: {screen: EditDisposable},
                 DebtOverview: {screen: DebtOverview},
                 CreateDebt: {screen: CreateDebt},
                 DebtPreview: {screen: DebtPreview}
