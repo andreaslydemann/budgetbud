@@ -12,7 +12,6 @@ class Setup extends Component {
 
     componentWillMount() {
         this.loadFonts();
-
     }
 
     componentDidMount() {

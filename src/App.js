@@ -11,7 +11,6 @@ import CreateBudget from "./screens/CreateBudget";
 import MyBudget from "./screens/MyBudget";
 import SpendingOverview from "./screens/SpendingOverview";
 import MonthlyReports from "./screens/MonthlyReports";
-import CategorizeTransactions from "./screens/CategorizeTransactions";
 import Settings from "./screens/Settings";
 import BudgetPreview from "./screens/BudgetPreview"
 import UserDetails from "./screens/UserDetails";
@@ -57,7 +56,6 @@ export default class App extends Component {
                 BudgetPreview: {screen: BudgetPreview},
                 SpendingOverview: {screen: SpendingOverview},
                 MonthlyReports: {screen: MonthlyReports},
-                CategorizeTransactions: {screen: CategorizeTransactions},
                 Settings: {screen: SettingsStack},
                 Intro: {screen: Intro},
             },

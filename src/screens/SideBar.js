@@ -25,11 +25,6 @@ const elements = [
         icon: "md-calendar"
     },
     {
-        name: "Kategorisér transaktioner",
-        route: "CategorizeTransactions",
-        icon: "md-list"
-    },
-    {
         name: "Indstillinger",
         route: "Settings",
         icon: "md-options"
