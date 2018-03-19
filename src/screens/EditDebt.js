@@ -4,7 +4,7 @@ import AppHeader from "../components/AppHeader";
 import DebtForm from '../components/DebtForm';
 import {connect} from "react-redux";
 
-class CreateDebt extends Component {
+class EditDebt extends Component {
     onContinuePress = () => {
         this.props.navigation.navigate('DebtPreview');
     };
@@ -12,7 +12,7 @@ class CreateDebt extends Component {
     render() {
         return (
             <Container>
-                <AppHeader headerText={'Opret gæld'}
+                <AppHeader headerText={'Redigér gæld'}
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
@@ -36,4 +36,4 @@ const mapStateToProps = ({debt}) => {
     return {categoryItems} = debt;
 };
 
-export default connect(mapStateToProps, null)(CreateDebt);
+export default connect(mapStateToProps, null)(EditDebt);

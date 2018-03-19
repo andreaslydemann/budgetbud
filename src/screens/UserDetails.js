@@ -8,6 +8,7 @@ import {deleteUser} from "../actions";
 
 class UserDetails extends Component {
     deleteUser = () => {
+        console.log("hel");
         this.props.deleteUser(() => {
             this.props.navigation.dispatch(NavigationActions.reset({
                 index: 0,

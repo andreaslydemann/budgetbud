@@ -1,54 +1,97 @@
-import React, {Component} from 'react';
-import {View} from 'react-native';
-import {Container, Content, Button, List, ListItem, Body, Right, Icon, Text} from 'native-base';
+import React, {PureComponent} from 'react';
+import {View, FlatList} from 'react-native';
+import {Container, Button, ListItem, Body, Right, Icon, Text, Spinner} from 'native-base';
 import Separator from '../components/Separator';
 import {connect} from 'react-redux';
-import {resetDebtForm} from "../actions/debt_actions";
+import _ from 'lodash';
+import {resetDebtForm, getDebts, debtSelected} from "../actions/debt_actions";
 import AppHeader from "../components/AppHeader";
+import ConfirmDialog from '../components/ConfirmDialog';
 
-class DebtOverview extends Component {
+class DebtOverview extends PureComponent {
+    componentWillMount() {
+        //this.props.getDebts(this.props.budgetID);
+        this.props.getDebts("Gv9eeodFRPx7PJdzZ2i6");
+    }
+
     onCreateDebtPress = () => {
         this.props.resetDebtForm(() => {
             this.props.navigation.navigate('CreateDebt');
         });
     };
 
+    deleteDebt = () => {
+
+    };
+
+    onDebtSelect = (key) => {
+        this.props.debtSelected(key);
+    };
+
     render() {
         return (
             <Container>
-                <AppHeader headerText={'Gældsoversigt'}
-                           showBackButton={true}
-                           onLeftButtonPress={() => this.props.navigation.pop()}/>
+                <ConfirmDialog
+                    title="Bekræft sletning"
+                    text="Er du sikker på, at du vil slette den valgte gæld?"
+                    confirmCallback={() => this.deleteDebt()}
+                    loading={this.props.loading}
+                    ref={(confirmDialog) => {
+                        this.confirmDialog = confirmDialog
+                    }}
+                />
 
-                <Content style={{flex: 4}}>
-                    <List dataArray={this.props.debtItems}
-                          renderRow={(item) =>
-                              <ListItem>
-                                  <Body>
-                                  <Text>{item.name}</Text>
-                                  <Text note>{item.value} kr</Text>
-                                  </Body>
-                                  <Right>
-                                      <View style={{flexDirection: 'row'}}>
-                                      <Icon style={{marginRight: 7, fontSize: 30}} name="md-create"/>
-                                      <Icon style={{marginHorizontal: 7, fontSize: 30}} name="md-trash"/>
-                                      </View>
-                                  </Right>
-                              </ListItem>
-                          }>
-                    </List>
-                </Content>
+                <Container>
+                    <AppHeader headerText={'Gældsoversigt'}
+                               showBackButton={true}
+                               onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <Separator/>
+                    <Container style={{flex: 4, justifyContent: 'center'}}>
+                        {this.props.loading ? (
+                            <Spinner style={{
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }} color='#1c313a'/>) : (
 
-                <Button rounded
-                        onPress={() => this.onCreateDebtPress()}
-                        style={styles.buttonStyle}
-                >
-                    <Text style={styles.itemStyle}>Opret gæld</Text>
+                            <FlatList
+                                data={this.props.debtItems}
+                                renderItem={this.renderItem}
+                            />
+                        )}
+                    </Container>
 
-                </Button>
+                    <Separator/>
+
+                    <Button rounded
+                            onPress={() => this.onCreateDebtPress()}
+                            style={styles.buttonStyle}
+                    >
+                        <Text style={styles.itemStyle}>Opret gæld</Text>
+                    </Button>
+                </Container>
             </Container>
+        );
+    }
+
+    renderItem = ({item}) => {
+        return (
+            <ListItem onPress={() => {
+                this.onDebtSelect(item.key)
+            }}>
+                <Body>
+                <Text>{item.name}</Text>
+                <Text note>{item.totalVal} kr</Text>
+                </Body>
+                <Right>
+                    <View style={{flexDirection: 'row'}}>
+                        <Icon style={{marginRight: 7, fontSize: 30}} name="md-create"/>
+                        <Icon
+                            onPress={() => this.confirmDialog.showDialog()}
+                            style={{marginHorizontal: 7, fontSize: 30}}
+                            name="md-trash"/>
+                    </View>
+                </Right>
+            </ListItem>
         );
     }
 }
@@ -70,8 +113,15 @@ const styles = {
     }
 };
 
-const mapStateToProps = ({debt}) => {
-    return {debtItems} = debt;
+const mapStateToProps = (state) => {
+    const budgetID = state.budget.budgetID;
+    const {loading, selectedDebt} = state.debt;
+
+    const debtItems = _.map(state.debt.debtItems, (item) => {
+        return {...item.data, key: item.id};
+    });
+
+    return {budgetID, debtItems, loading, selectedDebt};
 };
 
-export default connect(mapStateToProps, {resetDebtForm})(DebtOverview);
+export default connect(mapStateToProps, {resetDebtForm, getDebts, debtSelected})(DebtOverview);
