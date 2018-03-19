@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {signUp, cprNumberChanged, phoneNumberChanged} from '../actions';
+import {signUp, cprNumberChanged, phoneNumberChanged, authScreenSwitched} from '../actions';
 import Logo from '../components/Logo';
 import AuthForm from '../components/AuthForm';
 import ErrorInfo from '../components/ErrorInfo';
@@ -97,5 +97,5 @@ const mapStateToProps = ({auth}) => {
 };
 
 export default connect(mapStateToProps, {
-    signUp, cprNumberChanged, phoneNumberChanged
+    signUp, cprNumberChanged, phoneNumberChanged, authScreenSwitched
 })(SignUp);

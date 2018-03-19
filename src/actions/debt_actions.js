@@ -1,5 +1,5 @@
-import {AsyncStorage} from 'react-native';
 import axios from 'axios';
+import firebase from 'firebase';
 import {firebaseFunctionsURL} from "../config/firebase_config";
 
 import {
@@ -31,7 +31,7 @@ export const getDebts = (budgetID) => async dispatch => {
     dispatch({type: GET_DEBTS});
 
     try {
-        let token = await AsyncStorage.getItem('jwt');
+        let token = await firebase.auth().currentUser.getIdToken();
 
         let response = await axios.get(`${ROOT_URL}/getDebts?budgetID=${budgetID}`, {
             headers: {Authorization: 'Bearer ' + token}

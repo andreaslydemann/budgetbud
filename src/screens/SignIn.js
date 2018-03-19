@@ -20,9 +20,7 @@ class SignIn extends Component {
     handleSubmit = () => {
         Keyboard.dismiss();
         const {cprNumber, code} = this.props;
-        this.props.signIn({cprNumber, code}, () => {
-            this.props.navigation.navigate('Drawer');
-        });
+        this.props.signIn({cprNumber, code});
     };
 
     onForgotCodeButtonPress = () => {

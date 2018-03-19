@@ -8,13 +8,12 @@ import {
 } from './types';
 import axios from 'axios';
 import {firebaseFunctionsURL} from "../config/firebase_config";
-import firebase from "../reducers/index";
-import {AsyncStorage} from 'react-native';
+import firebase from 'firebase';
 
 const ROOT_URL = firebaseFunctionsURL;
 
 export const getInitialBudget = ({income, category}, callBack) => async dispatch => {
-    let token = await AsyncStorage.getItem('jwt');
+    let token = await firebase.auth().currentUser.getIdToken();
 
     try {
         await axios.get(`${ROOT_URL}/getBudget`,
@@ -61,7 +60,7 @@ export const createBudget = ({income, category}, callBack) => async dispatch => 
     }
 
     dispatch({type: CREATE_BUDGET});
-    let token = await AsyncStorage.getItem('jwt');
+    let token = await firebase.auth().currentUser.getIdToken();
 
     try {
         let uid = await firebase.auth().currentUser.uid;

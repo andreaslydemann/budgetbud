@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import {StackNavigator, DrawerNavigator} from "react-navigation";
 import {Root} from 'native-base';
 import {Provider} from 'react-redux';
-import firebase from 'firebase';
-import firebaseConfig from './config/firebase_config';
 
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
@@ -16,7 +14,6 @@ import MonthlyReports from "./screens/MonthlyReports";
 import CategorizeTransactions from "./screens/CategorizeTransactions";
 import Settings from "./screens/Settings";
 import BudgetPreview from "./screens/BudgetPreview"
-import {AsyncStorage} from "react-native";
 import UserDetails from "./screens/UserDetails";
 import Intro from "./screens/Intro";
 import EditBudget from "./screens/EditBudget";
@@ -26,10 +23,6 @@ import DebtPreview from './screens/DebtPreview';
 import EditDisposable from "./screens/EditDisposable";
 
 export default class App extends Component {
-    componentDidMount() {
-        firebase.initializeApp(firebaseConfig);
-    };
-
     render() {
         const MyBudgetStack = StackNavigator(
             {
@@ -84,7 +77,7 @@ export default class App extends Component {
             },
             {
                 navigationOptions: {gesturesEnabled: false},
-                initialRouteName: this.props.signedIn ? 'Drawer' : 'SignIn',
+                initialRouteName: this.props.isAuthorized ? 'Drawer' : 'SignIn',
                 headerMode: "none"
             }
         );

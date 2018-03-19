@@ -1,6 +1,5 @@
-import {AsyncStorage} from 'react-native';
 import axios from 'axios';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 import {firebaseFunctionsURL} from "../config/firebase_config";
 
 import {
@@ -73,7 +72,7 @@ const signUpFail = (dispatch, error) => {
     dispatch({type: SIGN_UP_FAIL, payload: error});
 };
 
-export const signIn = ({cprNumber, code}, callback) => async dispatch => {
+export const signIn = ({cprNumber, code}) => async dispatch => {
     if (cprNumber.length !== 10) {
         dispatch({type: VALIDATE_CPR_NUMBER_FAIL});
         return;
@@ -89,13 +88,9 @@ export const signIn = ({cprNumber, code}, callback) => async dispatch => {
             cprNumber, code
         });
 
-        let user = await firebase.auth().signInWithCustomToken(data.token);
-        let idToken = await user.getIdToken();
-
-        await AsyncStorage.setItem('jwt', idToken);
+        await firebase.auth().signInWithCustomToken(data.token);
 
         dispatch({type: GET_INITIAL_STATE});
-        callback();
     } catch (err) {
         let {data} = err.response;
         signInFail(dispatch, data.error);
@@ -106,13 +101,11 @@ const signInFail = (dispatch, error) => {
     dispatch({type: SIGN_IN_FAIL, payload: error});
 };
 
-export const signOut = (callback) => async dispatch => {
+export const signOut = () => async dispatch => {
     try {
         await firebase.auth().signOut();
-        await AsyncStorage.removeItem('jwt');
 
         dispatch({type: GET_INITIAL_STATE});
-        callback();
     } catch (err) {
         let {data} = err.response;
         console.log(data.error);
@@ -122,14 +115,12 @@ export const signOut = (callback) => async dispatch => {
 export const deleteUser = (callback) => async dispatch => {
     try {
         dispatch({type: DELETE_USER});
-        let token = await AsyncStorage.getItem('jwt');
+        let token = await firebase.auth().currentUser.getIdToken();
         let uid = await firebase.auth().currentUser.uid;
 
         await axios.post(`${ROOT_URL}/deleteUser`, {cprNumber: uid}, {
             headers: { Authorization: 'Bearer ' + token }
         });
-
-        await AsyncStorage.removeItem('jwt');
 
         dispatch({type: GET_INITIAL_STATE});
         callback();

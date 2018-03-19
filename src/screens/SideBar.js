@@ -43,17 +43,8 @@ const elements = [
 
 class SideBar extends Component {
     navigate = (route) => {
-        if (route === "SignOut") {
-            this.props.signOut(() => {
-                this.props.navigation.dispatch(NavigationActions.reset({
-                    index: 0,
-                    key: null,
-                    actions: [NavigationActions.navigate({
-                        routeName: "SignIn"
-                    })]
-                }));
-            });
-        }
+        if (route === "SignOut")
+            this.props.signOut();
 
         if (route !== this.props.currentRoute) {
             this.props.screenChanged(route, () => {
