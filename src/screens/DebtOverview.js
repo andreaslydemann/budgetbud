@@ -80,7 +80,7 @@ class DebtOverview extends PureComponent {
             }}>
                 <Body>
                 <Text>{item.name}</Text>
-                <Text note>{item.totalVal} kr</Text>
+                <Text note>{item.totalAmount} kr</Text>
                 </Body>
                 <Right>
                     <View style={{flexDirection: 'row'}}>

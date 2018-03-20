@@ -17,13 +17,13 @@ export const getInitialBudget = ({income, category}, callBack) => async dispatch
 
     try {
         await axios.get(`${ROOT_URL}/getBudget`,
-            {headers: { Authorization: 'Bearer ' + token }})
+            {headers: {Authorization: 'Bearer ' + token}})
             .then(function (response) {
                 dispatch({type: GET_INITIAL_STATE, payload: response.data.budget.income});
             });
 
         await axios.get(`${ROOT_URL}/getCategories`,
-            {headers: { Authorization: 'Bearer ' + token }})
+            {headers: {Authorization: 'Bearer ' + token}})
             .then(function (response) {
                 let categoryName = response.data.categories.name;
                 let categoryValue = response.data.categories.value;
@@ -65,7 +65,7 @@ export const createBudget = ({income, category}, callBack) => async dispatch => 
     try {
         let uid = await firebase.auth().currentUser.uid;
         await axios.post(`${ROOT_URL}/createBudget`, {income, category, cprNumber: uid},
-            {headers: { Authorization: 'Bearer ' + token }});
+            {headers: {Authorization: 'Bearer ' + token}});
 
     } catch (err) {
         let {data} = err.response;
