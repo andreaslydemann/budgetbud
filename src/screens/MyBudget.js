@@ -4,10 +4,16 @@ import AppHeader from "../components/AppHeader";
 import Separator from "../components/Separator";
 import {FlatList} from "react-native";
 import {connect} from "react-redux";
-import {openDrawer} from "../actions/budget_actions";
+import {getBudget} from "../actions/budget_actions";
 import Modal from 'react-native-modalbox';
 
 class MyBudget extends Component {
+    componentWillMount() {
+        this.props.getBudget(() => {
+            this.props.navigation.navigate('CreateBudget');
+        });
+    }    
+    
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>
@@ -33,8 +39,7 @@ class MyBudget extends Component {
                     {/*---CATEGORY LISTVIEW---*/}
                     <Form style={{flex: 4, alignItems: 'stretch'}}>
                         <FlatList
-                            data={this.props.category}
-                            extraData={this.props.categoryValue}
+                            data={this.props.categories}
                             renderItem={this.renderCategory}
                             keyExtractor={item => item.name}
                             style={styles.listStyle}
@@ -127,26 +132,26 @@ class MyBudget extends Component {
         );
     }
 
-    renderCategory = ({item, index}) => {
+    renderCategory = ({item}) => {
         return (
             <ListItem>
                 <Body>
                 <View style={styles.leftContainer}>
                     <Text style={[styles.textStyle, {flex: 1}]}>{item.name + ":"}</Text>
-                    <Text style={[styles.textStyle, {flex: 1}]}>{item.value} KR</Text>
+                    <Text style={[styles.textStyle, {flex: 1}]}>{item.amount} KR</Text>
                 </View>
                 </Body>
             </ListItem>
         );
     };
 
-    renderDebt = ({item, index}) => {
+    renderDebt = ({item}) => {
         return (
             <ListItem>
                 <Body>
                 <View style={styles.leftContainer}>
                     <Text style={[styles.textStyle, {flex: 1}]}>{item.name + ":"}</Text>
-                    <Text style={[styles.textStyle, {flex: 1}]}>{item.value} KR</Text>
+                    <Text style={[styles.textStyle, {flex: 1}]}>{item.amount} KR</Text>
                 </View>
                 </Body>
             </ListItem>
@@ -207,10 +212,10 @@ const styles = {
 };
 
 const mapStateToProps = ({budget}) => {
-    const {income, categoryValue, category, debt, expenses, disposable, estimatedIncome} = budget;
-    return {income, categoryValue, category, debt, expenses, disposable, estimatedIncome}
+    const {income, categories, debt, expenses, disposable, estimatedIncome} = budget;
+    return {income, categories, debt, expenses, disposable, estimatedIncome}
 };
 
 export default connect(mapStateToProps, {
-    openDrawer
+    getBudget
 })(MyBudget);
