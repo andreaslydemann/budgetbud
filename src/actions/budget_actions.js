@@ -17,11 +17,13 @@ const ROOT_URL = firebaseFunctionsURL;
 export const getBudget = (callBack) => async dispatch => {
     dispatch({type: GET_BUDGET});
 
+    console.log("Entering get budget")
+
     let token = await firebase.auth().currentUser.getIdToken();
     let userID = await firebase.auth().currentUser.uid;
 
     try {
-        let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?budgetID=${userID}`,
+        let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?userID=${userID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
         if (budgetResponse === null) {
@@ -36,9 +38,14 @@ export const getBudget = (callBack) => async dispatch => {
         let budgetIncome = budgetResponse.data.budget.income;
         let categories = categoryResponse.data.categories;
 
+        console.log(budgetID);
+        console.log(categories);
+        console.log(budgetIncome);
+
         dispatch({type: GET_BUDGET_SUCCESS, income: budgetIncome, categories: categories, budgetID: budgetID});
 
     } catch (err) {
+        console.log("Hit catch")
         let {data} = err.response;
         getBudgetFail(dispatch, data.error)
     }
