@@ -25,7 +25,8 @@ export const OPEN_DRAWER = 'open_drawer';
 
 // ----------DEBT RELATED TYPES----------
 export const RESET_DEBT_FORM = 'reset_debt_form';
+export const DEBT_SELECTED = 'debt_selected';
 export const GET_DEBTS = 'get_debts';
 export const GET_DEBTS_SUCCESS = 'get_debts_success';
 export const GET_DEBTS_FAIL = 'get_debts_fail';
-export const DEBT_SELECTED = 'debt_selected';
+export const DELETE_DEBT = 'delete_debt';

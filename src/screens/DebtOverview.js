@@ -4,7 +4,7 @@ import {Container, Button, ListItem, Body, Right, Icon, Text, Spinner} from 'nat
 import Separator from '../components/Separator';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {resetDebtForm, getDebts, debtSelected} from "../actions/debt_actions";
+import {resetDebtForm, debtSelected, getDebts, deleteDebt} from "../actions/debt_actions";
 import AppHeader from "../components/AppHeader";
 import ConfirmDialog from '../components/ConfirmDialog';
 
@@ -21,11 +21,12 @@ class DebtOverview extends PureComponent {
     };
 
     deleteDebt = () => {
-
+        this.confirmDialog.dismissDialog();
+        this.props.deleteDebt(this.props.selectedDebt.debtID);
     };
 
-    onDebtSelect = (key) => {
-        this.props.debtSelected(key);
+    onDebtSelect = ({key, debtID}) => {
+        this.props.debtSelected(key, debtID);
     };
 
     render() {
@@ -75,9 +76,7 @@ class DebtOverview extends PureComponent {
 
     renderItem = ({item}) => {
         return (
-            <ListItem onPress={() => {
-                this.onDebtSelect(item.key)
-            }}>
+            <ListItem>
                 <Body>
                 <Text>{item.name}</Text>
                 <Text note>{item.totalAmount} kr</Text>
@@ -86,7 +85,10 @@ class DebtOverview extends PureComponent {
                     <View style={{flexDirection: 'row'}}>
                         <Icon style={{marginRight: 7, fontSize: 30}} name="md-create"/>
                         <Icon
-                            onPress={() => this.confirmDialog.showDialog()}
+                            onPress={() => {
+                                this.onDebtSelect(item);
+                                this.confirmDialog.showDialog()
+                            }}
                             style={{marginHorizontal: 7, fontSize: 30}}
                             name="md-trash"/>
                     </View>
@@ -117,11 +119,13 @@ const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
     const {loading, selectedDebt} = state.debt;
 
-    const debtItems = _.map(state.debt.debtItems, (item) => {
-        return {...item.data, key: item.id};
+    const debtItems = _.map(state.debt.debtItems, (item, key) => {
+        return {...item.data, debtID: item.id, key: key};
     });
 
     return {budgetID, debtItems, loading, selectedDebt};
 };
 
-export default connect(mapStateToProps, {resetDebtForm, getDebts, debtSelected})(DebtOverview);
+export default connect(mapStateToProps,
+    {resetDebtForm, debtSelected, getDebts, deleteDebt})
+(DebtOverview);

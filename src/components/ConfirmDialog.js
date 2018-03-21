@@ -8,6 +8,10 @@ class ConfirmDialog extends Component {
         this.popupDialog.show();
     }
 
+    dismissDialog() {
+        this.popupDialog.dismiss();
+    }
+
     render() {
         return (
             <View style={styles.container}>

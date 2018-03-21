@@ -7,7 +7,8 @@ import {
     GET_DEBTS,
     GET_DEBTS_SUCCESS,
     GET_DEBTS_FAIL,
-    DEBT_SELECTED
+    DEBT_SELECTED,
+    DELETE_DEBT
 } from './types';
 
 const ROOT_URL = firebaseFunctionsURL;
@@ -20,18 +21,18 @@ export const resetDebtForm = (callback) => async dispatch => {
     callback();
 };
 
-export const debtSelected = key => {
+export const debtSelected = (key, debtID) => {
     return {
         type: DEBT_SELECTED,
-        payload: key
+        payload: {key, debtID}
     };
 };
 
 export const getDebts = (budgetID) => async dispatch => {
-    dispatch({type: GET_DEBTS});
-
     try {
+        dispatch({type: GET_DEBTS});
         let token = await firebase.auth().currentUser.getIdToken();
+        console.log(token);
 
         let response = await axios.get(`${ROOT_URL}/getDebts?budgetID=${budgetID}`, {
             headers: {Authorization: 'Bearer ' + token}
@@ -46,4 +47,19 @@ export const getDebts = (budgetID) => async dispatch => {
 
 const getDebtsFail = (dispatch, error) => {
     dispatch({type: GET_DEBTS_FAIL, payload: error});
+};
+
+export const deleteDebt = (debtID) => async dispatch => {
+    try {
+        dispatch({type: DELETE_DEBT});
+
+        let token = await firebase.auth().currentUser.getIdToken();
+
+        await axios.post(`${ROOT_URL}/deleteDebt`, {debtID: debtID}, {
+            headers: {Authorization: 'Bearer ' + token}
+        });
+    } catch (err) {
+        let {data} = err.response;
+        console.log(data.error);
+    }
 };
