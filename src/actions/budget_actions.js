@@ -14,63 +14,20 @@ import firebase from 'firebase';
 
 const ROOT_URL = firebaseFunctionsURL;
 
-export const getBudget = (callBack) => async dispatch => {
-    dispatch({type: GET_BUDGET});
-
-    console.log("Entering get budget")
-
-    let token = await firebase.auth().currentUser.getIdToken();
-    let userID = await firebase.auth().currentUser.uid;
-
-    try {
-        let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?userID=${userID}`,
-            {headers: {Authorization: 'Bearer ' + token}});
-
-        if (budgetResponse === null) {
-            callBack();
-        }
-
-        let budgetID = budgetResponse.id;
-
-        let categoryResponse = await axios.get(`${ROOT_URL}/getCategories?budgetID=${budgetID}`,
-            {headers: {Authorization: 'Bearer ' + token}});
-
-        let budgetIncome = budgetResponse.data.budget.income;
-        let categories = categoryResponse.data.categories;
-
-        console.log(budgetID);
-        console.log(categories);
-        console.log(budgetIncome);
-
-        dispatch({type: GET_BUDGET_SUCCESS, income: budgetIncome, categories: categories, budgetID: budgetID});
-
-    } catch (err) {
-        console.log("Hit catch")
-        let {data} = err.response;
-        getBudgetFail(dispatch, data.error)
-    }
-};
-
-const getBudgetFail = (dispatch, error) => {
-    dispatch({type: GET_BUDGET_FAIL, payload: error});
-};
-
-export const createBudget = ({income, categories}, callBack) => async dispatch => {
+export const createBudget = ({income, categories, totalExpenses, disposable}, callBack) => async dispatch => {
     if (income.length === 0) {
         income = 0;
     }
 
     dispatch({type: CREATE_BUDGET});
-
     let token = await firebase.auth().currentUser.getIdToken();
 
     try {
         let userID = await firebase.auth().currentUser.uid;
-
-        await axios.post(`${ROOT_URL}/createBudget`, {income, categories, userID},
+        await axios.post(`${ROOT_URL}/createBudget`, {userID, income, categories, totalExpenses, disposable},
             {headers: {Authorization: 'Bearer ' + token}});
 
-        dispatch({type: CREATE_BUDGET_SUCCESS, income, categories});
+        dispatch({type: CREATE_BUDGET_SUCCESS, income, categories, totalExpenses, disposable});
 
     } catch (err) {
         let {data} = err.response;
@@ -82,6 +39,39 @@ export const createBudget = ({income, categories}, callBack) => async dispatch =
 
 const createBudgetFail = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
+};
+
+export const getBudget = (callBack) => async dispatch => {
+    dispatch({type: GET_BUDGET});
+    let token = await firebase.auth().currentUser.getIdToken();
+    let userID = await firebase.auth().currentUser.uid;
+
+    try {
+        let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?userID=${userID}`,
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        if (budgetResponse === null) {
+            callBack();
+        }
+        let budgetID = budgetResponse.data.id;
+        let income = budgetResponse.data.budgetData.income;
+        let totalExpenses = budgetResponse.data.budgetData.totalExpenses;
+        let disposable = budgetResponse.data.budgetData.disposable;
+
+        let categoryResponse = await axios.get(`${ROOT_URL}/getCategories?budgetID=${budgetID}`,
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        let categories = categoryResponse.data;
+        dispatch({type: GET_BUDGET_SUCCESS, budgetID, income, categories, totalExpenses, disposable});
+
+    } catch (err) {
+        let {data} = err.response;
+        getBudgetFail(dispatch, data.error)
+    }
+};
+
+const getBudgetFail = (dispatch, error) => {
+    dispatch({type: GET_BUDGET_FAIL, payload: error});
 };
 
 export const editBudget = ({income, categoryName, categoryAmount}, callBack) => async dispatch => {
@@ -103,6 +93,10 @@ export const editBudget = ({income, categoryName, categoryAmount}, callBack) => 
 };
 
 const editBudgetFail = (dispatch, error) => {
+    dispatch({type: CREATE_BUDGET_FAIL, payload: error});
+};
+
+const deleteBudget = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
 };
 

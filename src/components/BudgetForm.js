@@ -22,8 +22,7 @@ class BudgetForm extends PureComponent {
                     <Item rounded style={styles.inputStyle}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
-                            placeholder={this.props.estimatedIncome + " KR"}
-                            amount={this.props.income}
+                            value={this.props.income}
                             keyboardType="numeric"
                         />
                     </Item>
@@ -35,7 +34,6 @@ class BudgetForm extends PureComponent {
                 <Form style={{flex: 4, alignItems: 'stretch'}}>
                     <FlatList
                         data={this.props.categories}
-                        extraData={this.props.categoryAmount}
                         renderItem={this.renderItem}
                         keyExtractor={item => item.name}
                         style={styles.listStyle}
@@ -48,7 +46,7 @@ class BudgetForm extends PureComponent {
                 <Form style={{flexGrow: 1, alignSelf: 'stretch'}}>
                     <View style={[styles.leftContainer, {justifyContent: 'space-between', marginTop: 5}]}>
                         <Text style={[styles.textStyle, {flex: 1}]}>Totale udgifter:</Text>
-                        <Text style={[styles.textStyle, {flex: 1}]}>{this.props.expenses}</Text>
+                        <Text style={[styles.textStyle, {flex: 1}]}>{this.props.totalExpenses}</Text>
                     </View>
                     <View style={[styles.leftContainer, {justifyContent: 'space-between'}]}>
                         <Text style={[styles.textStyle, {flex: 1}]}>Til rådighed:</Text>
@@ -82,8 +80,7 @@ class BudgetForm extends PureComponent {
                 <Item rounded style={styles.inputStyle}>
                     <Input
                         onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
-                        placeholder={item.amount + " KR"}
-                        amount={item.amount}
+                        value={item.amount}
                         keyboardType="numeric"
                         style={{width: '90%', fontSize: 13}}
                     />

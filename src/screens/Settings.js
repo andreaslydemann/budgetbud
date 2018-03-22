@@ -1,13 +1,31 @@
 import React, {Component} from 'react';
 import {Container, Content, List, ListItem, Label, Body, Left, Right, Icon} from "native-base";
 import AppHeader from "../components/AppHeader";
+import {connect} from "react-redux";
 
 class Settings extends Component {
+
+    deleteBudget = () => {
+        this.props.deleteBudget(() => {
+            this.props.navigation.navigate('MyBudget');
+        });
+    };
+
     render() {
         return (
             <Container>
                 <AppHeader headerText={'Indstillinger'}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
+
+                <ConfirmDialog
+                    title="Slet budget"
+                    text="Vil du slette dit budget?"
+                    confirmCallback={() => this.deleteBudget()}
+                    loading={this.props.loading}
+                    ref={(confirmDialog) => {
+                        this.confirmDialog = confirmDialog }}
+                />
+
 
                 <Content>
                     <List>
@@ -46,7 +64,7 @@ class Settings extends Component {
                         </ListItem>
                         <ListItem icon>
                             <Left>
-                                <Icon name="md-trash"/>
+                                <Icon name="md-trash" onPress={() => this.confirmDialog.showDialog()}/>
                             </Left>
                             <Body>
                             <Label>Slet budget</Label>
@@ -61,5 +79,10 @@ class Settings extends Component {
         );
     }
 }
+
+export default connect(null, {
+    deleteBudget
+})(Settings);
+
 
 export default Settings;

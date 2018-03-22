@@ -32,15 +32,13 @@ class EditBudget extends Component {
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <BudgetForm onIncomeChanged={this.onIncomeChange}
+                <BudgetForm handleSubmit={this.handleSubmit}
+                            onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
-                            handleSubmit={this.handleSubmit}
                             income={this.props.income}
-                            categoryAmount={this.props.categoryAmount}
-                            expenses={this.props.expenses}
+                            totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}
-                            estimatedIncome={this.props.estimatedIncome}
-                            category={this.props.categories}
+                            categories={this.props.categories}
                             debt={this.props.debt}
                             loading={this.props.loading}
                             error={this.props.error}
@@ -50,28 +48,9 @@ class EditBudget extends Component {
     }
 }
 
-const styles = {
-    buttonStyle: {
-        width: '30%',
-        height: 40,
-        backgroundColor: '#1c313a',
-        marginTop: 20,
-        marginBottom: 20,
-        marginLeft: 10,
-        marginRight: 10,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    itemStyle: {
-        fontWeight: '600',
-        alignSelf: 'flex-start',
-        color: 'white'
-    }
-};
-
 const mapStateToProps = ({budget}) => {
-    const {income, categoryAmount, category, debt, expenses, disposable, estimatedIncome} = budget;
-    return {income, categoryAmount, categories: category, debt, expenses, disposable, estimatedIncome}
+    const {income, categories, debt, totalExpenses, disposable, loading, error} = budget;
+    return {income, categories, debt, totalExpenses, disposable, loading, error}
 };
 
 export default connect(mapStateToProps, {

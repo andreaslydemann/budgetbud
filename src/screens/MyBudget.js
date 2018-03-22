@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Body, Button, Container, Form, Icon, ListItem, Text, View, Label} from "native-base";
+import {Body, Button, Container, Form, Icon, ListItem, Text, View, Label, Spinner} from "native-base";
 import AppHeader from "../components/AppHeader";
 import Separator from "../components/Separator";
 import {FlatList} from "react-native";
@@ -12,14 +12,20 @@ class MyBudget extends Component {
         this.props.getBudget(() => {
             this.props.navigation.navigate('CreateBudget');
         });
-    }    
-    
+    }
+
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>
                 {/*---HEADER---*/}
                 <AppHeader headerText={'Mit budget'}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
+
+                {this.props.loading ? (
+                    <Spinner style={{
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }} color='#1c313a'/>) : (
 
                 <Container>
                     {/*---INCOME FIELD<---*/}
@@ -66,7 +72,7 @@ class MyBudget extends Component {
                         <Form style={{flexGrow: 2, alignSelf: 'stretch'}}>
                             <View style={[styles.leftContainer, {marginTop: 10}]}>
                                 <Text style={[styles.textStyle, {flex: 1}]}>Totale udgifter:</Text>
-                                <Text style={[styles.textStyle, {flex: 1}]}>{this.props.expenses} KR</Text>
+                                <Text style={[styles.textStyle, {flex: 1}]}>{this.props.totalExpenses} KR</Text>
                             </View>
                             <View style={[styles.leftContainer]}>
                                 <Text style={[styles.textStyle, {flex: 1}]}>Til rådighed:</Text>
@@ -126,7 +132,7 @@ class MyBudget extends Component {
                         </Modal>
                     </View>
                 </Container>
-
+                )}
             </Container>
 
         );
@@ -212,8 +218,8 @@ const styles = {
 };
 
 const mapStateToProps = ({budget}) => {
-    const {income, categories, debt, expenses, disposable, estimatedIncome} = budget;
-    return {income, categories, debt, expenses, disposable, estimatedIncome}
+    const {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome} = budget;
+    return {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome}
 };
 
 export default connect(mapStateToProps, {

@@ -32,6 +32,7 @@ export const getDebts = (budgetID) => async dispatch => {
 
     try {
         let token = await firebase.auth().currentUser.getIdToken();
+        console.log(token);
 
         let response = await axios.get(`${ROOT_URL}/getDebts?budgetID=${budgetID}`, {
             headers: {Authorization: 'Bearer ' + token}

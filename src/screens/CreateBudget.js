@@ -34,10 +34,8 @@ class CreateBudget extends Component {
                             onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
                             income={this.props.income}
-                            categoryAmount={this.props.categoryAmount}
-                            expenses={this.props.expenses}
+                            totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}
-                            estimatedIncome={this.props.estimatedIncome}
                             categories={this.props.categories}
                             debt={this.props.debt}
                             loading={this.props.loading}
@@ -49,8 +47,8 @@ class CreateBudget extends Component {
 }
 
 const mapStateToProps = ({budget}) => {
-    const {income, categoryAmount, categories, debt, expenses, disposable, estimatedIncome, loading} = budget;
-    return {income, categoryAmount, categories, debt, expenses, disposable, estimatedIncome, loading}
+    const {income, categories, debt, totalExpenses, disposable, loading, error} = budget;
+    return {income, categories, debt, totalExpenses, disposable, loading, error}
 };
 
 export default connect(mapStateToProps, {
