@@ -5,6 +5,15 @@ import DatePicker from 'react-native-datepicker'
 import Separator from '../components/Separator';
 
 class DebtForm extends Component {
+    state = {date: ''};
+
+    onDateChange = (date) => {
+
+        const newDate = new Date(2016, 3, 12);
+
+        this.setState({newDate});
+    };
+
     render() {
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -32,6 +41,9 @@ class DebtForm extends Component {
                     <View style={styles.incomeFormStyle}>
                         <Label style={styles.textStyle}>Angiv ønsket dato for gennemført afbetaling.</Label>
                         <DatePicker
+                            date={this.state.date}
+                            onDateChange={this.onDateChange}
+                            format="DD-MM-YYYY"
                             style={[styles.inputStyle, {width: '100%'}]}
                             cancelBtnText="Afbryd"
                             confirmBtnText="Ok"
