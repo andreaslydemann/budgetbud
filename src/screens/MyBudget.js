@@ -31,17 +31,13 @@ class MyBudget extends Component {
                     }} color='#1c313a'/>) : (
 
                     <Container>
+                        <View style={styles.incomeFormStyle}>
+                            <Text style={styles.textStyle}>Indkomst:</Text>
+                            <Text>{this.props.income} KR</Text>
+                        </View>
+                        <Separator/>
                         <Grid>
                             {/*---INCOME FIELD<---*/}
-                            <Row size={1}>
-                                <View style={styles.incomeFormStyle}>
-                                    <Text style={styles.textStyle}>Indkomst:</Text>
-                                    <Text>{this.props.income} KR</Text>
-                                </View>
-
-                            </Row>
-
-                            <Separator/>
 
                             {/*---CATEGORY LISTVIEW---*/}
                             <Row size={4}>
@@ -184,7 +180,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 5,
         width: '90%',
-        flex: 1
+        justifyContent: 'space-between',
+        flexDirection: 'row'
     },
     itemStyle: {
         fontWeight: '600',
