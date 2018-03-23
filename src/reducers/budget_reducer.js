@@ -6,7 +6,7 @@ import {
     CREATE_BUDGET_FAIL,
     GET_BUDGET_FAIL,
     GET_BUDGET_SUCCESS,
-    CREATE_BUDGET_SUCCESS
+    CREATE_BUDGET_SUCCESS, GET_INITIAL_BUDGET_STATE
 } from "../actions/types";
 import {fromJS} from "immutable";
 
@@ -26,6 +26,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case GET_INITIAL_BUDGET_STATE:
+            return INITIAL_STATE;
         case GET_BUDGET:
             return {...state, loading: true, error: ''};
         case GET_BUDGET_SUCCESS:

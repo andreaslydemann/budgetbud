@@ -22,7 +22,8 @@ class BudgetForm extends PureComponent {
                     <Item rounded style={styles.inputStyle}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
-                            value={this.props.income}
+                            placeholder={this.props.estimatedIncome + " KR"}
+                            amount={this.props.income}
                             keyboardType="numeric"
                         />
                     </Item>
@@ -80,7 +81,8 @@ class BudgetForm extends PureComponent {
                 <Item rounded style={styles.inputStyle}>
                     <Input
                         onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
-                        value={item.amount}
+                        placeholder={item.amount + " KR"}
+                        amount={item.amount}
                         keyboardType="numeric"
                         style={{width: '90%', fontSize: 13}}
                     />

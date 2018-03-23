@@ -2,7 +2,7 @@
 export const SCREEN_CHANGED = 'screen_changed';
 
 // ----------AUTH RELATED TYPES----------
-export const GET_INITIAL_STATE = 'get_initial_state';
+export const GET_INITIAL_AUTH_STATE = 'get_initial_auth_state';
 export const CPR_NUMBER_CHANGED = 'cpr_number_changed';
 export const PHONE_NUMBER_CHANGED = 'phone_number_changed';
 export const VALIDATE_CPR_NUMBER_FAIL = 'validate_cpr_number_fail';
@@ -16,12 +16,14 @@ export const SIGN_IN_FAIL = 'sign_in_fail';
 export const DELETE_USER = 'delete_user';
 
 // ----------BUDGET RELATED TYPES----------
+export const GET_INITIAL_BUDGET_STATE = 'get_initial_budget_state';
 export const GET_BUDGET = 'get_budget';
 export const GET_BUDGET_SUCCESS = 'get_budget_success';
 export const GET_BUDGET_FAIL = 'get_budget_fail';
 export const CREATE_BUDGET = 'create_budget';
 export const CREATE_BUDGET_SUCCESS = 'create_budget_success';
 export const CREATE_BUDGET_FAIL = 'create_budget_fail';
+export const DELETE_BUDGET = 'delete_budget';
 export const INCOME_CHANGED = 'income_changed';
 export const CATEGORY_CHANGED = 'category_changed';
 

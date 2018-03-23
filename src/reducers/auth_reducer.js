@@ -1,5 +1,5 @@
 import {
-    GET_INITIAL_STATE,
+    GET_INITIAL_AUTH_STATE,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
@@ -23,7 +23,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case GET_INITIAL_STATE:
+        case GET_INITIAL_AUTH_STATE:
             return INITIAL_STATE;
         case CPR_NUMBER_CHANGED:
             return {...state, cprNumber: action.payload};

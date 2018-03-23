@@ -6,7 +6,9 @@ import {
     GET_BUDGET,
     GET_BUDGET_FAIL,
     GET_BUDGET_SUCCESS,
-    CREATE_BUDGET_SUCCESS
+    CREATE_BUDGET_SUCCESS,
+    DELETE_BUDGET,
+    GET_INITIAL_BUDGET_STATE
 } from './types';
 import axios from 'axios';
 import {firebaseFunctionsURL} from "../config/firebase_config";
@@ -53,6 +55,7 @@ export const getBudget = (callBack) => async dispatch => {
         if (budgetResponse === null) {
             callBack();
         }
+
         let budgetID = budgetResponse.data.id;
         let income = budgetResponse.data.budgetData.income;
         let totalExpenses = budgetResponse.data.budgetData.totalExpenses;
@@ -96,8 +99,22 @@ const editBudgetFail = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
 };
 
-const deleteBudget = (dispatch, error) => {
-    dispatch({type: CREATE_BUDGET_FAIL, payload: error});
+export const deleteBudget = ({budgetID}, callBack) => async dispatch => {
+    console.log("Entered actions");
+    try {
+        dispatch({type: DELETE_BUDGET});
+        let token = await firebase.auth().currentUser.getIdToken();
+
+        await axios.post(`${ROOT_URL}/deleteBudget`, {budgetID}, {
+            headers: { Authorization: 'Bearer ' + token }
+        });
+
+        dispatch({type: GET_INITIAL_BUDGET_STATE});
+        callback();
+    } catch (err) {
+        let {data} = err.response;
+        console.log(data.error);
+    }
 };
 
 export const incomeChanged = text => {

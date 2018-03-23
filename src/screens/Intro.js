@@ -7,6 +7,12 @@ import {connect} from "react-redux";
 
 
 class Intro extends Component {
+    componentWillMount() {
+        this.props.getBudget(() => {
+            this.props.navigation.navigate('CreateBudget');
+        });
+    }
+
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>

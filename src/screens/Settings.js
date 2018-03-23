@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import {Container, Content, List, ListItem, Label, Body, Left, Right, Icon} from "native-base";
 import AppHeader from "../components/AppHeader";
 import {connect} from "react-redux";
+import {deleteBudget} from "../actions/budget_actions";
+import ConfirmDialog from "../components/ConfirmDialog";
 
 class Settings extends Component {
 
     deleteBudget = () => {
-        this.props.deleteBudget(() => {
-            this.props.navigation.navigate('MyBudget');
+        const {budgetID} = this.props;
+        this.props.deleteBudget({budgetID}, () => {
+            this.props.navigation.navigate('CreateBudget');
         });
     };
 
@@ -23,7 +26,8 @@ class Settings extends Component {
                     confirmCallback={() => this.deleteBudget()}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
-                        this.confirmDialog = confirmDialog }}
+                        this.confirmDialog = confirmDialog
+                    }}
                 />
 
 
@@ -62,9 +66,9 @@ class Settings extends Component {
                                 <Icon name="arrow-forward"/>
                             </Right>
                         </ListItem>
-                        <ListItem icon>
+                        <ListItem icon onPress={() => this.confirmDialog.showDialog()}>
                             <Left>
-                                <Icon name="md-trash" onPress={() => this.confirmDialog.showDialog()}/>
+                                <Icon name="md-trash"/>
                             </Left>
                             <Body>
                             <Label>Slet budget</Label>
@@ -80,9 +84,11 @@ class Settings extends Component {
     }
 }
 
-export default connect(null, {
+const mapStateToProps = ({budget}) => {
+    const {budgetID} = budget;
+    return {budgetID}
+};
+
+export default connect(mapStateToProps, {
     deleteBudget
 })(Settings);
-
-
-export default Settings;

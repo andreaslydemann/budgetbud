@@ -42,6 +42,7 @@ class EditBudget extends Component {
                             debt={this.props.debt}
                             loading={this.props.loading}
                             error={this.props.error}
+                            isBudgetCreated={this.props.isBudgetCreated}
                 />
             </Container>
         );
@@ -49,8 +50,8 @@ class EditBudget extends Component {
 }
 
 const mapStateToProps = ({budget}) => {
-    const {income, categories, debt, totalExpenses, disposable, loading, error} = budget;
-    return {income, categories, debt, totalExpenses, disposable, loading, error}
+    const {income, categories, debt, totalExpenses, disposable, loading, error, isBudgetCreated} = budget;
+    return {income, categories, debt, totalExpenses, disposable, loading, error, isBudgetCreated}
 };
 
 export default connect(mapStateToProps, {
