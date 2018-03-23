@@ -100,7 +100,6 @@ const editBudgetFail = (dispatch, error) => {
 };
 
 export const deleteBudget = ({budgetID}, callBack) => async dispatch => {
-    console.log("Entered actions");
     try {
         dispatch({type: DELETE_BUDGET});
         let token = await firebase.auth().currentUser.getIdToken();
