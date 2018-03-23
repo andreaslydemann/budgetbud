@@ -7,7 +7,8 @@ import {
     Item,
     Label,
     ListItem,
-    Body
+    Body,
+    Button, Spinner
 } from 'native-base';
 import Separator from "./Separator";
 
@@ -22,7 +23,7 @@ class BudgetForm extends PureComponent {
                         <Input
                             onChangeText={this.props.onIncomeChanged}
                             placeholder={this.props.estimatedIncome + " KR"}
-                            value={this.props.income}
+                            amount={this.props.income}
                             keyboardType="numeric"
                         />
                     </Item>
@@ -33,8 +34,7 @@ class BudgetForm extends PureComponent {
                 {/*---LISTVIEW---*/}
                 <Form style={{flex: 4, alignItems: 'stretch'}}>
                     <FlatList
-                        data={this.props.category}
-                        extraData={this.props.categoryValue}
+                        data={this.props.categories}
                         renderItem={this.renderItem}
                         keyExtractor={item => item.name}
                         style={styles.listStyle}
@@ -47,12 +47,27 @@ class BudgetForm extends PureComponent {
                 <Form style={{flexGrow: 1, alignSelf: 'stretch'}}>
                     <View style={[styles.leftContainer, {justifyContent: 'space-between', marginTop: 5}]}>
                         <Text style={[styles.textStyle, {flex: 1}]}>Totale udgifter:</Text>
-                        <Text style={[styles.textStyle, {flex: 1}]}>{this.props.expenses}</Text>
+                        <Text style={[styles.textStyle, {flex: 1}]}>{this.props.totalExpenses}</Text>
                     </View>
                     <View style={[styles.leftContainer, {justifyContent: 'space-between'}]}>
                         <Text style={[styles.textStyle, {flex: 1}]}>Til rådighed:</Text>
                         <Text style={[styles.textStyle, {flex: 1}]}>{this.props.disposable}</Text>
                     </View>
+                </Form>
+
+                {/*---CREATE BUTTON---*/}
+                <Form>
+                    <Button rounded
+                            onPress={this.props.handleSubmit}
+                            style={styles.buttonStyle}
+                    >
+                        {this.props.loading ? (
+                            <Spinner color='#D0D0D0'/>) : (
+                            <Text style={styles.itemStyle}>
+                                {this.props.isBudgetCreated ? 'Gem' : 'Opret budget'}
+                            </Text>
+                        )}
+                    </Button>
                 </Form>
             </Container>
         );
@@ -66,8 +81,8 @@ class BudgetForm extends PureComponent {
                 <Item rounded style={styles.inputStyle}>
                     <Input
                         onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
-                        placeholder={item.value + " KR"}
-                        value={item.value}
+                        placeholder={item.amount + " KR"}
+                        amount={item.amount}
                         keyboardType="numeric"
                         style={{width: '90%', fontSize: 13}}
                     />
@@ -79,14 +94,6 @@ class BudgetForm extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-    buttonStyle: {
-        width: 300,
-        height: 40,
-        backgroundColor: '#166a97',
-        marginTop: 20,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
     incomeFormStyle: {
         alignSelf: 'center',
         marginTop: 10,
@@ -121,6 +128,20 @@ const styles = StyleSheet.create({
         paddingRight: 0,
         alignSelf: 'center',
         height: 40
+    },
+    buttonStyle: {
+        width: '90%',
+        height: 40,
+        backgroundColor: '#1c313a',
+        marginTop: 20,
+        marginBottom: 20,
+        justifyContent: 'center',
+        alignSelf: 'center'
+    },
+    itemStyle: {
+        fontWeight: '600',
+        alignSelf: 'flex-start',
+        color: 'white'
     }
 });
 

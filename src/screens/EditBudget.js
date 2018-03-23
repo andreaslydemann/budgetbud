@@ -18,8 +18,8 @@ class EditBudget extends Component {
 
     handleSubmit = () => {
         Keyboard.dismiss();
-        const {income, categoryValue} = this.props;
-        this.props.editBudget({income, categoryValue}, () => {
+        const {income, categoryAmount} = this.props;
+        this.props.editBudget({income, categoryAmount}, () => {
             this.props.navigation.navigate.pop();
         });
     };
@@ -32,66 +32,26 @@ class EditBudget extends Component {
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <BudgetForm onIncomeChanged={this.onIncomeChange}
+                <BudgetForm handleSubmit={this.handleSubmit}
+                            onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
-                            handleSubmit={this.handleSubmit}
                             income={this.props.income}
-                            categoryValue={this.props.categoryValue}
-                            expenses={this.props.expenses}
+                            totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}
-                            estimatedIncome={this.props.estimatedIncome}
-                            category={this.props.category}
+                            categories={this.props.categories}
                             debt={this.props.debt}
                             loading={this.props.loading}
                             error={this.props.error}
+                            isBudgetCreated={this.props.isBudgetCreated}
                 />
-
-                {/*---BUTTONS---*/}
-                <Form style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <Button rounded
-                            onPress={() => this.props.navigation.pop()}
-                            style={styles.buttonStyle}
-                    >
-                        <Text style={styles.itemStyle}>Afbryd</Text>
-                    </Button>
-
-                    <Button rounded
-                            onPress={this.props.handleSubmit}
-                            style={styles.buttonStyle}
-                    >
-                        {this.props.loading ? (
-                            <Spinner color='#D0D0D0'/>) : (
-                            <Text style={styles.itemStyle}>Gem</Text>
-                        )}
-                    </Button>
-                </Form>
             </Container>
         );
     }
 }
 
-const styles = {
-    buttonStyle: {
-        width: '30%',
-        height: 40,
-        backgroundColor: '#1c313a',
-        marginTop: 20,
-        marginBottom: 20,
-        marginLeft: 10,
-        marginRight: 10,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    itemStyle: {
-        fontWeight: '600',
-        alignSelf: 'flex-start',
-        color: 'white'
-    }
-};
-
 const mapStateToProps = ({budget}) => {
-    const {income, categoryValue, category, debt, expenses, disposable, estimatedIncome} = budget;
-    return {income, categoryValue, category, debt, expenses, disposable, estimatedIncome}
+    const {income, categories, debt, totalExpenses, disposable, loading, error, isBudgetCreated} = budget;
+    return {income, categories, debt, totalExpenses, disposable, loading, error, isBudgetCreated}
 };
 
 export default connect(mapStateToProps, {

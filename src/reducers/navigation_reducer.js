@@ -1,5 +1,5 @@
 import {
-    GET_INITIAL_STATE, SCREEN_CHANGED
+    GET_INITIAL_AUTH_STATE, SCREEN_CHANGED
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case GET_INITIAL_STATE:
+        case GET_INITIAL_AUTH_STATE:
             return INITIAL_STATE;
         case SCREEN_CHANGED:
             return {currentRoute: action.payload};

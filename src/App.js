@@ -26,7 +26,9 @@ export default class App extends Component {
         const MyBudgetStack = StackNavigator(
             {
                 MyBudget: {screen: MyBudget},
+                CreateBudget: {screen: CreateBudget},
                 EditBudget: {screen: EditBudget},
+                BudgetPreview: {screen: BudgetPreview},
                 EditDisposable: {screen: EditDisposable},
                 DebtOverview: {screen: DebtOverview},
                 CreateDebt: {screen: CreateDebt},
@@ -52,8 +54,6 @@ export default class App extends Component {
         const Drawer = DrawerNavigator(
             {
                 MyBudget: {screen: MyBudgetStack},
-                CreateBudget: {screen: CreateBudget},
-                BudgetPreview: {screen: BudgetPreview},
                 SpendingOverview: {screen: SpendingOverview},
                 MonthlyReports: {screen: MonthlyReports},
                 Settings: {screen: SettingsStack},

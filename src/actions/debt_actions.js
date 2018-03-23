@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import {firebaseFunctionsURL} from "../config/firebase_config";
 
 import {
-    GET_INITIAL_STATE,
+    GET_INITIAL_AUTH_STATE,
     GET_DEBTS,
     GET_DEBTS_SUCCESS,
     GET_DEBTS_FAIL,
@@ -15,7 +15,7 @@ const ROOT_URL = firebaseFunctionsURL;
 
 export const resetDebtForm = (callback) => async dispatch => {
     dispatch({
-        type: GET_INITIAL_STATE
+        type: GET_INITIAL_AUTH_STATE
     });
 
     callback();

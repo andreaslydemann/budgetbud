@@ -1,160 +1,180 @@
 import React, {Component} from 'react';
-import {Body, Button, Container, Form, Icon, ListItem, Text, View, Label} from "native-base";
+import {
+    Body, Button, Container, Icon, ListItem, Text, View, Label, Spinner, Right,
+    Grid, Row, Col
+} from "native-base";
 import AppHeader from "../components/AppHeader";
 import Separator from "../components/Separator";
-import {FlatList} from "react-native";
+import {FlatList, StyleSheet} from "react-native";
 import {connect} from "react-redux";
-import {openDrawer} from "../actions/budget_actions";
+import {getBudget} from "../actions/budget_actions";
 import Modal from 'react-native-modalbox';
 
 class MyBudget extends Component {
+    componentWillMount() {
+        this.props.getBudget(() => {
+            this.props.navigation.navigate('CreateBudget');
+        });
+    }
+
     render() {
         return (
-            <Container style={{alignItems: 'stretch'}}>
+            <Container style={{flexGrow: 1}}>
                 {/*---HEADER---*/}
                 <AppHeader headerText={'Mit budget'}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
 
-                <Container>
-                    {/*---INCOME FIELD<---*/}
-                    <Form style={{flexGrow: 1, alignSelf: 'stretch'}}>
-                        <View style={[styles.leftContainer, {
-                            justifyContent: 'space-between',
-                            marginTop: 20,
-                            alignSelf: 'center'
-                        }]}>
-                            <Text style={[styles.textStyle, {flex: 1}]}>Indkomst:</Text>
-                            <Text style={[styles.textStyle, {flex: 1}]}>{this.props.income} KR</Text>
-                        </View>
-                    </Form>
+                {this.props.loading ? (
+                    <Spinner style={{
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }} color='#1c313a'/>) : (
 
-                    <Separator/>
+                    <Container>
+                        <Grid>
+                            {/*---INCOME FIELD<---*/}
+                            <Row size={1}>
+                                <View style={styles.incomeFormStyle}>
+                                    <Text style={styles.textStyle}>Indkomst:</Text>
+                                    <Text>{this.props.income} KR</Text>
+                                </View>
 
-                    {/*---CATEGORY LISTVIEW---*/}
-                    <Form style={{flex: 4, alignItems: 'stretch'}}>
-                        <FlatList
-                            data={this.props.category}
-                            extraData={this.props.categoryValue}
-                            renderItem={this.renderCategory}
-                            keyExtractor={item => item.name}
-                            style={styles.listStyle}
-                        />
-                    </Form>
+                            </Row>
 
-                    <Separator/>
+                            <Separator/>
 
-                    {/*---DEBT LISTVIEW---*/}
-                    <Form style={{flex: 2, alignSelf: 'stretch'}}>
-                        <FlatList
-                            data={this.props.debt}
-                            renderItem={this.renderDebt}
-                            keyExtractor={item => item.name}
-                            style={styles.listStyle}
-                        />
-                    </Form>
+                            {/*---CATEGORY LISTVIEW---*/}
+                            <Row size={4}>
+                                <FlatList
+                                    data={this.props.categories}
+                                    renderItem={this.renderCategory}
+                                    keyExtractor={item => item.name}
+                                    style={styles.listStyle}
+                                />
+                            </Row>
 
-                    <Separator/>
+                            <Separator/>
 
+                            {/*---DEBT LISTVIEW---*/}
+                            <Row size={2}>
+                                <FlatList
+                                    data={this.props.debt}
+                                    renderItem={this.renderDebt}
+                                    keyExtractor={item => item.name}
+                                    style={styles.listStyle}
+                                />
+                            </Row>
 
-                    {/*---CALCULATED TOTAL---*/}
-                    <View style={{flexGrow: 2}}>
-                        <Form style={{flexGrow: 2, alignSelf: 'stretch'}}>
-                            <View style={[styles.leftContainer, {marginTop: 10}]}>
-                                <Text style={[styles.textStyle, {flex: 1}]}>Totale udgifter:</Text>
-                                <Text style={[styles.textStyle, {flex: 1}]}>{this.props.expenses} KR</Text>
-                            </View>
-                            <View style={[styles.leftContainer]}>
-                                <Text style={[styles.textStyle, {flex: 1}]}>Til rådighed:</Text>
-                                <Text style={[styles.textStyle, {flex: 1}]}>{this.props.disposable} KR</Text>
-                            </View>
+                            <Separator/>
 
-                            <Button transparent
-                                    onPress={() => this.refs.bottomModal.open()}
-                                    style={styles.buttonStyle}
-                            >
-                                <Icon name="ios-arrow-dropup-circle"
-                                            style={{color: "#1c313a"}}/>
-                            </Button>
-                        </Form>
-
-
-                        <Modal style={styles.modal} position={"bottom"} ref={"bottomModal"}>
-                            <Label style={[styles.textStyle, {alignSelf: 'center', marginTop: 10}]}>Redigér:</Label>
-                            <Form style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 40, marginHorizontal: 40}}>
-                                <Button
-                                    transparent
-                                    onPress={() => this.props.navigation.navigate("EditBudget")}
-                                >
-                                    <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                                        <Icon name="md-clipboard" style={{color: "#1c313a"}}/>
-                                        <Label style={styles.textStyle}>Budget</Label>
+                            {/*---CALCULATED TOTAL---*/}
+                            <Row size={2}>
+                                <View style={{flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between', alignItems: 'stretch', width: '100%'}}>
+                                    <View style={styles.spacedText}>
+                                        <Text>Totale udgifter:</Text>
+                                        <Text>{this.props.totalExpenses} KR</Text>
                                     </View>
-                                </Button>
-
-                                <Button
-                                    transparent
-                                    onPress={() => this.props.navigation.navigate("EditDisposable")}
-                                >
-                                    <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                                        <Icon name="logo-usd" style={{color: "#1c313a"}}/>
-                                        <Label style={styles.textStyle}>Rådighedsbeløb</Label>
+                                    <View style={styles.spacedText}>
+                                        <Text>Til rådighed:</Text>
+                                        <Text>{this.props.disposable} KR</Text>
                                     </View>
-                                </Button>
 
-                                <Button
-                                    transparent
-                                    onPress={() => this.props.navigation.navigate("DebtOverview")}
-                                >
-                                    <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                                        <Icon name="ios-archive" style={{color: "#1c313a"}}/>
-                                        <Label style={styles.textStyle}>Gæld</Label>
-                                    </View>
-                                </Button>
-                            </Form>
-                            <Button transparent
-                                    onPress={() => this.refs.bottomModal.close()}
-                                    style={styles.buttonStyle}
-                            >
-                                <Icon name="ios-arrow-dropdown-circle"
-                                            style={{color: "#1c313a"}}/>
-                            </Button>
-                        </Modal>
-                    </View>
-                </Container>
+                                    <Button transparent
+                                            onPress={() => this.refs.bottomModal.open()}
+                                            style={styles.buttonStyle}
+                                    >
+                                        <Icon name="ios-arrow-dropup-circle"
+                                              style={{color: "#1c313a"}}/>
+                                    </Button>
 
+                                    <Modal position={"bottom"} ref={"bottomModal"}>
+                                        <Label style={[styles.textStyle, {
+                                            alignSelf: 'center',
+                                            marginTop: 10
+                                        }]}>Redigér:</Label>
+                                        <View style={{
+                                            flex: 1,
+                                            flexDirection: 'row',
+                                            justifyContent: 'space-between',
+                                            marginTop: 40,
+                                            marginHorizontal: 40
+                                        }}>
+                                            <Button
+                                                transparent
+                                                onPress={() => this.props.navigation.navigate("EditBudget")}
+                                            >
+                                                <View style={styles.modalButton}>
+                                                    <Icon name="md-clipboard"
+                                                          style={{color: "#1c313a"}}/>
+                                                    <Label style={styles.textStyle}>Budget</Label>
+                                                </View>
+                                            </Button>
+
+                                            <Button
+                                                transparent
+                                                onPress={() => this.props.navigation.navigate("EditDisposable")}
+                                            >
+                                                <View style={styles.modalButton}>
+                                                    <Icon name="logo-usd" style={{color: "#1c313a"}}/>
+                                                    <Label style={styles.textStyle}>Rådighedsbeløb</Label>
+                                                </View>
+                                            </Button>
+
+                                            <Button
+                                                transparent
+                                                onPress={() => this.props.navigation.navigate("DebtOverview")}
+                                            >
+                                                <View style={styles.modalButton}>
+                                                    <Icon name="ios-archive" style={{color: "#1c313a"}}/>
+                                                    <Label style={styles.textStyle}>Gæld</Label>
+                                                </View>
+                                            </Button>
+                                        </View>
+                                        <Button transparent
+                                                onPress={() => this.refs.bottomModal.close()}
+                                                style={styles.buttonStyle}
+                                        >
+                                            <Icon name="ios-arrow-dropdown-circle"
+                                                  style={{color: "#1c313a"}}/>
+                                        </Button>
+                                    </Modal>
+                                </View>
+                            </Row>
+                        </Grid>
+                    </Container>
+                )}
             </Container>
-
         );
     }
 
-    renderCategory = ({item, index}) => {
+    renderCategory = ({item}) => {
         return (
             <ListItem>
                 <Body>
-                <View style={styles.leftContainer}>
-                    <Text style={[styles.textStyle, {flex: 1}]}>{item.name + ":"}</Text>
-                    <Text style={[styles.textStyle, {flex: 1}]}>{item.value} KR</Text>
-                </View>
+                <Text>{item.name + ":"}</Text>
                 </Body>
+                <Right>
+                    <Text style={[{flex: 1}]}>{item.amount} KR</Text>
+                </Right>
             </ListItem>
         );
     };
 
-    renderDebt = ({item, index}) => {
+    renderDebt = ({item}) => {
         return (
             <ListItem>
                 <Body>
-                <View style={styles.leftContainer}>
-                    <Text style={[styles.textStyle, {flex: 1}]}>{item.name + ":"}</Text>
-                    <Text style={[styles.textStyle, {flex: 1}]}>{item.value} KR</Text>
-                </View>
+                <Text style={[styles.textStyle, {flex: 1}]}>{item.name + ":"}</Text>
                 </Body>
+                <Right>
+                    <Text style={[styles.textStyle, {flex: 1}]}>{item.amount} KR</Text>
+                </Right>
             </ListItem>
         );
     };
 }
 
-const styles = {
+const styles = StyleSheet.create({
     buttonStyle: {
         justifyContent: 'flex-end',
         alignSelf: 'flex-end'
@@ -163,54 +183,43 @@ const styles = {
         alignSelf: 'center',
         marginTop: 10,
         marginBottom: 5,
-        width: '90%'
+        width: '90%',
+        flex: 1
     },
     itemStyle: {
         fontWeight: '600',
         alignSelf: 'flex-start',
         color: 'white'
     },
-    leftContainer: {
-        flex: 1,
+    spacedText: {
+        flexGrow: 1,
         flexDirection: 'row',
-        marginLeft: '5%',
-        marginRight: '5%'
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginHorizontal: '5%',
+        marginVertical: 10
     },
     listStyle: {
-        marginLeft: 0,
-        marginRight: 0,
-        padding: 0
+        flexGrow: 1
     },
     textStyle: {
         fontWeight: '400',
-        fontSize: 16,
+        fontSize: 14,
         alignSelf: 'flex-start',
         marginLeft: 5,
     },
-    inputStyle: {
-        borderColor: '#001',
-        marginLeft: 0,
-        marginRight: 0,
-        marginTop: 5,
-        marginBottom: 5,
-        paddingLeft: 0,
-        paddingRight: 0,
-        alignSelf: 'center',
-        height: 40
-    },
-    modalStyle: {
+    modalButton: {
+        flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
-        height: 300,
-        backgroundColor: '#166a97'
+        alignItems: 'center'
     }
-};
+});
 
 const mapStateToProps = ({budget}) => {
-    const {income, categoryValue, category, debt, expenses, disposable, estimatedIncome} = budget;
-    return {income, categoryValue, category, debt, expenses, disposable, estimatedIncome}
+    const {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome} = budget;
+    return {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome}
 };
 
 export default connect(mapStateToProps, {
-    openDrawer
+    getBudget
 })(MyBudget);

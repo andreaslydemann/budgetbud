@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import {firebaseFunctionsURL} from "../config/firebase_config";
 
 import {
-    GET_INITIAL_STATE,
+    GET_INITIAL_AUTH_STATE,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
@@ -20,7 +20,7 @@ import {
 const ROOT_URL = firebaseFunctionsURL;
 
 export const authScreenSwitched = (callback) => async dispatch => {
-    dispatch({type: GET_INITIAL_STATE});
+    dispatch({type: GET_INITIAL_AUTH_STATE});
     callback();
 };
 
@@ -60,7 +60,7 @@ export const signUp = ({cprNumber, phoneNumber}, callback) => async dispatch => 
         await axios.post(`${ROOT_URL}/createUser`, {cprNumber});
         await axios.post(`${ROOT_URL}/requestCode`, {cprNumber, phoneNumber});
 
-        dispatch({type: GET_INITIAL_STATE});
+        dispatch({type: GET_INITIAL_AUTH_STATE});
         callback();
     } catch (err) {
         let {data} = err.response;
@@ -90,7 +90,7 @@ export const signIn = ({cprNumber, code}) => async dispatch => {
 
         await firebase.auth().signInWithCustomToken(data.token);
 
-        dispatch({type: GET_INITIAL_STATE});
+        dispatch({type: GET_INITIAL_AUTH_STATE});
     } catch (err) {
         let {data} = err.response;
         signInFail(dispatch, data.error);
@@ -105,7 +105,7 @@ export const signOut = () => async dispatch => {
     try {
         await firebase.auth().signOut();
 
-        dispatch({type: GET_INITIAL_STATE});
+        dispatch({type: GET_INITIAL_AUTH_STATE});
     } catch (err) {
         let {data} = err.response;
         console.log(data.error);
@@ -122,7 +122,7 @@ export const deleteUser = (callback) => async dispatch => {
             headers: { Authorization: 'Bearer ' + token }
         });
 
-        dispatch({type: GET_INITIAL_STATE});
+        dispatch({type: GET_INITIAL_AUTH_STATE});
         callback();
     } catch (err) {
         let {data} = err.response;
