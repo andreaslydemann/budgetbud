@@ -31,7 +31,6 @@ export default (state = INITIAL_STATE, action) => {
         case GET_BUDGET:
             return {...state, loading: true, error: ''};
         case GET_BUDGET_SUCCESS:
-            console.log(action.categories[1].categoryData)
             return {
                 ...state,
                 isBudgetCreated: true,
