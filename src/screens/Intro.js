@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
-import {Button, Container, Form, Label, Text} from "native-base";
+import {Button, Container, Form, Label, Spinner, Text} from "native-base";
 import AppHeader from "../components/AppHeader";
 import {Image} from "react-native";
 import ConfirmDialog from "../components/ConfirmDialog";
 import {connect} from "react-redux";
+import {getBudget} from "../actions/budget_actions";
 
 
 class Intro extends Component {
     componentWillMount() {
         this.props.getBudget(() => {
-            this.props.navigation.navigate('CreateBudget');
+            this.props.navigation.navigate('MyBudget');
         });
     }
 
@@ -51,8 +52,9 @@ class Intro extends Component {
                         </Text>
 
                         <Button rounded
-                            onPress={this.props.accountCreated ?
-                            this.props.navigation.navigate("CreateBudget") : () => this.confirmDialog.showDialog()}
+                            onPress={() => this.props.isAccountCreated ?
+                                (this.props.navigation.navigate("CreateBudget")) :
+                                (this.confirmDialog.showDialog())}
                             style={styles.buttonStyle}
                             >
                             {this.props.loading ? (
@@ -121,9 +123,9 @@ const styles = {
 };
 
 const mapStateToProps = ({budget}) => {
-    const {accountCreated} = budget;
-    return {accountCreated};
+    const {isAccountCreated} = budget;
+    return {isAccountCreated};
 };
 
-export default connect(mapStateToProps, {
+export default connect(mapStateToProps, {getBudget
 })(Intro);

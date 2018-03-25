@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import {
     Container,
     Form,
@@ -11,18 +11,20 @@ import {
     Button, Spinner
 } from 'native-base';
 import Separator from "./Separator";
+import container from "../style/container";
+import text from "../style/text";
+import button from "../style/button";
 
 class BudgetForm extends PureComponent {
     render() {
         return (
             <Container>
                 {/*---INCOME FIELD<---*/}
-                <Form style={styles.incomeFormStyle}>
-                    <Label style={styles.textStyle}>Indkomst:</Label>
-                    <Item rounded style={styles.inputStyle}>
+                <Form style={container.incomeFormStyle}>
+                    <Label style={text.defaultText}>Indkomst:</Label>
+                    <Item rounded style={container.inputField}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
-                            placeholder={this.props.estimatedIncome + " KR"}
                             amount={this.props.income}
                             keyboardType="numeric"
                         />
@@ -37,33 +39,38 @@ class BudgetForm extends PureComponent {
                         data={this.props.categories}
                         renderItem={this.renderItem}
                         keyExtractor={item => item.name}
-                        style={styles.listStyle}
+                        style={container.removeIndenting}
                     />
                 </Form>
 
                 <Separator/>
 
                 {/*---CALCULATED TOTAL---*/}
-                <Form style={{flexGrow: 1, alignSelf: 'stretch'}}>
-                    <View style={[styles.leftContainer, {justifyContent: 'space-between', marginTop: 5}]}>
-                        <Text style={[styles.textStyle, {flex: 1}]}>Totale udgifter:</Text>
-                        <Text style={[styles.textStyle, {flex: 1}]}>{this.props.totalExpenses}</Text>
+                <View style={container.spacedTextWrapper}>
+                    <View style={container.parenBudgetSummary}>
+                        <View style={container.spacedTextChild}>
+                            <Text style={text.listText}>Totale udgifter</Text>
+                            <Text style={text.listText}>{this.props.totalExpenses} kr</Text>
+                        </View>
+                        <View style={container.spacedTextChild}>
+                            <Text style={text.listText}>Til rådighed</Text>
+                            <Text style={[text.listText,
+                                this.props.disposable >= 0 ? {color: 'black'} : {color: 'red'}]}>
+                                {this.props.disposable} kr
+                            </Text>
+                        </View>
                     </View>
-                    <View style={[styles.leftContainer, {justifyContent: 'space-between'}]}>
-                        <Text style={[styles.textStyle, {flex: 1}]}>Til rådighed:</Text>
-                        <Text style={[styles.textStyle, {flex: 1}]}>{this.props.disposable}</Text>
-                    </View>
-                </Form>
+                </View>
 
-                {/*---CREATE BUTTON---*/}
+                {/*---CREATE/EDIT BUTTON---*/}
                 <Form>
                     <Button rounded
                             onPress={this.props.handleSubmit}
-                            style={styles.buttonStyle}
+                            style={button.defaultButton}
                     >
                         {this.props.loading ? (
                             <Spinner color='#D0D0D0'/>) : (
-                            <Text style={styles.itemStyle}>
+                            <Text style={button.submitButtonText}>
                                 {this.props.isBudgetCreated ? 'Gem' : 'Opret budget'}
                             </Text>
                         )}
@@ -77,11 +84,10 @@ class BudgetForm extends PureComponent {
         return (
             <ListItem>
                 <Body>
-                <Label style={styles.textStyle}>{item.name + ":"}</Label>
-                <Item rounded style={styles.inputStyle}>
+                <Label style={text.defaultText}>{item.name + ":"}</Label>
+                <Item rounded style={container.inputField}>
                     <Input
                         onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
-                        placeholder={item.amount + " KR"}
                         amount={item.amount}
                         keyboardType="numeric"
                         style={{width: '90%', fontSize: 13}}
@@ -92,57 +98,5 @@ class BudgetForm extends PureComponent {
         );
     };
 }
-
-const styles = StyleSheet.create({
-    incomeFormStyle: {
-        alignSelf: 'center',
-        marginTop: 10,
-        marginBottom: 5,
-        width: '90%'
-    },
-    leftContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        marginLeft: '5%',
-        marginRight: '5%'
-    },
-    listStyle: {
-        marginLeft: 0,
-        marginRight: 0,
-        padding: 0,
-
-    },
-    textStyle: {
-        fontWeight: '400',
-        fontSize: 14,
-        alignSelf: 'flex-start',
-        marginLeft: 5,
-    },
-    inputStyle: {
-        borderColor: '#001',
-        marginLeft: 0,
-        marginRight: 0,
-        marginTop: 5,
-        marginBottom: 5,
-        paddingLeft: 0,
-        paddingRight: 0,
-        alignSelf: 'center',
-        height: 40
-    },
-    buttonStyle: {
-        width: '90%',
-        height: 40,
-        backgroundColor: '#1c313a',
-        marginTop: 20,
-        marginBottom: 20,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    itemStyle: {
-        fontWeight: '600',
-        alignSelf: 'flex-start',
-        color: 'white'
-    }
-});
 
 export default BudgetForm;

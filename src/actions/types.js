@@ -33,3 +33,6 @@ export const GET_DEBTS = 'get_debts';
 export const GET_DEBTS_SUCCESS = 'get_debts_success';
 export const GET_DEBTS_FAIL = 'get_debts_fail';
 export const DEBT_SELECTED = 'debt_selected';
+
+// ----------ACCOUNT RELATED TYPES----------
+export const GET_ACCOUNT_DATA = 'get_account_data';

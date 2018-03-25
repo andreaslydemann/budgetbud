@@ -20,13 +20,15 @@ import DebtOverview from "./screens/DebtOverview";
 import CreateDebt from './screens/CreateDebt';
 import DebtPreview from './screens/DebtPreview';
 import EditDisposable from "./screens/EditDisposable";
+import CreateAccount from "./screens/CreateAccount";
 
 export default class App extends Component {
     render() {
         const MyBudgetStack = StackNavigator(
             {
-                MyBudget: {screen: MyBudget},
                 CreateBudget: {screen: CreateBudget},
+                MyBudget: {screen: MyBudget},
+                Intro: {screen: Intro},
                 EditBudget: {screen: EditBudget},
                 BudgetPreview: {screen: BudgetPreview},
                 EditDisposable: {screen: EditDisposable},
@@ -43,7 +45,8 @@ export default class App extends Component {
         const SettingsStack = StackNavigator(
             {
                 Settings: {screen: Settings},
-                UserDetails: {screen: UserDetails}
+                UserDetails: {screen: UserDetails},
+                CreateAccount: {screen: CreateAccount}
             },
             {
                 navigationOptions: {gesturesEnabled: false},
@@ -53,14 +56,13 @@ export default class App extends Component {
 
         const Drawer = DrawerNavigator(
             {
-                MyBudget: {screen: MyBudgetStack},
+                BudgetStack: {screen: MyBudgetStack},
                 SpendingOverview: {screen: SpendingOverview},
                 MonthlyReports: {screen: MonthlyReports},
-                Settings: {screen: SettingsStack},
-                Intro: {screen: Intro},
+                Settings: {screen: SettingsStack}
             },
             {
-                initialRouteName: "MyBudget",
+                initialRouteName: "BudgetStack",
                 contentComponent: props => <SideBar {...props} />,
                 contentOptions: {activeTintColor: "#e91e63"},
                 navigationOptions: {drawerLockMode: 'locked-closed'}

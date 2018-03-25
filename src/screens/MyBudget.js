@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 import {
-    Body, Button, Container, Icon, ListItem, Text, View, Label, Spinner, Right,
-    Grid, Row, Col, Left
+    Body,
+    Button,
+    Container,
+    Icon,
+    ListItem,
+    Text,
+    View,
+    Label,
+    Spinner
 } from "native-base";
 import AppHeader from "../components/AppHeader";
 import Separator from "../components/Separator";
@@ -34,7 +41,7 @@ class MyBudget extends Component {
                         {/*---INCOME FIELD<---*/}
                         <View style={[styles.incomeFormStyle, {flex: 0.1, alignItems: 'center'}]}>
                             <Text style={styles.listText}>Indkomst</Text>
-                            <Text style={styles.listText}>{this.props.income} KR</Text>
+                            <Text style={styles.listText}>{this.props.income} kr</Text>
                         </View>
                         <Separator/>
                         {/*---CATEGORY LISTVIEW---*/}
@@ -51,8 +58,11 @@ class MyBudget extends Component {
 
                         <Separator/>
 
+                        {/*---DEBT LISTVIEW---*/}
                         {this.props.isDebtLoaded &&
-                        <View style={{flex: 0.25, alignSelf: 'stretch'}}>
+                        <View style={[this.props.debt.length > 2 ?
+                            {flex: 0.25, alignSelf: 'stretch'} :
+                            {flex: 0.125, alignSelf: 'stretch'}]}>
                             <View style={styles.incomeFormStyle}>
                                 <Label style={styles.textStyle}>Dine gældsposter</Label>
                             </View>
@@ -71,11 +81,11 @@ class MyBudget extends Component {
                             <View style={styles.budgetSummary}>
                                 <View style={styles.incomeFormStyle}>
                                     <Text style={styles.listText}>Totale udgifter</Text>
-                                    <Text style={styles.listText}>{this.props.totalExpenses} KR</Text>
+                                    <Text style={styles.listText}>{this.props.totalExpenses} kr</Text>
                                 </View>
                                 <View style={styles.incomeFormStyle}>
                                     <Text style={styles.listText}>Til rådighed</Text>
-                                    <Text style={styles.listText}>{this.props.disposable} KR</Text>
+                                    <Text style={styles.listText}>{this.props.disposable} kr</Text>
                                 </View>
 
                                 <Button transparent
@@ -99,9 +109,9 @@ class MyBudget extends Component {
         return (
             <ListItem>
                 <Body>
-                <Text style={styles.listText}>{item.name}</Text>
+                <Text style={styles.listText}>{item.categoryData.name}</Text>
                 </Body>
-                    <Text style={[styles.listText, {justifyContent: 'flex-end', marginRight: '5%'}]}>{item.amount} KR</Text>
+                    <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>{item.categoryData.amount} kr</Text>
             </ListItem>
         );
     };
@@ -112,7 +122,7 @@ class MyBudget extends Component {
                 <Body>
                 <Text style={styles.textStyle}>{item.name}</Text>
                 </Body>
-                    <Text style={[styles.listText, {justifyContent: 'flex-end', marginRight: '5%'}]}>{item.amount} KR</Text>
+                    <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>{item.amount} kr</Text>
             </ListItem>
         );
     };

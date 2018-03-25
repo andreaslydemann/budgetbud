@@ -1,18 +1,47 @@
+import {StyleSheet} from 'react-native';
+
 const container = StyleSheet.create({
-    screenContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-end'
+    parenBudgetSummary: {
+        flexDirection: 'column',
+        flexGrow: 1,
+        justifyContent: 'space-between',
+        alignItems: 'stretch',
+        width: '100%'
     },
-    item: {
+    spacedTextWrapper: {
+        alignSelf: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row'
+    },
+    removeIndenting: {
+        marginLeft: 0,
+        marginRight: 0,
+        padding: 0,
+    },
+    inputField: {
+        borderColor: '#000',
+        marginLeft: 0,
+        marginRight: 0,
+        marginTop: 5,
+        marginBottom: 5,
+        paddingLeft: 0,
+        paddingRight: 0,
+        alignSelf: 'center',
+        height: 40
+    },
+    spacedTextChild: {
+        alignSelf: 'center',
+        width: '90%',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        marginTop: '3%'
+    },
+    incomeFormStyle: {
+        alignSelf: 'center',
         marginTop: 10,
-        height: 40,
-        backgroundColor: 'rgba(255, 255,255,0.2)',
-        borderBottomWidth: 0,
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0
-    },
+        marginBottom: 5,
+        width: '90%'
+    }
 });
 
 export default container;
