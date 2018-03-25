@@ -46,3 +46,6 @@ export const GET_CATEGORIES_FAIL = 'get_categories_fail';
 export const CREATE_DEBT = 'create_debt';
 export const CREATE_DEBT_SUCCESS = 'create_debt_success';
 export const CREATE_DEBT_FAIL = 'create_debt_fail';
+
+// ----------ACCOUNT RELATED TYPES----------
+export const GET_ACCOUNT_DATA = 'get_account_data';

@@ -8,7 +8,7 @@ import {
     GET_BUDGET_SUCCESS,
     CREATE_BUDGET_SUCCESS,
     DELETE_BUDGET,
-    GET_INITIAL_BUDGET_STATE
+    GET_INITIAL_BUDGET_STATE, GET_ACCOUNT_DATA
 } from './types';
 import axios from 'axios';
 import {cloudFunctionsURL} from "../config/firebase_config";
@@ -46,26 +46,24 @@ const createBudgetFail = (dispatch, error) => {
 export const getBudget = (callBack) => async dispatch => {
     dispatch({type: GET_BUDGET});
     let token = await firebase.auth().currentUser.getIdToken();
+    console.log(token)
     let userID = await firebase.auth().currentUser.uid;
 
     try {
         let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?userID=${userID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
-        if (budgetResponse === null) {
+        if (budgetResponse.data === null) {
             callBack();
         }
 
         let budgetID = budgetResponse.data.id;
-        let income = budgetResponse.data.budgetData.income;
-        let totalExpenses = budgetResponse.data.budgetData.totalExpenses;
-        let disposable = budgetResponse.data.budgetData.disposable;
-
         let categoryResponse = await axios.get(`${ROOT_URL}/getCategories?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
-        let categories = categoryResponse.data;
-        dispatch({type: GET_BUDGET_SUCCESS, budgetID, income, categories, totalExpenses, disposable});
+        dispatch({type: GET_BUDGET_SUCCESS,
+            budget: budgetResponse.data,
+            categories: categoryResponse.data});
 
     } catch (err) {
         let {data} = err.response;
@@ -129,4 +127,8 @@ export const categoryChanged = (name, amount) => {
         name: name,
         amount: amount
     };
+};
+
+export const getAccountData = (dispatch) => async dispatch => {
+    dispatch({type: GET_ACCOUNT_DATA});
 };

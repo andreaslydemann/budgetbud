@@ -5,11 +5,14 @@ import {connect} from 'react-redux';
 import {incomeChanged, categoryChanged, createBudget} from '../actions/index';
 import BudgetForm from "../components/BudgetForm";
 import AppHeader from "../components/AppHeader";
+import {getAccountData} from "../actions/budget_actions";
 
 class CreateBudget extends Component {
     componentWillMount() {
         if (this.props.isBudgetCreated)
             this.props.navigation.navigate('MyBudget');
+
+        this.props.getAccountData();
     };
 
     onIncomeChange = (text) => {
@@ -22,8 +25,8 @@ class CreateBudget extends Component {
 
     handleSubmit = () => {
         Keyboard.dismiss();
-        const {income, categories} = this.props;
-        this.props.createBudget({income, categories}, () => {
+        const {income, categories, disposable, totalExpenses} = this.props;
+        this.props.createBudget({income, categories, disposable, totalExpenses}, () => {
             this.props.navigation.navigate('MyBudget');
         });
     };
@@ -60,5 +63,6 @@ const mapStateToProps = ({budget}) => {
 export default connect(mapStateToProps, {
     createBudget,
     incomeChanged,
-    categoryChanged
+    categoryChanged,
+    getAccountData
 })(CreateBudget);

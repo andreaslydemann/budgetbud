@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
 import {
-    Body, Button, Container, Icon, ListItem, Text, View, Label, Spinner, Right,
-    Grid, Row, Col
+    Body,
+    Button,
+    Container,
+    Icon,
+    ListItem,
+    Text,
+    View,
+    Label,
+    Spinner
 } from "native-base";
 import AppHeader from "../components/AppHeader";
 import Separator from "../components/Separator";
 import {FlatList, StyleSheet} from "react-native";
 import {connect} from "react-redux";
 import {getBudget} from "../actions/budget_actions";
-import Modal from 'react-native-modalbox';
+import ModalBox from "../components/ModalBox";
 
 class MyBudget extends Component {
     componentWillMount() {
@@ -31,116 +38,67 @@ class MyBudget extends Component {
                     }} color='#1c313a'/>) : (
 
                     <Container>
-                        <Grid>
-                            {/*---INCOME FIELD<---*/}
-                            <Row size={1}>
+                        {/*---INCOME FIELD<---*/}
+                        <View style={[styles.incomeFormStyle, {flex: 0.1, alignItems: 'center'}]}>
+                            <Text style={styles.listText}>Indkomst</Text>
+                            <Text style={styles.listText}>{this.props.income} kr</Text>
+                        </View>
+                        <Separator/>
+                        {/*---CATEGORY LISTVIEW---*/}
+                        <View style={{flex: 0.7, alignSelf: 'stretch'}}>
+                            <View style={styles.incomeFormStyle}>
+                                <Label style={styles.textStyle}>Dine udgiftsposter</Label>
+                            </View>
+                            <FlatList
+                                data={this.props.categories}
+                                renderItem={this.renderCategory}
+                                keyExtractor={item => item.name}
+                            />
+                        </View>
+
+                        <Separator/>
+
+                        {/*---DEBT LISTVIEW---*/}
+                        {this.props.isDebtLoaded &&
+                        <View style={[this.props.debt.length > 2 ?
+                            {flex: 0.25, alignSelf: 'stretch'} :
+                            {flex: 0.125, alignSelf: 'stretch'}]}>
+                            <View style={styles.incomeFormStyle}>
+                                <Label style={styles.textStyle}>Dine gældsposter</Label>
+                            </View>
+                            <FlatList
+                                data={this.props.debt}
+                                renderItem={this.renderDebt}
+                                keyExtractor={item => item.name}
+                            />
+                            <Separator/>
+                        </View>
+                        }
+
+
+                        {/*---CALCULATED TOTAL---*/}
+                        <View style={[styles.newStyle]}>
+                            <View style={styles.budgetSummary}>
                                 <View style={styles.incomeFormStyle}>
-                                    <Text style={styles.textStyle}>Indkomst:</Text>
-                                    <Text>{this.props.income} KR</Text>
+                                    <Text style={styles.listText}>Totale udgifter</Text>
+                                    <Text style={styles.listText}>{this.props.totalExpenses} kr</Text>
+                                </View>
+                                <View style={styles.incomeFormStyle}>
+                                    <Text style={styles.listText}>Til rådighed</Text>
+                                    <Text style={styles.listText}>{this.props.disposable} kr</Text>
                                 </View>
 
-                            </Row>
+                                <Button transparent
+                                        onPress={() => this.refs.bottomModal.open()}
+                                        style={styles.buttonStyle}
+                                >
+                                    <Icon name="ios-arrow-dropup-circle"
+                                          style={{color: "#1c313a"}}/>
+                                </Button>
 
-                            <Separator/>
-
-                            {/*---CATEGORY LISTVIEW---*/}
-                            <Row size={4}>
-                                <FlatList
-                                    data={this.props.categories}
-                                    renderItem={this.renderCategory}
-                                    keyExtractor={item => item.name}
-                                    style={styles.listStyle}
-                                />
-                            </Row>
-
-                            <Separator/>
-
-                            {/*---DEBT LISTVIEW---*/}
-                            <Row size={2}>
-                                <FlatList
-                                    data={this.props.debt}
-                                    renderItem={this.renderDebt}
-                                    keyExtractor={item => item.name}
-                                    style={styles.listStyle}
-                                />
-                            </Row>
-
-                            <Separator/>
-
-                            {/*---CALCULATED TOTAL---*/}
-                            <Row size={2}>
-                                <View style={{flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between', alignItems: 'stretch', width: '100%'}}>
-                                    <View style={styles.spacedText}>
-                                        <Text>Totale udgifter:</Text>
-                                        <Text>{this.props.totalExpenses} KR</Text>
-                                    </View>
-                                    <View style={styles.spacedText}>
-                                        <Text>Til rådighed:</Text>
-                                        <Text>{this.props.disposable} KR</Text>
-                                    </View>
-
-                                    <Button transparent
-                                            onPress={() => this.refs.bottomModal.open()}
-                                            style={styles.buttonStyle}
-                                    >
-                                        <Icon name="ios-arrow-dropup-circle"
-                                              style={{color: "#1c313a"}}/>
-                                    </Button>
-
-                                    <Modal position={"bottom"} ref={"bottomModal"}>
-                                        <Label style={[styles.textStyle, {
-                                            alignSelf: 'center',
-                                            marginTop: 10
-                                        }]}>Redigér:</Label>
-                                        <View style={{
-                                            flex: 1,
-                                            flexDirection: 'row',
-                                            justifyContent: 'space-between',
-                                            marginTop: 40,
-                                            marginHorizontal: 40
-                                        }}>
-                                            <Button
-                                                transparent
-                                                onPress={() => this.props.navigation.navigate("EditBudget")}
-                                            >
-                                                <View style={styles.modalButton}>
-                                                    <Icon name="md-clipboard"
-                                                          style={{color: "#1c313a"}}/>
-                                                    <Label style={styles.textStyle}>Budget</Label>
-                                                </View>
-                                            </Button>
-
-                                            <Button
-                                                transparent
-                                                onPress={() => this.props.navigation.navigate("EditDisposable")}
-                                            >
-                                                <View style={styles.modalButton}>
-                                                    <Icon name="logo-usd" style={{color: "#1c313a"}}/>
-                                                    <Label style={styles.textStyle}>Rådighedsbeløb</Label>
-                                                </View>
-                                            </Button>
-
-                                            <Button
-                                                transparent
-                                                onPress={() => this.props.navigation.navigate("DebtOverview")}
-                                            >
-                                                <View style={styles.modalButton}>
-                                                    <Icon name="ios-archive" style={{color: "#1c313a"}}/>
-                                                    <Label style={styles.textStyle}>Gæld</Label>
-                                                </View>
-                                            </Button>
-                                        </View>
-                                        <Button transparent
-                                                onPress={() => this.refs.bottomModal.close()}
-                                                style={styles.buttonStyle}
-                                        >
-                                            <Icon name="ios-arrow-dropdown-circle"
-                                                  style={{color: "#1c313a"}}/>
-                                        </Button>
-                                    </Modal>
-                                </View>
-                            </Row>
-                        </Grid>
+                                <ModalBox/>
+                            </View>
+                        </View>
                     </Container>
                 )}
             </Container>
@@ -151,11 +109,9 @@ class MyBudget extends Component {
         return (
             <ListItem>
                 <Body>
-                <Text>{item.name + ":"}</Text>
+                <Text style={styles.listText}>{item.categoryData.name}</Text>
                 </Body>
-                <Right>
-                    <Text style={[{flex: 1}]}>{item.amount} KR</Text>
-                </Right>
+                    <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>{item.categoryData.amount} kr</Text>
             </ListItem>
         );
     };
@@ -164,11 +120,9 @@ class MyBudget extends Component {
         return (
             <ListItem>
                 <Body>
-                <Text style={[styles.textStyle, {flex: 1}]}>{item.name + ":"}</Text>
+                <Text style={styles.textStyle}>{item.name}</Text>
                 </Body>
-                <Right>
-                    <Text style={[styles.textStyle, {flex: 1}]}>{item.amount} KR</Text>
-                </Right>
+                    <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>{item.amount} kr</Text>
             </ListItem>
         );
     };
@@ -181,10 +135,16 @@ const styles = StyleSheet.create({
     },
     incomeFormStyle: {
         alignSelf: 'center',
-        marginTop: 10,
-        marginBottom: 5,
         width: '90%',
-        flex: 1
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        marginTop: '3%'
+    },
+    newStyle: {
+        alignSelf: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        flex: 0.30
     },
     itemStyle: {
         fontWeight: '600',
@@ -199,14 +159,23 @@ const styles = StyleSheet.create({
         marginHorizontal: '5%',
         marginVertical: 10
     },
-    listStyle: {
-        flexGrow: 1
+    budgetSummary: {
+        flexDirection: 'column',
+        flexGrow: 1,
+        justifyContent: 'space-between',
+        alignItems: 'stretch',
+        width: '100%'
     },
     textStyle: {
         fontWeight: '400',
         fontSize: 14,
         alignSelf: 'flex-start',
         marginLeft: 5,
+    },
+    listText: {
+        alignSelf: 'flex-start',
+        marginLeft: 5,
+        fontSize: 16
     },
     modalButton: {
         flexDirection: 'column',
@@ -216,8 +185,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({budget}) => {
-    const {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome} = budget;
-    return {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome}
+    const {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome, isDebtLoaded} = budget;
+    return {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome, isDebtLoaded}
 };
 
 export default connect(mapStateToProps, {
