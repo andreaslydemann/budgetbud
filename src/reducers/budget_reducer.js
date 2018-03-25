@@ -21,7 +21,8 @@ const INITIAL_STATE = {
     disposable: '0',
     debt: [],
     categories: [],
-    isBudgetCreated: false
+    isBudgetCreated: false,
+    isDebtLoaded: false
 };
 
 export default (state = INITIAL_STATE, action) => {
