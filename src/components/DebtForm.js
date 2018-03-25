@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, FlatList, Keyboard, TouchableWithoutFeedback} from 'react-native';
-import {Container, Item, Input, Button, Text, Label, ListItem, CheckBox, Body, Icon} from 'native-base';
+import {Container, Item, Input, Button, Text, Label, ListItem, CheckBox, Body, Right, Icon, Spinner} from 'native-base';
 import DatePicker from 'react-native-datepicker'
 import Separator from '../components/Separator';
 
@@ -72,11 +72,18 @@ class DebtForm extends Component {
                             <Label style={styles.textStyle}>Angiv kategorier, hvor gælden skal trækkes.</Label>
                         </View>
 
-                        <FlatList
-                            data={this.props.categoryItems}
-                            renderItem={this.renderItem}
-                            keyExtractor={item => item.name}
-                        />
+                        {this.props.categoriesLoading ? (
+                            <Container style={{justifyContent: 'center'}}>
+                                <Spinner style={{
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }} color='#1c313a'/>
+                            </Container>) : (
+                            < FlatList
+                                data={this.props.categoryItems}
+                                renderItem={this.renderItem}
+                            />
+                        )}
                     </View>
 
                     <View style={{marginTop: 5}}>
@@ -97,11 +104,14 @@ class DebtForm extends Component {
 
     renderItem = ({item}) => {
         return (
-            <ListItem>
+            <ListItem style={{paddingLeft: 9}}>
                 <CheckBox style={{borderColor: '#777777'}} checked={false}/>
                 <Body>
                 <Text>{item.name}</Text>
                 </Body>
+                <Right style={{paddingRight: 9}}>
+                    <Text >{item.amount} KR</Text>
+                </Right>
             </ListItem>
         );
     }

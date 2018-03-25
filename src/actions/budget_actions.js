@@ -11,10 +11,10 @@ import {
     GET_INITIAL_BUDGET_STATE
 } from './types';
 import axios from 'axios';
-import {firebaseFunctionsURL} from "../config/firebase_config";
+import {cloudFunctionsURL} from "../config/firebase_config";
 import firebase from 'firebase';
 
-const ROOT_URL = firebaseFunctionsURL;
+const ROOT_URL = cloudFunctionsURL;
 
 export const createBudget = ({income, categories, totalExpenses, disposable}, callBack) => async dispatch => {
     if (income.length === 0) {

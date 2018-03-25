@@ -10,8 +10,7 @@ import ConfirmDialog from '../components/ConfirmDialog';
 
 class DebtOverview extends PureComponent {
     componentWillMount() {
-        //this.props.getDebts(this.props.budgetID);
-        this.props.getDebts("Gv9eeodFRPx7PJdzZ2i6");
+        this.props.getDebts(this.props.budgetID);
     }
 
     onCreateDebtPress = () => {
@@ -126,6 +125,8 @@ const mapStateToProps = (state) => {
     return {budgetID, debtItems, loading, selectedDebt};
 };
 
-export default connect(mapStateToProps,
-    {resetDebtForm, debtSelected, getDebts, deleteDebt})
-(DebtOverview);
+const mapDispatchToProps = {
+    resetDebtForm, debtSelected, getDebts, deleteDebt
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DebtOverview);

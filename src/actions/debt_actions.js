@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import {firebaseFunctionsURL} from "../config/firebase_config";
+import {cloudFunctionsURL} from "../config/firebase_config";
 
 import {
     GET_INITIAL_AUTH_STATE,
@@ -11,7 +11,7 @@ import {
     DELETE_DEBT
 } from './types';
 
-const ROOT_URL = firebaseFunctionsURL;
+const ROOT_URL = cloudFunctionsURL;
 
 export const resetDebtForm = (callback) => async dispatch => {
     dispatch({

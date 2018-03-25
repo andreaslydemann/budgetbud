@@ -4,21 +4,16 @@ import {
     GET_DEBTS,
     GET_DEBTS_SUCCESS,
     GET_DEBTS_FAIL,
-    DELETE_DEBT
+    DELETE_DEBT,
+    GET_CATEGORIES,
+    GET_CATEGORIES_SUCCESS,
+    GET_CATEGORIES_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
     error: '',
     debtItems: [],
-    categoryItems: [
-        {name: "Kategori 1", value: '10'},
-        {name: "Kategori 2", value: '20'},
-        {name: "Kategori 3", value: '30'},
-        {name: "Kategori 4", value: '40'},
-        {name: "Kategori 5", value: '50'},
-        {name: "Kategori 6", value: '60'},
-        {name: "Kategori 7", value: '70'}
-    ],
+    categoryItems: [],
     loading: false,
     selectedDebt: {}
 };
@@ -37,6 +32,12 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, loading: false, error: action.payload};
         case DELETE_DEBT:
             return {...state, debtItems: state.debtItems.filter((item, key) => key !== state.selectedDebt.key)};
+        case GET_CATEGORIES:
+            return {...state, loading: true, error: ''};
+        case GET_CATEGORIES_SUCCESS:
+            return {...state, loading: false, categoryItems: action.payload};
+        case GET_CATEGORIES_FAIL:
+            return {...state, loading: false, error: action.payload};
         default:
             return state;
     }
