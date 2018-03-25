@@ -4,6 +4,10 @@ import Modal from 'react-native-modalbox';
 import {Button, Icon, Label, View} from "native-base";
 
 class ModalBox extends Component {
+    showModal() {
+        this.refs.bottomModal.open();
+    }
+
     render() {
         return (
             <Modal position={"bottom"} ref={"bottomModal"}>
@@ -20,7 +24,7 @@ class ModalBox extends Component {
                 }}>
                     <Button
                         transparent
-                        onPress={() => this.props.navigation.navigate("EditBudget")}
+                        onPress={() => this.props.navigateUser("EditBudget")}
                     >
                         <View style={styles.modalButton}>
                             <Icon name="md-clipboard"
@@ -31,7 +35,7 @@ class ModalBox extends Component {
 
                     <Button
                         transparent
-                        onPress={() => this.props.navigation.navigate("EditDisposable")}
+                        onPress={() => this.props.navigateUser("EditDisposable")}
                     >
                         <View style={styles.modalButton}>
                             <Icon name="logo-usd" style={{color: "#1c313a"}}/>
@@ -41,7 +45,7 @@ class ModalBox extends Component {
 
                     <Button
                         transparent
-                        onPress={() => this.props.navigation.navigate("DebtOverview")}
+                        onPress={() => this.props.navigateUser("DebtOverview")}
                     >
                         <View style={styles.modalButton}>
                             <Icon name="ios-archive" style={{color: "#1c313a"}}/>
