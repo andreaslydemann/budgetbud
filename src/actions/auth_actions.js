@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import {cloudFunctionsURL} from "../config/firebase_config";
 
 import {

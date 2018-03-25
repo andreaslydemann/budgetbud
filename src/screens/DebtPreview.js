@@ -2,10 +2,14 @@ import React, {Component} from 'react';
 import {Container, Content, Button, Text} from "native-base";
 import AppHeader from "../components/AppHeader";
 import Separator from '../components/Separator';
+import {connect} from "react-redux";
+import {createDebt} from "../actions/debt_actions";
 
 class DebtPreview extends Component {
     onSavePress = () => {
-        this.props.navigation.pop(2);
+        this.props.createDebt(this.props, () => {
+            this.props.navigation.pop(2);
+        });
     };
 
     render() {
@@ -50,4 +54,14 @@ const styles = {
     }
 };
 
-export default DebtPreview;
+const mapStateToProps = (state) => {
+    const budgetID = state.budget.budgetID;
+    const {name, amount, expirationDate, selectedCategories} = state.debt;
+    return {name, amount, expirationDate, selectedCategories, budgetID};
+};
+
+const mapDispatchToProps = {
+    createDebt
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DebtPreview);

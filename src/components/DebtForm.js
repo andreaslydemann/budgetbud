@@ -7,13 +7,6 @@ import Separator from '../components/Separator';
 class DebtForm extends Component {
     state = {date: ''};
 
-    onDateChange = (date) => {
-
-        const newDate = new Date(2016, 3, 12);
-
-        this.setState({newDate});
-    };
-
     render() {
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -21,7 +14,10 @@ class DebtForm extends Component {
                     <View style={[styles.incomeFormStyle, {paddingTop: 10}]}>
                         <Label style={styles.textStyle}>Navn</Label>
                         <Item rounded style={styles.inputStyle}>
-                            <Input/>
+                            <Input
+                                value={this.props.name}
+                                onChangeText={this.props.onNameChange}
+                            />
                         </Item>
                     </View>
 
@@ -29,6 +25,8 @@ class DebtForm extends Component {
                         <Label style={styles.textStyle}>Beløb</Label>
                         <Item rounded style={styles.inputStyle}>
                             <Input
+                                value={this.props.amount}
+                                onChangeText={this.props.onAmountChange}
                                 keyboardType="numeric"
                             />
                         </Item>
@@ -41,8 +39,8 @@ class DebtForm extends Component {
                     <View style={styles.incomeFormStyle}>
                         <Label style={styles.textStyle}>Angiv ønsket dato for gennemført afbetaling.</Label>
                         <DatePicker
-                            date={this.state.date}
-                            onDateChange={this.onDateChange}
+                            date={this.props.expirationDate}
+                            onDateChange={this.props.onExpirationDateChange}
                             format="DD-MM-YYYY"
                             style={[styles.inputStyle, {width: '100%'}]}
                             cancelBtnText="Afbryd"
@@ -105,12 +103,16 @@ class DebtForm extends Component {
     renderItem = ({item}) => {
         return (
             <ListItem style={{paddingLeft: 9}}>
-                <CheckBox style={{borderColor: '#777777'}} checked={false}/>
+                <CheckBox
+                    style={{borderColor: '#777777'}}
+                    checked={this.props.selectedCategories.includes(item.categoryID)}
+                    onPress={() => this.props.onCheckBoxPress(item)}
+                />
                 <Body>
                 <Text>{item.name}</Text>
                 </Body>
                 <Right style={{paddingRight: 9}}>
-                    <Text >{item.amount} KR</Text>
+                    <Text>{item.amount} KR</Text>
                 </Right>
             </ListItem>
         );

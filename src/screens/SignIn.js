@@ -7,6 +7,8 @@ import Logo from '../components/Logo';
 import AuthForm from '../components/AuthForm';
 import ErrorInfo from '../components/ErrorInfo';
 import screenStyles from './ScreenStyles';
+import {debtSelected, deleteDebt, getDebts, resetDebtForm} from "../actions/debt_actions";
+import {getCategories} from "../actions/category_actions";
 
 class SignIn extends Component {
     onCprNumberChange = (text) => {
@@ -108,6 +110,8 @@ const mapStateToProps = ({auth}) => {
     return {cprNumber, code, error, loading};
 };
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
     signIn, cprNumberChanged, codeChanged, authScreenSwitched
-})(SignIn);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

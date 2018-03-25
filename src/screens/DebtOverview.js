@@ -54,7 +54,7 @@ class DebtOverview extends PureComponent {
                             }} color='#1c313a'/>) : (
 
                             <FlatList
-                                data={this.props.debtItems}
+                                data={this.props.debts}
                                 renderItem={this.renderItem}
                             />
                         )}
@@ -78,7 +78,7 @@ class DebtOverview extends PureComponent {
             <ListItem>
                 <Body>
                 <Text>{item.name}</Text>
-                <Text note>{item.totalAmount} kr</Text>
+                <Text note>{item.amount} kr</Text>
                 </Body>
                 <Right>
                     <View style={{flexDirection: 'row'}}>
@@ -118,11 +118,11 @@ const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
     const {loading, selectedDebt} = state.debt;
 
-    const debtItems = _.map(state.debt.debtItems, (item, key) => {
+    const debts = _.map(state.debt.debts, (item, key) => {
         return {...item.data, debtID: item.id, key: key};
     });
 
-    return {budgetID, debtItems, loading, selectedDebt};
+    return {budgetID, debts, loading, selectedDebt};
 };
 
 const mapDispatchToProps = {
