@@ -24,6 +24,10 @@ class MyBudget extends Component {
         });
     }
 
+    navigateUser = (destination) => {
+        this.props.navigation.navigate(destination)
+    };
+
     render() {
         return (
             <Container style={{flexGrow: 1}}>
@@ -75,7 +79,6 @@ class MyBudget extends Component {
                         </View>
                         }
 
-
                         {/*---CALCULATED TOTAL---*/}
                         <View style={[styles.newStyle]}>
                             <View style={styles.budgetSummary}>
@@ -89,14 +92,19 @@ class MyBudget extends Component {
                                 </View>
 
                                 <Button transparent
-                                        onPress={() => this.refs.bottomModal.open()}
+                                        onPress={() => this.bottomModal.showModal()}
                                         style={styles.buttonStyle}
                                 >
                                     <Icon name="ios-arrow-dropup-circle"
                                           style={{color: "#1c313a"}}/>
                                 </Button>
 
-                                <ModalBox/>
+                                <ModalBox
+                                    ref={(bottomModal) => {
+                                        this.bottomModal = bottomModal
+                                    }}
+                                    navigateUser={this.navigateUser}
+                                />
                             </View>
                         </View>
                     </Container>
@@ -111,7 +119,7 @@ class MyBudget extends Component {
                 <Body>
                 <Text style={styles.listText}>{item.categoryData.name}</Text>
                 </Body>
-                    <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>{item.categoryData.amount} kr</Text>
+                <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>{item.categoryData.amount} kr</Text>
             </ListItem>
         );
     };
@@ -122,7 +130,7 @@ class MyBudget extends Component {
                 <Body>
                 <Text style={styles.textStyle}>{item.name}</Text>
                 </Body>
-                    <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>{item.amount} kr</Text>
+                <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>{item.amount} kr</Text>
             </ListItem>
         );
     };
@@ -185,8 +193,19 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({budget}) => {
-    const {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome, isDebtLoaded} = budget;
-    return {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome, isDebtLoaded}
+    const {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome, isDebtLoaded, destination} = budget;
+    return {
+        isBudgetCreated,
+        loading,
+        income,
+        categories,
+        debt,
+        totalExpenses,
+        disposable,
+        estimatedIncome,
+        isDebtLoaded,
+        destination
+    }
 };
 
 export default connect(mapStateToProps, {

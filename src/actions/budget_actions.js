@@ -46,7 +46,6 @@ const createBudgetFail = (dispatch, error) => {
 export const getBudget = (callBack) => async dispatch => {
     dispatch({type: GET_BUDGET});
     let token = await firebase.auth().currentUser.getIdToken();
-    console.log(token)
     let userID = await firebase.auth().currentUser.uid;
 
     try {
