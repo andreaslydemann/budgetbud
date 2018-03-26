@@ -87,7 +87,7 @@ const mapStateToProps = (state) => {
     const {categories, categoriesLoading} = state.category;
 
     const categoryItems = _.map(categories, (item, key) => {
-        return {...item.data, categoryID: item.id, key: key};
+        return {...item.categoryData, categoryID: item.id, key: key};
     });
 
     return {

@@ -5,6 +5,12 @@ import DebtForm from '../components/DebtForm';
 import {connect} from "react-redux";
 
 class EditDebt extends Component {
+    componentWillMount() {
+        _.each(this.props.employee, (value, prop) => {
+            this.props.employeeUpdate({prop, value});
+        });
+    }
+
     onContinuePress = () => {
         this.props.navigation.navigate('DebtPreview');
     };
