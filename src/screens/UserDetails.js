@@ -23,7 +23,7 @@ class UserDetails extends Component {
             <Container>
                 <ConfirmDialog
                     title="Bekræft sletning"
-                    text="Er du sikker på, at du vil gennemføre sletningen af din bruger? Handlingen kan ikke fortrydes."
+                    text="Vil du slette din bruger?"
                     confirmCallback={() => this.deleteUser()}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
