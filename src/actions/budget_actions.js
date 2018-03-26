@@ -57,6 +57,7 @@ export const getBudget = (callBack) => async dispatch => {
         }
 
         let budgetID = budgetResponse.data.id;
+
         let categoryResponse = await axios.get(`${ROOT_URL}/getCategories?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 

@@ -56,7 +56,7 @@ class MyBudget extends Component {
                             <FlatList
                                 data={this.props.categories}
                                 renderItem={this.renderCategory}
-                                keyExtractor={item => item.name}
+                                keyExtractor={item => item.id}
                             />
                         </View>
 

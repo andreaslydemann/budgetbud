@@ -37,7 +37,7 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false,
                 income: action.budget.budgetData.income,
                 categories: action.categories,
-                budgetID: action.budget.budgetData.budgetID,
+                budgetID: action.budget.id,
                 disposable: action.budget.budgetData.disposable,
                 totalExpenses: action.budget.budgetData.totalExpenses
             };
