@@ -24,8 +24,8 @@ class DebtOverview extends PureComponent {
         this.props.deleteDebt(this.props.selectedDebt.debtID);
     };
 
-    onDebtSelect = ({key, debtID}) => {
-        this.props.debtSelected(key, debtID);
+    onDebtSelect = (debt) => {
+        this.props.debtSelected(debt);
     };
 
     render() {
@@ -82,7 +82,13 @@ class DebtOverview extends PureComponent {
                 </Body>
                 <Right>
                     <View style={{flexDirection: 'row'}}>
-                        <Icon style={{marginRight: 7, fontSize: 30}} name="md-create"/>
+                        <Icon
+                            onPress={() => {
+                                this.onDebtSelect(item);
+                                this.props.navigation.navigate('EditDebt');
+                            }}
+                            style={{marginRight: 7, fontSize: 30}}
+                            name="md-create"/>
                         <Icon
                             onPress={() => {
                                 this.onDebtSelect(item);
@@ -119,7 +125,7 @@ const mapStateToProps = (state) => {
     const {loading, selectedDebt} = state.debt;
 
     const debts = _.map(state.debt.debts, (item, key) => {
-        return {...item.data, debtID: item.id, key: key};
+        return {...item.debtData, debtID: item.id, key: key};
     });
 
     return {budgetID, debts, loading, selectedDebt};
