@@ -14,6 +14,7 @@ import Separator from "./Separator";
 import container from "../style/container";
 import text from "../style/text";
 import button from "../style/button";
+import input from "../style/input";
 
 class BudgetForm extends PureComponent {
     render() {
@@ -22,7 +23,7 @@ class BudgetForm extends PureComponent {
                 {/*---INCOME FIELD<---*/}
                 <Form style={container.incomeFormStyle}>
                     <Label style={text.defaultText}>Indkomst:</Label>
-                    <Item rounded style={container.inputField}>
+                    <Item rounded style={input.inputField}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
                             amount={this.props.income}
@@ -85,7 +86,7 @@ class BudgetForm extends PureComponent {
             <ListItem>
                 <Body>
                 <Label style={text.defaultText}>{item.name + ":"}</Label>
-                <Item rounded style={container.inputField}>
+                <Item rounded style={input.inputField}>
                     <Input
                         onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
                         amount={item.amount}
