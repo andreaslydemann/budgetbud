@@ -76,13 +76,9 @@ const getBudgetFail = (dispatch, error) => {
 };
 
 export const editBudget = ({income, categoryName, categoryAmount}, callBack) => async dispatch => {
-    if (income.length === 0) {
-        income = 0;
-    } else if (categoryAmount.length === 0) {
-        categoryAmount = 0;
-    }
-
     dispatch({type: CREATE_BUDGET});
+    let token = await firebase.auth().currentUser.getIdToken();
+    let userID = await firebase.auth().currentUser.uid;
 
     try {
         await axios.post(`${ROOT_URL}/editBudget`, {income, categoryName, categoryAmount});
