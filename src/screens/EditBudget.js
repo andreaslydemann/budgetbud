@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import {Keyboard} from 'react-native';
-import {Button, Container, Form, Spinner, Text} from 'native-base';
+import {Container} from 'native-base';
 import {connect} from 'react-redux';
-import {incomeChanged, categoryChanged, createBudget, openDrawer} from '../actions/index';
-import BudgetForm from "../components/BudgetForm";
-import {editBudget, getInitialBudget, getInitialState} from "../actions/budget_actions";
+import I18n from "../strings/i18n";
 import AppHeader from "../components/AppHeader";
+import BudgetForm from "../components/BudgetForm";
+import {
+    editBudget,
+    incomeChanged,
+    categoryChanged
+} from "../actions";
 
 class EditBudget extends Component {
     onIncomeChange = (text) => {
@@ -18,8 +22,8 @@ class EditBudget extends Component {
 
     handleSubmit = () => {
         Keyboard.dismiss();
-        const {income, categoryAmount} = this.props;
-        this.props.editBudget({income, categoryAmount}, () => {
+
+        this.props.editBudget(this.props, () => {
             this.props.navigation.navigate.pop();
         });
     };
@@ -27,8 +31,7 @@ class EditBudget extends Component {
     render() {
         return (
             <Container style={[{alignItems: 'stretch'}]}>
-                {/*---HEADER---*/}
-                <AppHeader headerText={'Redigér budget'}
+                <AppHeader headerText={I18n.t('editBudgetHeader')}
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
@@ -50,11 +53,22 @@ class EditBudget extends Component {
 }
 
 const mapStateToProps = ({budget}) => {
-    const {income, categories, debt, totalExpenses, disposable, loading, error, isBudgetCreated} = budget;
-    return {income, categories, debt, totalExpenses, disposable, loading, error, isBudgetCreated}
+    return {
+        income,
+        categories,
+        debt,
+        totalExpenses,
+        disposable,
+        loading,
+        error,
+        isBudgetCreated
+    } = budget;
 };
 
-export default connect(mapStateToProps, {
-    openDrawer, editBudget,
-    incomeChanged, categoryChanged, getInitialBudget
-})(EditBudget);
+const mapDispatchToProps = {
+    editBudget,
+    incomeChanged,
+    categoryChanged
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditBudget);

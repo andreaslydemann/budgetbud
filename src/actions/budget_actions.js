@@ -1,3 +1,6 @@
+import axios from 'axios';
+import firebase from 'firebase';
+import {cloudFunctionsURL} from "../config/firebase_config";
 import {
     INCOME_CHANGED,
     CATEGORY_CHANGED,
@@ -8,36 +11,35 @@ import {
     GET_BUDGET_SUCCESS,
     CREATE_BUDGET_SUCCESS,
     DELETE_BUDGET,
-    GET_INITIAL_BUDGET_STATE, GET_ACCOUNT_DATA
+    GET_INITIAL_BUDGET_STATE,
+    GET_ACCOUNT_DATA
 } from './types';
-import axios from 'axios';
-import {cloudFunctionsURL} from "../config/firebase_config";
-import firebase from 'firebase';
 
 const ROOT_URL = cloudFunctionsURL;
 
-export const createBudget = ({income, categories, totalExpenses, disposable}, callBack) => async dispatch => {
-    if (income.length === 0) {
-        income = 0;
-    }
+export const createBudget = ({income, categories, totalExpenses, disposable}, callback) =>
+    async dispatch => {
+        if (income.length === 0)
+            income = 0;
 
-    dispatch({type: CREATE_BUDGET});
-    let token = await firebase.auth().currentUser.getIdToken();
+        dispatch({type: CREATE_BUDGET});
 
-    try {
-        let userID = await firebase.auth().currentUser.uid;
-        await axios.post(`${ROOT_URL}/createBudget`, {userID, income, categories, totalExpenses, disposable},
-            {headers: {Authorization: 'Bearer ' + token}});
+        try {
+            let token = await firebase.auth().currentUser.getIdToken();
+            let userID = await firebase.auth().currentUser.uid;
 
-        dispatch({type: CREATE_BUDGET_SUCCESS, income, categories, totalExpenses, disposable});
+            await axios.post(`${ROOT_URL}/createBudget`,
+                {userID, income, categories, totalExpenses, disposable},
+                {headers: {Authorization: 'Bearer ' + token}});
 
-    } catch (err) {
-        let {data} = err.response;
-        createBudgetFail(dispatch, data.error)
-    }
+            dispatch({type: CREATE_BUDGET_SUCCESS, payload: {income, categories, totalExpenses, disposable}});
 
-    callBack();
-};
+            callback();
+        } catch (err) {
+            let {data} = err.response;
+            createBudgetFail(dispatch, data.error)
+        }
+    };
 
 const createBudgetFail = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
@@ -61,9 +63,11 @@ export const getBudget = (callBack) => async dispatch => {
         let categoryResponse = await axios.get(`${ROOT_URL}/getCategories?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
-        dispatch({type: GET_BUDGET_SUCCESS,
+        dispatch({
+            type: GET_BUDGET_SUCCESS,
             budget: budgetResponse.data,
-            categories: categoryResponse.data});
+            categories: categoryResponse.data
+        });
 
     } catch (err) {
         let {data} = err.response;
@@ -75,7 +79,7 @@ const getBudgetFail = (dispatch, error) => {
     dispatch({type: GET_BUDGET_FAIL, payload: error});
 };
 
-export const editBudget = ({income, categoryName, categoryAmount}, callBack) => async dispatch => {
+export const editBudget = ({income, categoryName, categoryAmount}, callback) => async dispatch => {
     dispatch({type: CREATE_BUDGET});
     let token = await firebase.auth().currentUser.getIdToken();
     let userID = await firebase.auth().currentUser.uid;
@@ -93,13 +97,13 @@ const editBudgetFail = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
 };
 
-export const deleteBudget = ({budgetID}, callBack) => async dispatch => {
+export const deleteBudget = ({budgetID}, callback) => async dispatch => {
     try {
         dispatch({type: DELETE_BUDGET});
         let token = await firebase.auth().currentUser.getIdToken();
 
         await axios.post(`${ROOT_URL}/deleteBudget`, {budgetID}, {
-            headers: { Authorization: 'Bearer ' + token }
+            headers: {Authorization: 'Bearer ' + token}
         });
 
         dispatch({type: GET_INITIAL_BUDGET_STATE});

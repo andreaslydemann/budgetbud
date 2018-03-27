@@ -1,8 +1,22 @@
 import React, {Component} from 'react';
 import {View, FlatList, Keyboard, TouchableWithoutFeedback} from 'react-native';
-import {Container, Item, Input, Button, Text, Label, ListItem, CheckBox, Body, Right, Icon, Spinner} from 'native-base';
-import DatePicker from 'react-native-datepicker'
+import {
+    Container,
+    Item,
+    Input,
+    Button,
+    Text,
+    Label,
+    ListItem,
+    CheckBox,
+    Body,
+    Right,
+    Icon,
+    Spinner
+} from 'native-base';
+import DatePicker from 'react-native-datepicker';
 import Separator from '../components/Separator';
+import I18n from "../strings/i18n";
 
 class DebtForm extends Component {
     onNameChange = (text) => {
@@ -34,7 +48,7 @@ class DebtForm extends Component {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <Container>
                     <View style={[styles.incomeFormStyle, {paddingTop: 10}]}>
-                        <Label style={styles.textStyle}>Navn</Label>
+                        <Label style={styles.textStyle}>{I18n.t('debtName')}</Label>
                         <Item rounded style={styles.inputStyle}>
                             <Input
                                 value={this.props.name}
@@ -44,7 +58,7 @@ class DebtForm extends Component {
                     </View>
 
                     <View style={styles.incomeFormStyle}>
-                        <Label style={styles.textStyle}>Beløb</Label>
+                        <Label style={styles.textStyle}>{I18n.t('debtAmount')}</Label>
                         <Item rounded style={styles.inputStyle}>
                             <Input
                                 value={String(this.props.amount)}
@@ -59,14 +73,14 @@ class DebtForm extends Component {
                     </View>
 
                     <View style={styles.incomeFormStyle}>
-                        <Label style={styles.textStyle}>Angiv ønsket dato for gennemført afbetaling.</Label>
+                        <Label style={styles.textStyle}>{I18n.t('debtExpirationDate')}</Label>
                         <DatePicker
                             date={this.props.expirationDate}
                             onDateChange={this.onExpirationDateChange}
                             format="DD-MM-YYYY"
                             style={[styles.inputStyle, {width: '100%'}]}
-                            cancelBtnText="Afbryd"
-                            confirmBtnText="Ok"
+                            cancelBtnText={I18n.t('datePickerCancelButton')}
+                            confirmBtnText={I18n.t('datePickerOkButton')}
                             iconComponent={<Icon style={{color: '#777777'}} name="md-calendar"/>}
                             customStyles={{
                                 dateInput: {
@@ -89,7 +103,7 @@ class DebtForm extends Component {
 
                     <View style={{flex: 2, alignSelf: 'stretch'}}>
                         <View style={styles.incomeFormStyle}>
-                            <Label style={styles.textStyle}>Angiv kategorier, hvor gælden skal trækkes.</Label>
+                            <Label style={styles.textStyle}>{I18n.t('debtCategories')}</Label>
                         </View>
 
                         {this.props.categoriesLoading ? (
@@ -114,8 +128,7 @@ class DebtForm extends Component {
                             onPress={() => this.props.onContinuePress()}
                             style={styles.buttonStyle}
                     >
-                        <Text style={styles.itemStyle}>Fortsæt</Text>
-
+                        <Text style={styles.itemStyle}>{I18n.t('debtContinueButton')}</Text>
                     </Button>
                 </Container>
             </TouchableWithoutFeedback>
@@ -134,7 +147,7 @@ class DebtForm extends Component {
                 <Text>{item.name}</Text>
                 </Body>
                 <Right style={{paddingRight: 9}}>
-                    <Text>{item.amount} KR</Text>
+                    <Text>{item.amount} {I18n.t('currency')}</Text>
                 </Right>
             </ListItem>
         );

@@ -11,6 +11,7 @@ import {
     Button, Spinner
 } from 'native-base';
 import Separator from "./Separator";
+import I18n from "../strings/i18n";
 import container from "../style/container";
 import text from "../style/text";
 import button from "../style/button";
@@ -20,9 +21,11 @@ class BudgetForm extends PureComponent {
     render() {
         return (
             <Container>
-                {/*---INCOME FIELD<---*/}
                 <Form style={container.incomeFormStyle}>
-                    <Label style={text.defaultText}>Indkomst:</Label>
+                    <Label style={text.defaultText}>
+                        {I18n.t('budgetIncome')}
+                    </Label>
+
                     <Item rounded style={input.inputField}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
@@ -34,7 +37,6 @@ class BudgetForm extends PureComponent {
 
                 <Separator/>
 
-                {/*---LISTVIEW---*/}
                 <Form style={{flex: 4, alignItems: 'stretch'}}>
                     <FlatList
                         data={this.props.categories}
@@ -46,15 +48,19 @@ class BudgetForm extends PureComponent {
 
                 <Separator/>
 
-                {/*---CALCULATED TOTAL---*/}
                 <View style={container.spacedTextWrapper}>
                     <View style={container.parenBudgetSummary}>
                         <View style={container.spacedTextChild}>
-                            <Text style={text.listText}>Totale udgifter</Text>
+                            <Text style={text.listText}>
+                                {I18n.t('budgetTotalExpenses')}
+                            </Text>
                             <Text style={text.listText}>{this.props.totalExpenses} kr</Text>
                         </View>
+
                         <View style={container.spacedTextChild}>
-                            <Text style={text.listText}>Til rådighed</Text>
+                            <Text style={text.listText}>
+                                {I18n.t('budgetDisposable')}
+                            </Text>
                             <Text style={[text.listText,
                                 this.props.disposable >= 0 ? {color: 'black'} : {color: 'red'}]}>
                                 {this.props.disposable} kr
@@ -63,7 +69,6 @@ class BudgetForm extends PureComponent {
                     </View>
                 </View>
 
-                {/*---CREATE/EDIT BUTTON---*/}
                 <Form>
                     <Button rounded
                             onPress={this.props.handleSubmit}

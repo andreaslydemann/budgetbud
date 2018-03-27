@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image, View, Platform, Dimensions} from 'react-native';
 import {Container, Label} from 'native-base';
+import I18n from "../strings/i18n";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -11,7 +12,7 @@ class Logo extends Component {
                 <Image style={{width: 140, height: 140}}
                        source={require('../../assets/logo.png')}/>
                 <View>
-                    <Label style={styles.logoText}>Velkommen til BudgetBud</Label>
+                    <Label style={styles.logoText}>{I18n.t('signInLogoWelcome')}</Label>
                 </View>
             </Container>
         )

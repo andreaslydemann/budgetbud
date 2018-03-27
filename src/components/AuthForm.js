@@ -1,5 +1,15 @@
 import React, {Component} from 'react';
-import {Container, Item, Input, Button, Form, Label, Spinner, Icon} from 'native-base';
+import {
+    Container,
+    Item,
+    Input,
+    Button,
+    Form,
+    Label,
+    Spinner,
+    Icon
+} from 'native-base';
+import I18n from "../strings/i18n";
 
 class AuthForm extends Component {
     renderCprNumberIcon() {
@@ -27,7 +37,7 @@ class AuthForm extends Component {
                                onChangeText={this.props.onCprNumberChange}
                                keyboardType="numeric"
                                maxLength={10}
-                               placeholder="CPR-nummer"
+                               placeholder={I18n.t('signInCprNumberPlaceholder')}
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={styles.inputStyle}
                         />
@@ -40,7 +50,8 @@ class AuthForm extends Component {
                                onChangeText={this.props.onSecondInputChange}
                                keyboardType="numeric"
                                maxLength={this.props.isSignIn ? 4 : 8}
-                               placeholder={this.props.isSignIn ? 'Pinkode' : 'Telefonnummer'}
+                               placeholder={this.props.isSignIn ?
+                                   I18n.t('signInCodePlaceholder') : I18n.t('signUpPhoneNumberPlaceholder')}
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={styles.inputStyle}
                         />
@@ -54,7 +65,8 @@ class AuthForm extends Component {
                         {this.props.loading ? (
                             <Spinner color='#D0D0D0'/>) : (
                             <Label style={styles.buttonText}>
-                                {this.props.isSignIn ? 'Log ind' : 'Registrér dig'}
+                                {this.props.isSignIn ?
+                                    I18n.t('signInButton') : I18n.t('signUpButton')}
                             </Label>
                         )}
                     </Button>

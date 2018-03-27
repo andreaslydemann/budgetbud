@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 import {Keyboard} from 'react-native';
-import {Button, Container, Form, Spinner, Text} from 'native-base';
+import {Container} from 'native-base';
 import {connect} from 'react-redux';
-import {incomeChanged, categoryChanged, createBudget} from '../actions/index';
+import I18n from "../strings/i18n";
 import BudgetForm from "../components/BudgetForm";
 import AppHeader from "../components/AppHeader";
-import {getAccountData} from "../actions/budget_actions";
+import {
+    incomeChanged,
+    categoryChanged,
+    createBudget,
+    getAccountData
+} from '../actions';
 
 class CreateBudget extends Component {
     componentWillMount() {
@@ -25,8 +30,8 @@ class CreateBudget extends Component {
 
     handleSubmit = () => {
         Keyboard.dismiss();
-        const {income, categories, disposable, totalExpenses} = this.props;
-        this.props.createBudget({income, categories, disposable, totalExpenses}, () => {
+
+        this.props.createBudget(this.props, () => {
             this.props.navigation.navigate('MyBudget');
         });
     };
@@ -34,9 +39,10 @@ class CreateBudget extends Component {
     render() {
         return (
             <Container style={[{alignItems: 'stretch'}]}>
-                {/*---HEADER---*/}
-                <AppHeader headerText={'Opret budget'}
-                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
+                <AppHeader headerText={I18n.t('createBudgetHeader')}
+                           onLeftButtonPress={
+                               () => this.props.navigation.navigate("DrawerOpen")}
+                />
 
                 <BudgetForm handleSubmit={this.handleSubmit}
                             onIncomeChanged={this.onIncomeChange}
@@ -56,13 +62,23 @@ class CreateBudget extends Component {
 }
 
 const mapStateToProps = ({budget}) => {
-    const {income, categories, debt, totalExpenses, disposable, loading, error, isBudgetCreated} = budget;
-    return {income, categories, debt, totalExpenses, disposable, loading, error, isBudgetCreated}
+    return {
+        income,
+        categories,
+        debt,
+        totalExpenses,
+        disposable,
+        isBudgetCreated,
+        loading,
+        error
+    } = budget;
 };
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
     createBudget,
     incomeChanged,
     categoryChanged,
     getAccountData
-})(CreateBudget);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateBudget);

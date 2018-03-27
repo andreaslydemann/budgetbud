@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Container, Content, List, ListItem, Label, Body, Left, Right, Icon} from "native-base";
 import AppHeader from "../components/AppHeader";
 import {connect} from "react-redux";
-import {deleteBudget} from "../actions/budget_actions";
+import I18n from "../strings/i18n";
+import {deleteBudget} from "../actions";
 import ConfirmDialog from "../components/ConfirmDialog";
 
 class Settings extends Component {
@@ -17,8 +18,8 @@ class Settings extends Component {
         return (
             <Container>
                 <ConfirmDialog
-                    title="Bekræft sletning"
-                    text="Vil du slette dit budget?"
+                    title={I18n.t('confirmDialogDeletionHeader')}
+                    text={I18n.t('settingsConfirmDialogBody')}
                     confirmCallback={() => this.deleteBudget()}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
@@ -27,7 +28,7 @@ class Settings extends Component {
                 />
 
                 <Container>
-                    <AppHeader headerText={'Indstillinger'}
+                    <AppHeader headerText={I18n.t('settingsHeader')}
                                onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
 
                     <Content>
@@ -37,7 +38,7 @@ class Settings extends Component {
                                     <Icon name="md-person"/>
                                 </Left>
                                 <Body>
-                                <Label>Brugeroplysninger</Label>
+                                <Label>{I18n.t('settingsUserDetails')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -48,7 +49,7 @@ class Settings extends Component {
                                     <Icon name="md-card"/>
                                 </Left>
                                 <Body>
-                                <Label>Konti</Label>
+                                <Label>{I18n.t('settingsAccounts')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -59,7 +60,7 @@ class Settings extends Component {
                                     <Icon name="md-notifications-outline"/>
                                 </Left>
                                 <Body>
-                                <Label>Alarmer</Label>
+                                <Label>{I18n.t('settingsAlarms')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -70,7 +71,7 @@ class Settings extends Component {
                                     <Icon name="md-trash"/>
                                 </Left>
                                 <Body>
-                                <Label>Slet budget</Label>
+                                <Label>{I18n.t('settingsDeleteBudget')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -89,6 +90,8 @@ const mapStateToProps = ({budget}) => {
     return {budgetID}
 };
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
     deleteBudget
-})(Settings);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
 import {Container} from 'native-base';
+import _ from 'lodash';
+import I18n from "../strings/i18n";
 import AppHeader from "../components/AppHeader";
 import DebtForm from '../components/DebtForm';
-import {connect} from "react-redux";
-import _ from 'lodash';
 import {
     debtSelected,
     deleteDebt,
@@ -12,9 +13,9 @@ import {
     nameChanged,
     amountChanged,
     expirationDateChanged,
-    categoriesSelected
-} from "../actions/debt_actions";
-import {getCategories} from "../actions/category_actions";
+    categoriesSelected,
+    getCategories
+} from "../actions";
 
 class CreateDebt extends Component {
     componentWillMount() {
@@ -28,7 +29,7 @@ class CreateDebt extends Component {
     render() {
         return (
             <Container>
-                <AppHeader headerText={'Opret gæld'}
+                <AppHeader headerText={I18n.t('createDebtHeader')}
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 

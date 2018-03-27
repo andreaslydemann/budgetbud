@@ -1,14 +1,22 @@
 import React, {Component} from 'react';
-import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
+import {
+    KeyboardAvoidingView,
+    Keyboard,
+    TouchableWithoutFeedback
+} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {signIn, cprNumberChanged, codeChanged, authScreenSwitched} from '../actions';
+import {
+    signIn,
+    cprNumberChanged,
+    codeChanged,
+    authScreenSwitched
+} from '../actions';
 import Logo from '../components/Logo';
 import AuthForm from '../components/AuthForm';
 import ErrorInfo from '../components/ErrorInfo';
 import screenStyles from './ScreenStyles';
-import {debtSelected, deleteDebt, getDebts, resetDebtForm} from "../actions/debt_actions";
-import {getCategories} from "../actions/category_actions";
+import I18n from "../strings/i18n";
 
 class SignIn extends Component {
     onCprNumberChange = (text) => {
@@ -60,12 +68,12 @@ class SignIn extends Component {
                             <Container style={styles.optionContainer}>
                                 <Button transparent style={styles.optionButton}
                                         onPress={() => this.onForgotCodeButtonPress()}>
-                                    <Label style={styles.optionText}>Glemt pinkode?</Label>
+                                    <Label style={styles.optionText}>{I18n.t('signInForgotCode')}</Label>
                                 </Button>
 
                                 <Button transparent style={styles.optionButton}
                                         onPress={() => this.onGoToSignUpButtonPress()}>
-                                    <Label style={styles.optionText}>Ny bruger?</Label>
+                                    <Label style={styles.optionText}>{I18n.t('signInGoToSignUp')}</Label>
                                 </Button>
                             </Container>
 

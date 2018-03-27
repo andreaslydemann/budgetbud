@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Platform, View} from "react-native";
 import {Container, Label, Spinner} from "native-base";
 import PopupDialog, {DialogTitle, DialogButton} from 'react-native-popup-dialog';
+import I18n from '../strings/i18n';
 
 class ConfirmDialog extends Component {
     showDialog() {
@@ -25,26 +26,29 @@ class ConfirmDialog extends Component {
                 >
                     <Container style={styles.dialogContentView}>
                         {this.props.loading ? (<Spinner color='#1c313a' style={styles.spinner}/>) : (<View/>)}
+
                         <View style={styles.dialogLabelContainer}>
                             <Label style={styles.dialogLabel}>{this.props.text}</Label>
                         </View>
+
                         <View style={styles.dialogButtonsContainer}>
                             <DialogButton
                                 buttonStyle={styles.dialogButton}
                                 textContainerStyle={styles.dialogButton1TextContainer}
                                 textStyle={styles.dialogButtonText}
-                                text="Afbryd"
+                                text={I18n.t('confirmDialogCancelButton')}
                                 onPress={() => {
                                     if (!this.props.loading)
                                         this.popupDialog.dismiss();
                                 }}
                                 key="button-1"
                             />
+
                             <DialogButton
                                 buttonStyle={styles.dialogButton}
                                 textContainerStyle={styles.dialogButton2TextContainer}
                                 textStyle={styles.dialogButtonText}
-                                text="Ok"
+                                text={I18n.t('confirmDialogOkButton')}
                                 onPress={() => {
                                     if (!this.props.loading)
                                         this.props.confirmCallback();

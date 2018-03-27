@@ -1,12 +1,27 @@
 import React, {PureComponent} from 'react';
 import {View, FlatList} from 'react-native';
-import {Container, Button, ListItem, Body, Right, Icon, Text, Spinner} from 'native-base';
-import Separator from '../components/Separator';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {resetDebtForm, debtSelected, getDebts, deleteDebt} from "../actions/debt_actions";
+import {
+    Container,
+    Button,
+    ListItem,
+    Body,
+    Right,
+    Icon,
+    Text,
+    Spinner
+} from 'native-base';
+import I18n from "../strings/i18n";
+import Separator from '../components/Separator';
 import AppHeader from "../components/AppHeader";
 import ConfirmDialog from '../components/ConfirmDialog';
+import {
+    resetDebtForm,
+    debtSelected,
+    getDebts,
+    deleteDebt
+} from "../actions";
 
 class DebtOverview extends PureComponent {
     componentWillMount() {
@@ -32,8 +47,8 @@ class DebtOverview extends PureComponent {
         return (
             <Container>
                 <ConfirmDialog
-                    title="Bekræft sletning"
-                    text="Vil du slette den valgte gæld?"
+                    title={I18n.t('confirmDialogDeletionHeader')}
+                    text={I18n.t('debtOverviewConfirmDialogBody')}
                     confirmCallback={() => this.deleteDebt()}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
@@ -42,7 +57,7 @@ class DebtOverview extends PureComponent {
                 />
 
                 <Container>
-                    <AppHeader headerText={'Gældsoversigt'}
+                    <AppHeader headerText={I18n.t('debtOverviewHeader')}
                                showBackButton={true}
                                onLeftButtonPress={() => this.props.navigation.pop()}/>
 
@@ -52,7 +67,6 @@ class DebtOverview extends PureComponent {
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }} color='#1c313a'/>) : (
-
                             <FlatList
                                 data={this.props.debts}
                                 renderItem={this.renderItem}
@@ -66,7 +80,7 @@ class DebtOverview extends PureComponent {
                             onPress={() => this.onCreateDebtPress()}
                             style={styles.buttonStyle}
                     >
-                        <Text style={styles.itemStyle}>Opret gæld</Text>
+                        <Text style={styles.itemStyle}>{I18n.t('debtOverviewCreateDebtButton')}</Text>
                     </Button>
                 </Container>
             </Container>
@@ -78,7 +92,7 @@ class DebtOverview extends PureComponent {
             <ListItem>
                 <Body>
                 <Text>{item.name}</Text>
-                <Text note>{item.amount} kr</Text>
+                <Text note>{item.amount} {I18n.t('currency')}</Text>
                 </Body>
                 <Right>
                     <View style={{flexDirection: 'row'}}>

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Container, Label} from 'native-base';
-import AppHeader from "../components/AppHeader";
+import {Container} from 'native-base';
 import {connect} from "react-redux";
+import I18n from "../strings/i18n";
+import AppHeader from "../components/AppHeader";
 import DisposableForm from "../components/DisposableForm";
 
 class EditDisposable extends Component {
@@ -12,12 +13,12 @@ class EditDisposable extends Component {
     render() {
         return (
             <Container>
-                <AppHeader headerText={'Rådighedsbeløb'}
+                <AppHeader headerText={I18n.t('editDisposableHeader')}
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
                 <DisposableForm categoryItems={this.props.disposable}
-                          onContinuePress={this.onContinuePress}/>
+                                onContinuePress={this.onContinuePress}/>
             </Container>
         );
     }
