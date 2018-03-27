@@ -3,7 +3,6 @@ import {
     DEBT_NAME_CHANGED,
     DEBT_AMOUNT_CHANGED,
     DEBT_EXPIRATION_DATE_CHANGED,
-    DEBT_CATEGORIES_SELECTED,
     DEBT_SELECTED,
     GET_DEBTS,
     GET_DEBTS_SUCCESS,
@@ -15,9 +14,9 @@ const INITIAL_STATE = {
     name: '',
     amount: '',
     expirationDate: '',
-    selectedCategories: [],
     debts: [],
-    selectedDebt: {},
+    selectedDebtID: '',
+    selectedDebtKey: '',
     loading: false,
     error: ''
 };
@@ -25,17 +24,22 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case RESET_DEBT_FORM:
-            return {...state, ...INITIAL_STATE.categoryItems};
+            return {...INITIAL_STATE, debts: state.debts};
         case DEBT_NAME_CHANGED:
             return {...state, name: action.payload};
         case DEBT_AMOUNT_CHANGED:
             return {...state, amount: action.payload};
         case DEBT_EXPIRATION_DATE_CHANGED:
             return {...state, expirationDate: action.payload};
-        case DEBT_CATEGORIES_SELECTED:
-            return {...state, selectedCategories: action.payload};
         case DEBT_SELECTED:
-            return {...state, selectedDebt: action.payload};
+            return {
+                ...state,
+                name: action.payload.name,
+                amount: action.payload.amount,
+                expirationDate: action.payload.expirationDate,
+                selectedDebtID: action.payload.debtID,
+                selectedDebtKey: action.payload.key
+            };
         case GET_DEBTS:
             return {...state, loading: true, error: ''};
         case GET_DEBTS_SUCCESS:
@@ -43,7 +47,11 @@ export default (state = INITIAL_STATE, action) => {
         case GET_DEBTS_FAIL:
             return {...state, loading: false, error: action.payload};
         case DELETE_DEBT:
-            return {...state, debts: state.debts.filter((item, key) => key !== state.selectedDebt.key)};
+            return {
+                ...state, debts: state.debts.filter(
+                    (item, key) => key !== state.selectedDebtKey
+                )
+            };
         default:
             return state;
     }

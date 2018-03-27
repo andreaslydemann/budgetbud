@@ -21,30 +21,6 @@ class CreateDebt extends Component {
         this.props.getCategories(this.props.budgetID);
     }
 
-    onNameChange = (text) => {
-        this.props.nameChanged(text);
-    };
-
-    onAmountChange = (text) => {
-        this.props.amountChanged(text);
-    };
-
-    onExpirationDateChange = (text) => {
-        this.props.expirationDateChanged(text);
-    };
-
-    onCheckBoxPress = ({categoryID}) => {
-        let tmp = this.props.selectedCategories;
-
-        if (tmp.includes(categoryID)) {
-            tmp.splice(tmp.indexOf(categoryID), 1)
-        } else {
-            tmp.push(categoryID);
-        }
-
-        this.props.categoriesSelected(tmp);
-    };
-
     onContinuePress = () => {
         this.props.navigation.navigate('DebtPreview');
     };
@@ -56,10 +32,10 @@ class CreateDebt extends Component {
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <DebtForm onNameChange={this.onNameChange}
-                          onAmountChange={this.onAmountChange}
-                          onExpirationDateChange={this.onExpirationDateChange}
-                          onCheckBoxPress={this.onCheckBoxPress}
+                <DebtForm nameChanged={this.props.nameChanged}
+                          amountChanged={this.props.amountChanged}
+                          expirationDateChanged={this.props.expirationDateChanged}
+                          categoriesSelected={this.props.categoriesSelected}
                           name={this.props.name}
                           amount={this.props.amount}
                           expirationDate={this.props.expirationDate}

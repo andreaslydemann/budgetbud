@@ -21,7 +21,7 @@ class DebtOverview extends PureComponent {
 
     deleteDebt = () => {
         this.confirmDialog.dismissDialog();
-        this.props.deleteDebt(this.props.selectedDebt.debtID);
+        this.props.deleteDebt(this.props.selectedDebtID);
     };
 
     onDebtSelect = (debt) => {
@@ -33,7 +33,7 @@ class DebtOverview extends PureComponent {
             <Container>
                 <ConfirmDialog
                     title="Bekræft sletning"
-                    text="Er du sikker på, at du vil slette den valgte gæld?"
+                    text="Vil du slette den valgte gæld?"
                     confirmCallback={() => this.deleteDebt()}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
@@ -122,13 +122,13 @@ const styles = {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {loading, selectedDebt} = state.debt;
+    const {loading, selectedDebtID} = state.debt;
 
     const debts = _.map(state.debt.debts, (item, key) => {
         return {...item.debtData, debtID: item.id, key: key};
     });
 
-    return {budgetID, debts, loading, selectedDebt};
+    return {budgetID, debts, loading, selectedDebtID};
 };
 
 const mapDispatchToProps = {

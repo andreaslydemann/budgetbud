@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import {cloudFunctionsURL} from "../config/firebase_config";
 
 import {
-    GET_INITIAL_AUTH_STATE,
+    RESET_DEBT_FORM,
     DEBT_NAME_CHANGED,
     DEBT_AMOUNT_CHANGED,
     DEBT_EXPIRATION_DATE_CHANGED,
@@ -14,14 +14,14 @@ import {
     CREATE_DEBT,
     CREATE_DEBT_SUCCESS,
     DEBT_SELECTED,
-    DELETE_DEBT, RESET_DEBT_FORM
+    DELETE_DEBT
 } from './types';
 
 const ROOT_URL = cloudFunctionsURL;
 
 export const resetDebtForm = (callback) => async dispatch => {
     dispatch({
-        type: GET_INITIAL_AUTH_STATE
+        type: RESET_DEBT_FORM
     });
 
     callback();
@@ -55,10 +55,10 @@ export const categoriesSelected = list => {
     };
 };
 
-export const debtSelected = (key, debtID) => {
+export const debtSelected = (debt) => {
     return {
         type: DEBT_SELECTED,
-        payload: {key, debtID}
+        payload: debt
     };
 };
 
@@ -66,12 +66,13 @@ export const getDebts = (budgetID) => async dispatch => {
     try {
         dispatch({type: GET_DEBTS});
         let token = await firebase.auth().currentUser.getIdToken();
+        console.log(token);
 
-        let response = await axios.get(`${ROOT_URL}/getDebts?budgetID=${budgetID}`, {
+        let {data} = await axios.get(`${ROOT_URL}/getDebts?budgetID=${budgetID}`, {
             headers: {Authorization: 'Bearer ' + token}
         });
 
-        dispatch({type: GET_DEBTS_SUCCESS, payload: response.data});
+        dispatch({type: GET_DEBTS_SUCCESS, payload: data});
     } catch (err) {
         let {data} = err.response;
         getDebtsFail(dispatch, data.error);
@@ -92,6 +93,8 @@ export const createDebt = ({name, amount, expirationDate, selectedCategories, bu
             {name, amount, expirationDate, budgetID, categories: selectedCategories}, {
                 headers: {Authorization: 'Bearer ' + token}
             });
+
+        getDebts(budgetID);
 
         dispatch({type: RESET_DEBT_FORM});
 

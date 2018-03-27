@@ -5,7 +5,29 @@ import DatePicker from 'react-native-datepicker'
 import Separator from '../components/Separator';
 
 class DebtForm extends Component {
-    state = {date: ''};
+    onNameChange = (text) => {
+        this.props.nameChanged(text);
+    };
+
+    onAmountChange = (text) => {
+        this.props.amountChanged(text);
+    };
+
+    onExpirationDateChange = (text) => {
+        this.props.expirationDateChanged(text);
+    };
+
+    onCheckBoxPress = ({categoryID}) => {
+        let tmp = this.props.selectedCategories;
+
+        if (tmp.includes(categoryID)) {
+            tmp.splice(tmp.indexOf(categoryID), 1)
+        } else {
+            tmp.push(categoryID);
+        }
+
+        this.props.categoriesSelected(tmp);
+    };
 
     render() {
         return (
@@ -16,7 +38,7 @@ class DebtForm extends Component {
                         <Item rounded style={styles.inputStyle}>
                             <Input
                                 value={this.props.name}
-                                onChangeText={this.props.onNameChange}
+                                onChangeText={this.onNameChange}
                             />
                         </Item>
                     </View>
@@ -25,8 +47,8 @@ class DebtForm extends Component {
                         <Label style={styles.textStyle}>Beløb</Label>
                         <Item rounded style={styles.inputStyle}>
                             <Input
-                                value={this.props.amount}
-                                onChangeText={this.props.onAmountChange}
+                                value={String(this.props.amount)}
+                                onChangeText={this.onAmountChange}
                                 keyboardType="numeric"
                             />
                         </Item>
@@ -40,7 +62,7 @@ class DebtForm extends Component {
                         <Label style={styles.textStyle}>Angiv ønsket dato for gennemført afbetaling.</Label>
                         <DatePicker
                             date={this.props.expirationDate}
-                            onDateChange={this.props.onExpirationDateChange}
+                            onDateChange={this.onExpirationDateChange}
                             format="DD-MM-YYYY"
                             style={[styles.inputStyle, {width: '100%'}]}
                             cancelBtnText="Afbryd"
@@ -106,7 +128,7 @@ class DebtForm extends Component {
                 <CheckBox
                     style={{borderColor: '#777777'}}
                     checked={this.props.selectedCategories.includes(item.categoryID)}
-                    onPress={() => this.props.onCheckBoxPress(item)}
+                    onPress={() => this.onCheckBoxPress(item)}
                 />
                 <Body>
                 <Text>{item.name}</Text>

@@ -33,19 +33,22 @@ export const DEBT_NAME_CHANGED = 'debt_name_changed';
 export const DEBT_AMOUNT_CHANGED = 'debt_amount_changed';
 export const DEBT_EXPIRATION_DATE_CHANGED = 'debt_expiration_date_changed';
 export const DEBT_CATEGORIES_SELECTED = 'debt_categories_selected';
-export const DEBT_SELECTED = 'debt_selected';
 export const GET_DEBTS = 'get_debts';
 export const GET_DEBTS_SUCCESS = 'get_debts_success';
 export const GET_DEBTS_FAIL = 'get_debts_fail';
-export const DELETE_DEBT = 'delete_debt';
-
-// ----------DEBT RELATED TYPES----------
-export const GET_CATEGORIES = 'get_categories';
-export const GET_CATEGORIES_SUCCESS = 'get_categories_success';
-export const GET_CATEGORIES_FAIL = 'get_categories_fail';
+export const DEBT_SELECTED = 'debt_selected';
 export const CREATE_DEBT = 'create_debt';
 export const CREATE_DEBT_SUCCESS = 'create_debt_success';
 export const CREATE_DEBT_FAIL = 'create_debt_fail';
+export const DELETE_DEBT = 'delete_debt';
+
+// ----------CATEGORY RELATED TYPES----------
+export const GET_CATEGORIES = 'get_categories';
+export const GET_CATEGORIES_SUCCESS = 'get_categories_success';
+export const GET_CATEGORIES_FAIL = 'get_categories_fail';
+export const GET_CATEGORIES_OF_DEBT = 'get_categories';
+export const GET_CATEGORIES_OF_DEBT_SUCCESS = 'get_categories_success';
+export const GET_CATEGORIES_OF_DEBT_FAIL = 'get_categories_fail';
 
 // ----------ACCOUNT RELATED TYPES----------
 export const GET_ACCOUNT_DATA = 'get_account_data';

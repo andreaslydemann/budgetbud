@@ -5,7 +5,9 @@ import {cloudFunctionsURL} from "../config/firebase_config";
 import {
     GET_CATEGORIES,
     GET_CATEGORIES_SUCCESS,
-    GET_CATEGORIES_FAIL
+    GET_CATEGORIES_FAIL,
+    GET_CATEGORIES_OF_DEBT,
+    GET_CATEGORIES_OF_DEBT_SUCCESS, DEBT_CATEGORIES_SELECTED,
 } from "./types";
 
 export const getCategories = (budgetID) => async dispatch => {
@@ -14,13 +16,37 @@ export const getCategories = (budgetID) => async dispatch => {
 
         let token = await firebase.auth().currentUser.getIdToken();
 
-        let response = await axios.get(`${cloudFunctionsURL}/getCategories?budgetID=${budgetID}`, {
+        let {data} = await axios.get(`${cloudFunctionsURL}/getCategories?budgetID=${budgetID}`, {
             headers: {Authorization: 'Bearer ' + token}
         });
 
-        dispatch({type: GET_CATEGORIES_SUCCESS, payload: response.data});
+        dispatch({type: GET_CATEGORIES_SUCCESS, payload: data});
     } catch (err) {
         let {data} = err.response;
         //getCategoriesFail(dispatch, data.error);
     }
+};
+
+export const getCategoriesOfDebt = (debtID) => async dispatch => {
+    try {
+        dispatch({type: GET_CATEGORIES_OF_DEBT});
+
+        let token = await firebase.auth().currentUser.getIdToken();
+
+        let {data} = await axios.get(`${cloudFunctionsURL}/getCategoriesOfDebt?debtID=${debtID}`, {
+            headers: {Authorization: 'Bearer ' + token}
+        });
+
+        dispatch({type: GET_CATEGORIES_OF_DEBT_SUCCESS, payload: data});
+    } catch (err) {
+        let {data} = err.response;
+        //getCategoriesFail(dispatch, data.error);
+    }
+};
+
+export const categoriesOfDebtSelected = list => {
+    return {
+        type: DEBT_CATEGORIES_SELECTED,
+        payload: list
+    };
 };

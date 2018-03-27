@@ -3,12 +3,22 @@ import {Container} from 'native-base';
 import AppHeader from "../components/AppHeader";
 import DebtForm from '../components/DebtForm';
 import {connect} from "react-redux";
+import _ from 'lodash';
+import {
+    debtSelected,
+    deleteDebt,
+    getDebts,
+    resetDebtForm,
+    nameChanged,
+    amountChanged,
+    expirationDateChanged
+} from "../actions/debt_actions";
+import {getCategories, getCategoriesOfDebt, categoriesOfDebtSelected} from "../actions/category_actions";
 
 class EditDebt extends Component {
     componentWillMount() {
-        _.each(this.props.employee, (value, prop) => {
-            this.props.employeeUpdate({prop, value});
-        });
+        this.props.getCategories(this.props.budgetID);
+        this.props.getCategoriesOfDebt(this.props.selectedDebtID);
     }
 
     onContinuePress = () => {
@@ -22,7 +32,16 @@ class EditDebt extends Component {
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <DebtForm categoryItems={this.props.categoryItems}
+                <DebtForm nameChanged={this.props.nameChanged}
+                          amountChanged={this.props.amountChanged}
+                          expirationDateChanged={this.props.expirationDateChanged}
+                          categoriesSelected={this.props.categoriesOfDebtSelected}
+                          name={this.props.name}
+                          amount={this.props.amount}
+                          expirationDate={this.props.expirationDate}
+                          categoryItems={this.props.categoryItems}
+                          selectedCategories={this.props.selectedCategoriesOfDebt}
+                          categoriesLoading={this.props.categoriesLoading}
                           onContinuePress={this.onContinuePress}/>
             </Container>
         );
@@ -38,8 +57,38 @@ styles = {
     }
 };
 
-const mapStateToProps = ({debt}) => {
-    return {categoryItems} = debt;
+const mapStateToProps = (state) => {
+    const budgetID = state.budget.budgetID;
+    const {name, amount, expirationDate, selectedDebtID} = state.debt;
+    const {categories, selectedCategoriesOfDebt, categoriesLoading} = state.category;
+
+    const categoryItems = _.map(categories, (item, key) => {
+        return {...item.categoryData, categoryID: item.id, key: key};
+    });
+
+    return {
+        name,
+        amount,
+        expirationDate,
+        selectedDebtID,
+        selectedCategoriesOfDebt,
+        budgetID,
+        categoryItems,
+        categoriesLoading
+    };
 };
 
-export default connect(mapStateToProps, null)(EditDebt);
+const mapDispatchToProps = {
+    nameChanged,
+    amountChanged,
+    expirationDateChanged,
+    categoriesOfDebtSelected,
+    getCategories,
+    getCategoriesOfDebt,
+    resetDebtForm,
+    debtSelected,
+    getDebts,
+    deleteDebt
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditDebt);

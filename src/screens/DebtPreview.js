@@ -30,7 +30,6 @@ class DebtPreview extends Component {
                         style={styles.buttonStyle}
                 >
                     <Text style={styles.itemStyle}>Gem</Text>
-
                 </Button>
             </Container>
         );

@@ -18,6 +18,7 @@ import Intro from "./screens/Intro";
 import EditBudget from "./screens/EditBudget";
 import DebtOverview from "./screens/DebtOverview";
 import CreateDebt from './screens/CreateDebt';
+import EditDebt from './screens/EditDebt';
 import DebtPreview from './screens/DebtPreview';
 import EditDisposable from "./screens/EditDisposable";
 import CreateAccount from "./screens/CreateAccount";
@@ -34,6 +35,7 @@ export default class App extends Component {
                 EditDisposable: {screen: EditDisposable},
                 DebtOverview: {screen: DebtOverview},
                 CreateDebt: {screen: CreateDebt},
+                EditDebt: {screen: EditDebt},
                 DebtPreview: {screen: DebtPreview}
             },
             {
