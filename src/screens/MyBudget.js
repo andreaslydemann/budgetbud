@@ -10,10 +10,11 @@ import {
     Label,
     Spinner
 } from "native-base";
-import {AppHeader, Separator, ModalBox} from "../components/";
+import {AppHeader, Separator, Toolbox} from "../components/";
 import {FlatList, StyleSheet} from "react-native";
 import {connect} from "react-redux";
-import {getBudget} from "../actions/budget_actions";
+import {getBudget} from "../actions";
+import I18n from "../strings/i18n";
 
 class MyBudget extends Component {
     componentWillMount() {
@@ -30,26 +31,30 @@ class MyBudget extends Component {
         return (
             <Container style={{flexGrow: 1}}>
                 {/*---HEADER---*/}
-                <AppHeader headerText={'Mit budget'}
-                           onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
+                <AppHeader headerText={I18n.t('myBudgetHeader')}
+                           onLeftButtonPress={
+                               () => this.props.navigation.navigate("DrawerOpen")}
+                />
 
                 {this.props.loading ? (
                     <Spinner style={{
                         alignItems: 'center',
                         justifyContent: 'center'
                     }} color='#1c313a'/>) : (
-
                     <Container>
-                        {/*---INCOME FIELD<---*/}
                         <View style={[styles.incomeFormStyle, {flex: 0.1, alignItems: 'center'}]}>
-                            <Text style={styles.listText}>Indkomst</Text>
-                            <Text style={styles.listText}>{this.props.income} kr</Text>
+                            <Text style={styles.listText}>{I18n.t('budgetIncome')}
+                            </Text>
+                            <Text style={styles.listText}>{this.props.income} {I18n.t('currency')}
+                            </Text>
                         </View>
+
                         <Separator/>
-                        {/*---CATEGORY LISTVIEW---*/}
+
                         <View style={{flex: 0.7, alignSelf: 'stretch'}}>
                             <View style={styles.incomeFormStyle}>
-                                <Label style={styles.textStyle}>Dine udgiftsposter</Label>
+                                <Label style={styles.textStyle}>{I18n.t('budgetExpenses')}
+                                </Label>
                             </View>
                             <FlatList
                                 data={this.props.categories}
@@ -60,13 +65,12 @@ class MyBudget extends Component {
 
                         <Separator/>
 
-                        {/*---DEBT LISTVIEW---*/}
                         {this.props.isDebtLoaded &&
                         <View style={[this.props.debt.length > 2 ?
                             {flex: 0.25, alignSelf: 'stretch'} :
                             {flex: 0.125, alignSelf: 'stretch'}]}>
                             <View style={styles.incomeFormStyle}>
-                                <Label style={styles.textStyle}>Dine gældsposter</Label>
+                                <Label style={styles.textStyle}>{I18n.t('budgetDebts')}</Label>
                             </View>
                             <FlatList
                                 data={this.props.debt}
@@ -77,16 +81,24 @@ class MyBudget extends Component {
                         </View>
                         }
 
-                        {/*---CALCULATED TOTAL---*/}
                         <View style={[styles.newStyle]}>
                             <View style={styles.budgetSummary}>
                                 <View style={styles.incomeFormStyle}>
-                                    <Text style={styles.listText}>Totale udgifter</Text>
-                                    <Text style={styles.listText}>{this.props.totalExpenses} kr</Text>
+                                    <Text style={styles.listText}>
+                                        {I18n.t('budgetTotalExpenses')}
+                                    </Text>
+                                    <Text style={styles.listText}>
+                                        {this.props.totalExpenses} {I18n.t('currency')}
+                                    </Text>
                                 </View>
+
                                 <View style={styles.incomeFormStyle}>
-                                    <Text style={styles.listText}>Til rådighed</Text>
-                                    <Text style={styles.listText}>{this.props.disposable} kr</Text>
+                                    <Text style={styles.listText}>
+                                        {I18n.t('budgetDisposable')}
+                                    </Text>
+                                    <Text style={styles.listText}>
+                                        {this.props.disposable} {I18n.t('currency')}
+                                    </Text>
                                 </View>
 
                                 <Button transparent
@@ -97,7 +109,7 @@ class MyBudget extends Component {
                                           style={{color: "#1c313a"}}/>
                                 </Button>
 
-                                <ModalBox
+                                <Toolbox
                                     ref={(bottomModal) => {
                                         this.bottomModal = bottomModal
                                     }}
@@ -117,7 +129,9 @@ class MyBudget extends Component {
                 <Body>
                 <Text style={styles.listText}>{item.categoryData.name}</Text>
                 </Body>
-                <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>{item.categoryData.amount} kr</Text>
+                <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>
+                    {item.categoryData.amount} {I18n.t('currency')}
+                </Text>
             </ListItem>
         );
     };
@@ -128,7 +142,8 @@ class MyBudget extends Component {
                 <Body>
                 <Text style={styles.textStyle}>{item.name}</Text>
                 </Body>
-                <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>{item.amount} kr</Text>
+                <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>
+                    {item.amount} {I18n.t('currency')}</Text>
             </ListItem>
         );
     };
@@ -191,7 +206,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({budget}) => {
-    const {isBudgetCreated, loading, income, categories, debt, totalExpenses, disposable, estimatedIncome, isDebtLoaded, destination} = budget;
     return {
         isBudgetCreated,
         loading,
@@ -203,7 +217,7 @@ const mapStateToProps = ({budget}) => {
         estimatedIncome,
         isDebtLoaded,
         destination
-    }
+    } = budget;
 };
 
 export default connect(mapStateToProps, {

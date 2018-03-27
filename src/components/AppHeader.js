@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
-import {Body, Button, Header, Icon, Left, Right, Title, Container, Label} from "native-base";
 import PopupDialog, {DialogTitle, DialogButton} from 'react-native-popup-dialog';
 import {View} from "react-native";
-import {color, button} from "../style";
-import {container} from "../style/container";
+import {
+    Body,
+    Button,
+    Header,
+    Icon,
+    Left,
+    Right,
+    Title,
+    Container,
+    Label
+} from "native-base";
+import I18n from "../strings/i18n";
+import {container, button, color} from "../style/";
 
 export class AppHeader extends Component {
     render() {
@@ -34,7 +44,7 @@ export class AppHeader extends Component {
 
                 <PopupDialog
                     width={0.8}
-                    dialogTitle={<DialogTitle title="Hjælpeinformation"/>}
+                    dialogTitle={<DialogTitle title={I18n.t('appHeaderInfoHeader')}/>}
                     ref={(popupDialog) => {
                         this.popupDialog = popupDialog
                     }}
@@ -44,7 +54,7 @@ export class AppHeader extends Component {
                             buttonStyle={button.headerDialogButton}
                             textContainerStyle={container.dialogButtonTextContainer}
                             textStyle={color.white}
-                            text="Luk"
+                            text={I18n.t('appHeaderInfoCloseButton')}
                             onPress={() => {
                                 this.popupDialog.dismiss();
                             }}

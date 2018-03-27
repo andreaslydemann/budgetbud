@@ -1,6 +1,16 @@
 import React, {Component} from 'react';
-import {Container, Item, Input, Button, Label, Spinner, Icon, View} from 'native-base';
 import {container, color, button, input} from "../style/";
+import {
+    Container,
+    Item,
+    Input,
+    Button,
+    Label,
+    Spinner,
+    Icon,
+    View
+} from 'native-base';
+import I18n from "../strings/i18n";
 
 export class AuthForm extends Component {
     renderCprNumberIcon() {
@@ -28,7 +38,7 @@ export class AuthForm extends Component {
                                onChangeText={this.props.onCprNumberChange}
                                keyboardType="numeric"
                                maxLength={10}
-                               placeholder="CPR-nummer"
+                               placeholder={I18n.t('signInCprNumberPlaceholder')}
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={color.white}
                         />
@@ -41,7 +51,8 @@ export class AuthForm extends Component {
                                onChangeText={this.props.onSecondInputChange}
                                keyboardType="numeric"
                                maxLength={this.props.isSignIn ? 4 : 8}
-                               placeholder={this.props.isSignIn ? 'Pinkode' : 'Telefonnummer'}
+                               placeholder={this.props.isSignIn ?
+                                   I18n.t('signInCodePlaceholder') : I18n.t('signUpPhoneNumberPlaceholder')}
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={color.white}
                         />
@@ -55,7 +66,8 @@ export class AuthForm extends Component {
                         {this.props.loading ? (
                             <Spinner color='#D0D0D0'/>) : (
                             <Label style={color.white}>
-                                {this.props.isSignIn ? 'Log ind' : 'Registrér dig'}
+                                {this.props.isSignIn ?
+                                    I18n.t('signInButton') : I18n.t('signUpButton')}
                             </Label>
                         )}
                     </Button>

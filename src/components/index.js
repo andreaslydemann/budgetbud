@@ -6,5 +6,5 @@ export * from './DebtForm';
 export * from './DisposableForm';
 export * from './ErrorInfo';
 export * from './Logo';
-export * from './ModalBox';
+export * from './Toolbox';
 export * from './Separator';

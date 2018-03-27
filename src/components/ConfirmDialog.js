@@ -2,7 +2,13 @@ import React, {Component} from 'react';
 import {View} from "react-native";
 import {Container, Label, Spinner} from "native-base";
 import PopupDialog, {DialogTitle, DialogButton} from 'react-native-popup-dialog';
-import {container, text, button, spinner} from "../style/";
+import I18n from '../strings/i18n';
+import {
+    container,
+    text,
+    button,
+    spinner
+} from "../style/";
 
 export class ConfirmDialog extends Component {
     showDialog() {
@@ -34,18 +40,19 @@ export class ConfirmDialog extends Component {
                                 buttonStyle={button.dialogButton}
                                 textContainerStyle={[container.dialogButtonTextContainer, {borderBottomLeftRadius: 8}]}
                                 textStyle={text.dialogButtonText}
-                                text="Afbryd"
+                                text={I18n.t('confirmDialogCancelButton')}
                                 onPress={() => {
                                     if (!this.props.loading)
                                         this.popupDialog.dismiss();
                                 }}
                                 key="button-1"
                             />
+
                             <DialogButton
                                 buttonStyle={button.dialogButton}
                                 textContainerStyle={[container.dialogButtonTextContainer, {borderBottomRightRadius: 8}]}
                                 textStyle={text.dialogButtonText}
-                                text="Ok"
+                                text={I18n.t('confirmDialogOkButton')}
                                 onPress={() => {
                                     if (!this.props.loading)
                                         this.props.confirmCallback();

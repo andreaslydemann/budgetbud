@@ -1,8 +1,24 @@
 import React, {Component} from 'react';
 import {View, Keyboard, TouchableWithoutFeedback} from 'react-native';
-import {Container, Item, Input, Button, Text, Label, List, ListItem, CheckBox, Body} from 'native-base';
-import Separator from '../components/Separator';
-import {button, container, text, input} from "../style/";
+import {
+    Container,
+    Item,
+    Input,
+    Button,
+    Text,
+    Label,
+    List,
+    ListItem,
+    CheckBox,
+    Body
+} from 'native-base';
+import {Separator} from '../components/';
+import {
+    button,
+    container,
+    text,
+    input
+} from "../style/";
 
 export class DisposableForm extends Component {
     render() {

@@ -1,35 +1,44 @@
 import React, {Component} from "react";
 import {Image, View, Platform, Dimensions} from "react-native";
-import {Content, Text, List, ListItem, Icon, Container, Left} from "native-base";
 import {connect} from "react-redux";
 import {signOut, screenChanged} from "../actions/";
+import {
+    Content,
+    Text,
+    List,
+    ListItem,
+    Icon,
+    Container,
+    Left
+} from "native-base";
+import I18n from "../strings/i18n";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 
 const elements = [
     {
-        name: "Mit budget",
+        name: I18n.t('sideBarMyBudget'),
         route: "MyBudget",
         icon: "md-clipboard"
     },
     {
-        name: "Forbrugsoversigt",
+        name: I18n.t('sideBarSpendingOverview'),
         route: "SpendingOverview",
         icon: "md-stats"
     },
     {
-        name: "Månedsrapporter",
+        name: I18n.t('sideBarMonthlyReports'),
         route: "MonthlyReports",
         icon: "md-calendar"
     },
     {
-        name: "Indstillinger",
+        name: I18n.t('sideBarSettings'),
         route: "Settings",
         icon: "md-options"
     },
     {
-        name: "Log ud",
+        name: I18n.t('sideBarSignOut'),
         route: "SignOut",
         icon: "md-exit"
     }
@@ -113,4 +122,8 @@ const mapStateToProps = ({nav}) => {
     return {currentRoute} = nav;
 };
 
-export default connect(mapStateToProps, {signOut, screenChanged})(SideBar);
+const mapDispatchToProps = {
+    signOut, screenChanged
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

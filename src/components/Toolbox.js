@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import Modal from 'react-native-modalbox';
 import {Button, Icon, Label, View} from "native-base";
 import {button, text} from "../style/";
+import I18n from "../strings/i18n";
 
-export class ModalBox extends Component {
+export class Toolbox extends Component {
     showModal() {
         this.refs.bottomModal.open();
     }
@@ -14,7 +15,7 @@ export class ModalBox extends Component {
                 <Label style={[text.defaultText, {
                     alignSelf: 'center',
                     marginTop: 10
-                }]}>Redigér:</Label>
+                }]}>{I18n.t('myBudgetToolboxEdit')}</Label>
                 <View style={{
                     flex: 1,
                     flexDirection: 'row',
@@ -29,7 +30,9 @@ export class ModalBox extends Component {
                         <View style={button.modalButton}>
                             <Icon name="md-clipboard"
                                   style={{color: "#1c313a"}}/>
-                            <Label style={text.defaultText}>Budget</Label>
+                            <Label style={text.defaultText}>
+                                {I18n.t('myBudgetToolboxBudget')}
+                                </Label>
                         </View>
                     </Button>
 
@@ -39,7 +42,9 @@ export class ModalBox extends Component {
                     >
                         <View style={button.modalButton}>
                             <Icon name="logo-usd" style={{color: "#1c313a"}}/>
-                            <Label style={text.defaultText}>Rådighedsbeløb</Label>
+                            <Label style={text.defaultText}>
+                                {I18n.t('myBudgetToolboxDisposable')}
+                            </Label>
                         </View>
                     </Button>
 
@@ -49,10 +54,13 @@ export class ModalBox extends Component {
                     >
                         <View style={button.modalButton}>
                             <Icon name="ios-archive" style={{color: "#1c313a"}}/>
-                            <Label style={text.defaultText}>Gæld</Label>
+                            <Label style={text.defaultText}>
+                                {I18n.t('myBudgetToolboxDebt')}
+                            </Label>
                         </View>
                     </Button>
                 </View>
+
                 <Button transparent
                         onPress={() => this.refs.bottomModal.close()}
                         style={button.bottomRight}

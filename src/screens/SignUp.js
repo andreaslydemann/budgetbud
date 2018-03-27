@@ -1,10 +1,20 @@
 import React, {Component} from 'react';
-import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
+import {
+    KeyboardAvoidingView,
+    Keyboard,
+    TouchableWithoutFeedback
+} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {signUp, cprNumberChanged, phoneNumberChanged, authScreenSwitched} from '../actions';
 import {Logo, AuthForm, ErrorInfo} from '../components/';
+import {
+    signUp,
+    cprNumberChanged,
+    phoneNumberChanged,
+    authScreenSwitched
+} from '../actions';
 import screenStyles from './ScreenStyles';
+import I18n from "../strings/i18n";
 
 class SignUp extends Component {
     onCprNumberChange = (text) => {
@@ -51,7 +61,7 @@ class SignUp extends Component {
                             <Container style={styles.optionContainer}>
                                 <Button transparent style={styles.optionButton}
                                         onPress={() => this.onGoToSignInButtonPress()}>
-                                    <Label style={styles.optionText}>Allerede registreret?</Label>
+                                    <Label style={styles.optionText}>{I18n.t('signUpGoToSignIn')}</Label>
                                 </Button>
                             </Container>
 
@@ -90,10 +100,14 @@ const styles = {
 };
 
 const mapStateToProps = ({auth}) => {
-    const {cprNumber, phoneNumber, error, loading} = auth;
-    return {cprNumber, phoneNumber, error, loading};
+    return {cprNumber, phoneNumber, error, loading} = auth;
 };
 
-export default connect(mapStateToProps, {
-    signUp, cprNumberChanged, phoneNumberChanged, authScreenSwitched
-})(SignUp);
+const mapDispatchToProps = {
+    signUp,
+    cprNumberChanged,
+    phoneNumberChanged,
+    authScreenSwitched
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

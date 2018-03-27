@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
-import {Button, Container, Form, Label, Spinner, Text} from "native-base";
+import {
+    Button,
+    Container,
+    Form,
+    Label,
+    Spinner,
+    Text
+} from "native-base";
 import {AppHeader, ConfirmDialog} from "../components/";
 import {Image} from "react-native";
 import {connect} from "react-redux";
-import {getBudget} from "../actions/budget_actions";
 import {color} from "../style/";
-
+import I18n from "../strings/i18n";
+import {getBudget} from "../actions";
 
 class Intro extends Component {
     componentWillMount() {
@@ -18,49 +25,44 @@ class Intro extends Component {
         return (
             <Container style={{alignItems: 'stretch'}}>
                 <ConfirmDialog
-                    title="Tilføj konto"
-                    text="Du mangler at tilføje en konto. Vil du gøre det nu?"
+                    title={I18n.t('introConfirmDialogHeader')}
+                    text={I18n.t('introConfirmDialogBody')}
                     confirmCallback={() => this.props.navigation.navigate("CreateAccount")}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
-                        this.confirmDialog = confirmDialog }}
+                        this.confirmDialog = confirmDialog
+                    }}
                 />
 
-                <AppHeader headerText={'Velkommen'}
+                <AppHeader headerText={I18n.t('introHeader')}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}
                 />
 
                 <Container style={styles.container}>
-
                     <Form style={styles.formStyle}>
-                        {/*---Body header text---*/}
                         <Text style={styles.headerTextStyle}>
-                            Opret et budget
+                            {I18n.t('introCreateBudgetHeader')}
                         </Text>
 
-                        {/*---Logo---*/}
                         <Container style={styles.logoContainer}>
                             <Image style={{width: 200, height: 200}}
                                    source={require('../../assets/logo.png')}/>
                         </Container>
 
-                        {/*---Informative text---*/}
                         <Text style={styles.mainTextStyle}>
-                            Du har ikke oprettet et budget endnu.
-                            Det er nemt og hurtigt at oprette for
-                            at opnå økonomisk overblik og stabilitet.
+                            {I18n.t('introCreateBudgetBody')}
                         </Text>
 
                         <Button rounded
-                            onPress={() => this.props.isAccountCreated ?
-                                (this.props.navigation.navigate("CreateBudget")) :
-                                (this.confirmDialog.showDialog())}
-                            style={styles.buttonStyle}
-                            >
+                                onPress={() => this.props.isAccountCreated ?
+                                    (this.props.navigation.navigate("CreateBudget")) :
+                                    (this.confirmDialog.showDialog())}
+                                style={styles.buttonStyle}
+                        >
                             {this.props.loading ? (
                                 <Spinner color='#D0D0D0'/>) : (
                                 <Label style={color.white}>
-                                    Kom i gang
+                                    {I18n.t('introGetStarted')}
                                 </Label>
                             )}
                         </Button>
@@ -111,9 +113,11 @@ const styles = {
 };
 
 const mapStateToProps = ({budget}) => {
-    const {isAccountCreated} = budget;
-    return {isAccountCreated};
+    return {isAccountCreated} = budget;
 };
 
-export default connect(mapStateToProps, {getBudget
-})(Intro);
+const mapDispatchToProps = {
+    getBudget
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Intro);

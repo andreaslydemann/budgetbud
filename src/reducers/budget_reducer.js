@@ -49,10 +49,10 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loading: false,
-                income: action.income,
-                categories: action.categories,
-                totalExpenses: action.totalExpenses,
-                disposable: action.disposable
+                income: action.payload.income,
+                categories: action.payload.categories,
+                totalExpenses: action.payload.totalExpenses,
+                disposable: action.payload.disposable
             };
         case CREATE_BUDGET_FAIL:
             return {...state, ...INITIAL_STATE, error: action.payload};

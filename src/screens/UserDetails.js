@@ -1,8 +1,19 @@
 import React, {Component} from 'react';
-import {Container, Content, List, ListItem, Label, Body, Left, Right, Icon} from "native-base";
-import {NavigationActions} from "react-navigation";
 import {connect} from 'react-redux';
 import {AppHeader, ConfirmDialog} from "../components/";
+import {NavigationActions} from "react-navigation";
+import {
+    Container,
+    Content,
+    List,
+    ListItem,
+    Label,
+    Body,
+    Left,
+    Right,
+    Icon
+} from "native-base";
+import I18n from '../strings/i18n';
 import {deleteUser} from "../actions";
 
 class UserDetails extends Component {
@@ -12,7 +23,8 @@ class UserDetails extends Component {
                 index: 0,
                 key: null,
                 actions: [NavigationActions.navigate({
-                    routeName: "SignIn"})],
+                    routeName: "SignIn"
+                })],
             }));
         });
     };
@@ -21,16 +33,17 @@ class UserDetails extends Component {
         return (
             <Container>
                 <ConfirmDialog
-                    title="Bekræft sletning"
-                    text="Vil du slette din bruger?"
+                    title={I18n.t('confirmDialogDeletionHeader')}
+                    text={I18n.t('userDetailsConfirmDialogBody')}
                     confirmCallback={() => this.deleteUser()}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
-                    this.confirmDialog = confirmDialog }}
+                        this.confirmDialog = confirmDialog
+                    }}
                 />
 
                 <Container>
-                    <AppHeader headerText={'Brugeroplysninger'}
+                    <AppHeader headerText={I18n.t('userDetailsHeader')}
                                showBackButton={true}
                                onLeftButtonPress={() => this.props.navigation.pop()}/>
 
@@ -41,7 +54,7 @@ class UserDetails extends Component {
                                     <Icon name="md-phone-portrait"/>
                                 </Left>
                                 <Body>
-                                <Label>Ændr telefonnummer</Label>
+                                <Label>{I18n.t('userDetailsChangePhoneNumber')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -52,7 +65,7 @@ class UserDetails extends Component {
                                     <Icon name="md-lock"/>
                                 </Left>
                                 <Body>
-                                <Label>Ændr pinkode</Label>
+                                <Label>{I18n.t('userDetailsChangeCode')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -63,7 +76,7 @@ class UserDetails extends Component {
                                     <Icon name="md-trash"/>
                                 </Left>
                                 <Body>
-                                <Label>Slet bruger</Label>
+                                <Label>{I18n.t('userDetailsDeleteUser')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -81,6 +94,8 @@ const mapStateToProps = ({auth}) => {
     return {loading} = auth;
 };
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
     deleteUser
-})(UserDetails);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);

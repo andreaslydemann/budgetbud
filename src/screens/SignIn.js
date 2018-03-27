@@ -1,10 +1,20 @@
 import React, {Component} from 'react';
-import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
+import {
+    KeyboardAvoidingView,
+    Keyboard,
+    TouchableWithoutFeedback
+} from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {signIn, cprNumberChanged, codeChanged, authScreenSwitched} from '../actions';
 import {AuthForm, ErrorInfo, Logo} from '../components/';
+import {
+    signIn,
+    cprNumberChanged,
+    codeChanged,
+    authScreenSwitched
+} from '../actions';
 import screenStyles from './ScreenStyles';
+import I18n from "../strings/i18n";
 
 class SignIn extends Component {
     onCprNumberChange = (text) => {
@@ -56,12 +66,12 @@ class SignIn extends Component {
                             <Container style={styles.optionContainer}>
                                 <Button transparent style={styles.optionButton}
                                         onPress={() => this.onForgotCodeButtonPress()}>
-                                    <Label style={styles.optionText}>Glemt pinkode?</Label>
+                                    <Label style={styles.optionText}>{I18n.t('signInForgotCode')}</Label>
                                 </Button>
 
                                 <Button transparent style={styles.optionButton}
                                         onPress={() => this.onGoToSignUpButtonPress()}>
-                                    <Label style={styles.optionText}>Ny bruger?</Label>
+                                    <Label style={styles.optionText}>{I18n.t('signInGoToSignUp')}</Label>
                                 </Button>
                             </Container>
 
@@ -99,8 +109,7 @@ const styles = {
 };
 
 const mapStateToProps = ({auth}) => {
-    const {cprNumber, code, error, loading} = auth;
-    return {cprNumber, code, error, loading};
+    return {cprNumber, code, error, loading} = auth;
 };
 
 const mapDispatchToProps = {

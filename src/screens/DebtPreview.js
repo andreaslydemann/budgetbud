@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
-import {Container, Content, Button, Text} from "native-base";
+import {
+    Container,
+    Content,
+    Button,
+    Text
+} from "native-base";
 import {AppHeader, Separator}  from "../components/";
 import {connect} from "react-redux";
-import {createDebt} from "../actions/debt_actions";
 import {button, text} from "../style/";
+import {createDebt} from "../actions";
+import I18n from "../strings/i18n";
 
 class DebtPreview extends Component {
     onSavePress = () => {
@@ -15,7 +21,8 @@ class DebtPreview extends Component {
     render() {
         return (
             <Container>
-                <AppHeader headerText={'Forhåndsvisning'}
+                <AppHeader headerText={I18n.t('debtPreviewHeader')}
+
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
@@ -29,7 +36,9 @@ class DebtPreview extends Component {
                         onPress={() => this.onSavePress()}
                         style={button.defaultButton}
                 >
-                    <Text style={text.submitButtonText}>Gem</Text>
+                    <Text style={text.submitButtonText}>
+                        {I18n.t('debtPreviewSaveButton')}
+                    </Text>
                 </Button>
             </Container>
         );
