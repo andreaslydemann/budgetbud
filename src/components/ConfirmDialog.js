@@ -38,7 +38,12 @@ export class ConfirmDialog extends Component {
                         <View style={container.flexRow}>
                             <DialogButton
                                 buttonStyle={button.dialogButton}
-                                textContainerStyle={[container.dialogButtonTextContainer, {borderBottomLeftRadius: 8}]}
+                                textContainerStyle={[container.dialogButtonTextContainer,
+                                    {borderBottomLeftRadius: 8,
+                                        borderBottomRightRadius: 0,
+                                        borderRightWidth: 1,
+                                        borderRightColor: '#fff'
+                                    }]}
                                 textStyle={text.dialogButtonText}
                                 text={I18n.t('confirmDialogCancelButton')}
                                 onPress={() => {
@@ -50,7 +55,11 @@ export class ConfirmDialog extends Component {
 
                             <DialogButton
                                 buttonStyle={button.dialogButton}
-                                textContainerStyle={[container.dialogButtonTextContainer, {borderBottomRightRadius: 8}]}
+                                textContainerStyle={[container.dialogButtonTextContainer,
+                                    {borderBottomLeftRadius: 0,
+                                        borderBottomRightRadius: 8,
+                                        borderLeftWidth: 1,
+                                        borderLeftColor: '#fff'}]}
                                 textStyle={text.dialogButtonText}
                                 text={I18n.t('confirmDialogOkButton')}
                                 onPress={() => {
