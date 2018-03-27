@@ -1,17 +1,17 @@
 import {StyleSheet} from 'react-native';
 
-const input = StyleSheet.create({
+export const input = StyleSheet.create({
     inputField: {
         borderColor: '#000',
-        marginLeft: 0,
-        marginRight: 0,
-        marginTop: 5,
-        marginBottom: 5,
-        paddingLeft: 0,
-        paddingRight: 0,
+        marginVertical: 5,
+        paddingVertical: 0,
         alignSelf: 'center',
         height: 40
+    },
+    authInputItem: {
+        marginTop: 10,
+        height: 40,
+        backgroundColor: 'rgba(255, 255,255,0.2)',
+        borderWidth: 0
     }
 });
-
-export default input;

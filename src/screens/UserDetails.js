@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {Container, Content, List, ListItem, Label, Body, Left, Right, Icon} from "native-base";
 import {NavigationActions} from "react-navigation";
 import {connect} from 'react-redux';
-import AppHeader from "../components/AppHeader";
-import ConfirmDialog from '../components/ConfirmDialog';
+import {AppHeader, ConfirmDialog} from "../components/";
 import {deleteUser} from "../actions";
 
 class UserDetails extends Component {

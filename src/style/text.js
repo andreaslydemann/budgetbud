@@ -1,6 +1,8 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform, Dimensions} from 'react-native';
 
-const text = StyleSheet.create({
+const deviceHeight = Dimensions.get("window").height;
+
+export const text = StyleSheet.create({
     listText: {
         alignSelf: 'flex-start',
         marginLeft: 5,
@@ -11,7 +13,26 @@ const text = StyleSheet.create({
         fontSize: 14,
         alignSelf: 'flex-start',
         marginLeft: 5,
-    }
+    },
+    textCenter: {
+        textAlign: 'center'
+    },
+    dialogButtonText: {
+        color: '#fff',
+        ...Platform.select({
+            android: {
+                fontSize: 16
+            }
+        })
+    },
+    logoText: {
+        marginTop: 20,
+        marginBottom: Platform.OS === "android" ? deviceHeight / 10 : deviceHeight / 18,
+        color: 'rgba(255, 255, 255, 1)'
+    },
+    submitButtonText: {
+        fontWeight: '600',
+        alignSelf: 'center',
+        color: 'white'
+    },
 });
-
-export default text;

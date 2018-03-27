@@ -1,7 +1,16 @@
 import {StyleSheet} from 'react-native';
 
-const color = StyleSheet.create({
-
+export const color = StyleSheet.create({
+    white: {
+        color: '#ffffff'
+    },
+    yellow: {
+        color: '#fff800'
+    },
+    spinnerColor: {
+        color: '#D0D0D0'
+    },
+    placeHolder: {
+        color: 'rgba(255,255,255,0.6)'
+    }
 });
-
-export default color;

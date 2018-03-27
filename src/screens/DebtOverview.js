@@ -1,12 +1,11 @@
 import React, {PureComponent} from 'react';
 import {View, FlatList} from 'react-native';
 import {Container, Button, ListItem, Body, Right, Icon, Text, Spinner} from 'native-base';
-import Separator from '../components/Separator';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import {resetDebtForm, debtSelected, getDebts, deleteDebt} from "../actions/debt_actions";
-import AppHeader from "../components/AppHeader";
-import ConfirmDialog from '../components/ConfirmDialog';
+import {AppHeader, ConfirmDialog, Separator} from "../components/";
+import {button} from "../style/button";
 
 class DebtOverview extends PureComponent {
     componentWillMount() {
@@ -64,9 +63,9 @@ class DebtOverview extends PureComponent {
 
                     <Button rounded
                             onPress={() => this.onCreateDebtPress()}
-                            style={styles.buttonStyle}
+                            style={button.defaultButton}
                     >
-                        <Text style={styles.itemStyle}>Opret gæld</Text>
+                        <Text style={text.submitButtonText}>Opret gæld</Text>
                     </Button>
                 </Container>
             </Container>
@@ -102,23 +101,6 @@ class DebtOverview extends PureComponent {
         );
     }
 }
-
-const styles = {
-    buttonStyle: {
-        width: '90%',
-        height: 40,
-        backgroundColor: '#1c313a',
-        marginTop: 20,
-        marginBottom: 20,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    itemStyle: {
-        fontWeight: '600',
-        alignSelf: 'center',
-        color: 'white'
-    }
-};
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;

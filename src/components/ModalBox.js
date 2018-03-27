@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet} from "react-native";
 import Modal from 'react-native-modalbox';
 import {Button, Icon, Label, View} from "native-base";
+import {button, text} from "../style/";
 
-class ModalBox extends Component {
+export class ModalBox extends Component {
     showModal() {
         this.refs.bottomModal.open();
     }
@@ -11,7 +11,7 @@ class ModalBox extends Component {
     render() {
         return (
             <Modal position={"bottom"} ref={"bottomModal"}>
-                <Label style={[styles.textStyle, {
+                <Label style={[text.defaultText, {
                     alignSelf: 'center',
                     marginTop: 10
                 }]}>Redigér:</Label>
@@ -26,10 +26,10 @@ class ModalBox extends Component {
                         transparent
                         onPress={() => this.props.navigateUser("EditBudget")}
                     >
-                        <View style={styles.modalButton}>
+                        <View style={button.modalButton}>
                             <Icon name="md-clipboard"
                                   style={{color: "#1c313a"}}/>
-                            <Label style={styles.textStyle}>Budget</Label>
+                            <Label style={text.defaultText}>Budget</Label>
                         </View>
                     </Button>
 
@@ -37,9 +37,9 @@ class ModalBox extends Component {
                         transparent
                         onPress={() => this.props.navigateUser("EditDisposable")}
                     >
-                        <View style={styles.modalButton}>
+                        <View style={button.modalButton}>
                             <Icon name="logo-usd" style={{color: "#1c313a"}}/>
-                            <Label style={styles.textStyle}>Rådighedsbeløb</Label>
+                            <Label style={text.defaultText}>Rådighedsbeløb</Label>
                         </View>
                     </Button>
 
@@ -47,15 +47,15 @@ class ModalBox extends Component {
                         transparent
                         onPress={() => this.props.navigateUser("DebtOverview")}
                     >
-                        <View style={styles.modalButton}>
+                        <View style={button.modalButton}>
                             <Icon name="ios-archive" style={{color: "#1c313a"}}/>
-                            <Label style={styles.textStyle}>Gæld</Label>
+                            <Label style={text.defaultText}>Gæld</Label>
                         </View>
                     </Button>
                 </View>
                 <Button transparent
                         onPress={() => this.refs.bottomModal.close()}
-                        style={styles.buttonStyle}
+                        style={button.bottomRight}
                 >
                     <Icon name="ios-arrow-dropdown-circle"
                           style={{color: "#1c313a"}}/>
@@ -64,23 +64,3 @@ class ModalBox extends Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    buttonStyle: {
-        justifyContent: 'flex-end',
-        alignSelf: 'flex-end'
-    },
-    textStyle: {
-        fontWeight: '400',
-        fontSize: 14,
-        alignSelf: 'flex-start',
-        marginLeft: 5,
-    },
-    modalButton: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-});
-
-export default ModalBox;

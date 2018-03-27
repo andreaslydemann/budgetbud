@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {Keyboard} from 'react-native';
-import {Button, Container, Form, Spinner, Text} from 'native-base';
+import {Container} from 'native-base';
 import {connect} from 'react-redux';
-import {incomeChanged, categoryChanged, createBudget} from '../actions/index';
-import BudgetForm from "../components/BudgetForm";
-import AppHeader from "../components/AppHeader";
-import {getAccountData} from "../actions/budget_actions";
+import {incomeChanged, categoryChanged, createBudget, getAccountData} from '../actions/index';
+import {BudgetForm, AppHeader} from "../components/";
 
 class CreateBudget extends Component {
     componentWillMount() {

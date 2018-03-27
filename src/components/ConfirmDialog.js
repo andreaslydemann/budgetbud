@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Platform, View} from "react-native";
+import {View} from "react-native";
 import {Container, Label, Spinner} from "native-base";
 import PopupDialog, {DialogTitle, DialogButton} from 'react-native-popup-dialog';
+import {container, text, button, spinner} from "../style/";
 
-class ConfirmDialog extends Component {
+export class ConfirmDialog extends Component {
     showDialog() {
         this.popupDialog.show();
     }
@@ -14,7 +15,7 @@ class ConfirmDialog extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={container.iosElevation}>
                 <PopupDialog
                     width={0.8}
                     dialogTitle={<DialogTitle title={this.props.title}/>}
@@ -23,16 +24,16 @@ class ConfirmDialog extends Component {
                     }}
                     dismissOnTouchOutside={false}
                 >
-                    <Container style={styles.dialogContentView}>
-                        {this.props.loading ? (<Spinner color='#1c313a' style={styles.spinner}/>) : (<View/>)}
-                        <View style={styles.dialogLabelContainer}>
-                            <Label style={styles.dialogLabel}>{this.props.text}</Label>
+                    <Container style={container.yCenteredFullSpan}>
+                        {this.props.loading ? (<Spinner color='#1c313a' style={spinner.dialogStandard}/>) : (<View/>)}
+                        <View style={[container.justifyCenter, {flex: 4}]}>
+                            <Label style={text.textCenter}>{this.props.text}</Label>
                         </View>
-                        <View style={styles.dialogButtonsContainer}>
+                        <View style={container.flexRow}>
                             <DialogButton
-                                buttonStyle={styles.dialogButton}
-                                textContainerStyle={styles.dialogButton1TextContainer}
-                                textStyle={styles.dialogButtonText}
+                                buttonStyle={button.dialogButton}
+                                textContainerStyle={[container.dialogButtonTextContainer, {borderBottomLeftRadius: 8}]}
+                                textStyle={text.dialogButtonText}
                                 text="Afbryd"
                                 onPress={() => {
                                     if (!this.props.loading)
@@ -41,9 +42,9 @@ class ConfirmDialog extends Component {
                                 key="button-1"
                             />
                             <DialogButton
-                                buttonStyle={styles.dialogButton}
-                                textContainerStyle={styles.dialogButton2TextContainer}
-                                textStyle={styles.dialogButtonText}
+                                buttonStyle={button.dialogButton}
+                                textContainerStyle={[container.dialogButtonTextContainer, {borderBottomRightRadius: 8}]}
+                                textStyle={text.dialogButtonText}
                                 text="Ok"
                                 onPress={() => {
                                     if (!this.props.loading)
@@ -58,74 +59,3 @@ class ConfirmDialog extends Component {
         );
     }
 }
-
-const styles = {
-    container: {
-        ...Platform.select({
-            ios: {
-                zIndex: 1,
-            },
-        }),
-    },
-    dialogContentView: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    dialogButton: {
-        flex: 1,
-        height: 31,
-        alignSelf: 'stretch',
-        justifyContent: 'flex-start',
-        ...Platform.select({
-            android: {
-                paddingBottom: 50,
-                height: 80
-            }
-        })
-    },
-    dialogButton1TextContainer: {
-        backgroundColor: '#002940',
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0,
-        borderBottomLeftRadius: 8,
-        borderRightColor: '#fff',
-        borderRightWidth: 1
-    },
-    dialogButton2TextContainer: {
-        backgroundColor: '#002940',
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 8,
-        borderLeftColor: '#fff',
-        borderLeftWidth: 1
-    },
-    dialogButtonsContainer: {
-        flexDirection: 'row',
-        flex: 1
-    },
-    dialogButtonText: {
-        color: '#fff',
-        ...Platform.select({
-            android: {
-                fontSize: 16
-            }
-        })
-    },
-    dialogLabelContainer: {
-        flex: 4,
-        justifyContent: 'center'
-    },
-    dialogLabel: {
-        textAlign: 'center'
-    },
-    spinner: {
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center',
-        top: 63,
-    }
-};
-
-export default ConfirmDialog;

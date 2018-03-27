@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Container, Item, Input, Button, Form, Label, Spinner, Icon} from 'native-base';
+import {Container, Item, Input, Button, Label, Spinner, Icon, View} from 'native-base';
+import {container, color, button, input} from "../style/";
 
-class AuthForm extends Component {
+export class AuthForm extends Component {
     renderCprNumberIcon() {
         if (0 < this.props.cprNumber.length && this.props.cprNumber.length < 10)
             return (<Icon name='close-circle' style={{color: '#db000e'}}/>);
@@ -20,21 +21,21 @@ class AuthForm extends Component {
 
     render() {
         return (
-            <Container style={styles.container}>
-                <Form style={{width: '80%'}}>
-                    <Item rounded style={styles.itemStyle}>
+            <Container style={[container.parentContainer, {flex: 1}]}>
+                <View style={{width: '80%'}}>
+                    <Item rounded style={input.authInputItem}>
                         <Input value={this.props.cprNumber}
                                onChangeText={this.props.onCprNumberChange}
                                keyboardType="numeric"
                                maxLength={10}
                                placeholder="CPR-nummer"
                                placeholderTextColor='rgba(255,255,255,0.6)'
-                               style={styles.inputStyle}
+                               style={color.white}
                         />
                         {this.renderCprNumberIcon()}
                     </Item>
 
-                    <Item rounded style={styles.itemStyle}>
+                    <Item rounded style={input.authInputItem}>
                         <Input secureTextEntry={this.props.isSignIn}
                                value={this.props.secondInput}
                                onChangeText={this.props.onSecondInputChange}
@@ -42,56 +43,24 @@ class AuthForm extends Component {
                                maxLength={this.props.isSignIn ? 4 : 8}
                                placeholder={this.props.isSignIn ? 'Pinkode' : 'Telefonnummer'}
                                placeholderTextColor='rgba(255,255,255,0.6)'
-                               style={styles.inputStyle}
+                               style={color.white}
                         />
                         {this.renderSecondInputIcon()}
                     </Item>
 
                     <Button rounded
                             onPress={this.props.handleSubmit}
-                            style={styles.buttonStyle}
+                            style={button.authButton}
                     >
                         {this.props.loading ? (
                             <Spinner color='#D0D0D0'/>) : (
-                            <Label style={styles.buttonText}>
+                            <Label style={color.white}>
                                 {this.props.isSignIn ? 'Log ind' : 'Registrér dig'}
                             </Label>
                         )}
                     </Button>
-                </Form>
+                </View>
             </Container>
         );
     }
 }
-
-const styles = {
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-end'
-    },
-    itemStyle: {
-        marginTop: 10,
-        height: 40,
-        backgroundColor: 'rgba(255, 255,255,0.2)',
-        borderBottomWidth: 0,
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0
-    },
-    inputStyle: {
-        color: '#ffffff'
-    },
-    buttonStyle: {
-        width: '100%',
-        height: 40,
-        backgroundColor: '#1c313a',
-        marginTop: 20,
-        justifyContent: 'center'
-    },
-    buttonText: {
-        color: '#ffffff'
-    },
-};
-
-export default AuthForm;

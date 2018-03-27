@@ -3,12 +3,8 @@ import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-na
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
 import {signIn, cprNumberChanged, codeChanged, authScreenSwitched} from '../actions';
-import Logo from '../components/Logo';
-import AuthForm from '../components/AuthForm';
-import ErrorInfo from '../components/ErrorInfo';
+import {AuthForm, ErrorInfo, Logo} from '../components/';
 import screenStyles from './ScreenStyles';
-import {debtSelected, deleteDebt, getDebts, resetDebtForm} from "../actions/debt_actions";
-import {getCategories} from "../actions/category_actions";
 
 class SignIn extends Component {
     onCprNumberChange = (text) => {
@@ -99,9 +95,6 @@ const styles = {
     optionButton: {
         height: 30,
         paddingLeft: 5
-    },
-    buttonText: {
-        color: '#ffffff'
     }
 };
 

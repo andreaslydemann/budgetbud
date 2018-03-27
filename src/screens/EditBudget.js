@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {Keyboard} from 'react-native';
-import {Button, Container, Form, Spinner, Text} from 'native-base';
+import {Container} from 'native-base';
 import {connect} from 'react-redux';
-import {incomeChanged, categoryChanged, createBudget, openDrawer} from '../actions/index';
-import BudgetForm from "../components/BudgetForm";
-import {editBudget, getInitialBudget, getInitialState} from "../actions/budget_actions";
-import AppHeader from "../components/AppHeader";
+import {incomeChanged, categoryChanged, editBudget} from '../actions/budget_actions';
+import {BudgetForm, AppHeader} from "../components/";
 
 class EditBudget extends Component {
     onIncomeChange = (text) => {
@@ -55,6 +53,7 @@ const mapStateToProps = ({budget}) => {
 };
 
 export default connect(mapStateToProps, {
-    openDrawer, editBudget,
-    incomeChanged, categoryChanged, getInitialBudget
+    editBudget,
+    incomeChanged,
+    categoryChanged
 })(EditBudget);

@@ -10,12 +10,10 @@ import {
     Label,
     Spinner
 } from "native-base";
-import AppHeader from "../components/AppHeader";
-import Separator from "../components/Separator";
+import {AppHeader, Separator, ModalBox} from "../components/";
 import {FlatList, StyleSheet} from "react-native";
 import {connect} from "react-redux";
 import {getBudget} from "../actions/budget_actions";
-import ModalBox from "../components/ModalBox";
 
 class MyBudget extends Component {
     componentWillMount() {

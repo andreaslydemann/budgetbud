@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import {Body, Button, Header, Icon, Left, Right, Title, Container, Label} from "native-base";
 import PopupDialog, {DialogTitle, DialogButton} from 'react-native-popup-dialog';
-import {Platform, View} from "react-native";
+import {View} from "react-native";
+import {color, button} from "../style";
+import {container} from "../style/container";
 
-class AppHeader extends Component {
+export class AppHeader extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Header style={styles.headerStyle}>
-                    <Left style={{flex: 1}}>
+            <View style={[container.iosElevation, container.androidMargin]}>
+                <Header>
+                    <Left style={{flex: 0.2}}>
                         <Button
                             transparent
                             onPress={() => this.props.onLeftButtonPress()}
@@ -17,10 +19,10 @@ class AppHeader extends Component {
                                 : (<Icon name="menu"/>)}
                         </Button>
                     </Left>
-                    <Body style={{flex: 3}}>
+                    <Body style={{flex: 0.6}}>
                     <Title style={{width: '100%'}}>{this.props.headerText}</Title>
                     </Body>
-                    <Right style={{flex: 1}}>
+                    <Right style={{flex: 0.2}}>
                         <Button
                             transparent
                             onPress={() => this.popupDialog.show()}
@@ -39,9 +41,9 @@ class AppHeader extends Component {
                     dismissOnTouchOutside={false}
                     actions={[
                         <DialogButton
-                            buttonStyle={styles.dialogButton}
-                            textContainerStyle={styles.dialogButtonTextContainer}
-                            textStyle={styles.dialogButtonText}
+                            buttonStyle={button.headerDialogButton}
+                            textContainerStyle={container.dialogButtonTextContainer}
+                            textStyle={color.white}
                             text="Luk"
                             onPress={() => {
                                 this.popupDialog.dismiss();
@@ -50,7 +52,7 @@ class AppHeader extends Component {
                         />
                     ]}
                 >
-                    <Container style={styles.dialogContentView}>
+                    <Container style={container.xyCenteredFullSpan}>
                         <Label>{this.props.infoButtonText}</Label>
                     </Container>
                 </PopupDialog>
@@ -58,36 +60,3 @@ class AppHeader extends Component {
         );
     }
 }
-
-const styles = {
-    container: {
-        ...Platform.select({
-            ios: {
-                zIndex: 1,
-            },
-            android: {
-                marginTop: 24,
-            },
-        }),
-    },
-    dialogContentView: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    dialogButton: {
-        height: 30,
-        paddingBottom: 48,
-        alignSelf: 'stretch'
-    },
-    dialogButtonTextContainer: {
-        backgroundColor: '#002940',
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0
-    },
-    dialogButtonText: {
-        color: '#fff'
-    }
-};
-
-export default AppHeader;

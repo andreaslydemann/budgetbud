@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import {Image, View, Platform, Dimensions} from "react-native";
-import {NavigationActions} from "react-navigation";
 import {Content, Text, List, ListItem, Icon, Container, Left} from "native-base";
 import {connect} from "react-redux";
-import {signOut, screenChanged} from "../actions";
+import {signOut, screenChanged} from "../actions/";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;

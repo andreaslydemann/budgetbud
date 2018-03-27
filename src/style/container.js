@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 
-const container = StyleSheet.create({
+export const container = StyleSheet.create({
     parenBudgetSummary: {
         flexDirection: 'column',
         flexGrow: 1,
@@ -14,8 +14,7 @@ const container = StyleSheet.create({
         flexDirection: 'row'
     },
     removeIndenting: {
-        marginLeft: 0,
-        marginRight: 0,
+        marginHorizontal: 0,
         padding: 0,
     },
     spacedTextChild: {
@@ -30,7 +29,64 @@ const container = StyleSheet.create({
         marginTop: 10,
         marginBottom: 5,
         width: '90%'
-    }
+    },
+    parentContainer: {
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
+    iosElevation: {
+        ...Platform.select({
+            ios: {
+                zIndex: 1,
+            }
+        }),
+    },
+    androidMargin: {
+        ...Platform.select({
+            android: {
+                marginTop: 24,
+            }
+        }),
+    },
+    xyCenteredFullSpan: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    dialogButtonTextContainer: {
+        backgroundColor: '#002940',
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0
+    },
+    yCenteredFullSpan: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    dialogButtonTextContainer2: { //TODO
+        backgroundColor: '#002940',
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
+        borderRightColor: '#fff',
+        borderRightWidth: 1
+    },
+    justifyCenter: {
+        justifyContent: 'center'
+    },
+    flexRow: {
+        flexDirection: 'row',
+        flex: 1
+    },
+    errorContainer: {
+        width: '80%',
+        height: 20,
+        marginBottom: 12,
+        paddingVertical: 15,
+        borderRadius: 25,
+        backgroundColor: 'rgba(255, 255,255,0.2)',
+        alignSelf: 'center',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
 });
-
-export default container;

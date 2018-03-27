@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Container, Label} from 'native-base';
-import AppHeader from "../components/AppHeader";
+import {Container} from 'native-base';
+import {AppHeader, DisposableForm} from "../components/";
 import {connect} from "react-redux";
-import DisposableForm from "../components/DisposableForm";
 
 class EditDisposable extends Component {
     onContinuePress = () => {
@@ -22,15 +21,6 @@ class EditDisposable extends Component {
         );
     }
 }
-
-styles = {
-    textContainer: {
-        width: '90%',
-        alignSelf: 'center',
-        alignItems: 'flex-start',
-        marginVertical: 25
-    }
-};
 
 const mapStateToProps = ({disposable}) => {
     return {disposable} = disposable;

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container} from "native-base";
-import AppHeader from "../components/AppHeader";
+import {AppHeader} from "../components/";
 
 class MonthlyReports extends Component {
     render() {

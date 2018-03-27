@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Button, Container, Form, Label, Spinner, Text} from "native-base";
-import AppHeader from "../components/AppHeader";
+import {AppHeader, ConfirmDialog} from "../components/";
 import {Image} from "react-native";
-import ConfirmDialog from "../components/ConfirmDialog";
 import {connect} from "react-redux";
 import {getBudget} from "../actions/budget_actions";
+import {color} from "../style/";
 
 
 class Intro extends Component {
@@ -59,7 +59,7 @@ class Intro extends Component {
                             >
                             {this.props.loading ? (
                                 <Spinner color='#D0D0D0'/>) : (
-                                <Label style={styles.buttonText}>
+                                <Label style={color.white}>
                                     Kom i gang
                                 </Label>
                             )}
@@ -107,18 +107,6 @@ const styles = {
         marginTop: 20,
         marginBottom: 20,
         justifyContent: 'center'
-    },
-    buttonText: {
-        color: '#ffffff'
-    },
-    itemStyle: {
-        marginTop: 10,
-        height: 40,
-        backgroundColor: 'rgba(255, 255,255,0.2)',
-        borderBottomWidth: 0,
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
     },
 };
 

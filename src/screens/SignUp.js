@@ -3,9 +3,7 @@ import {KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-na
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
 import {signUp, cprNumberChanged, phoneNumberChanged, authScreenSwitched} from '../actions';
-import Logo from '../components/Logo';
-import AuthForm from '../components/AuthForm';
-import ErrorInfo from '../components/ErrorInfo';
+import {Logo, AuthForm, ErrorInfo} from '../components/';
 import screenStyles from './ScreenStyles';
 
 class SignUp extends Component {

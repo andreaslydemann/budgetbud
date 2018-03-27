@@ -5,12 +5,4 @@ export default {
         alignItems:'center',
         justifyContent :'center',
     },
-    budgetContainer: {
-        backgroundColor: "#000",
-        alignSelf: 'stretch',
-        borderRadius: 0,
-        borderTopWidth: 10,
-        borderTopColor: 'red',
-        flexGrow: 3
-    },
 };

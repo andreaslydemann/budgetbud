@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Container} from 'native-base';
-import AppHeader from "../components/AppHeader";
-import DebtForm from '../components/DebtForm';
+import {AppHeader, DebtForm} from "../components/";
 import {connect} from "react-redux";
 import _ from 'lodash';
 import {
@@ -47,15 +46,6 @@ class CreateDebt extends Component {
         );
     }
 }
-
-styles = {
-    textContainer: {
-        width: '90%',
-        alignSelf: 'center',
-        alignItems: 'flex-start',
-        marginVertical: 25
-    }
-};
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;

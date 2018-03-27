@@ -48,15 +48,6 @@ class EditDebt extends Component {
     }
 }
 
-styles = {
-    textContainer: {
-        width: '90%',
-        alignSelf: 'center',
-        alignItems: 'flex-start',
-        marginVertical: 25
-    }
-};
-
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
     const {name, amount, expirationDate, selectedDebtID} = state.debt;

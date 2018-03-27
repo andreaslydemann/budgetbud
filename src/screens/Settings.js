@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {Container, Content, List, ListItem, Label, Body, Left, Right, Icon} from "native-base";
-import AppHeader from "../components/AppHeader";
+import {AppHeader, ConfirmDialog} from "../components/";
 import {connect} from "react-redux";
 import {deleteBudget} from "../actions/budget_actions";
-import ConfirmDialog from "../components/ConfirmDialog";
 
 class Settings extends Component {
     deleteBudget = () => {

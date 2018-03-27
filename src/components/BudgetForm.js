@@ -11,12 +11,9 @@ import {
     Button, Spinner
 } from 'native-base';
 import Separator from "./Separator";
-import container from "../style/container";
-import text from "../style/text";
-import button from "../style/button";
-import input from "../style/input";
+import {container, text, button, input} from "../style/";
 
-class BudgetForm extends PureComponent {
+export class BudgetForm extends PureComponent {
     render() {
         return (
             <Container>
@@ -39,7 +36,7 @@ class BudgetForm extends PureComponent {
                     <FlatList
                         data={this.props.categories}
                         renderItem={this.renderItem}
-                        keyExtractor={item => item.name}
+                        keyExtractor={item => item.id}
                         style={container.removeIndenting}
                     />
                 </Form>
@@ -71,7 +68,7 @@ class BudgetForm extends PureComponent {
                     >
                         {this.props.loading ? (
                             <Spinner color='#D0D0D0'/>) : (
-                            <Text style={button.submitButtonText}>
+                            <Text style={text.submitButtonText}>
                                 {this.props.isBudgetCreated ? 'Gem' : 'Opret budget'}
                             </Text>
                         )}
@@ -83,7 +80,7 @@ class BudgetForm extends PureComponent {
 
     renderItem = ({item}) => {
         return (
-            <ListItem>
+            <ListItem key={item.id}>
                 <Body>
                 <Label style={text.defaultText}>{item.name + ":"}</Label>
                 <Item rounded style={input.inputField}>
@@ -99,5 +96,3 @@ class BudgetForm extends PureComponent {
         );
     };
 }
-
-export default BudgetForm;
