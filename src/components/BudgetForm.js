@@ -21,7 +21,6 @@ import I18n from "../strings/i18n";
 
 export class BudgetForm extends PureComponent {
     render() {
-        console.log(this.props.isBudgetCreated);
         return (
             <Container>
                 <Form style={container.incomeFormStyle}>

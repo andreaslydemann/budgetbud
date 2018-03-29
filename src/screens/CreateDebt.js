@@ -13,7 +13,8 @@ import {
     amountChanged,
     expirationDateChanged,
     categoriesSelected,
-    getCategories
+    getCategories,
+    getCategoriesOfDebt
 } from "../actions";
 
 class CreateDebt extends Component {
@@ -40,7 +41,7 @@ class CreateDebt extends Component {
                           amount={this.props.amount}
                           expirationDate={this.props.expirationDate}
                           categoryItems={this.props.categoryItems}
-                          selectedCategories={this.props.selectedCategories}
+                          selectedCategories={this.props.categoriesOfDebt}
                           categoriesLoading={this.props.categoriesLoading}
                           onContinuePress={this.onContinuePress}/>
             </Container>
@@ -50,8 +51,8 @@ class CreateDebt extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {name, amount, expirationDate, selectedCategories} = state.debt;
-    const {categories, categoriesLoading} = state.category;
+    const {name, amount, expirationDate} = state.debt;
+    const {categories, categoriesOfDebt, categoriesLoading} = state.category;
 
     const categoryItems = _.map(categories, (item, key) => {
         return {...item.categoryData, categoryID: item.id, key: key};
@@ -61,7 +62,7 @@ const mapStateToProps = (state) => {
         name,
         amount,
         expirationDate,
-        selectedCategories,
+        categoriesOfDebt,
         budgetID,
         categoryItems,
         categoriesLoading
@@ -74,6 +75,7 @@ const mapDispatchToProps = {
     expirationDateChanged,
     categoriesSelected,
     getCategories,
+    getCategoriesOfDebt,
     resetDebtForm,
     debtSelected,
     getDebts,

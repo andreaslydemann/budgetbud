@@ -46,9 +46,9 @@ export const DELETE_DEBT = 'delete_debt';
 export const GET_CATEGORIES = 'get_categories';
 export const GET_CATEGORIES_SUCCESS = 'get_categories_success';
 export const GET_CATEGORIES_FAIL = 'get_categories_fail';
-export const GET_CATEGORIES_OF_DEBT = 'get_categories';
-export const GET_CATEGORIES_OF_DEBT_SUCCESS = 'get_categories_success';
-export const GET_CATEGORIES_OF_DEBT_FAIL = 'get_categories_fail';
+export const GET_CATEGORIES_OF_DEBT = 'get_categories_of_debt';
+export const GET_CATEGORIES_OF_DEBT_SUCCESS = 'get_categories_of_debt_success';
+export const GET_CATEGORIES_OF_DEBT_FAIL = 'get_categories_of_debt_fail';
 
 // ----------ACCOUNT RELATED TYPES----------
 export const GET_ACCOUNT_DATA = 'get_account_data';

@@ -139,7 +139,7 @@ export class DebtForm extends Component {
                             onPress={() => this.props.onContinuePress()}
                             style={button.defaultButton}
                     >
-                          <Text style={text.submitButtonText}>{I18n.t('debtContinueButton')}</Text>
+                        <Text style={text.submitButtonText}>{I18n.t('debtContinueButton')}</Text>
                     </Button>
                 </Container>
             </TouchableWithoutFeedback>

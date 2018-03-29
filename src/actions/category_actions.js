@@ -29,7 +29,10 @@ export const getCategories = (budgetID) => async dispatch => {
 
 export const getCategoriesOfDebt = (debtID) => async dispatch => {
     try {
+
         dispatch({type: GET_CATEGORIES_OF_DEBT});
+
+        // check for categories != null, else get categories first
 
         let token = await firebase.auth().currentUser.getIdToken();
 
@@ -40,6 +43,7 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
         dispatch({type: GET_CATEGORIES_OF_DEBT_SUCCESS, payload: data});
     } catch (err) {
         let {data} = err.response;
+
         //getCategoriesFail(dispatch, data.error);
     }
 };

@@ -5,13 +5,17 @@ import {
     Button,
     Text
 } from "native-base";
-import {AppHeader, Separator}  from "../components/";
+import {AppHeader, Separator} from "../components/";
 import {connect} from "react-redux";
 import {button, text} from "../style/";
 import {createDebt} from "../actions";
 import I18n from "../strings/i18n";
 
 class DebtPreview extends Component {
+    componentWillMount() {
+
+    }
+
     onSavePress = () => {
         this.props.createDebt(this.props, () => {
             this.props.navigation.pop(2);
