@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {StackNavigator, DrawerNavigator} from "react-navigation";
 import {Root} from 'native-base';
-import {Provider} from 'react-redux';
 
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import SideBar from "./screens/SideBar";
-import store from './store';
 import CreateBudget from "./screens/CreateBudget";
 import MyBudget from "./screens/MyBudget";
 import SpendingOverview from "./screens/SpendingOverview";
@@ -29,8 +27,8 @@ export default class App extends Component {
             {
                 MyBudget: {screen: MyBudget},
                 CreateBudget: {screen: CreateBudget},
-                Intro: {screen: Intro},
                 EditBudget: {screen: EditBudget},
+                Intro: {screen: Intro},
                 BudgetPreview: {screen: BudgetPreview},
                 EditDisposable: {screen: EditDisposable},
                 DebtOverview: {screen: DebtOverview},
@@ -85,11 +83,9 @@ export default class App extends Component {
         );
 
         return (
-            <Provider store={store}>
-                <Root>
-                    <AppNavigator/>
-                </Root>
-            </Provider>
+            <Root>
+                <AppNavigator/>
+            </Root>
         );
     }
 }

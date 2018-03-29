@@ -12,10 +12,34 @@ import {
     CREATE_BUDGET_SUCCESS,
     DELETE_BUDGET,
     GET_INITIAL_BUDGET_STATE,
-    GET_ACCOUNT_DATA
+    GET_ACCOUNT_DATA,
+    EDIT_BUDGET,
+    EDIT_BUDGET_SUCCESS,
+    EDIT_BUDGET_FAIL,
+    GET_BUDGET_ID_FAIL,
+    GET_BUDGET_ID_SUCCESS
 } from './types';
 
 const ROOT_URL = cloudFunctionsURL;
+
+export const getBudgetID = (user) => async dispatch => {
+        try {
+            let token = await user.getIdToken();
+            console.log(token);
+
+            const {data} = await axios.get(`${ROOT_URL}/getBudgetID?userID=${user.uid}`,
+                {headers: {Authorization: 'Bearer ' + token}});
+
+            dispatch({type: GET_BUDGET_ID_SUCCESS, payload: data.id})
+        } catch (err) {
+            let {data} = err.response;
+            getBudgetIDFail(dispatch, data.error)
+        }
+    };
+
+const getBudgetIDFail = (dispatch, error) => {
+    dispatch({type: GET_BUDGET_ID_FAIL, payload: error});
+};
 
 export const createBudget = ({income, categories, totalExpenses, disposable}, callback) =>
     async dispatch => {
@@ -45,28 +69,28 @@ const createBudgetFail = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
 };
 
-export const getBudget = (callBack) => async dispatch => {
+export const getBudget = (budgetID, callBack) => async dispatch => {
+    console.log("BudgetID fra getBudget: " + budgetID)
+    if (budgetID === '') {
+        callBack();
+    }
+
     dispatch({type: GET_BUDGET});
     let token = await firebase.auth().currentUser.getIdToken();
-    let userID = await firebase.auth().currentUser.uid;
 
     try {
-        let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?userID=${userID}`,
+        let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
-
-        if (budgetResponse.data === null) {
-            callBack();
-        }
-
-        let budgetID = budgetResponse.data.id;
 
         let categoryResponse = await axios.get(`${ROOT_URL}/getCategories?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({
             type: GET_BUDGET_SUCCESS,
-            budget: budgetResponse.data,
-            categories: categoryResponse.data
+            payload: {
+                budgetData: budgetResponse.data.budgetData,
+                categories: categoryResponse.data
+            }
         });
 
     } catch (err) {
@@ -79,13 +103,20 @@ const getBudgetFail = (dispatch, error) => {
     dispatch({type: GET_BUDGET_FAIL, payload: error});
 };
 
-export const editBudget = ({income, categoryName, categoryAmount}, callback) => async dispatch => {
-    dispatch({type: CREATE_BUDGET});
+export const editBudget = ({budgetID, income, categories}, callback) => async dispatch => {
+    dispatch({type: EDIT_BUDGET});
     let token = await firebase.auth().currentUser.getIdToken();
-    let userID = await firebase.auth().currentUser.uid;
 
     try {
-        await axios.post(`${ROOT_URL}/editBudget`, {income, categoryName, categoryAmount});
+        await axios.post(`${ROOT_URL}/editBudget`,
+            {budgetID, income, categories},
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        dispatch({
+            type: EDIT_BUDGET_SUCCESS,
+            income,
+            categories
+        });
 
     } catch (err) {
         let {data} = err.response;
@@ -94,7 +125,7 @@ export const editBudget = ({income, categoryName, categoryAmount}, callback) => 
 };
 
 const editBudgetFail = (dispatch, error) => {
-    dispatch({type: CREATE_BUDGET_FAIL, payload: error});
+    dispatch({type: EDIT_BUDGET_FAIL, payload: error});
 };
 
 export const deleteBudget = ({budgetID}, callback) => async dispatch => {
@@ -124,8 +155,10 @@ export const incomeChanged = text => {
 export const categoryChanged = (name, amount) => {
     return {
         type: CATEGORY_CHANGED,
-        name: name,
-        amount: amount
+        payload: {
+            name,
+            amount
+        }
     };
 };
 

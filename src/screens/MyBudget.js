@@ -13,14 +13,17 @@ import {
 import {AppHeader, Separator, Toolbox} from "../components/";
 import {FlatList, StyleSheet} from "react-native";
 import {connect} from "react-redux";
-import {getBudget} from "../actions";
+import {getBudget, getCategories} from "../actions";
 import I18n from "../strings/i18n";
 
 class MyBudget extends Component {
     componentWillMount() {
-        this.props.getBudget(() => {
+        console.log("BudgetID - ComponentWillMount: " + this.props.budgetID)
+        this.props.getBudget(this.props.budgetID, () => {
             this.props.navigation.navigate('CreateBudget');
         });
+
+        this.props.getCategories();
     }
 
     navigateUser = (destination) => {
@@ -207,7 +210,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({budget}) => {
     return {
-        isBudgetCreated,
         loading,
         income,
         categories,
@@ -221,5 +223,5 @@ const mapStateToProps = ({budget}) => {
 };
 
 export default connect(mapStateToProps, {
-    getBudget
+    getBudget, getCategories
 })(MyBudget);

@@ -9,6 +9,7 @@ import {
     incomeChanged,
     categoryChanged
 } from "../actions";
+import * as _ from "lodash";
 
 class EditBudget extends Component {
     onIncomeChange = (text) => {
@@ -44,24 +45,36 @@ class EditBudget extends Component {
                             debt={this.props.debt}
                             loading={this.props.loading}
                             error={this.props.error}
-                            isBudgetCreated={this.props.isBudgetCreated}
                 />
             </Container>
         );
     }
 }
 
-const mapStateToProps = ({budget}) => {
-    return {
+const mapStateToProps = (state) => {
+    const {
         income,
-        categories,
         debt,
         totalExpenses,
         disposable,
         loading,
         error,
         isBudgetCreated
-    } = budget;
+    } = state.budget;
+
+    const categoryItems = _.map(state.category.categories, (item, key) => {
+        return {...item.categoryData, categoryID: item.id, key: key};
+    });
+
+    return {
+        income,
+        debt,
+        totalExpenses,
+        disposable,
+        loading,
+        error,
+        categoryItems
+    };
 };
 
 const mapDispatchToProps = {

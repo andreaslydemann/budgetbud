@@ -13,7 +13,7 @@ import {
 
 class CreateBudget extends Component {
     componentWillMount() {
-        if (this.props.isBudgetCreated)
+        if (this.props.budgetID !== '')
             this.props.navigation.navigate('MyBudget');
 
         this.props.getAccountData();
@@ -53,7 +53,6 @@ class CreateBudget extends Component {
                             debt={this.props.debt}
                             loading={this.props.loading}
                             error={this.props.error}
-                            isBudgetCreated={this.props.isBudgetCreated}
                 />
             </Container>
         );
@@ -67,7 +66,6 @@ const mapStateToProps = ({budget}) => {
         debt,
         totalExpenses,
         disposable,
-        isBudgetCreated,
         loading,
         error
     } = budget;
