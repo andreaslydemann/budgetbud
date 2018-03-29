@@ -11,7 +11,7 @@ import {
 import {fromJS} from "immutable";
 
 const INITIAL_STATE = {
-    budgetID: '',
+    budgetID: 'vNSjX9d8SbjFkFLbWHmP',
     income: 0,
     error: '',
     loading: false,

@@ -28,6 +28,7 @@ import {
     input
 } from "../style/";
 import I18n from "../strings/i18n";
+import {color} from "../style";
 
 export class DebtForm extends Component {
     onNameChange = (text) => {
@@ -139,7 +140,10 @@ export class DebtForm extends Component {
                             onPress={() => this.props.onContinuePress()}
                             style={button.defaultButton}
                     >
-                        <Text style={text.submitButtonText}>{I18n.t('debtContinueButton')}</Text>
+                        {this.props.subtractionsLoading ? (
+                            <Spinner color='#D0D0D0'/>) : (
+                            <Text style={text.submitButtonText}>{I18n.t('debtContinueButton')}</Text>
+                        )}
                     </Button>
                 </Container>
             </TouchableWithoutFeedback>

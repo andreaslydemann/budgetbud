@@ -14,7 +14,8 @@ import {
     expirationDateChanged,
     categoriesSelected,
     getCategories,
-    getCategoriesOfDebt
+    getCategoriesOfDebt,
+    calculateCategorySubtractions
 } from "../actions";
 
 class CreateDebt extends Component {
@@ -23,7 +24,13 @@ class CreateDebt extends Component {
     }
 
     onContinuePress = () => {
-        this.props.navigation.navigate('DebtPreview');
+        this.props.calculateCategorySubtractions(
+            this.props.amount,
+            this.props.expirationDate,
+            this.props.categoriesOfDebt
+            , () => {
+                this.props.navigation.navigate('DebtPreview');
+            });
     };
 
     render() {
@@ -43,6 +50,7 @@ class CreateDebt extends Component {
                           categoryItems={this.props.categoryItems}
                           selectedCategories={this.props.categoriesOfDebt}
                           categoriesLoading={this.props.categoriesLoading}
+                          subtractionsLoading={this.props.subtractionsLoading}
                           onContinuePress={this.onContinuePress}/>
             </Container>
         );
@@ -52,7 +60,12 @@ class CreateDebt extends Component {
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
     const {name, amount, expirationDate} = state.debt;
-    const {categories, categoriesOfDebt, categoriesLoading} = state.category;
+    const {
+        categories,
+        categoriesOfDebt,
+        categoriesLoading,
+        subtractionsLoading
+    } = state.category;
 
     const categoryItems = _.map(categories, (item, key) => {
         return {...item.categoryData, categoryID: item.id, key: key};
@@ -65,11 +78,13 @@ const mapStateToProps = (state) => {
         categoriesOfDebt,
         budgetID,
         categoryItems,
-        categoriesLoading
+        categoriesLoading,
+        subtractionsLoading
     };
 };
 
 const mapDispatchToProps = {
+    calculateCategorySubtractions,
     nameChanged,
     amountChanged,
     expirationDateChanged,
