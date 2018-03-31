@@ -12,7 +12,7 @@ import {
 import _ from 'lodash';
 import {AppHeader, Separator} from "../components/";
 import {connect} from "react-redux";
-import {button, text} from "../style/";
+import {button, text, container} from "../style/";
 import {createDebt} from "../actions";
 import I18n from "../strings/i18n";
 
@@ -54,16 +54,23 @@ class DebtPreview extends Component {
     renderItem = ({item}) => {
         return (
             <ListItem>
-                <Text>{item.name}</Text>
-                <Body>
-                <Text note>{I18n.t('debtPreviewBefore')}</Text>
-                <Text note>{I18n.t('debtPreviewAfter')}</Text>
-                </Body>
-                <Right>
-                    <Text note>{item.beforeAmount} {I18n.t('currency')}</Text>
-                    <Text note>{item.beforeAmount - item.amountToSubtract} {I18n.t('currency')}
-                    (-{item.amountToSubtract} {I18n.t('currency')})</Text>
-                </Right>
+                <View style={container.fullWidth}>
+                    <Body>
+                    <Text>{item.name}</Text>
+                    </Body>
+                    <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
+                        <Body style={{flex: 1}}>
+                        <Text note>{I18n.t('debtPreviewBefore')}</Text>
+                        <Text note>{I18n.t('debtPreviewAfter')}</Text>
+                        </Body>
+                        <Right style={{flex: 2}}>
+                            <Text note>{item.beforeAmount} {I18n.t('currency')}</Text>
+                            <Text note>{item.afterAmount} {I18n.t('currency')} (-
+                                {item.amountToSubtract} {I18n.t('currency')})
+                            </Text>
+                        </Right>
+                    </View>
+                </View>
             </ListItem>
         );
     }
@@ -87,16 +94,18 @@ const mapStateToProps = (state) => {
             return obj.id === item.toString();
         });
 
+        const amountToSubtract = categorySubtraction[0].amountToSubtract;
+        const beforeAmount = category[0].categoryData.amount;
+
         return {
-            amountToSubtract: categorySubtraction[0].amountToSubtract,
-            beforeAmount: category[0].categoryData.amount,
+            amountToSubtract: amountToSubtract,
+            beforeAmount: beforeAmount,
+            afterAmount: (beforeAmount - amountToSubtract),
             name: category[0].categoryData.name,
             categoryID: item,
             key: key
         };
     });
-
-    console.log(categoryDebtItems);
 
     return {
         name,
