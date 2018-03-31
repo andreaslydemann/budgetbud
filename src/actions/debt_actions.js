@@ -83,14 +83,25 @@ const getDebtsFail = (dispatch, error) => {
     dispatch({type: GET_DEBTS_FAIL, payload: error});
 };
 
-export const createDebt = ({name, amount, expirationDate, selectedCategories, budgetID}, callback) => async dispatch => {
+export const createDebt = ({name, amount, expirationDate, categoryDebtItems, budgetID},
+                           callback) => async dispatch => {
+    dispatch({type: CREATE_DEBT});
+
     try {
-        dispatch({type: CREATE_DEBT});
+        const categories = [];
+
+        categoryDebtItems.forEach(c => {
+            categories.push({
+                categoryID: c.categoryID,
+                newAmount: c.afterAmount,
+                amountToSubtract: c.amountToSubtract
+            });
+        });
 
         let token = await firebase.auth().currentUser.getIdToken();
 
         await axios.post(`${ROOT_URL}/createDebt`,
-            {name, amount, expirationDate, budgetID, categories: selectedCategories}, {
+            {name, amount, expirationDate, budgetID, categories}, {
                 headers: {Authorization: 'Bearer ' + token}
             });
 

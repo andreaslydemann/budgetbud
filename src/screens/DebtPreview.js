@@ -111,8 +111,6 @@ const mapStateToProps = (state) => {
         name,
         amount,
         expirationDate,
-        categoriesOfDebt,
-        categorySubtractions,
         categoryDebtItems,
         budgetID,
     };
