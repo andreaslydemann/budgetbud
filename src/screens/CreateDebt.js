@@ -64,7 +64,11 @@ const mapStateToProps = (state) => {
         subtractionsLoading
     } = state.category;
 
-    const categoryItems = _.map(categories, (item, key) => {
+    const categoriesWithAmounts = categories.filter((obj) => {
+        return obj.categoryData.amount > 0
+    });
+
+    const categoryItems = _.map(categoriesWithAmounts, (item, key) => {
         return {...item.categoryData, categoryID: item.id, key: key};
     });
 
