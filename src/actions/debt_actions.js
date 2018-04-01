@@ -48,13 +48,6 @@ export const expirationDateChanged = text => {
     };
 };
 
-export const categoriesSelected = list => {
-    return {
-        type: DEBT_CATEGORIES_SELECTED,
-        payload: list
-    };
-};
-
 export const debtSelected = (debt) => {
     return {
         type: DEBT_SELECTED,
@@ -105,9 +98,7 @@ export const createDebt = ({name, amount, expirationDate, categoryDebtItems, bud
                 headers: {Authorization: 'Bearer ' + token}
             });
 
-        getDebts(budgetID);
-
-        dispatch({type: RESET_DEBT_FORM});
+        dispatch({type: CREATE_DEBT_SUCCESS});
 
         callback();
     } catch (err) {

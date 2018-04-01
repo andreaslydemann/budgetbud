@@ -32,7 +32,6 @@ export const RESET_DEBT_FORM = 'reset_debt_form';
 export const DEBT_NAME_CHANGED = 'debt_name_changed';
 export const DEBT_AMOUNT_CHANGED = 'debt_amount_changed';
 export const DEBT_EXPIRATION_DATE_CHANGED = 'debt_expiration_date_changed';
-export const DEBT_CATEGORIES_SELECTED = 'debt_categories_selected';
 export const GET_DEBTS = 'get_debts';
 export const GET_DEBTS_SUCCESS = 'get_debts_success';
 export const GET_DEBTS_FAIL = 'get_debts_fail';
@@ -49,6 +48,7 @@ export const GET_CATEGORIES_FAIL = 'get_categories_fail';
 export const GET_CATEGORIES_OF_DEBT = 'get_categories_of_debt';
 export const GET_CATEGORIES_OF_DEBT_SUCCESS = 'get_categories_of_debt_success';
 export const GET_CATEGORIES_OF_DEBT_FAIL = 'get_categories_of_debt_fail';
+export const CATEGORIES_OF_DEBT_SELECTED = 'categories_of_debt_selected';
 export const CALCULATE_CATEGORY_SUBTRACTIONS = 'calculate_category_subtractions';
 export const CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_category_subtractions_success';
 

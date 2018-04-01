@@ -4,6 +4,7 @@ import {
     Container,
     Content,
     Button,
+    Spinner,
     ListItem,
     Body,
     Right,
@@ -43,9 +44,12 @@ class DebtPreview extends Component {
                         onPress={() => this.onSavePress()}
                         style={button.defaultButton}
                 >
-                    <Text style={text.submitButtonText}>
-                        {I18n.t('debtPreviewSaveButton')}
-                    </Text>
+                    {this.props.loading ? (
+                        <Spinner color='#D0D0D0'/>) : (
+                        <Text style={text.submitButtonText}>
+                            {I18n.t('debtPreviewSaveButton')}
+                        </Text>
+                    )}
                 </Button>
             </Container>
         );
@@ -78,14 +82,14 @@ class DebtPreview extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {name, amount, expirationDate} = state.debt;
+    const {name, amount, expirationDate, loading} = state.debt;
     const {
         categories,
-        categoriesOfDebt,
+        categoriesOfDebtIDs,
         categorySubtractions,
     } = state.category;
 
-    const categoryDebtItems = _.map(categoriesOfDebt, (item, key) => {
+    const categoryDebtItems = _.map(categoriesOfDebtIDs, (item, key) => {
         const categorySubtraction = categorySubtractions.filter((obj) => {
             return obj.categoryID === item.toString();
         });
@@ -112,6 +116,7 @@ const mapStateToProps = (state) => {
         amount,
         expirationDate,
         categoryDebtItems,
+        loading,
         budgetID,
     };
 };

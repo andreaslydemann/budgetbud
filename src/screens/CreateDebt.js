@@ -8,13 +8,11 @@ import {
     debtSelected,
     deleteDebt,
     getDebts,
-    resetDebtForm,
     nameChanged,
     amountChanged,
     expirationDateChanged,
-    categoriesSelected,
+    categoriesOfDebtSelected,
     getCategories,
-    getCategoriesOfDebt,
     calculateCategorySubtractions
 } from "../actions";
 
@@ -27,8 +25,7 @@ class CreateDebt extends Component {
         this.props.calculateCategorySubtractions(
             this.props.amount,
             this.props.expirationDate,
-            this.props.categoriesOfDebt
-            , () => {
+            this.props.categoriesOfDebtIDs, () => {
                 this.props.navigation.navigate('DebtPreview');
             });
     };
@@ -43,12 +40,12 @@ class CreateDebt extends Component {
                 <DebtForm nameChanged={this.props.nameChanged}
                           amountChanged={this.props.amountChanged}
                           expirationDateChanged={this.props.expirationDateChanged}
-                          categoriesSelected={this.props.categoriesSelected}
+                          categoriesSelected={this.props.categoriesOfDebtSelected}
                           name={this.props.name}
                           amount={this.props.amount}
                           expirationDate={this.props.expirationDate}
                           categoryItems={this.props.categoryItems}
-                          selectedCategories={this.props.categoriesOfDebt}
+                          selectedCategories={this.props.categoriesOfDebtIDs}
                           categoriesLoading={this.props.categoriesLoading}
                           subtractionsLoading={this.props.subtractionsLoading}
                           onContinuePress={this.onContinuePress}/>
@@ -62,7 +59,7 @@ const mapStateToProps = (state) => {
     const {name, amount, expirationDate} = state.debt;
     const {
         categories,
-        categoriesOfDebt,
+        categoriesOfDebtIDs,
         categoriesLoading,
         subtractionsLoading
     } = state.category;
@@ -75,7 +72,7 @@ const mapStateToProps = (state) => {
         name,
         amount,
         expirationDate,
-        categoriesOfDebt,
+        categoriesOfDebtIDs,
         budgetID,
         categoryItems,
         categoriesLoading,
@@ -84,14 +81,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    calculateCategorySubtractions,
     nameChanged,
     amountChanged,
     expirationDateChanged,
-    categoriesSelected,
+    calculateCategorySubtractions,
+    categoriesOfDebtSelected,
     getCategories,
-    getCategoriesOfDebt,
-    resetDebtForm,
     debtSelected,
     getDebts,
     deleteDebt

@@ -8,7 +8,7 @@ import {
     GET_CATEGORIES_FAIL,
     GET_CATEGORIES_OF_DEBT,
     GET_CATEGORIES_OF_DEBT_SUCCESS,
-    DEBT_CATEGORIES_SELECTED,
+    CATEGORIES_OF_DEBT_SELECTED,
     CALCULATE_CATEGORY_SUBTRACTIONS,
     CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS
 } from "./types";
@@ -44,7 +44,17 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
             headers: {Authorization: 'Bearer ' + token}
         });
 
-        dispatch({type: GET_CATEGORIES_OF_DEBT_SUCCESS, payload: data});
+        const categoriesOfDebt = data;
+        const categoriesOfDebtIDs = [];
+
+        categoriesOfDebt.forEach(c => {
+            categoriesOfDebtIDs.push(c.categoryID);
+        });
+
+        dispatch({
+            type: GET_CATEGORIES_OF_DEBT_SUCCESS,
+            payload: {categoriesOfDebt, categoriesOfDebtIDs}
+        });
     } catch (err) {
         let {data} = err.response;
 
@@ -74,7 +84,7 @@ export const calculateCategorySubtractions =
 
 export const categoriesOfDebtSelected = list => {
     return {
-        type: DEBT_CATEGORIES_SELECTED,
+        type: CATEGORIES_OF_DEBT_SELECTED,
         payload: list
     };
 };
