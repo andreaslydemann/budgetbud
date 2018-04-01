@@ -39,6 +39,7 @@ export default class App extends Component {
                 DebtPreview: {screen: DebtPreview}
             },
             {
+                initialRouteName: "DebtOverview",
                 navigationOptions: {gesturesEnabled: false},
                 headerMode: "none"
             }

@@ -8,12 +8,12 @@ import {
     debtSelected,
     deleteDebt,
     getDebts,
-    resetDebtForm,
     nameChanged,
     amountChanged,
     expirationDateChanged,
-    categoriesSelected,
-    getCategories
+    categoriesOfDebtSelected,
+    getCategories,
+    calculateCategorySubtractions
 } from "../actions";
 
 class CreateDebt extends Component {
@@ -22,7 +22,12 @@ class CreateDebt extends Component {
     }
 
     onContinuePress = () => {
-        this.props.navigation.navigate('DebtPreview');
+        this.props.calculateCategorySubtractions(
+            this.props.amount,
+            this.props.expirationDate,
+            this.props.categoriesOfDebtIDs, () => {
+                this.props.navigation.navigate('DebtPreview');
+            });
     };
 
     render() {
@@ -35,13 +40,14 @@ class CreateDebt extends Component {
                 <DebtForm nameChanged={this.props.nameChanged}
                           amountChanged={this.props.amountChanged}
                           expirationDateChanged={this.props.expirationDateChanged}
-                          categoriesSelected={this.props.categoriesSelected}
+                          categoriesSelected={this.props.categoriesOfDebtSelected}
                           name={this.props.name}
                           amount={this.props.amount}
                           expirationDate={this.props.expirationDate}
                           categoryItems={this.props.categoryItems}
-                          selectedCategories={this.props.selectedCategories}
+                          selectedCategories={this.props.categoriesOfDebtIDs}
                           categoriesLoading={this.props.categoriesLoading}
+                          subtractionsLoading={this.props.subtractionsLoading}
                           onContinuePress={this.onContinuePress}/>
             </Container>
         );
@@ -50,8 +56,13 @@ class CreateDebt extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {name, amount, expirationDate, selectedCategories} = state.debt;
-    const {categories, categoriesLoading} = state.category;
+    const {name, amount, expirationDate} = state.debt;
+    const {
+        categories,
+        categoriesOfDebtIDs,
+        categoriesLoading,
+        subtractionsLoading
+    } = state.category;
 
     const categoryItems = _.map(categories, (item, key) => {
         return {...item.categoryData, categoryID: item.id, key: key};
@@ -61,10 +72,11 @@ const mapStateToProps = (state) => {
         name,
         amount,
         expirationDate,
-        selectedCategories,
+        categoriesOfDebtIDs,
         budgetID,
         categoryItems,
-        categoriesLoading
+        categoriesLoading,
+        subtractionsLoading
     };
 };
 
@@ -72,9 +84,9 @@ const mapDispatchToProps = {
     nameChanged,
     amountChanged,
     expirationDateChanged,
-    categoriesSelected,
+    calculateCategorySubtractions,
+    categoriesOfDebtSelected,
     getCategories,
-    resetDebtForm,
     debtSelected,
     getDebts,
     deleteDebt

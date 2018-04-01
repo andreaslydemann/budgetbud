@@ -26,6 +26,8 @@ export default {
     debtOverviewConfirmDialogBody: 'Do you want to delete the selected debt?',
     debtOverviewCreateDebtButton: 'Create debt',
     debtPreviewHeader: 'Debt Preview',
+    debtPreviewBefore: 'Before',
+    debtPreviewAfter: 'After',
     debtPreviewSaveButton: 'Save',
     disposable: 'Disposable',
     disposableCategories: 'Specify where the amount is to be deducted.',

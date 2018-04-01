@@ -26,6 +26,8 @@ export default {
     debtOverviewConfirmDialogBody: 'Vil du slette den valgte gæld?',
     debtOverviewCreateDebtButton: 'Opret gæld',
     debtPreviewHeader: 'Forhåndsvisning',
+    debtPreviewBefore: 'Før',
+    debtPreviewAfter: 'Efter',
     debtPreviewSaveButton: 'Gem',
     disposable: 'Rådighedsbeløb',
     disposableCategories: 'Angiv kategorier, hvor beløbet skal trækkes.',

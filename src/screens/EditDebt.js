@@ -3,29 +3,31 @@ import {Container} from 'native-base';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import I18n from "../strings/i18n";
-import AppHeader from "../components/AppHeader";
-import DebtForm from '../components/DebtForm';
+import {AppHeader, DebtForm} from "../components/";
 import {
     debtSelected,
     deleteDebt,
     getDebts,
-    resetDebtForm,
     nameChanged,
     amountChanged,
     expirationDateChanged,
-    getCategories,
     getCategoriesOfDebt,
-    categoriesOfDebtSelected
+    categoriesOfDebtSelected,
+    calculateCategorySubtractions
 } from "../actions";
 
 class EditDebt extends Component {
     componentWillMount() {
-        this.props.getCategories(this.props.budgetID);
         this.props.getCategoriesOfDebt(this.props.selectedDebtID);
     }
 
     onContinuePress = () => {
-        this.props.navigation.navigate('DebtPreview');
+        this.props.calculateCategorySubtractions(
+            this.props.amount,
+            this.props.expirationDate,
+            this.props.categoriesOfDebt, () => {
+                this.props.navigation.navigate('DebtPreview');
+            });
     };
 
     render() {
@@ -43,8 +45,9 @@ class EditDebt extends Component {
                           amount={this.props.amount}
                           expirationDate={this.props.expirationDate}
                           categoryItems={this.props.categoryItems}
-                          selectedCategories={this.props.selectedCategoriesOfDebt}
+                          selectedCategories={this.props.categoriesOfDebtIDs}
                           categoriesLoading={this.props.categoriesLoading}
+                          subtractionsLoading={this.props.subtractionsLoading}
                           onContinuePress={this.onContinuePress}/>
             </Container>
         );
@@ -54,10 +57,28 @@ class EditDebt extends Component {
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
     const {name, amount, expirationDate, selectedDebtID} = state.debt;
-    const {categories, selectedCategoriesOfDebt, categoriesLoading} = state.category;
+    const {
+        categories,
+        categoriesOfDebt,
+        categoriesOfDebtIDs,
+        categoriesLoading,
+        subtractionsLoading
+    } = state.category;
 
     const categoryItems = _.map(categories, (item, key) => {
-        return {...item.categoryData, categoryID: item.id, key: key};
+        const categoryOfDebt = categoriesOfDebt.filter((obj) => {
+            return obj.categoryID === item.id;
+        });
+
+        const amount = (categoryOfDebt[0] ? categoryOfDebt[0].amount : 0);
+
+        return {
+            budgetID: item.categoryData.budgetID,
+            name: item.categoryData.name,
+            amount: (item.categoryData.amount + amount),
+            categoryID: item.id,
+            key: key
+        };
     });
 
     return {
@@ -65,10 +86,12 @@ const mapStateToProps = (state) => {
         amount,
         expirationDate,
         selectedDebtID,
-        selectedCategoriesOfDebt,
+        categoriesOfDebt,
+        categoriesOfDebtIDs,
         budgetID,
         categoryItems,
-        categoriesLoading
+        categoriesLoading,
+        subtractionsLoading
     };
 };
 
@@ -77,9 +100,8 @@ const mapDispatchToProps = {
     amountChanged,
     expirationDateChanged,
     categoriesOfDebtSelected,
-    getCategories,
+    calculateCategorySubtractions,
     getCategoriesOfDebt,
-    resetDebtForm,
     debtSelected,
     getDebts,
     deleteDebt
