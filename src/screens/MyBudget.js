@@ -18,12 +18,15 @@ import I18n from "../strings/i18n";
 
 class MyBudget extends Component {
     componentWillMount() {
-        console.log("BudgetID - ComponentWillMount: " + this.props.budgetID)
-        this.props.getBudget(this.props.budgetID, () => {
-            this.props.navigation.navigate('CreateBudget');
-        });
+        this.props.getBudget(
+            this.props.budgetID,
+            () => {
+                this.props.navigation.navigate('CreateBudget')
+            });
 
-        this.props.getCategories();
+        // this.props.getCategories(this.props.budgetID);
+
+        // this.props.getDebts(this.props.budgetID);
     }
 
     navigateUser = (destination) => {
@@ -68,15 +71,15 @@ class MyBudget extends Component {
 
                         <Separator/>
 
-                        {this.props.isDebtLoaded &&
-                        <View style={[this.props.debt.length > 2 ?
+                        {this.props.debts.length === 0 &&
+                        <View style={[this.props.debts.length > 2 ?
                             {flex: 0.25, alignSelf: 'stretch'} :
                             {flex: 0.125, alignSelf: 'stretch'}]}>
                             <View style={styles.incomeFormStyle}>
                                 <Label style={styles.textStyle}>{I18n.t('budgetDebts')}</Label>
                             </View>
                             <FlatList
-                                data={this.props.debt}
+                                data={this.props.debts}
                                 renderItem={this.renderDebt}
                                 keyExtractor={item => item.name}
                             />
@@ -213,12 +216,13 @@ const mapStateToProps = ({budget}) => {
         loading,
         income,
         categories,
-        debt,
+        debts,
         totalExpenses,
         disposable,
         estimatedIncome,
         isDebtLoaded,
-        destination
+        destination,
+        budgetID
     } = budget;
 };
 

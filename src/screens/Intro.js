@@ -15,12 +15,6 @@ import I18n from "../strings/i18n";
 import {getBudget} from "../actions";
 
 class Intro extends Component {
-    componentWillMount() {
-        this.props.getBudget(() => {
-            this.props.navigation.navigate('MyBudget');
-        });
-    }
-
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>
@@ -116,8 +110,4 @@ const mapStateToProps = ({budget}) => {
     return {isAccountCreated} = budget;
 };
 
-const mapDispatchToProps = {
-    getBudget
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Intro);
+export default connect(mapStateToProps, null)(Intro);

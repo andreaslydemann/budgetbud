@@ -5,6 +5,7 @@ import store from './src/store';
 
 class App extends Component {
     render() {
+        console.log("Render app");
         return (
             <Provider store={store}>
                 <Setup/>

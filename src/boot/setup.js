@@ -42,6 +42,7 @@ class Setup extends Component {
     }
 
     render() {
+        console.log("Ready? " + this.props.isBudgetReady);
         if (!this.state.isReady || !this.props.isBudgetReady)
             return <Expo.AppLoading/>;
 
@@ -54,7 +55,7 @@ class Setup extends Component {
 }
 
 const mapStateToProps = ({budget}) => {
-    return {budgetID} = budget;
+    return {budgetID, isBudgetReady} = budget;
 };
 
 const mapDispatchToProps = {

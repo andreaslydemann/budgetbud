@@ -71,26 +71,21 @@ const createBudgetFail = (dispatch, error) => {
 
 export const getBudget = (budgetID, callBack) => async dispatch => {
     console.log("BudgetID fra getBudget: " + budgetID)
-    if (budgetID === '') {
-        callBack();
-    }
-
-    dispatch({type: GET_BUDGET});
-    let token = await firebase.auth().currentUser.getIdToken();
 
     try {
-        let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?budgetID=${budgetID}`,
-            {headers: {Authorization: 'Bearer ' + token}});
+        if (budgetID === '')
+            callBack();
 
-        let categoryResponse = await axios.get(`${ROOT_URL}/getCategories?budgetID=${budgetID}`,
+        dispatch({type: GET_BUDGET});
+
+        let token = await firebase.auth().currentUser.getIdToken();
+
+        let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({
             type: GET_BUDGET_SUCCESS,
-            payload: {
-                budgetData: budgetResponse.data.budgetData,
-                categories: categoryResponse.data
-            }
+            payload: budgetResponse.data.budgetData
         });
 
     } catch (err) {

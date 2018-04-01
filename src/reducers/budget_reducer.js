@@ -23,13 +23,13 @@ const INITIAL_STATE = {
     isAccountCreated: true,
     totalExpenses: 0,
     disposable: 0,
-    debt: [],
+    debts: [],
     categories: [],
-    isBudgetReady: false,
-    isDebtLoaded: false
+    isBudgetReady: false
 };
 
 export default (state = INITIAL_STATE, action) => {
+    console.log("Reducer: " + state.budgetID);
     switch (action.type) {
         case GET_INITIAL_BUDGET_STATE:
             return INITIAL_STATE;
@@ -56,10 +56,9 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loading: false,
-                income: action.payload.budgetData.income,
-                categories: action.payload.categories,
-                disposable: action.payload.budgetData.disposable,
-                totalExpenses: action.payload.budgetData.totalExpenses
+                income: action.payload.income,
+                disposable: action.payload.disposable,
+                totalExpenses: action.payload.totalExpenses
             };
         case GET_BUDGET_FAIL:
             return {...state, error: action.payload};
