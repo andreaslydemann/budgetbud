@@ -59,3 +59,9 @@ export const CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_category_subt
 
 // ----------ACCOUNT RELATED TYPES----------
 export const GET_ACCOUNT_DATA = 'get_account_data';
+
+// ----------DISPOSABLE RELATED TYPES----------
+export const RESET_DISPOSABLE_FORM = 'reset_disposable_form';
+export const DISPOSABLE_AMOUNT_CHANGED = 'disposable_amount_changed';
+export const CREATE_DISPOSABLE = 'create_disposable';
+export const CREATE_DISPOSABLE_SUCCESS = 'create_disposable_success';

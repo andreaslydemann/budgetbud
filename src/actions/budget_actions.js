@@ -69,7 +69,7 @@ const createBudgetFail = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
 };
 
-export const getBudget = (budgetID, callBack) => async dispatch => {
+export const getBudget = ({budgetID}, callBack) => async dispatch => {
     console.log("BudgetID fra getBudget: " + budgetID)
 
     try {

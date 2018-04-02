@@ -6,7 +6,7 @@ import I18n from "../strings/i18n";
 import {AppHeader, DisposableForm} from "../components/";
 import {
     resetDisposableForm,
-    amountChanged,
+    disposableChanged,
     getCategories
 } from "../actions";
 
@@ -26,13 +26,12 @@ class EditDisposable extends Component {
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <DisposableForm amountChanged={this.props.amountChanged}
-                          categoriesSelected={this.props.categoriesOfDisposableSelected}
-                          amount={this.props.amount}
-                          categoryItems={this.props.categoryItems}
-                          selectedCategories={this.props.selectedCategoriesOfDisposable}
-                          categoriesLoading={this.props.categoriesLoading}
-                          onContinuePress={this.onContinuePress}/>
+                <DisposableForm disposableChanged={this.props.disposableChanged}
+                                selectedCategories={this.props.categoriesOfDebtIDs}
+                                disposable={this.props.disposable}
+                                categoryItems={this.props.categoryItems}
+                                categoriesLoading={this.props.categoriesLoading}
+                                onContinuePress={this.onContinuePress}/>
             </Container>
         );
     }
@@ -40,17 +39,31 @@ class EditDisposable extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {amount, selectedDisposableID} = state.disposable;
-    const {categories, selectedCategoriesOfDisposable, categoriesLoading} = state.category;
+    const {disposable} = state.disposable;
+    const {
+        categories,
+        categoriesOfDebt,
+        categoriesLoading,
+    } = state.category;
 
     const categoryItems = _.map(categories, (item, key) => {
-        return {...item.categoryData, categoryID: item.id, key: key};
+        const categoryOfDebt = categoriesOfDebt.filter((obj) => {
+            return obj.categoryID === item.id;
+        });
+
+        const amount = (categoryOfDebt[0] ? categoryOfDebt[0].amount : 0);
+
+        return {
+            budgetID: item.categoryData.budgetID,
+            name: item.categoryData.name,
+            amount: (item.categoryData.amount + amount),
+            categoryID: item.id,
+            key: key
+        };
     });
 
     return {
-        amount,
-        selectedDisposableID,
-        selectedCategoriesOfDisposable,
+        disposable,
         budgetID,
         categoryItems,
         categoriesLoading
@@ -58,7 +71,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    amountChanged,
+    disposableChanged,
     getCategories,
     resetDisposableForm
 };

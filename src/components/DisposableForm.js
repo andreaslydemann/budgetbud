@@ -31,8 +31,8 @@ import I18n from "../strings/i18n";
 
 export class DisposableForm extends Component {
 
-    onAmountChange = (text) => {
-        this.props.amountChanged(text);
+    onDisposableChange = (text) => {
+        this.props.disposableChanged(text);
     };
 
     onCheckBoxPress = ({categoryID}) => {
