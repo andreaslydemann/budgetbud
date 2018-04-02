@@ -91,7 +91,7 @@ export default (state = INITIAL_STATE, action) => {
         case EDIT_BUDGET_FAIL:
             return {...state, error: action.payload};
         case GET_ACCOUNT_DATA:
-            return {...state, ...INITIAL_STATE};
+            return state;
         default:
             return state;
     }
