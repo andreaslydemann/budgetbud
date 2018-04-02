@@ -23,7 +23,7 @@ export class BudgetForm extends PureComponent {
     render() {
         return (
             <Container>
-                <Form style={container.incomeFormStyle}>
+                <View style={container.incomeFormStyle}>
                     <Label style={text.defaultText}>
                         {I18n.t('budgetIncome')}
                     </Label>
@@ -31,19 +31,18 @@ export class BudgetForm extends PureComponent {
                     <Item rounded style={input.inputField}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
-                            amount={this.props.income}
+                            amount={String (this.props.income)}
                             keyboardType="numeric"
                         />
                     </Item>
-                </Form>
+                </View>
 
                 <Separator/>
 
                 <Form style={{flex: 4, alignItems: 'stretch'}}>
                     <FlatList
-                        data={this.props.categories}
+                        data={this.props.categoryItems}
                         renderItem={this.renderItem}
-                        keyExtractor={item => item.id}
                         style={container.removeIndenting}
                     />
                 </Form>
@@ -56,7 +55,7 @@ export class BudgetForm extends PureComponent {
                             <Text style={text.listText}>
                                 {I18n.t('budgetTotalExpenses')}
                             </Text>
-                            <Text style={text.listText}>{this.props.totalExpenses} kr</Text>
+                            <Text style={text.listText}>{(this.props.totalExpenses).toString()} kr</Text>
                         </View>
 
                         <View style={container.spacedTextChild}>
@@ -71,7 +70,7 @@ export class BudgetForm extends PureComponent {
                     </View>
                 </View>
 
-                <Form>
+                <View>
                     <Button rounded
                             onPress={this.props.handleSubmit}
                             style={button.defaultButton}
@@ -79,25 +78,25 @@ export class BudgetForm extends PureComponent {
                         {this.props.loading ? (
                             <Spinner color='#D0D0D0'/>) : (
                             <Text style={text.submitButtonText}>
-                                {this.props.isBudgetCreated ?
+                                {this.props.budgetID !== '' ?
                                     I18n.t('editBudgetButton') : I18n.t('createBudgetButton')}
                             </Text>
                         )}
                     </Button>
-                </Form>
+                </View>
             </Container>
         );
     }
 
     renderItem = ({item}) => {
         return (
-            <ListItem key={item.id}>
+            <ListItem>
                 <Body>
                 <Label style={text.defaultText}>{item.name + ":"}</Label>
                 <Item rounded style={input.inputField}>
                     <Input
                         onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
-                        amount={item.amount}
+                        amount={String (item.amount)}
                         keyboardType="numeric"
                         style={{width: '90%', fontSize: 13}}
                     />

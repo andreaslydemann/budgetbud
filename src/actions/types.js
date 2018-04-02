@@ -16,13 +16,18 @@ export const SIGN_IN_FAIL = 'sign_in_fail';
 export const DELETE_USER = 'delete_user';
 
 // ----------BUDGET RELATED TYPES----------
+export const GET_BUDGET_ID_SUCCESS = 'get_budget_id_success';
+export const GET_BUDGET_ID_FAIL = 'get_budget_id_fail';
+export const CREATE_BUDGET = 'create_budget';
+export const CREATE_BUDGET_SUCCESS = 'create_budget_success';
+export const CREATE_BUDGET_FAIL = 'create_budget_fail';
 export const GET_INITIAL_BUDGET_STATE = 'get_initial_budget_state';
 export const GET_BUDGET = 'get_budget';
 export const GET_BUDGET_SUCCESS = 'get_budget_success';
 export const GET_BUDGET_FAIL = 'get_budget_fail';
-export const CREATE_BUDGET = 'create_budget';
-export const CREATE_BUDGET_SUCCESS = 'create_budget_success';
-export const CREATE_BUDGET_FAIL = 'create_budget_fail';
+export const EDIT_BUDGET = 'edit_budget';
+export const EDIT_BUDGET_SUCCESS = 'edit_budget_success';
+export const EDIT_BUDGET_FAIL = 'edit_budget_fail';
 export const DELETE_BUDGET = 'delete_budget';
 export const INCOME_CHANGED = 'income_changed';
 export const CATEGORY_CHANGED = 'category_changed';
@@ -54,3 +59,9 @@ export const CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_category_subt
 
 // ----------ACCOUNT RELATED TYPES----------
 export const GET_ACCOUNT_DATA = 'get_account_data';
+
+// ----------DISPOSABLE RELATED TYPES----------
+export const RESET_DISPOSABLE_FORM = 'reset_disposable_form';
+export const DISPOSABLE_AMOUNT_CHANGED = 'disposable_amount_changed';
+export const CREATE_DISPOSABLE = 'create_disposable';
+export const CREATE_DISPOSABLE_SUCCESS = 'create_disposable_success';

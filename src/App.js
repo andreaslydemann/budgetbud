@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {StackNavigator, DrawerNavigator} from "react-navigation";
 import {Root} from 'native-base';
-import {Provider} from 'react-redux';
 
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import SideBar from "./screens/SideBar";
-import store from './store';
 import CreateBudget from "./screens/CreateBudget";
 import MyBudget from "./screens/MyBudget";
 import SpendingOverview from "./screens/SpendingOverview";
@@ -22,24 +20,25 @@ import EditDebt from './screens/EditDebt';
 import DebtPreview from './screens/DebtPreview';
 import EditDisposable from "./screens/EditDisposable";
 import CreateAccount from "./screens/CreateAccount";
+import DisposablePreview from "./screens/DisposablePreview";
 
 export default class App extends Component {
     render() {
         const MyBudgetStack = StackNavigator(
             {
                 MyBudget: {screen: MyBudget},
-                CreateBudget: {screen: CreateBudget},
-                Intro: {screen: Intro},
-                EditBudget: {screen: EditBudget},
-                BudgetPreview: {screen: BudgetPreview},
                 EditDisposable: {screen: EditDisposable},
+                DisposablePreview: {screen: DisposablePreview},
+                CreateBudget: {screen: CreateBudget},
+                EditBudget: {screen: EditBudget},
+                Intro: {screen: Intro},
+                BudgetPreview: {screen: BudgetPreview},
                 DebtOverview: {screen: DebtOverview},
                 CreateDebt: {screen: CreateDebt},
                 EditDebt: {screen: EditDebt},
                 DebtPreview: {screen: DebtPreview}
             },
             {
-                initialRouteName: "DebtOverview",
                 navigationOptions: {gesturesEnabled: false},
                 headerMode: "none"
             }
@@ -86,11 +85,9 @@ export default class App extends Component {
         );
 
         return (
-            <Provider store={store}>
-                <Root>
-                    <AppNavigator/>
-                </Root>
-            </Provider>
+            <Root>
+                <AppNavigator/>
+            </Root>
         );
     }
 }

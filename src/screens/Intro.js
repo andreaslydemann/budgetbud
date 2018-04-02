@@ -16,9 +16,8 @@ import {getBudget} from "../actions";
 
 class Intro extends Component {
     componentWillMount() {
-        this.props.getBudget(() => {
-            this.props.navigation.navigate('MyBudget');
-        });
+        if(this.props.budgetID === '')
+            this.props.navigation.navigate("MyBudget");
     }
 
     render() {
@@ -113,11 +112,7 @@ const styles = {
 };
 
 const mapStateToProps = ({budget}) => {
-    return {isAccountCreated} = budget;
+    return {isAccountCreated, budgetID} = budget;
 };
 
-const mapDispatchToProps = {
-    getBudget
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Intro);
+export default connect(mapStateToProps, null)(Intro);

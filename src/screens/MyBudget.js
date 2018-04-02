@@ -13,14 +13,17 @@ import {
 import {AppHeader, Separator, Toolbox} from "../components/";
 import {FlatList, StyleSheet} from "react-native";
 import {connect} from "react-redux";
-import {getBudget} from "../actions";
+import {getBudget, getCategories, getDebts} from "../actions";
 import I18n from "../strings/i18n";
 
 class MyBudget extends Component {
     componentWillMount() {
-        this.props.getBudget(() => {
-            this.props.navigation.navigate('CreateBudget');
+        this.props.getBudget(this.props.budgetID, () => {
+            this.props.navigation.navigate('CreateBudget')
         });
+
+        this.props.getCategories(this.props.budgetID);
+        this.props.getDebts(this.props.budgetID);
     }
 
     navigateUser = (destination) => {
@@ -29,96 +32,97 @@ class MyBudget extends Component {
 
     render() {
         return (
-            <Container style={{flexGrow: 1}}>
+            <Container style={{flexGrow: 1,}}>
                 {/*---HEADER---*/}
                 <AppHeader headerText={I18n.t('myBudgetHeader')}
                            onLeftButtonPress={
                                () => this.props.navigation.navigate("DrawerOpen")}
                 />
-
-                {this.props.loading ? (
-                    <Spinner style={{
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }} color='#1c313a'/>) : (
-                    <Container>
-                        <View style={[styles.incomeFormStyle, {flex: 0.1, alignItems: 'center'}]}>
-                            <Text style={styles.listText}>{I18n.t('budgetIncome')}
-                            </Text>
-                            <Text style={styles.listText}>{this.props.income} {I18n.t('currency')}
-                            </Text>
-                        </View>
-
-                        <Separator/>
-
-                        <View style={{flex: 0.7, alignSelf: 'stretch'}}>
-                            <View style={styles.incomeFormStyle}>
-                                <Label style={styles.textStyle}>{I18n.t('budgetExpenses')}
-                                </Label>
+                <Container style={{flex: 4, justifyContent: 'center'}}>
+                    {this.props.loading ? (
+                        <Spinner style={{
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }} color='#1c313a'/>) : (
+                        <Container>
+                            <View style={[styles.incomeFormStyle, {flex: 0.1, alignItems: 'center'}]}>
+                                <Text style={styles.listText}>{I18n.t('budgetIncome')}
+                                </Text>
+                                <Text style={styles.listText}>{this.props.income} {I18n.t('currency')}
+                                </Text>
                             </View>
-                            <FlatList
-                                data={this.props.categories}
-                                renderItem={this.renderCategory}
-                                keyExtractor={item => item.id}
-                            />
-                        </View>
 
-                        <Separator/>
-
-                        {this.props.isDebtLoaded &&
-                        <View style={[this.props.debt.length > 2 ?
-                            {flex: 0.25, alignSelf: 'stretch'} :
-                            {flex: 0.125, alignSelf: 'stretch'}]}>
-                            <View style={styles.incomeFormStyle}>
-                                <Label style={styles.textStyle}>{I18n.t('budgetDebts')}</Label>
-                            </View>
-                            <FlatList
-                                data={this.props.debt}
-                                renderItem={this.renderDebt}
-                                keyExtractor={item => item.name}
-                            />
                             <Separator/>
-                        </View>
-                        }
 
-                        <View style={[styles.newStyle]}>
-                            <View style={styles.budgetSummary}>
+                            <View style={{flex: 0.7, alignSelf: 'stretch'}}>
                                 <View style={styles.incomeFormStyle}>
-                                    <Text style={styles.listText}>
-                                        {I18n.t('budgetTotalExpenses')}
-                                    </Text>
-                                    <Text style={styles.listText}>
-                                        {this.props.totalExpenses} {I18n.t('currency')}
-                                    </Text>
+                                    <Label style={styles.textStyle}>{I18n.t('budgetExpenses')}
+                                    </Label>
                                 </View>
-
-                                <View style={styles.incomeFormStyle}>
-                                    <Text style={styles.listText}>
-                                        {I18n.t('budgetDisposable')}
-                                    </Text>
-                                    <Text style={styles.listText}>
-                                        {this.props.disposable} {I18n.t('currency')}
-                                    </Text>
-                                </View>
-
-                                <Button transparent
-                                        onPress={() => this.bottomModal.showModal()}
-                                        style={styles.buttonStyle}
-                                >
-                                    <Icon name="ios-arrow-dropup-circle"
-                                          style={{color: "#1c313a"}}/>
-                                </Button>
-
-                                <Toolbox
-                                    ref={(bottomModal) => {
-                                        this.bottomModal = bottomModal
-                                    }}
-                                    navigateUser={this.navigateUser}
+                                <FlatList
+                                    data={this.props.categories}
+                                    renderItem={this.renderCategory}
+                                    keyExtractor={item => item.id}
                                 />
                             </View>
-                        </View>
-                    </Container>
-                )}
+
+                            <Separator/>
+
+                            {this.props.debts.length !== 0 &&
+                            <View style={[this.props.debts.length > 2 ?
+                                {flex: 0.25, alignSelf: 'stretch'} :
+                                {flex: 0.125, alignSelf: 'stretch'}]}>
+                                <View style={styles.incomeFormStyle}>
+                                    <Label style={styles.textStyle}>{I18n.t('budgetDebts')}</Label>
+                                </View>
+                                <FlatList
+                                    data={this.props.debts}
+                                    renderItem={this.renderDebt}
+                                    keyExtractor={item => item.name}
+                                />
+                                <Separator/>
+                            </View>
+                            }
+
+                            <View style={[styles.newStyle]}>
+                                <View style={styles.budgetSummary}>
+                                    <View style={styles.incomeFormStyle}>
+                                        <Text style={styles.listText}>
+                                            {I18n.t('budgetTotalExpenses')}
+                                        </Text>
+                                        <Text style={styles.listText}>
+                                            {this.props.totalExpenses} {I18n.t('currency')}
+                                        </Text>
+                                    </View>
+
+                                    <View style={styles.incomeFormStyle}>
+                                        <Text style={styles.listText}>
+                                            {I18n.t('budgetDisposable')}
+                                        </Text>
+                                        <Text style={styles.listText}>
+                                            {this.props.disposable} {I18n.t('currency')}
+                                        </Text>
+                                    </View>
+
+                                    <Button transparent
+                                            onPress={() => this.bottomModal.showModal()}
+                                            style={styles.buttonStyle}
+                                    >
+                                        <Icon name="ios-arrow-dropup-circle"
+                                              style={{color: "#1c313a"}}/>
+                                    </Button>
+
+                                    <Toolbox
+                                        ref={(bottomModal) => {
+                                            this.bottomModal = bottomModal
+                                        }}
+                                        navigateUser={this.navigateUser}
+                                    />
+                                </View>
+                            </View>
+                        </Container>
+                    )}
+                </Container>
             </Container>
         );
     }
@@ -207,19 +211,17 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({budget}) => {
     return {
-        isBudgetCreated,
         loading,
         income,
         categories,
-        debt,
+        debts,
         totalExpenses,
         disposable,
-        estimatedIncome,
-        isDebtLoaded,
-        destination
+        destination,
+        budgetID
     } = budget;
 };
 
 export default connect(mapStateToProps, {
-    getBudget
+    getBudget, getCategories, getDebts
 })(MyBudget);

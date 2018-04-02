@@ -5,6 +5,8 @@ import firebaseConfig from "../config/firebase_config";
 import {StyleProvider} from 'native-base';
 import getTheme from "../theme/components";
 import variables from "../theme/variables/commonColor";
+import {connect} from 'react-redux';
+import {getBudgetID} from "../actions/";
 import App from "../App";
 
 class Setup extends Component {
@@ -19,7 +21,9 @@ class Setup extends Component {
 
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                this.setState({isReady: true, isAuthorized: true});
+                this.props.getBudgetID(user, () => {
+                    this.setState({isReady: true, isAuthorized: true});
+                });
             } else {
                 this.setState({isReady: true, isAuthorized: false});
             }
@@ -46,4 +50,8 @@ class Setup extends Component {
     }
 }
 
-export default Setup;
+const mapDispatchToProps = {
+    getBudgetID
+};
+
+export default connect(null, mapDispatchToProps)(Setup);
