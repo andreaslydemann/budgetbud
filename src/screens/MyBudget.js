@@ -31,8 +31,9 @@ class MyBudget extends Component {
     };
 
     render() {
+        console.log(this.props.debts)
         return (
-            <Container style={{flexGrow: 1,}}>
+            <Container style={{flexGrow: 1}}>
                 {/*---HEADER---*/}
                 <AppHeader headerText={I18n.t('myBudgetHeader')}
                            onLeftButtonPress={
@@ -144,10 +145,10 @@ class MyBudget extends Component {
         return (
             <ListItem>
                 <Body>
-                <Text style={styles.textStyle}>{item.name}</Text>
+                <Text style={styles.listText}>{item.debtData.name}</Text>
                 </Body>
                 <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>
-                    {item.amount} {I18n.t('currency')}</Text>
+                    {item.debtData.amount} {I18n.t('currency')}</Text>
             </ListItem>
         );
     };
@@ -209,17 +210,26 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = ({budget}) => {
-    return {
+const mapStateToProps = (state) => {
+    const categories = state.category.categories;
+    const debts = state.debt.debts;
+    const {
         loading,
         income,
-        categories,
-        debts,
         totalExpenses,
         disposable,
         destination,
         budgetID
-    } = budget;
+    } = state.budget;
+
+    return {categories,
+        loading,
+        income,
+        debts,
+        totalExpenses,
+        disposable,
+        destination,
+        budgetID}
 };
 
 export default connect(mapStateToProps, {

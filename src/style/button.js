@@ -41,6 +41,7 @@ export const button = StyleSheet.create({
     modalButton: {
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: '100%'
     }
 });
