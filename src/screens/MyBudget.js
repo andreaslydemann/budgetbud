@@ -18,9 +18,9 @@ import I18n from "../strings/i18n";
 
 class MyBudget extends Component {
     componentWillMount() {
-        // this.props.getBudget(this.props, () => {
-        //     this.props.navigation.navigate('CreateBudget')
-        // });
+        this.props.getBudget(this.props.budgetID, () => {
+            this.props.navigation.navigate('CreateBudget')
+        });
 
         this.props.getCategories(this.props.budgetID);
         this.props.getDebts(this.props.budgetID);

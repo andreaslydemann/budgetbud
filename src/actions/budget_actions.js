@@ -22,20 +22,22 @@ import {
 
 const ROOT_URL = cloudFunctionsURL;
 
-export const getBudgetID = (user) => async dispatch => {
-        try {
-            let token = await user.getIdToken();
-            console.log(token);
+export const getBudgetID = (user, callback) => async dispatch => {
+    try {
+        let token = await user.getIdToken();
+        console.log(token);
 
-            const {data} = await axios.get(`${ROOT_URL}/getBudgetID?userID=${user.uid}`,
-                {headers: {Authorization: 'Bearer ' + token}});
+        const {data} = await axios.get(`${ROOT_URL}/getBudgetID?userID=${user.uid}`,
+            {headers: {Authorization: 'Bearer ' + token}});
 
-            dispatch({type: GET_BUDGET_ID_SUCCESS, payload: data.id})
-        } catch (err) {
-            let {data} = err.response;
-            getBudgetIDFail(dispatch, data.error)
-        }
-    };
+        dispatch({type: GET_BUDGET_ID_SUCCESS, payload: data.id});
+
+        callback();
+    } catch (err) {
+        let {data} = err.response;
+        getBudgetIDFail(dispatch, data.error)
+    }
+};
 
 const getBudgetIDFail = (dispatch, error) => {
     dispatch({type: GET_BUDGET_ID_FAIL, payload: error});
@@ -69,28 +71,23 @@ const createBudgetFail = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
 };
 
-export const getBudget = ({budgetID}, callBack) => async dispatch => {
-    console.log("BudgetID fra getBudget: " + budgetID)
-
+export const getBudget = (budgetID) => async dispatch => {
     try {
-        if (budgetID === '')
-            callBack();
-
         dispatch({type: GET_BUDGET});
 
         let token = await firebase.auth().currentUser.getIdToken();
 
-        let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?budgetID=${budgetID}`,
+        let {data} = await axios.get(`${ROOT_URL}/getBudget?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({
             type: GET_BUDGET_SUCCESS,
-            payload: budgetResponse.data.budgetData
+            payload: data.budgetData
         });
 
     } catch (err) {
         let {data} = err.response;
-        getBudgetFail(dispatch, data.error)
+        //getBudgetFail(dispatch, data.error)
     }
 };
 
