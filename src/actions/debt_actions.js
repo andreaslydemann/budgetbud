@@ -75,8 +75,9 @@ const getDebtsFail = (dispatch, error) => {
     dispatch({type: GET_DEBTS_FAIL, payload: error});
 };
 
-export const createDebt = ({name, amount, expirationDate, categoryDebtItems, budgetID},
-                           callback) => async dispatch => {
+export const createDebt =
+    ({name, amount, expirationDate, categoryDebtItems, budgetID},
+     callback) => async dispatch => {
     dispatch({type: CREATE_DEBT});
 
     try {

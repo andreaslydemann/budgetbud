@@ -14,12 +14,14 @@ import _ from 'lodash';
 import {AppHeader, Separator} from "../components/";
 import {connect} from "react-redux";
 import {button, text, container} from "../style/";
-import {createDebt} from "../actions";
+import {getDebts, createDebt, getCategories} from "../actions";
 import I18n from "../strings/i18n";
 
 class DebtPreview extends Component {
     onSavePress = () => {
         this.props.createDebt(this.props, () => {
+            this.props.getDebts(this.props.budgetID);
+            this.props.getCategories(this.props.budgetID);
             this.props.navigation.pop(2);
         });
     };
@@ -122,7 +124,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    createDebt
+    getDebts,
+    createDebt,
+    getCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DebtPreview);

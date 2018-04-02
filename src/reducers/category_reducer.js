@@ -24,7 +24,10 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case RESET_DEBT_FORM:
-            return {...state, categoriesOfDebtIDs: INITIAL_STATE.categoriesOfDebtIDs};
+            return {
+                ...state, categoriesOfDebt: INITIAL_STATE.categoriesOfDebt,
+                categoriesOfDebtIDs: INITIAL_STATE.categoriesOfDebtIDs,
+            };
         case GET_CATEGORIES:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case GET_CATEGORIES_SUCCESS:
@@ -34,9 +37,11 @@ export default (state = INITIAL_STATE, action) => {
         case GET_CATEGORIES_OF_DEBT:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case GET_CATEGORIES_OF_DEBT_SUCCESS:
-            return {...state, categoriesLoading: false,
+            return {
+                ...state, categoriesLoading: false,
                 categoriesOfDebt: action.payload.categoriesOfDebt,
-                categoriesOfDebtIDs: action.payload.categoriesOfDebtIDs};
+                categoriesOfDebtIDs: action.payload.categoriesOfDebtIDs
+            };
         case GET_CATEGORIES_OF_DEBT_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case CATEGORIES_OF_DEBT_SELECTED:

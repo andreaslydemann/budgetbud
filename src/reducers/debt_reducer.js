@@ -51,7 +51,7 @@ export default (state = INITIAL_STATE, action) => {
         case CREATE_DEBT:
             return {...state, loading: true, error: ''};
         case CREATE_DEBT_SUCCESS:
-            return {...state, loading: false, debts: action.payload};
+            return {...state, loading: false};
         case DELETE_DEBT:
             return {
                 ...state, debts: state.debts.filter(
