@@ -71,9 +71,12 @@ const createBudgetFail = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
 };
 
-export const getBudget = (budgetID) => async dispatch => {
+export const getBudget = (budgetID, callback) => async dispatch => {
+    dispatch({type: GET_BUDGET});
+
     try {
-        dispatch({type: GET_BUDGET});
+        if (budgetID === '')
+            callback();
 
         let token = await firebase.auth().currentUser.getIdToken();
 
@@ -154,6 +157,6 @@ export const categoryChanged = (name, amount) => {
     };
 };
 
-export const getAccountData = (dispatch) => async dispatch => {
+export const getAccountData = () => async dispatch => {
     dispatch({type: GET_ACCOUNT_DATA});
 };
