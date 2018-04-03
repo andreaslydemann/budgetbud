@@ -1,6 +1,6 @@
 import axios from "axios/index";
 import firebase from "firebase";
-import {cloudFunctionsURL} from "../config/firebase_config";
+import {budgetBudFunctionsURL} from "../config/firebase_config";
 
 import {
     GET_CATEGORIES,
@@ -13,7 +13,7 @@ import {
     CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS
 } from "./types";
 
-const ROOT_URL = cloudFunctionsURL;
+const ROOT_URL = budgetBudFunctionsURL;
 
 export const getCategories = (budgetID) => async dispatch => {
     try {
@@ -21,7 +21,7 @@ export const getCategories = (budgetID) => async dispatch => {
 
         let token = await firebase.auth().currentUser.getIdToken();
 
-        let {data} = await axios.get(`${cloudFunctionsURL}/getCategories?budgetID=${budgetID}`, {
+        let {data} = await axios.get(`${budgetBudFunctionsURL}/getCategories?budgetID=${budgetID}`, {
             headers: {Authorization: 'Bearer ' + token}
         });
 
@@ -40,7 +40,7 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
 
         let token = await firebase.auth().currentUser.getIdToken();
 
-        let {data} = await axios.get(`${cloudFunctionsURL}/getCategoriesOfDebt?debtID=${debtID}`, {
+        let {data} = await axios.get(`${budgetBudFunctionsURL}/getCategoriesOfDebt?debtID=${debtID}`, {
             headers: {Authorization: 'Bearer ' + token}
         });
 

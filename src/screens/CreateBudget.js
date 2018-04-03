@@ -12,12 +12,12 @@ import {
 } from '../actions';
 
 class CreateBudget extends Component {
-    // componentWillMount() {
-    //     if (this.props.budgetID !== '')
-    //         this.props.navigation.navigate('MyBudget');
-    //
-    //     this.props.getAccountData();
-    // };
+    componentWillMount() {
+        if (this.props.budgetID !== '')
+            this.props.navigation.navigate('MyBudget');
+
+        this.props.getAccountData();
+    };
 
     onIncomeChange = (text) => {
         this.props.incomeChanged(text);
@@ -50,7 +50,7 @@ class CreateBudget extends Component {
                             totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}
                             categories={this.props.categories}
-                            debt={this.props.debt}
+                            debts={this.props.debts}
                             loading={this.props.loading}
                             error={this.props.error}
                 />
@@ -63,7 +63,7 @@ const mapStateToProps = ({budget}) => {
     return {
         income,
         categories,
-        debt,
+        debts,
         totalExpenses,
         disposable,
         loading,

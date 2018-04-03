@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import {cloudFunctionsURL} from "../config/firebase_config";
+import {budgetBudFunctionsURL} from "../config/firebase_config";
 
 import {
     RESET_DISPOSABLE_FORM,
@@ -9,7 +9,7 @@ import {
     CREATE_DISPOSABLE_SUCCESS,
 } from './types';
 
-const ROOT_URL = cloudFunctionsURL;
+const ROOT_URL = budgetBudFunctionsURL;
 
 export const resetDisposableForm = (callback) => async dispatch => {
     dispatch({

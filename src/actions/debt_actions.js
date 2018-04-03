@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import {cloudFunctionsURL} from "../config/firebase_config";
+import {budgetBudFunctionsURL} from "../config/firebase_config";
 
 import {
     RESET_DEBT_FORM,
@@ -17,7 +17,7 @@ import {
     DELETE_DEBT
 } from './types';
 
-const ROOT_URL = cloudFunctionsURL;
+const ROOT_URL = budgetBudFunctionsURL;
 
 export const resetDebtForm = (callback) => async dispatch => {
     dispatch({

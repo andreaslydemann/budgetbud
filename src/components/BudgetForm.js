@@ -24,7 +24,7 @@ export class BudgetForm extends PureComponent {
         return (
             <Container>
                 <View style={container.incomeFormStyle}>
-                    <Label style={text.defaultText}>
+                    <Label style={text.listText}>
                         {I18n.t('budgetIncome')}
                     </Label>
 
@@ -55,7 +55,7 @@ export class BudgetForm extends PureComponent {
                             <Text style={text.listText}>
                                 {I18n.t('budgetTotalExpenses')}
                             </Text>
-                            <Text style={text.listText}>{(this.props.totalExpenses).toString()} kr</Text>
+                            <Text style={text.listText}>{(this.props.totalExpenses).toString()} {I18n.t('currency')}</Text>
                         </View>
 
                         <View style={container.spacedTextChild}>
@@ -64,7 +64,7 @@ export class BudgetForm extends PureComponent {
                             </Text>
                             <Text style={[text.listText,
                                 this.props.disposable >= 0 ? {color: 'black'} : {color: 'red'}]}>
-                                {this.props.disposable} kr
+                                {this.props.disposable} {I18n.t('currency')}
                             </Text>
                         </View>
                     </View>

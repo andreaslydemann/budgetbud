@@ -31,7 +31,6 @@ class MyBudget extends Component {
     };
 
     render() {
-        console.log(this.props.debts)
         return (
             <Container style={{flexGrow: 1}}>
                 {/*---HEADER---*/}

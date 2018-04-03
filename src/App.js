@@ -26,10 +26,10 @@ export default class App extends Component {
     render() {
         const MyBudgetStack = StackNavigator(
             {
+                CreateBudget: {screen: CreateBudget},
                 MyBudget: {screen: MyBudget},
                 EditDisposable: {screen: EditDisposable},
                 DisposablePreview: {screen: DisposablePreview},
-                CreateBudget: {screen: CreateBudget},
                 EditBudget: {screen: EditBudget},
                 Intro: {screen: Intro},
                 BudgetPreview: {screen: BudgetPreview},
