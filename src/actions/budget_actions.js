@@ -15,10 +15,33 @@ import {
     GET_ACCOUNT_DATA,
     EDIT_BUDGET,
     EDIT_BUDGET_SUCCESS,
-    EDIT_BUDGET_FAIL
+    EDIT_BUDGET_FAIL,
+    GET_BUDGET_ID_FAIL,
+    GET_BUDGET_ID_SUCCESS
 } from './types';
 
 const ROOT_URL = cloudFunctionsURL;
+
+export const getBudgetID = (user, callback) => async dispatch => {
+    try {
+        let token = await user.getIdToken();
+        console.log(token);
+
+        const {data} = await axios.get(`${ROOT_URL}/getBudgetID?userID=${user.uid}`,
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        dispatch({type: GET_BUDGET_ID_SUCCESS, payload: data.id});
+
+        callback();
+    } catch (err) {
+        let {data} = err.response;
+        getBudgetIDFail(dispatch, data.error)
+    }
+};
+
+const getBudgetIDFail = (dispatch, error) => {
+    dispatch({type: GET_BUDGET_ID_FAIL, payload: error});
+};
 
 export const createBudget = ({income, categories, totalExpenses, disposable}, callback) =>
     async dispatch => {
@@ -48,23 +71,21 @@ const createBudgetFail = (dispatch, error) => {
     dispatch({type: CREATE_BUDGET_FAIL, payload: error});
 };
 
-export const getBudget = ({budgetID}, callBack) => async dispatch => {
-    console.log("BudgetID fra getBudget: " + budgetID)
+export const getBudget = (budgetID, callback) => async dispatch => {
+    dispatch({type: GET_BUDGET});
 
     try {
         if (budgetID === '')
-            callBack();
-
-        dispatch({type: GET_BUDGET});
+            callback();
 
         let token = await firebase.auth().currentUser.getIdToken();
 
-        let budgetResponse = await axios.get(`${ROOT_URL}/getBudget?budgetID=${budgetID}`,
+        let {data} = await axios.get(`${ROOT_URL}/getBudget?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({
             type: GET_BUDGET_SUCCESS,
-            payload: budgetResponse.data.budgetData
+            payload: data.budgetData
         });
 
     } catch (err) {
@@ -136,6 +157,6 @@ export const categoryChanged = (name, amount) => {
     };
 };
 
-export const getAccountData = (dispatch) => async dispatch => {
+export const getAccountData = () => async dispatch => {
     dispatch({type: GET_ACCOUNT_DATA});
 };

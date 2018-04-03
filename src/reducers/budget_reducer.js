@@ -11,12 +11,14 @@ import {
     GET_ACCOUNT_DATA,
     EDIT_BUDGET,
     EDIT_BUDGET_SUCCESS,
-    EDIT_BUDGET_FAIL, GET_BUDGET_ID_SUCCESS, GET_BUDGET_ID_FAIL
+    EDIT_BUDGET_FAIL,
+    GET_BUDGET_ID_SUCCESS,
+    GET_BUDGET_ID_FAIL
 } from "../actions/types";
 import {fromJS} from "immutable";
 
 const INITIAL_STATE = {
-    budgetID: '1234',
+    budgetID: '',
     income: 0,
     error: '',
     loading: false,
@@ -24,8 +26,7 @@ const INITIAL_STATE = {
     totalExpenses: 0,
     disposable: 0,
     debts: [],
-    categories: [],
-    isBudgetReady: false
+    categories: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -33,9 +34,9 @@ export default (state = INITIAL_STATE, action) => {
         case GET_INITIAL_BUDGET_STATE:
             return INITIAL_STATE;
         case GET_BUDGET_ID_SUCCESS:
-            return {...state, isBudgetReady: true};
+            return {...state, budgetID: action.payload};
         case GET_BUDGET_ID_FAIL:
-            return {...state, isBudgetReady: false, error: action.payload};
+            return {...state, error: action.payload};
         case CREATE_BUDGET:
             return {...state, loading: true, error: ''};
         case CREATE_BUDGET_SUCCESS:
@@ -90,7 +91,7 @@ export default (state = INITIAL_STATE, action) => {
         case EDIT_BUDGET_FAIL:
             return {...state, error: action.payload};
         case GET_ACCOUNT_DATA:
-            return {...state, ...INITIAL_STATE};
+            return state;
         default:
             return state;
     }

@@ -89,8 +89,6 @@ export const signIn = ({cprNumber, code}) => async dispatch => {
         });
 
         await firebase.auth().signInWithCustomToken(data.token);
-
-        dispatch({type: GET_INITIAL_AUTH_STATE});
     } catch (err) {
         let {data} = err.response;
         signInFail(dispatch, data.error);
