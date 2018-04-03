@@ -58,8 +58,7 @@ const mapStateToProps = (state) => {
         totalExpenses,
         disposable,
         loading,
-        error,
-        isBudgetCreated
+        error
     } = state.budget;
 
     const categoryItems = _.map(state.category.categories, (item, key) => {
