@@ -7,6 +7,8 @@ import {
     GET_DEBTS,
     GET_DEBTS_SUCCESS,
     GET_DEBTS_FAIL,
+    CREATE_DEBT,
+    CREATE_DEBT_SUCCESS,
     DELETE_DEBT
 } from '../actions/types';
 
@@ -46,6 +48,10 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, loading: false, debts: action.payload};
         case GET_DEBTS_FAIL:
             return {...state, loading: false, error: action.payload};
+        case CREATE_DEBT:
+            return {...state, loading: true, error: ''};
+        case CREATE_DEBT_SUCCESS:
+            return {...state, loading: false, debts: action.payload};
         case DELETE_DEBT:
             return {
                 ...state, debts: state.debts.filter(

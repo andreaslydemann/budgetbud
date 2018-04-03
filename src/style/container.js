@@ -13,6 +13,9 @@ export const container = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row'
     },
+    fullWidth: {
+        width: '100%'
+    },
     removeIndenting: {
         marginHorizontal: 0,
         padding: 0,

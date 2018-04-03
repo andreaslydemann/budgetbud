@@ -12,12 +12,12 @@ import {
 } from '../actions';
 
 class CreateBudget extends Component {
-    componentWillMount() {
-        if (this.props.budgetID !== '')
-            this.props.navigation.navigate('MyBudget');
-
-        this.props.getAccountData();
-    };
+    // componentWillMount() {
+    //     if (this.props.budgetID !== '')
+    //         this.props.navigation.navigate('MyBudget');
+    //
+    //     this.props.getAccountData();
+    // };
 
     onIncomeChange = (text) => {
         this.props.incomeChanged(text);

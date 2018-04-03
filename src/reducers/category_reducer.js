@@ -5,18 +5,26 @@ import {
     GET_CATEGORIES_OF_DEBT,
     GET_CATEGORIES_OF_DEBT_SUCCESS,
     GET_CATEGORIES_OF_DEBT_FAIL,
-    DEBT_CATEGORIES_SELECTED
+    CATEGORIES_OF_DEBT_SELECTED,
+    RESET_DEBT_FORM,
+    CALCULATE_CATEGORY_SUBTRACTIONS,
+    CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
     categories: [],
-    selectedCategoriesOfDebt: [],
+    categoriesOfDebt: [],
+    categoriesOfDebtIDs: [],
+    categorySubtractions: [],
     categoriesLoading: false,
+    subtractionsLoading: false,
     categoriesError: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case RESET_DEBT_FORM:
+            return {...state, categoriesOfDebtIDs: INITIAL_STATE.categoriesOfDebtIDs};
         case GET_CATEGORIES:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case GET_CATEGORIES_SUCCESS:
@@ -26,11 +34,17 @@ export default (state = INITIAL_STATE, action) => {
         case GET_CATEGORIES_OF_DEBT:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case GET_CATEGORIES_OF_DEBT_SUCCESS:
-            return {...state, categoriesOfDebt: action.payload};
+            return {...state, categoriesLoading: false,
+                categoriesOfDebt: action.payload.categoriesOfDebt,
+                categoriesOfDebtIDs: action.payload.categoriesOfDebtIDs};
         case GET_CATEGORIES_OF_DEBT_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
-        case DEBT_CATEGORIES_SELECTED:
-            return {...state, selectedCategoriesOfDebt: action.payload};
+        case CATEGORIES_OF_DEBT_SELECTED:
+            return {...state, categoriesOfDebtIDs: action.payload};
+        case CALCULATE_CATEGORY_SUBTRACTIONS:
+            return {...state, subtractionsLoading: true};
+        case CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS:
+            return {...state, subtractionsLoading: false, categorySubtractions: action.payload};
         default:
             return state;
     }

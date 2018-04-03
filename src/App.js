@@ -20,23 +20,26 @@ import EditDebt from './screens/EditDebt';
 import DebtPreview from './screens/DebtPreview';
 import EditDisposable from "./screens/EditDisposable";
 import CreateAccount from "./screens/CreateAccount";
+import DisposablePreview from "./screens/DisposablePreview";
 
 export default class App extends Component {
     render() {
         const MyBudgetStack = StackNavigator(
             {
-                CreateBudget: {screen: CreateBudget},
                 MyBudget: {screen: MyBudget},
+                EditDisposable: {screen: EditDisposable},
+                DisposablePreview: {screen: DisposablePreview},
+                CreateBudget: {screen: CreateBudget},
                 EditBudget: {screen: EditBudget},
                 Intro: {screen: Intro},
                 BudgetPreview: {screen: BudgetPreview},
-                EditDisposable: {screen: EditDisposable},
                 DebtOverview: {screen: DebtOverview},
                 CreateDebt: {screen: CreateDebt},
                 EditDebt: {screen: EditDebt},
                 DebtPreview: {screen: DebtPreview}
             },
             {
+                initialRouteName: "DebtOverview",
                 navigationOptions: {gesturesEnabled: false},
                 headerMode: "none"
             }
