@@ -82,9 +82,15 @@ export const calculateCategorySubtractions =
         }
     };
 
-export const categoriesOfDebtSelected = list => {
+export const categoriesOfDebtSelected = categoriesOfDebtIDs => {
+    const categoriesOfDebt = [];
+
+    categoriesOfDebtIDs.forEach(id => {
+        categoriesOfDebt.push({categoryID: id, amount: 0});
+    });
+
     return {
         type: CATEGORIES_OF_DEBT_SELECTED,
-        payload: list
+        payload: {categoriesOfDebt, categoriesOfDebtIDs}
     };
 };

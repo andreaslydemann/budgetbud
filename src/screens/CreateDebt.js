@@ -25,7 +25,7 @@ class CreateDebt extends Component {
         this.props.calculateCategorySubtractions(
             this.props.amount,
             this.props.expirationDate,
-            this.props.categoriesOfDebtIDs, () => {
+            this.props.categoriesOfDebt, () => {
                 this.props.navigation.navigate('DebtPreview');
             });
     };
@@ -59,6 +59,7 @@ const mapStateToProps = (state) => {
     const {name, amount, expirationDate} = state.debt;
     const {
         categories,
+        categoriesOfDebt,
         categoriesOfDebtIDs,
         categoriesLoading,
         subtractionsLoading
@@ -76,6 +77,7 @@ const mapStateToProps = (state) => {
         name,
         amount,
         expirationDate,
+        categoriesOfDebt,
         categoriesOfDebtIDs,
         budgetID,
         categoryItems,

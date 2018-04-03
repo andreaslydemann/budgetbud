@@ -65,6 +65,8 @@ const mapStateToProps = (state) => {
         subtractionsLoading
     } = state.category;
 
+    console.log(categoriesOfDebt);
+
     const unfilteredCategories = _.map(categories, (item, key) => {
         const categoryOfDebt = categoriesOfDebt.filter((obj) => {
             return obj.categoryID === item.id;
