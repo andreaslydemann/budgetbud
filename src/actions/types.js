@@ -59,6 +59,7 @@ export const CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_category_subt
 
 // ----------ACCOUNT RELATED TYPES----------
 export const GET_ACCOUNT_DATA = 'get_account_data';
+export const GET_ACCOUNT_DATA_SUCCESS = 'get_account_data_success';
 
 // ----------DISPOSABLE RELATED TYPES----------
 export const RESET_DISPOSABLE_FORM = 'reset_disposable_form';

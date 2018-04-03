@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import {budgetBudFunctionsURL} from "../config/firebase_config";
+import {budgetBudFunctionsURL, eBankingFunctionsURL} from "../config/firebase_config";
 import {
     INCOME_CHANGED,
     CATEGORY_CHANGED,
@@ -17,16 +17,19 @@ import {
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_FAIL,
-    GET_BUDGET_ID_SUCCESS
+    GET_BUDGET_ID_SUCCESS,
+    GET_ACCOUNT_DATA_SUCCESS
 } from './types';
 
-const ROOT_URL = budgetBudFunctionsURL;
+const BUDGETBUD_FUNCTIONS_URL = budgetBudFunctionsURL;
+const EBANKING_FUNCTIONS_URL = eBankingFunctionsURL;
+
 
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
         let token = await user.getIdToken();
 
-        const {data} = await axios.get(`${ROOT_URL}/getBudgetID?userID=${user.uid}`,
+        const {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudgetID?userID=${user.uid}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({type: GET_BUDGET_ID_SUCCESS, payload: data.id});
@@ -53,7 +56,7 @@ export const createBudget = ({income, categories, totalExpenses, disposable}, ca
             let token = await firebase.auth().currentUser.getIdToken();
             let userID = await firebase.auth().currentUser.uid;
 
-            await axios.post(`${ROOT_URL}/createBudget`,
+            await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createBudget`,
                 {userID, income, categories, totalExpenses, disposable},
                 {headers: {Authorization: 'Bearer ' + token}});
 
@@ -78,8 +81,9 @@ export const getBudget = (budgetID, callback) => async dispatch => {
             callback();
 
         let token = await firebase.auth().currentUser.getIdToken();
+        console.log(token)
 
-        let {data} = await axios.get(`${ROOT_URL}/getBudget?budgetID=${budgetID}`,
+        let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudget?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({
@@ -102,7 +106,7 @@ export const editBudget = ({budgetID, income, categories}, callback) => async di
     let token = await firebase.auth().currentUser.getIdToken();
 
     try {
-        await axios.post(`${ROOT_URL}/editBudget`,
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editBudget`,
             {budgetID, income, categories},
             {headers: {Authorization: 'Bearer ' + token}});
 
@@ -127,7 +131,7 @@ export const deleteBudget = ({budgetID}, callback) => async dispatch => {
         dispatch({type: DELETE_BUDGET});
         let token = await firebase.auth().currentUser.getIdToken();
 
-        await axios.post(`${ROOT_URL}/deleteBudget`, {budgetID}, {
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/deleteBudget`, {budgetID}, {
             headers: {Authorization: 'Bearer ' + token}
         });
 
@@ -157,10 +161,40 @@ export const categoryChanged = (name, amount) => {
 };
 
 export const getAccountData = () => async dispatch => {
-    dispatch({type: GET_ACCOUNT_DATA});
-
-    let {data} = await axios.get(`${ROOT_URL}/getCategoryTypes`,
-        {headers: {Authorization: 'Bearer ' + token}});
-
-
+    // dispatch({type: GET_ACCOUNT_DATA});
+    //
+    // try {
+    //     let token = await firebase.auth().currentUser.getIdToken();
+    //
+    //     let spendingData = await axios.get(`${EBANKING_FUNCTIONS_URL}/getSpendings`,
+    //         {headers: {Authorization: 'Bearer ' + token}});
+    //
+    //     let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
+    //         {headers: {Authorization: 'Bearer ' + token}});
+    //
+    //     const categories = [];
+    //     let amount = 0;
+    //
+    //     spendingData.data.forEach(category => {
+    //         categoryTypes.data.filter(obj => {
+    //             if (obj.categoryTypesID === category.categoryTypesID) {
+    //                 amount = category.amount
+    //             } else {
+    //                 amount = 0
+    //             }
+    //             categories.push({
+    //                 name: obj.name,
+    //                 amount
+    //             })
+    //         })
+    //         // const categories = categoryTypes.filter(obj => {
+    //         //     return obj.categoryTypesID === category.categoryTypesID;
+    //         // });
+    //     });
+    //
+    //     dispatch({
+    //         type: GET_ACCOUNT_DATA_SUCCESS,
+    //         payload: categories
+    //     });
+    //}
 };
