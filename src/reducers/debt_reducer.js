@@ -9,6 +9,8 @@ import {
     GET_DEBTS_FAIL,
     CREATE_DEBT,
     CREATE_DEBT_SUCCESS,
+    EDIT_DEBT,
+    EDIT_DEBT_SUCCESS,
     DELETE_DEBT
 } from '../actions/types';
 
@@ -51,6 +53,10 @@ export default (state = INITIAL_STATE, action) => {
         case CREATE_DEBT:
             return {...state, loading: true, error: ''};
         case CREATE_DEBT_SUCCESS:
+            return {...state, loading: false};
+        case EDIT_DEBT:
+            return {...state, loading: true, error: ''};
+        case EDIT_DEBT_SUCCESS:
             return {...state, loading: false};
         case DELETE_DEBT:
             return {

@@ -44,6 +44,9 @@ export const DEBT_SELECTED = 'debt_selected';
 export const CREATE_DEBT = 'create_debt';
 export const CREATE_DEBT_SUCCESS = 'create_debt_success';
 export const CREATE_DEBT_FAIL = 'create_debt_fail';
+export const EDIT_DEBT = 'edit_debt';
+export const EDIT_DEBT_SUCCESS = 'edit_debt_success';
+export const EDIT_DEBT_FAIL = 'edit_debt_fail';
 export const DELETE_DEBT = 'delete_debt';
 
 // ----------CATEGORY RELATED TYPES----------

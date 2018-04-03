@@ -7,12 +7,13 @@ import {
     DEBT_NAME_CHANGED,
     DEBT_AMOUNT_CHANGED,
     DEBT_EXPIRATION_DATE_CHANGED,
-    DEBT_CATEGORIES_SELECTED,
     GET_DEBTS,
     GET_DEBTS_SUCCESS,
     GET_DEBTS_FAIL,
     CREATE_DEBT,
     CREATE_DEBT_SUCCESS,
+    EDIT_DEBT,
+    EDIT_DEBT_SUCCESS,
     DEBT_SELECTED,
     DELETE_DEBT
 } from './types';
@@ -106,6 +107,38 @@ export const createDebt =
         console.log(data.error);
     }
 };
+
+export const editDebt =
+    ({name, amount, expirationDate, categoryDebtItems, selectedDebtID, budgetID},
+     callback) => async dispatch => {
+        dispatch({type: EDIT_DEBT});
+
+        try {
+            const categories = [];
+
+            categoryDebtItems.forEach(c => {
+                categories.push({
+                    categoryID: c.categoryID,
+                    newAmount: c.afterAmount,
+                    amountToSubtract: c.amountToSubtract
+                });
+            });
+
+            let token = await firebase.auth().currentUser.getIdToken();
+
+            await axios.post(`${ROOT_URL}/editDebt`,
+                {name, amount, expirationDate, selectedDebtID, budgetID, categories}, {
+                    headers: {Authorization: 'Bearer ' + token}
+                });
+
+            dispatch({type: EDIT_DEBT_SUCCESS});
+
+            callback();
+        } catch (err) {
+            let {data} = err.response;
+            console.log(data.error);
+        }
+    };
 
 export const deleteDebt = (debtID) => async dispatch => {
     try {
