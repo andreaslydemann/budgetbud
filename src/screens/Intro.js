@@ -26,7 +26,7 @@ class Intro extends Component {
                 <ConfirmDialog
                     title={I18n.t('introConfirmDialogHeader')}
                     text={I18n.t('introConfirmDialogBody')}
-                    confirmCallback={() => this.props.navigation.navigate("CreateAccount")}
+                    confirmCallback={() => this.props.navigation.navigate("Accounts")}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
                         this.confirmDialog = confirmDialog

@@ -1,4 +1,6 @@
 export default {
+    accountsHeader: 'Konti',
+    accountsSaveButton: 'Gem',
     appHeaderInfoHeader: 'Hjælpeinformation',
     appHeaderInfoCloseButton: 'Luk',
     budgetIncome: 'Indkomst',
@@ -10,7 +12,6 @@ export default {
     confirmDialogDeletionHeader: 'Bekræft sletning',
     confirmDialogCancelButton: 'Afbryd',
     confirmDialogOkButton: 'Ok',
-    createAccountHeader: 'Opret konto',
     createBudgetHeader: 'Opret budget',
     createBudgetButton: 'Opret budget',
     createDebtHeader: 'Opret gæld',
