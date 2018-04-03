@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import {cloudFunctionsURL} from "../config/firebase_config";
+import {budgetBudFunctionsURL} from "../config/firebase_config";
 import {
     INCOME_CHANGED,
     CATEGORY_CHANGED,
@@ -20,12 +20,11 @@ import {
     GET_BUDGET_ID_SUCCESS
 } from './types';
 
-const ROOT_URL = cloudFunctionsURL;
+const ROOT_URL = budgetBudFunctionsURL;
 
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
         let token = await user.getIdToken();
-        console.log(token);
 
         const {data} = await axios.get(`${ROOT_URL}/getBudgetID?userID=${user.uid}`,
             {headers: {Authorization: 'Bearer ' + token}});
@@ -90,7 +89,7 @@ export const getBudget = (budgetID, callback) => async dispatch => {
 
     } catch (err) {
         let {data} = err.response;
-        //getBudgetFail(dispatch, data.error)
+        getBudgetFail(dispatch, data.error)
     }
 };
 
@@ -159,4 +158,9 @@ export const categoryChanged = (name, amount) => {
 
 export const getAccountData = () => async dispatch => {
     dispatch({type: GET_ACCOUNT_DATA});
+
+    let {data} = await axios.get(`${ROOT_URL}/getCategoryTypes`,
+        {headers: {Authorization: 'Bearer ' + token}});
+
+
 };

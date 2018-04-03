@@ -20,7 +20,7 @@ export class Toolbox extends Component {
                     flex: 1,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    marginTop: 40,
+                    marginTop: 5,
                     marginHorizontal: 40
                 }}>
                     <Button

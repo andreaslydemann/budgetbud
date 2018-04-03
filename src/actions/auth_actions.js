@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import {cloudFunctionsURL} from "../config/firebase_config";
+import {budgetBudFunctionsURL} from "../config/firebase_config";
 
 import {
     GET_INITIAL_AUTH_STATE,
@@ -17,7 +17,7 @@ import {
     DELETE_USER,
 } from './types';
 
-const ROOT_URL = cloudFunctionsURL;
+const ROOT_URL = budgetBudFunctionsURL;
 
 export const authScreenSwitched = (callback) => async dispatch => {
     dispatch({type: GET_INITIAL_AUTH_STATE});

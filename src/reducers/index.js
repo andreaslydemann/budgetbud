@@ -12,5 +12,5 @@ export default combineReducers({
     budget: budget_reducer,
     category: category_reducer,
     debt: debt_reducer,
-    disposable: disposable_reducer
+    disposable: disposable_reducer,
 });
