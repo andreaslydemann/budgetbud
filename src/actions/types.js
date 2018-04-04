@@ -61,7 +61,13 @@ export const CALCULATE_CATEGORY_SUBTRACTIONS = 'calculate_category_subtractions'
 export const CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_category_subtractions_success';
 
 // ----------ACCOUNT RELATED TYPES----------
-export const GET_ACCOUNT_DATA = 'get_account_data';
+export const GET_ACCOUNTS = 'get_ebanking_accounts';
+export const GET_ACCOUNTS_SUCCESS = 'get_ebanking_accounts_success';
+export const GET_ACCOUNTS_FAIL = 'get_ebanking_accounts_fail';
+export const LINK_ACCOUNTS = 'link_accounts';
+export const LINK_ACCOUNTS_SUCCESS = 'link_accounts_success';
+export const LINK_ACCOUNTS_FAIL = 'link_accounts_fail';
+export const ACCOUNTS_SELECTED = 'accounts_selected';
 
 // ----------DISPOSABLE RELATED TYPES----------
 export const RESET_DISPOSABLE_FORM = 'reset_disposable_form';
