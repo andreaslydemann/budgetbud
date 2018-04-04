@@ -21,7 +21,11 @@ export default (state = INITIAL_STATE, action) => {
         case GET_ACCOUNTS:
             return {...state, accountsLoading: true};
         case GET_ACCOUNTS_SUCCESS:
-            return {...state, accountsLoading: false, accounts: action.payload};
+            return {
+                ...state, accountsLoading: false,
+                accounts: action.payload.eBankingAccounts,
+                selectedAccounts: action.payload.linkedAccounts
+            };
         case GET_ACCOUNTS_FAIL:
             return {...state, accountsLoading: false, error: action.payload};
         case LINK_ACCOUNTS:

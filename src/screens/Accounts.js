@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {FlatList, TouchableOpacity} from 'react-native';
+import {FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {
     AppHeader,
@@ -68,7 +68,7 @@ class Accounts extends PureComponent {
                     <Separator/>
 
                     <Button rounded
-                            onPress={() => this.onSavePress()}
+                            onPress={() => {if (!this.props.linkLoading) {this.onSavePress()}}}
                             style={button.defaultButton}
                     >
                         {this.props.linkLoading ? (

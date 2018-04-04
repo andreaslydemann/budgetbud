@@ -19,11 +19,24 @@ export const getAccounts = () => async dispatch => {
     dispatch({type: GET_ACCOUNTS});
 
     try {
-        const userID = firebase.auth().currentUser.uid;
+        let token = await firebase.auth().currentUser.getIdToken();
+        let userID = await firebase.auth().currentUser.uid;
 
-        const {data} = await axios.get(`${eBankingFunctionsURL}/getAccounts?userID=${userID}`);
+        let getAccountsResponse =
+            await axios.get(`${eBankingFunctionsURL}/getAccounts?userID=${userID}`);
 
-        dispatch({type: GET_ACCOUNTS_SUCCESS, payload: data});
+        const eBankingAccounts = getAccountsResponse.data;
+
+        let getLinkedAccountsResponse =
+            await axios.get(`${budgetBudFunctionsURL}/getLinkedAccounts?userID=${userID}`,
+                {headers: {Authorization: 'Bearer ' + token}});
+
+        const linkedAccounts = getLinkedAccountsResponse.data;
+
+        dispatch({
+            type: GET_ACCOUNTS_SUCCESS,
+            payload: {eBankingAccounts, linkedAccounts}
+        });
     } catch (err) {
         let {data} = err.response;
         dispatch({type: GET_ACCOUNTS_FAIL, payload: data});
