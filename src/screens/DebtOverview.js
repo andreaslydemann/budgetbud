@@ -39,7 +39,7 @@ class DebtOverview extends PureComponent {
 
     deleteDebt = () => {
         this.confirmDialog.dismissDialog();
-        this.props.deleteDebt(this.props.selectedDebtID);
+        this.props.deleteDebt(this.props.selectedDebt.id);
     };
 
     onDebtSelect = (debt) => {
@@ -122,13 +122,13 @@ class DebtOverview extends PureComponent {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {loading, selectedDebtID} = state.debt;
+    const {loading, selectedDebt} = state.debt;
 
     const debts = _.map(state.debt.debts, (item, key) => {
         return {...item.debtData, debtID: item.id, key: key};
     });
 
-    return {budgetID, debts, loading, selectedDebtID};
+    return {budgetID, debts, loading, selectedDebt};
 };
 
 const mapDispatchToProps = {

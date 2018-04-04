@@ -18,20 +18,19 @@ import {getDebts, createDebt, editDebt, getCategories} from "../actions";
 import I18n from "../strings/i18n";
 
 class DebtPreview extends Component {
-    onSavePress = () => {
-        if (this.props.selectedDebtID) {
-            this.props.editDebt(this.props, () => {
-                this.props.getDebts(this.props.budgetID);
-                this.props.getCategories(this.props.budgetID);
-                this.props.navigation.pop(2);
-            });
-        } else {
-            this.props.createDebt(this.props, () => {
-                this.props.getDebts(this.props.budgetID);
-                this.props.getCategories(this.props.budgetID);
-                this.props.navigation.pop(2);
-            });
+    onSavePress = async () => {
+        if (this.props.selectedDebt.id) {
+            await this.props.editDebt(this.props);
+            await this.props.getDebts(this.props.budgetID);
+            await this.props.getCategories(this.props.budgetID);
+            this.props.navigation.pop(2);
+            return;
         }
+
+        await this.props.createDebt(this.props);
+        await this.props.getDebts(this.props.budgetID);
+        await this.props.getCategories(this.props.budgetID);
+        this.props.navigation.pop(2);
     };
 
     render() {

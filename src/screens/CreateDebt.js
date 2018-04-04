@@ -5,7 +5,6 @@ import {AppHeader, DebtForm} from "../components/";
 import _ from 'lodash';
 import I18n from "../strings/i18n";
 import {
-    debtSelected,
     deleteDebt,
     getDebts,
     nameChanged,
@@ -25,7 +24,7 @@ class CreateDebt extends Component {
         this.props.calculateCategorySubtractions(
             this.props.amount,
             this.props.expirationDate,
-            this.props.categoriesOfDebt, () => {
+            this.props.categoriesOfDebtIDs, () => {
                 this.props.navigation.navigate('DebtPreview');
             });
     };
@@ -46,6 +45,7 @@ class CreateDebt extends Component {
                           expirationDate={this.props.expirationDate}
                           categoryItems={this.props.categoryItems}
                           selectedCategories={this.props.categoriesOfDebtIDs}
+                          categoriesOfDebt={this.props.categoriesOfDebt}
                           categoriesLoading={this.props.categoriesLoading}
                           subtractionsLoading={this.props.subtractionsLoading}
                           onContinuePress={this.onContinuePress}/>
@@ -60,10 +60,12 @@ const mapStateToProps = (state) => {
     const {
         categories,
         categoriesOfDebt,
-        categoriesOfDebtIDs,
         categoriesLoading,
         subtractionsLoading
     } = state.category;
+
+    const categoriesOfDebtIDs = [];
+    categoriesOfDebt.forEach(c => categoriesOfDebtIDs.push(c.id));
 
     const categoriesWithAmounts = categories.filter((obj) => {
         return obj.categoryData.amount > 0
@@ -93,7 +95,6 @@ const mapDispatchToProps = {
     calculateCategorySubtractions,
     categoriesOfDebtSelected,
     getCategories,
-    debtSelected,
     getDebts,
     deleteDebt
 };

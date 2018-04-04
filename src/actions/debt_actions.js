@@ -77,8 +77,7 @@ const getDebtsFail = (dispatch, error) => {
 };
 
 export const createDebt =
-    ({name, amount, expirationDate, categoryDebtItems, budgetID},
-     callback) => async dispatch => {
+    ({name, amount, expirationDate, categoryDebtItems, budgetID}) => async dispatch => {
     dispatch({type: CREATE_DEBT});
 
     try {
@@ -100,8 +99,6 @@ export const createDebt =
             });
 
         dispatch({type: CREATE_DEBT_SUCCESS});
-
-        callback();
     } catch (err) {
         let {data} = err.response;
         console.log(data.error);
@@ -109,8 +106,7 @@ export const createDebt =
 };
 
 export const editDebt =
-    ({name, amount, expirationDate, categoryDebtItems, selectedDebtID, budgetID},
-     callback) => async dispatch => {
+    ({name, amount, expirationDate, categoryDebtItems, selectedDebt, budgetID}) => async dispatch => {
         dispatch({type: EDIT_DEBT});
 
         try {
@@ -127,13 +123,11 @@ export const editDebt =
             let token = await firebase.auth().currentUser.getIdToken();
 
             await axios.post(`${ROOT_URL}/editDebt`,
-                {name, amount, expirationDate, selectedDebtID, budgetID, categories}, {
+                {name, amount, expirationDate, selectedDebtID: selectedDebt.id, budgetID, categories}, {
                     headers: {Authorization: 'Bearer ' + token}
                 });
 
             dispatch({type: EDIT_DEBT_SUCCESS});
-
-            callback();
         } catch (err) {
             let {data} = err.response;
             console.log(data.error);

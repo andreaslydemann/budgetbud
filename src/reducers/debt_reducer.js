@@ -19,8 +19,7 @@ const INITIAL_STATE = {
     amount: '',
     expirationDate: '',
     debts: [],
-    selectedDebtID: '',
-    selectedDebtKey: '',
+    selectedDebt: '',
     loading: false,
     error: ''
 };
@@ -41,8 +40,7 @@ export default (state = INITIAL_STATE, action) => {
                 name: action.payload.name,
                 amount: action.payload.amount,
                 expirationDate: action.payload.expirationDate,
-                selectedDebtID: action.payload.debtID,
-                selectedDebtKey: action.payload.key
+                selectedDebt: {id: action.payload.debtID, key: action.payload.key}
             };
         case GET_DEBTS:
             return {...state, loading: true, error: ''};
@@ -61,7 +59,7 @@ export default (state = INITIAL_STATE, action) => {
         case DELETE_DEBT:
             return {
                 ...state, debts: state.debts.filter(
-                    (item, key) => key !== state.selectedDebtKey
+                    (item, key) => key !== state.selectedDebt.key
                 )
             };
         default:

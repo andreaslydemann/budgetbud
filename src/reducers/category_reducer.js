@@ -1,4 +1,5 @@
 import {
+    RESET_DEBT_FORM,
     GET_CATEGORIES,
     GET_CATEGORIES_SUCCESS,
     GET_CATEGORIES_FAIL,
@@ -6,7 +7,6 @@ import {
     GET_CATEGORIES_OF_DEBT_SUCCESS,
     GET_CATEGORIES_OF_DEBT_FAIL,
     CATEGORIES_OF_DEBT_SELECTED,
-    RESET_DEBT_FORM,
     CALCULATE_CATEGORY_SUBTRACTIONS,
     CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS
 } from '../actions/types';
@@ -14,7 +14,6 @@ import {
 const INITIAL_STATE = {
     categories: [],
     categoriesOfDebt: [],
-    categoriesOfDebtIDs: [],
     categorySubtractions: [],
     categoriesLoading: false,
     subtractionsLoading: false,
@@ -24,10 +23,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case RESET_DEBT_FORM:
-            return {
-                ...state, categoriesOfDebt: INITIAL_STATE.categoriesOfDebt,
-                categoriesOfDebtIDs: INITIAL_STATE.categoriesOfDebtIDs,
-            };
+            return {...state, categoriesOfDebt: INITIAL_STATE.categoriesOfDebt};
         case GET_CATEGORIES:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case GET_CATEGORIES_SUCCESS:
@@ -39,17 +35,12 @@ export default (state = INITIAL_STATE, action) => {
         case GET_CATEGORIES_OF_DEBT_SUCCESS:
             return {
                 ...state, categoriesLoading: false,
-                categoriesOfDebt: action.payload.categoriesOfDebt,
-                categoriesOfDebtIDs: action.payload.categoriesOfDebtIDs
+                categoriesOfDebt: action.payload.categoriesOfDebt
             };
         case GET_CATEGORIES_OF_DEBT_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case CATEGORIES_OF_DEBT_SELECTED:
-            return {
-                ...state,
-                categoriesOfDebt: action.payload.categoriesOfDebt,
-                categoriesOfDebtIDs: action.payload.categoriesOfDebtIDs
-            };
+            return {...state, categoriesOfDebt: action.payload};
         case CALCULATE_CATEGORY_SUBTRACTIONS:
             return {...state, subtractionsLoading: true};
         case CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS:
