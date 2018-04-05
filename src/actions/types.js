@@ -56,7 +56,7 @@ export const GET_CATEGORIES_FAIL = 'get_categories_fail';
 export const GET_CATEGORIES_OF_DEBT = 'get_categories_of_debt';
 export const GET_CATEGORIES_OF_DEBT_SUCCESS = 'get_categories_of_debt_success';
 export const GET_CATEGORIES_OF_DEBT_FAIL = 'get_categories_of_debt_fail';
-export const CATEGORIES_OF_DEBT_SELECTED = 'categories_of_debt_selected';
+export const CATEGORIES_SELECTED = 'categories_selected';
 export const CALCULATE_CATEGORY_SUBTRACTIONS = 'calculate_category_subtractions';
 export const CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_category_subtractions_success';
 

@@ -8,7 +8,7 @@ import {
     GET_CATEGORIES_FAIL,
     GET_CATEGORIES_OF_DEBT,
     GET_CATEGORIES_OF_DEBT_SUCCESS,
-    CATEGORIES_OF_DEBT_SELECTED,
+    CATEGORIES_SELECTED,
     CALCULATE_CATEGORY_SUBTRACTIONS,
     CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS
 } from "./types";
@@ -42,9 +42,14 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
             headers: {Authorization: 'Bearer ' + token}
         });
 
+        const categoriesOfDebt = data;
+        const categoriesOfDebtIDs = [];
+
+        categoriesOfDebt.forEach(c => categoriesOfDebtIDs.push(c.categoryID));
+
         dispatch({
             type: GET_CATEGORIES_OF_DEBT_SUCCESS,
-            payload: data
+            payload: {categoriesOfDebt, categoriesOfDebtIDs}
         });
     } catch (err) {
         let {data} = err.response;
@@ -72,20 +77,9 @@ export const calculateCategorySubtractions =
         }
     };
 
-export const categoriesOfDebtSelected = (selectedCategories, categoriesOfDebt) => {
-    const selectedCategoriesWithAmounts = _.map(selectedCategories, (item) => {
-        const categoryOfDebt = categoriesOfDebt.filter((obj) => {
-            return obj.id === item;
-        });
-
-        return {
-            id: item,
-            amount: (categoryOfDebt[0] ? categoryOfDebt[0].amount : 0)
-        };
-    });
-
+export const categoriesSelected = (selectedCategories) => {
     return {
-        type: CATEGORIES_OF_DEBT_SELECTED,
-        payload: selectedCategoriesWithAmounts
+        type: CATEGORIES_SELECTED,
+        payload: selectedCategories
     };
 };

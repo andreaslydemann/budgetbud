@@ -25,7 +25,7 @@ const ROOT_URL = budgetBudFunctionsURL;
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
         let token = await user.getIdToken();
-
+        console.log(token);
         const {data} = await axios.get(`${ROOT_URL}/getBudgetID?userID=${user.uid}`,
             {headers: {Authorization: 'Bearer ' + token}});
 

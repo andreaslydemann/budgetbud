@@ -10,7 +10,7 @@ import {
     nameChanged,
     amountChanged,
     expirationDateChanged,
-    categoriesOfDebtSelected,
+    categoriesSelected,
     getCategories,
     calculateCategorySubtractions
 } from "../actions";
@@ -24,7 +24,7 @@ class CreateDebt extends Component {
         this.props.calculateCategorySubtractions(
             this.props.amount,
             this.props.expirationDate,
-            this.props.categoriesOfDebtIDs, () => {
+            this.props.selectedCategories, () => {
                 this.props.navigation.navigate('DebtPreview');
             });
     };
@@ -39,13 +39,12 @@ class CreateDebt extends Component {
                 <DebtForm nameChanged={this.props.nameChanged}
                           amountChanged={this.props.amountChanged}
                           expirationDateChanged={this.props.expirationDateChanged}
-                          categoriesSelected={this.props.categoriesOfDebtSelected}
+                          categoriesSelected={this.props.categoriesSelected}
                           name={this.props.name}
                           amount={this.props.amount}
                           expirationDate={this.props.expirationDate}
                           categoryItems={this.props.categoryItems}
-                          selectedCategories={this.props.categoriesOfDebtIDs}
-                          categoriesOfDebt={this.props.categoriesOfDebt}
+                          selectedCategories={this.props.selectedCategories}
                           categoriesLoading={this.props.categoriesLoading}
                           subtractionsLoading={this.props.subtractionsLoading}
                           onContinuePress={this.onContinuePress}/>
@@ -60,12 +59,10 @@ const mapStateToProps = (state) => {
     const {
         categories,
         categoriesOfDebt,
+        selectedCategories,
         categoriesLoading,
         subtractionsLoading
     } = state.category;
-
-    const categoriesOfDebtIDs = [];
-    categoriesOfDebt.forEach(c => categoriesOfDebtIDs.push(c.id));
 
     const categoriesWithAmounts = categories.filter((obj) => {
         return obj.categoryData.amount > 0
@@ -80,7 +77,7 @@ const mapStateToProps = (state) => {
         amount,
         expirationDate,
         categoriesOfDebt,
-        categoriesOfDebtIDs,
+        selectedCategories,
         budgetID,
         categoryItems,
         categoriesLoading,
@@ -93,7 +90,7 @@ const mapDispatchToProps = {
     amountChanged,
     expirationDateChanged,
     calculateCategorySubtractions,
-    categoriesOfDebtSelected,
+    categoriesSelected,
     getCategories,
     getDebts,
     deleteDebt
