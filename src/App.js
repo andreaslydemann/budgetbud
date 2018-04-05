@@ -20,13 +20,24 @@ import DebtPreview from './screens/DebtPreview';
 import EditDisposable from "./screens/EditDisposable";
 import Accounts from "./screens/Accounts";
 import DisposablePreview from "./screens/DisposablePreview";
+import {connect} from "react-redux";
 
-export default class App extends Component {
+class App extends Component {
     render() {
-        const MyBudgetStack = StackNavigator(
+        const IntroStack = StackNavigator(
             {
-                CreateBudget: {screen: CreateBudget},
                 Intro: {screen: Intro},
+                CreateBudget: {screen: CreateBudget},
+                Accounts: {screen: Accounts}
+            },
+            {
+                navigationOptions: {gesturesEnabled: false},
+                headerMode: "none"
+            }
+        );
+
+        const BudgetStack = StackNavigator(
+            {
                 MyBudget: {screen: MyBudget},
                 EditDisposable: {screen: EditDisposable},
                 DisposablePreview: {screen: DisposablePreview},
@@ -35,8 +46,7 @@ export default class App extends Component {
                 DebtOverview: {screen: DebtOverview},
                 CreateDebt: {screen: CreateDebt},
                 EditDebt: {screen: EditDebt},
-                DebtPreview: {screen: DebtPreview},
-                Accounts: {screen: Accounts},
+                DebtPreview: {screen: DebtPreview}
             },
             {
                 navigationOptions: {gesturesEnabled: false},
@@ -58,12 +68,13 @@ export default class App extends Component {
 
         const Drawer = DrawerNavigator(
             {
-                BudgetStack: {screen: MyBudgetStack},
+                IntroStack: {screen: IntroStack},
+                BudgetStack: {screen: BudgetStack},
                 ExpenseOverview: {screen: ExpenseOverview},
                 Settings: {screen: SettingsStack}
             },
             {
-                initialRouteName: "BudgetStack",
+                initialRouteName: this.props.initialRoute,
                 contentComponent: props => <SideBar {...props} />,
                 contentOptions: {activeTintColor: "#e91e63"},
                 navigationOptions: {drawerLockMode: 'locked-closed'}
@@ -77,8 +88,8 @@ export default class App extends Component {
                 SignUp: {screen: SignUp},
             },
             {
-                navigationOptions: {gesturesEnabled: false},
                 initialRouteName: this.props.isAuthorized ? 'Drawer' : 'SignIn',
+                navigationOptions: {gesturesEnabled: false},
                 headerMode: "none"
             }
         );
@@ -90,5 +101,11 @@ export default class App extends Component {
         );
     }
 }
+
+const mapStateToProps = ({init}) => {
+    return {initialRoute} = init;
+};
+
+export default connect(mapStateToProps, null)(App);
 
 Expo.registerRootComponent(App);

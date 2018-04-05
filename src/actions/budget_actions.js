@@ -28,7 +28,6 @@ import {
 const BUDGETBUD_FUNCTIONS_URL = budgetBudFunctionsURL;
 const EBANKING_FUNCTIONS_URL = eBankingFunctionsURL;
 
-
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
         let token = await user.getIdToken();

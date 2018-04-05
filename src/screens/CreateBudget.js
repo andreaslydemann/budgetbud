@@ -14,9 +14,6 @@ import {
 
 class CreateBudget extends Component {
     async componentWillMount() {
-        // if (this.props.budgetID !== '')
-        //     this.props.navigation.navigate('MyBudget');
-
         await this.props.getLinkedAccounts();
         await this.props.mapExpensesToBudget(this.props.accounts);
     };

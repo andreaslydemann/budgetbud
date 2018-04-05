@@ -44,7 +44,8 @@ class Setup extends Component {
 
         return (
             <StyleProvider style={getTheme(variables)}>
-                <App isAuthorized={this.state.isAuthorized}/>
+                <App isAuthorized={this.state.isAuthorized}
+                     initialBudgetRoute={this.props.initialBudgetRoute}/>
             </StyleProvider>
         );
     }
