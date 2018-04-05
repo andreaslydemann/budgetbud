@@ -1,4 +1,6 @@
 export default {
+    accountsHeader: 'Accounts',
+    accountsSaveButton: 'Save',
     appHeaderInfoHeader: 'Information',
     appHeaderInfoCloseButton: 'Close',
     budgetIncome: 'Income',
@@ -10,7 +12,6 @@ export default {
     confirmDialogDeletionHeader: 'Confirm deletion',
     confirmDialogCancelButton: 'Cancel',
     confirmDialogOkButton: 'Ok',
-    createAccountHeader: 'Create Account',
     createBudgetHeader: 'Create Budget',
     createBudgetButton: 'Create budget',
     createDebtHeader: 'Create Debt',

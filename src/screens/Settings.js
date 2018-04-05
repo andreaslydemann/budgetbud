@@ -53,7 +53,7 @@ class Settings extends Component {
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </ListItem>
-                            <ListItem icon>
+                            <ListItem icon onPress={() => this.props.navigation.navigate("Accounts")}>
                                 <Left>
                                     <Icon name="md-card"/>
                                 </Left>
@@ -82,7 +82,7 @@ class Settings extends Component {
                                 <Body>
                                 <Label>{I18n.t('settingsDeleteBudget')}</Label>
                                 </Body>
-                                <Right>
+                                <Right >
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </ListItem>

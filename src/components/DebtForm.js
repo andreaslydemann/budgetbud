@@ -52,7 +52,7 @@ export class DebtForm extends Component {
             tmp.push(categoryID);
         }
 
-        this.props.categoriesSelected(tmp);
+        this.props.categoriesSelected(tmp, this.props.categoriesOfDebt);
     };
 
     render() {
@@ -125,7 +125,7 @@ export class DebtForm extends Component {
                                     justifyContent: 'center'
                                 }} color='#1c313a'/>
                             </Container>) : (
-                            < FlatList
+                            <FlatList
                                 data={this.props.categoryItems}
                                 renderItem={this.renderItem}
                             />

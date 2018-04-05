@@ -14,14 +14,23 @@ import _ from 'lodash';
 import {AppHeader, Separator} from "../components/";
 import {connect} from "react-redux";
 import {button, text, container} from "../style/";
-import {createDebt} from "../actions";
+import {getDebts, createDebt, editDebt, getCategories} from "../actions";
 import I18n from "../strings/i18n";
 
 class DebtPreview extends Component {
-    onSavePress = () => {
-        this.props.createDebt(this.props, () => {
+    onSavePress = async () => {
+        if (this.props.selectedDebt.id) {
+            await this.props.editDebt(this.props);
+            await this.props.getDebts(this.props.budgetID);
+            await this.props.getCategories(this.props.budgetID);
             this.props.navigation.pop(2);
-        });
+            return;
+        }
+
+        await this.props.createDebt(this.props);
+        await this.props.getDebts(this.props.budgetID);
+        await this.props.getCategories(this.props.budgetID);
+        this.props.navigation.pop(2);
     };
 
     render() {
@@ -122,7 +131,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    createDebt
+    getDebts,
+    createDebt,
+    editDebt,
+    getCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DebtPreview);

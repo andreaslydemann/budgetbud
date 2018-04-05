@@ -19,7 +19,7 @@ import CreateDebt from './screens/CreateDebt';
 import EditDebt from './screens/EditDebt';
 import DebtPreview from './screens/DebtPreview';
 import EditDisposable from "./screens/EditDisposable";
-import CreateAccount from "./screens/CreateAccount";
+import Accounts from "./screens/Accounts";
 import DisposablePreview from "./screens/DisposablePreview";
 
 export default class App extends Component {
@@ -47,8 +47,8 @@ export default class App extends Component {
         const SettingsStack = StackNavigator(
             {
                 Settings: {screen: Settings},
-                UserDetails: {screen: UserDetails},
-                CreateAccount: {screen: CreateAccount}
+                Accounts: {screen: Accounts},
+                UserDetails: {screen: UserDetails}
             },
             {
                 navigationOptions: {gesturesEnabled: false},

@@ -9,6 +9,8 @@ import {
     GET_DEBTS_FAIL,
     CREATE_DEBT,
     CREATE_DEBT_SUCCESS,
+    EDIT_DEBT,
+    EDIT_DEBT_SUCCESS,
     DELETE_DEBT
 } from '../actions/types';
 
@@ -17,8 +19,7 @@ const INITIAL_STATE = {
     amount: '',
     expirationDate: '',
     debts: [],
-    selectedDebtID: '',
-    selectedDebtKey: '',
+    selectedDebt: '',
     loading: false,
     error: ''
 };
@@ -39,8 +40,7 @@ export default (state = INITIAL_STATE, action) => {
                 name: action.payload.name,
                 amount: action.payload.amount,
                 expirationDate: action.payload.expirationDate,
-                selectedDebtID: action.payload.debtID,
-                selectedDebtKey: action.payload.key
+                selectedDebt: {id: action.payload.debtID, key: action.payload.key}
             };
         case GET_DEBTS:
             return {...state, loading: true, error: ''};
@@ -51,11 +51,15 @@ export default (state = INITIAL_STATE, action) => {
         case CREATE_DEBT:
             return {...state, loading: true, error: ''};
         case CREATE_DEBT_SUCCESS:
-            return {...state, loading: false, debts: action.payload};
+            return {...state, loading: false};
+        case EDIT_DEBT:
+            return {...state, loading: true, error: ''};
+        case EDIT_DEBT_SUCCESS:
+            return {...state, loading: false};
         case DELETE_DEBT:
             return {
                 ...state, debts: state.debts.filter(
-                    (item, key) => key !== state.selectedDebtKey
+                    (item, key) => key !== state.selectedDebt.key
                 )
             };
         default:

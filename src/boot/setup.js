@@ -12,7 +12,7 @@ import App from "../App";
 class Setup extends Component {
     state = {isReady: false, isAuthorized: false};
 
-    async componentWillMount() {
+    componentWillMount() {
         this.loadFonts();
     }
 

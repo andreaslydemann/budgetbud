@@ -13,8 +13,6 @@ import {
     CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS
 } from "./types";
 
-const ROOT_URL = budgetBudFunctionsURL;
-
 export const getCategories = (budgetID) => async dispatch => {
     try {
         dispatch({type: GET_CATEGORIES});
@@ -44,20 +42,12 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
             headers: {Authorization: 'Bearer ' + token}
         });
 
-        const categoriesOfDebt = data;
-        const categoriesOfDebtIDs = [];
-
-        categoriesOfDebt.forEach(c => {
-            categoriesOfDebtIDs.push(c.categoryID);
-        });
-
         dispatch({
             type: GET_CATEGORIES_OF_DEBT_SUCCESS,
-            payload: {categoriesOfDebt, categoriesOfDebtIDs}
+            payload: data
         });
     } catch (err) {
         let {data} = err.response;
-
         //getCategoriesFail(dispatch, data.error);
     }
 };
@@ -69,7 +59,7 @@ export const calculateCategorySubtractions =
 
             let token = await firebase.auth().currentUser.getIdToken();
 
-            let {data} = await axios.post(`${ROOT_URL}/calculateCategorySubtractions`,
+            let {data} = await axios.post(`${budgetBudFunctionsURL}/calculateCategorySubtractions`,
                 {amount, expirationDate, categories: selectedCategories}, {
                     headers: {Authorization: 'Bearer ' + token}
                 });
@@ -82,9 +72,20 @@ export const calculateCategorySubtractions =
         }
     };
 
-export const categoriesOfDebtSelected = list => {
+export const categoriesOfDebtSelected = (selectedCategories, categoriesOfDebt) => {
+    const selectedCategoriesWithAmounts = _.map(selectedCategories, (item) => {
+        const categoryOfDebt = categoriesOfDebt.filter((obj) => {
+            return obj.id === item;
+        });
+
+        return {
+            id: item,
+            amount: (categoryOfDebt[0] ? categoryOfDebt[0].amount : 0)
+        };
+    });
+
     return {
         type: CATEGORIES_OF_DEBT_SELECTED,
-        payload: list
+        payload: selectedCategoriesWithAmounts
     };
 };
