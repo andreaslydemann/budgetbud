@@ -8,15 +8,17 @@ import {
     incomeChanged,
     categoryChanged,
     createBudget,
-    getAccountData
+    getLinkedAccounts,
+    mapExpensesToBudget
 } from '../actions';
 
 class CreateBudget extends Component {
-    componentWillMount() {
-        if (this.props.budgetID !== '')
-            this.props.navigation.navigate('MyBudget');
+    async componentWillMount() {
+        // if (this.props.budgetID !== '')
+        //     this.props.navigation.navigate('MyBudget');
 
-        this.props.getAccountData();
+        await this.props.getLinkedAccounts();
+        await this.props.mapExpensesToBudget(this.props.accounts);
     };
 
     onIncomeChange = (text) => {
@@ -59,23 +61,36 @@ class CreateBudget extends Component {
     }
 }
 
-const mapStateToProps = ({budget}) => {
-    return {
+const mapStateToProps = (state) => {
+    const {
         income,
-        categories,
         debts,
         totalExpenses,
         disposable,
         loading,
         error
-    } = budget;
+    } = state.budget;
+
+    const {categories, accounts} = state.account;
+
+    return {
+        income,
+        categories,
+        accounts,
+        debts,
+        totalExpenses,
+        disposable,
+        loading,
+        error
+    };
 };
 
 const mapDispatchToProps = {
     createBudget,
     incomeChanged,
     categoryChanged,
-    getAccountData
+    getLinkedAccounts,
+    mapExpensesToBudget
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateBudget);

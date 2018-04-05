@@ -7,7 +7,7 @@ import SignUp from './screens/SignUp';
 import SideBar from "./screens/SideBar";
 import CreateBudget from "./screens/CreateBudget";
 import MyBudget from "./screens/MyBudget";
-import SpendingOverview from "./screens/SpendingOverview";
+import ExpenseOverview from "./screens/ExpenseOverview";
 import MonthlyReports from "./screens/MonthlyReports";
 import Settings from "./screens/Settings";
 import BudgetPreview from "./screens/BudgetPreview"
@@ -26,17 +26,18 @@ export default class App extends Component {
     render() {
         const MyBudgetStack = StackNavigator(
             {
-                MyBudget: {screen: MyBudget},
                 CreateBudget: {screen: CreateBudget},
+                Intro: {screen: Intro},
+                MyBudget: {screen: MyBudget},
                 EditDisposable: {screen: EditDisposable},
                 DisposablePreview: {screen: DisposablePreview},
                 EditBudget: {screen: EditBudget},
-                Intro: {screen: Intro},
                 BudgetPreview: {screen: BudgetPreview},
                 DebtOverview: {screen: DebtOverview},
                 CreateDebt: {screen: CreateDebt},
                 EditDebt: {screen: EditDebt},
-                DebtPreview: {screen: DebtPreview}
+                DebtPreview: {screen: DebtPreview},
+                Accounts: {screen: Accounts},
             },
             {
                 navigationOptions: {gesturesEnabled: false},
@@ -59,7 +60,7 @@ export default class App extends Component {
         const Drawer = DrawerNavigator(
             {
                 BudgetStack: {screen: MyBudgetStack},
-                SpendingOverview: {screen: SpendingOverview},
+                ExpenseOverview: {screen: ExpenseOverview},
                 MonthlyReports: {screen: MonthlyReports},
                 Settings: {screen: SettingsStack}
             },

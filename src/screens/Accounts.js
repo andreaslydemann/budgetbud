@@ -29,11 +29,11 @@ class Accounts extends PureComponent {
     }
 
     onSavePress = () => {
-        this.props.linkAccounts(this.props.selectedAccounts);
+        this.props.linkAccounts(this.props.linkedAccounts);
     };
 
     onCheckBoxPress = ({accountID}) => {
-        let tmp = this.props.selectedAccounts;
+        let tmp = this.props.linkedAccounts;
 
         if (tmp.includes(accountID)) {
             tmp.splice(tmp.indexOf(accountID), 1)
@@ -94,7 +94,7 @@ class Accounts extends PureComponent {
                 <Right style={list.listItemCheckBoxPadding}>
                     <CheckBox
                         style={{borderColor: '#777777'}}
-                        checked={this.props.selectedAccounts.includes(item.accountID)}
+                        checked={this.props.linkedAccounts.includes(item.accountID)}
                         onPress={() => this.onCheckBoxPress(item)}
                     />
                 </Right>
@@ -106,7 +106,7 @@ class Accounts extends PureComponent {
 const mapStateToProps = ({account}) => {
     const {
         accounts,
-        selectedAccounts,
+        linkedAccounts,
         accountsLoading,
         linkLoading
     } = account;
@@ -117,7 +117,7 @@ const mapStateToProps = ({account}) => {
 
     return {
         accountItems,
-        selectedAccounts,
+        linkedAccounts,
         accountsLoading,
         linkLoading
     };

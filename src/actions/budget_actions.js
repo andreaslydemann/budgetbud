@@ -12,13 +12,17 @@ import {
     CREATE_BUDGET_SUCCESS,
     DELETE_BUDGET,
     GET_INITIAL_BUDGET_STATE,
-    GET_ACCOUNT_DATA,
     EDIT_BUDGET,
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_FAIL,
     GET_BUDGET_ID_SUCCESS,
-    GET_ACCOUNT_DATA_SUCCESS
+    LINK_ACCOUNTS,
+    LINK_ACCOUNTS_SUCCESS,
+    LINK_ACCOUNTS_FAIL,
+    MAP_EXPENSES,
+    MAP_EXPENSES_SUCCESS,
+    MAP_EXPENSES_FAIL
 } from './types';
 
 const BUDGETBUD_FUNCTIONS_URL = budgetBudFunctionsURL;
@@ -28,11 +32,12 @@ const EBANKING_FUNCTIONS_URL = eBankingFunctionsURL;
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
         let token = await user.getIdToken();
+        console.log(token);
 
         const {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudgetID?userID=${user.uid}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
-        dispatch({type: GET_BUDGET_ID_SUCCESS, payload: data.id});
+        dispatch({type: GET_BUDGET_ID_SUCCESS, payload: data});
 
         callback();
     } catch (err) {
@@ -160,41 +165,83 @@ export const categoryChanged = (name, amount) => {
     };
 };
 
-export const getAccountData = () => async dispatch => {
-    // dispatch({type: GET_ACCOUNT_DATA});
-    //
-    // try {
-    //     let token = await firebase.auth().currentUser.getIdToken();
-    //
-    //     let spendingData = await axios.get(`${EBANKING_FUNCTIONS_URL}/getSpendings`,
-    //         {headers: {Authorization: 'Bearer ' + token}});
-    //
-    //     let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
-    //         {headers: {Authorization: 'Bearer ' + token}});
-    //
-    //     const categories = [];
-    //     let amount = 0;
-    //
-    //     spendingData.data.forEach(category => {
-    //         categoryTypes.data.filter(obj => {
-    //             if (obj.categoryTypesID === category.categoryTypesID) {
-    //                 amount = category.amount
-    //             } else {
-    //                 amount = 0
-    //             }
-    //             categories.push({
-    //                 name: obj.name,
-    //                 amount
-    //             })
-    //         })
-    //         // const categories = categoryTypes.filter(obj => {
-    //         //     return obj.categoryTypesID === category.categoryTypesID;
-    //         // });
-    //     });
-    //
-    //     dispatch({
-    //         type: GET_ACCOUNT_DATA_SUCCESS,
-    //         payload: categories
-    //     });
-    //}
+export const getLinkedAccounts = () => async dispatch => {
+    dispatch({type: LINK_ACCOUNTS});
+
+    try {
+        let token = await firebase.auth().currentUser.getIdToken();
+        let userID = await firebase.auth().currentUser.uid;
+
+        let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getLinkedAccounts?userID=${userID}`,
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        dispatch({
+            type: LINK_ACCOUNTS_SUCCESS,
+            payload: data
+        });
+    } catch (err) {
+        let {data} = err.response;
+        dispatch({type: LINK_ACCOUNTS_FAIL, payload: data.error});
+    }
+};
+
+export const mapExpensesToBudget = (accounts) => async dispatch => {
+    console.log("Entering mapper action");
+    console.log("Accounts: " + accounts);
+
+    dispatch({type: MAP_EXPENSES});
+
+    try {
+        let token = await firebase.auth().currentUser.getIdToken();
+
+        const expenses = [];
+        const categories = [];
+        let amount = 0;
+
+        accounts.forEach(async account => {
+            console.log("account: " + account);
+
+            let {data} = await axios.get(`${EBANKING_FUNCTIONS_URL}/getExpense?accountID=${account}`);
+                let index = expenses.indexOf(data.categoryID);
+
+                if (index !== -1) {
+                    expenses[index].amount += data.amount;
+                } else {
+                    expenses.push({
+                        categoryTypesID: account.categoryTypesID,
+                        amount: account.amount
+                    })
+                }
+            }
+        );
+        console.log("Expenses: " + expenses);
+
+        let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        expenses.forEach(expense => {
+            categoryTypes.data.filter(obj => {
+                if (obj.categoryTypesID === expense.categoryTypesID) {
+                    amount = expense.amount
+                } else {
+                    amount = 0
+                }
+                categories.push({
+                    name: obj.name,
+                    amount
+                })
+            });
+        });
+
+        console.log("Categories: " + categories);
+
+        dispatch({
+            type: MAP_EXPENSES_SUCCESS,
+            payload: categories
+        });
+    } catch
+        (err) {
+        let {data} = err.response;
+        dispatch({type: MAP_EXPENSES_FAIL, payload: data.error});
+    }
 };
