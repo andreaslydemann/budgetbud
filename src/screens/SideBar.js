@@ -28,11 +28,6 @@ const elements = [
         icon: "md-stats"
     },
     {
-        name: I18n.t('sideBarMonthlyReports'),
-        route: "MonthlyReports",
-        icon: "md-calendar"
-    },
-    {
         name: I18n.t('sideBarSettings'),
         route: "Settings",
         icon: "md-options"

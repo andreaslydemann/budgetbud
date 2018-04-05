@@ -8,7 +8,6 @@ import SideBar from "./screens/SideBar";
 import CreateBudget from "./screens/CreateBudget";
 import MyBudget from "./screens/MyBudget";
 import SpendingOverview from "./screens/SpendingOverview";
-import MonthlyReports from "./screens/MonthlyReports";
 import Settings from "./screens/Settings";
 import BudgetPreview from "./screens/BudgetPreview"
 import UserDetails from "./screens/UserDetails";
@@ -60,7 +59,6 @@ export default class App extends Component {
             {
                 BudgetStack: {screen: MyBudgetStack},
                 SpendingOverview: {screen: SpendingOverview},
-                MonthlyReports: {screen: MonthlyReports},
                 Settings: {screen: SettingsStack}
             },
             {
