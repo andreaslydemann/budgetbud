@@ -18,7 +18,7 @@ class CreateBudget extends Component {
         //     this.props.navigation.navigate('MyBudget');
 
         await this.props.getLinkedAccounts();
-        await this.props.mapExpensesToBudget(this.props.accounts);
+        await this.props.mapExpensesToBudget(this.props.linkedAccounts);
     };
 
     onIncomeChange = (text) => {
@@ -71,12 +71,12 @@ const mapStateToProps = (state) => {
         error
     } = state.budget;
 
-    const {categories, accounts} = state.account;
+    const {categories, linkedAccounts} = state.account;
 
     return {
         income,
         categories,
-        accounts,
+        linkedAccounts,
         debts,
         totalExpenses,
         disposable,
