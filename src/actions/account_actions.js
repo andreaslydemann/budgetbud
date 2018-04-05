@@ -12,7 +12,9 @@ import {
     LINK_ACCOUNTS,
     LINK_ACCOUNTS_SUCCESS,
     LINK_ACCOUNTS_FAIL,
-    ACCOUNTS_SELECTED
+    ACCOUNTS_SELECTED,
+    GET_LINKED_ACCOUNTS_SUCCESS,
+    GET_LINKED_ACCOUNTS_FAIL
 } from './types';
 
 export const getAccounts = () => async dispatch => {
@@ -61,10 +63,27 @@ export const linkAccounts = (selectedAccounts) => async dispatch => {
     }
 };
 
-
 export const accountsSelected = list => {
     return {
         type: ACCOUNTS_SELECTED,
         payload: list
     };
+};
+
+export const getlinkedAccounts = () => async dispatch => {
+    dispatch({type: GET_LINKED_ACCOUNTS});
+
+    try {
+        let token = await firebase.auth().currentUser.getIdToken();
+        let userID = await firebase.auth().currentUser.uid;
+
+        let {data} =
+            await axios.get(`${budgetBudFunctionsURL}/getLinkedAccounts?userID=${userID}`,
+                {headers: {Authorization: 'Bearer ' + token}});
+
+        dispatch({type: GET_LINKED_ACCOUNTS_SUCCESS, payload: data});
+    } catch (err) {
+        let {data} = err.response;
+        dispatch({type: GET_LINKED_ACCOUNTS_FAIL, payload: data});
+    }
 };

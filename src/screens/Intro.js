@@ -15,9 +15,11 @@ import I18n from "../strings/i18n";
 import {getBudget} from "../actions";
 
 class Intro extends Component {
-    componentWillMount() {
-        if(this.props.budgetID === '')
+    async componentWillMount() {
+        if (this.props.budgetID === '')
             this.props.navigation.navigate("MyBudget");
+
+        await this.props.getLinkedAccounts();
     }
 
     render() {
@@ -26,7 +28,10 @@ class Intro extends Component {
                 <ConfirmDialog
                     title={I18n.t('introConfirmDialogHeader')}
                     text={I18n.t('introConfirmDialogBody')}
-                    confirmCallback={() => this.props.navigation.navigate("Accounts")}
+                    confirmCallback={() => {
+                        this.props.navigation.navigate("Accounts");
+                        this.confirmDialog.dismissDialog();
+                    }}
                     loading={this.props.loading}
                     ref={(confirmDialog) => {
                         this.confirmDialog = confirmDialog
@@ -53,9 +58,9 @@ class Intro extends Component {
                         </Text>
 
                         <Button rounded
-                                onPress={() => this.props.isAccountCreated ?
-                                    (this.props.navigation.navigate("CreateBudget")) :
-                                    (this.confirmDialog.showDialog())}
+                                onPress={() => this.props.linkedAccounts.length === 0 ?
+                                    (this.confirmDialog.showDialog()) :
+                                    (this.props.navigation.navigate("CreateBudget"))}
                                 style={styles.buttonStyle}
                         >
                             {this.props.loading ? (
@@ -111,8 +116,11 @@ const styles = {
     },
 };
 
-const mapStateToProps = ({budget}) => {
-    return {isAccountCreated, budgetID} = budget;
+const mapStateToProps = (state) => {
+    const {budgetID} = state.budget;
+    const {linkedAccounts} = state.account;
+
+    return {budgetID, linkedAccounts: linkedAccounts};
 };
 
 export default connect(mapStateToProps, null)(Intro);

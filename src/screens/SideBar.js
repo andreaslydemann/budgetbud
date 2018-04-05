@@ -23,8 +23,8 @@ const elements = [
         icon: "md-clipboard"
     },
     {
-        name: I18n.t('sideBarSpendingOverview'),
-        route: "SpendingOverview",
+        name: I18n.t('sideBarExpenseOverview'),
+        route: "ExpenseOverview",
         icon: "md-stats"
     },
     {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import {budgetBudFunctionsURL} from "../config/firebase_config";
+import {budgetBudFunctionsURL, eBankingFunctionsURL} from "../config/firebase_config";
 import {
     INCOME_CHANGED,
     CATEGORY_CHANGED,
@@ -12,24 +12,31 @@ import {
     CREATE_BUDGET_SUCCESS,
     DELETE_BUDGET,
     GET_INITIAL_BUDGET_STATE,
-    GET_ACCOUNT_DATA,
     EDIT_BUDGET,
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_FAIL,
-    GET_BUDGET_ID_SUCCESS
+    GET_BUDGET_ID_SUCCESS,
+    LINK_ACCOUNTS,
+    LINK_ACCOUNTS_SUCCESS,
+    LINK_ACCOUNTS_FAIL,
+    MAP_EXPENSES,
+    MAP_EXPENSES_SUCCESS,
+    MAP_EXPENSES_FAIL
 } from './types';
 
-const ROOT_URL = budgetBudFunctionsURL;
+const BUDGETBUD_FUNCTIONS_URL = budgetBudFunctionsURL;
+const EBANKING_FUNCTIONS_URL = eBankingFunctionsURL;
+
 
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
         let token = await user.getIdToken();
-        console.log(token);
-        const {data} = await axios.get(`${ROOT_URL}/getBudgetID?userID=${user.uid}`,
+
+        const {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudgetID?userID=${user.uid}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
-        dispatch({type: GET_BUDGET_ID_SUCCESS, payload: data.id});
+        dispatch({type: GET_BUDGET_ID_SUCCESS, payload: data});
 
         callback();
     } catch (err) {
@@ -53,7 +60,7 @@ export const createBudget = ({income, categories, totalExpenses, disposable}, ca
             let token = await firebase.auth().currentUser.getIdToken();
             let userID = await firebase.auth().currentUser.uid;
 
-            await axios.post(`${ROOT_URL}/createBudget`,
+            await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createBudget`,
                 {userID, income, categories, totalExpenses, disposable},
                 {headers: {Authorization: 'Bearer ' + token}});
 
@@ -79,7 +86,7 @@ export const getBudget = (budgetID, callback) => async dispatch => {
 
         let token = await firebase.auth().currentUser.getIdToken();
 
-        let {data} = await axios.get(`${ROOT_URL}/getBudget?budgetID=${budgetID}`,
+        let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudget?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({
@@ -102,7 +109,7 @@ export const editBudget = ({budgetID, income, categories}, callback) => async di
     let token = await firebase.auth().currentUser.getIdToken();
 
     try {
-        await axios.post(`${ROOT_URL}/editBudget`,
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editBudget`,
             {budgetID, income, categories},
             {headers: {Authorization: 'Bearer ' + token}});
 
@@ -127,7 +134,7 @@ export const deleteBudget = ({budgetID}, callback) => async dispatch => {
         dispatch({type: DELETE_BUDGET});
         let token = await firebase.auth().currentUser.getIdToken();
 
-        await axios.post(`${ROOT_URL}/deleteBudget`, {budgetID}, {
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/deleteBudget`, {budgetID}, {
             headers: {Authorization: 'Bearer ' + token}
         });
 
@@ -156,11 +163,83 @@ export const categoryChanged = (name, amount) => {
     };
 };
 
-export const getAccountData = () => async dispatch => {
-    dispatch({type: GET_ACCOUNT_DATA});
+export const getLinkedAccounts = () => async dispatch => {
+    dispatch({type: LINK_ACCOUNTS});
 
-    let {data} = await axios.get(`${ROOT_URL}/getCategoryTypes`,
-        {headers: {Authorization: 'Bearer ' + token}});
+    try {
+        let token = await firebase.auth().currentUser.getIdToken();
+        let userID = await firebase.auth().currentUser.uid;
 
+        let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getLinkedAccounts?userID=${userID}`,
+            {headers: {Authorization: 'Bearer ' + token}});
 
+        dispatch({
+            type: LINK_ACCOUNTS_SUCCESS,
+            payload: data
+        });
+    } catch (err) {
+        let {data} = err.response;
+        dispatch({type: LINK_ACCOUNTS_FAIL, payload: data.error});
+    }
+};
+
+export const mapExpensesToBudget = (accounts) => async dispatch => {
+    console.log("Entering mapper action");
+    console.log("Accounts: " + accounts);
+
+    dispatch({type: MAP_EXPENSES});
+
+    try {
+        let token = await firebase.auth().currentUser.getIdToken();
+
+        const expenses = [];
+        const categories = [];
+        let amount = 0;
+
+        accounts.forEach(async account => {
+            console.log("account: " + account);
+
+            let {data} = await axios.get(`${EBANKING_FUNCTIONS_URL}/getExpense?accountID=${account}`);
+                let index = expenses.indexOf(data.categoryID);
+
+                if (index !== -1) {
+                    expenses[index].amount += data.amount;
+                } else {
+                    expenses.push({
+                        categoryTypesID: account.categoryTypesID,
+                        amount: account.amount
+                    })
+                }
+            }
+        );
+        console.log("Expenses: " + expenses);
+
+        let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        expenses.forEach(expense => {
+            categoryTypes.data.filter(obj => {
+                if (obj.categoryTypesID === expense.categoryTypesID) {
+                    amount = expense.amount
+                } else {
+                    amount = 0
+                }
+                categories.push({
+                    name: obj.name,
+                    amount
+                })
+            });
+        });
+
+        console.log("Categories: " + categories);
+
+        dispatch({
+            type: MAP_EXPENSES_SUCCESS,
+            payload: categories
+        });
+    } catch
+        (err) {
+        let {data} = err.response;
+        dispatch({type: MAP_EXPENSES_FAIL, payload: data.error});
+    }
 };
