@@ -26,7 +26,8 @@ class EditDebt extends Component {
             this.props.expirationDate,
             this.props.selectedCategories, () => {
                 this.props.navigation.navigate('DebtPreview');
-            });
+            },
+            this.props.selectedDebt.id);
     };
 
     render() {

@@ -58,18 +58,23 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
 };
 
 export const calculateCategorySubtractions =
-    (amount, expirationDate, selectedCategories, callback) => async dispatch => {
+    (amount, expirationDate, categories, callback, debtID) => async dispatch => {
         try {
             dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS});
 
             let token = await firebase.auth().currentUser.getIdToken();
+            let requestBody;
+
+            if (debtID)
+                requestBody = {amount, expirationDate, categories, debtID};
+            else
+                requestBody = {amount, expirationDate, categories};
 
             let {data} = await axios.post(`${budgetBudFunctionsURL}/calculateCategorySubtractions`,
-                {amount, expirationDate, categories: selectedCategories}, {
-                    headers: {Authorization: 'Bearer ' + token}
-                });
+                requestBody, {headers: {Authorization: 'Bearer ' + token}});
 
             dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS, payload: data});
+
             callback();
         } catch (err) {
             let {data} = err.response;

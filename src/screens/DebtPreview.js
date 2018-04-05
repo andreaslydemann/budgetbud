@@ -19,18 +19,14 @@ import I18n from "../strings/i18n";
 
 class DebtPreview extends Component {
     onSavePress = async () => {
-        if (this.props.selectedDebt.id) {
+        if (this.props.selectedDebt)
             await this.props.editDebt(this.props);
-            await this.props.getDebts(this.props.budgetID);
-            await this.props.getCategories(this.props.budgetID);
-            this.props.navigation.pop(2);
-            return;
-        }
+        else
+            await this.props.createDebt(this.props);
 
-        await this.props.createDebt(this.props);
-        await this.props.getDebts(this.props.budgetID);
-        await this.props.getCategories(this.props.budgetID);
         this.props.navigation.pop(2);
+        this.props.getDebts(this.props.budgetID);
+        this.props.getCategories(this.props.budgetID);
     };
 
     render() {
@@ -91,14 +87,15 @@ class DebtPreview extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {name, amount, expirationDate, loading} = state.debt;
+    const {name, amount, expirationDate, selectedDebt, loading} = state.debt;
     const {
         categories,
-        categoriesOfDebtIDs,
+        categoriesOfDebt,
+        selectedCategories,
         categorySubtractions,
     } = state.category;
 
-    const categoryDebtItems = _.map(categoriesOfDebtIDs, (item, key) => {
+    const categoryDebtItems = _.map(selectedCategories, (item, key) => {
         const categorySubtraction = categorySubtractions.filter((obj) => {
             return obj.categoryID === item.toString();
         });
@@ -108,7 +105,17 @@ const mapStateToProps = (state) => {
         });
 
         const amountToSubtract = categorySubtraction[0].amountToSubtract;
-        const beforeAmount = category[0].categoryData.amount;
+        let categoryOfDebtAmount = 0;
+
+        if (selectedDebt) {
+            const categoryOfDebt = categoriesOfDebt.filter((obj) => {
+                return obj.categoryID === item.toString();
+            });
+
+            categoryOfDebtAmount = categoryOfDebt[0] ? categoryOfDebt[0].amount : 0;
+        }
+
+        const beforeAmount = category[0].categoryData.amount + categoryOfDebtAmount;
 
         return {
             amountToSubtract: amountToSubtract,
@@ -125,8 +132,9 @@ const mapStateToProps = (state) => {
         amount,
         expirationDate,
         categoryDebtItems,
+        selectedDebt,
         loading,
-        budgetID,
+        budgetID
     };
 };
 
