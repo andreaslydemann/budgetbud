@@ -28,6 +28,18 @@ class EditBudget extends Component {
         });
     };
 
+    testInput = (income, categories) => {
+        let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
+        if (!allowedRegex.test(income))
+            return false;
+
+        categories.forEach(c => {
+            if (!allowedRegex.test(c.amount))
+                return false;
+        });
+        return true;
+    };
+
     render() {
         return (
             <Container style={[{alignItems: 'stretch'}]}>
@@ -38,6 +50,7 @@ class EditBudget extends Component {
                 <BudgetForm handleSubmit={this.handleSubmit}
                             onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
+                            testInput={this.testInput}
                             income={this.props.income}
                             totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}

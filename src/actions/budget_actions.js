@@ -17,12 +17,12 @@ import {
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_FAIL,
     GET_BUDGET_ID_SUCCESS,
-    LINK_ACCOUNTS,
-    LINK_ACCOUNTS_SUCCESS,
-    LINK_ACCOUNTS_FAIL,
     MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
-    MAP_EXPENSES_FAIL
+    MAP_EXPENSES_FAIL,
+    GET_LINKED_ACCOUNTS,
+    GET_LINKED_ACCOUNTS_SUCCESS,
+    GET_LINKED_ACCOUNTS_FAIL
 } from './types';
 
 const BUDGETBUD_FUNCTIONS_URL = budgetBudFunctionsURL;
@@ -40,12 +40,8 @@ export const getBudgetID = (user, callback) => async dispatch => {
         callback();
     } catch (err) {
         let {data} = err.response;
-        getBudgetIDFail(dispatch, data.error)
+        dispatch({type: GET_BUDGET_ID_FAIL, payload: data.error});
     }
-};
-
-const getBudgetIDFail = (dispatch, error) => {
-    dispatch({type: GET_BUDGET_ID_FAIL, payload: error});
 };
 
 export const createBudget = ({income, categories, totalExpenses, disposable}, callback) =>
@@ -68,13 +64,9 @@ export const createBudget = ({income, categories, totalExpenses, disposable}, ca
             callback();
         } catch (err) {
             let {data} = err.response;
-            createBudgetFail(dispatch, data.error)
+            dispatch({type: CREATE_BUDGET_FAIL, payload: data.error});
         }
     };
-
-const createBudgetFail = (dispatch, error) => {
-    dispatch({type: CREATE_BUDGET_FAIL, payload: error});
-};
 
 export const getBudget = (budgetID, callback) => async dispatch => {
     dispatch({type: GET_BUDGET});
@@ -95,12 +87,8 @@ export const getBudget = (budgetID, callback) => async dispatch => {
 
     } catch (err) {
         let {data} = err.response;
-        getBudgetFail(dispatch, data.error)
+        dispatch({type: GET_BUDGET_FAIL, payload: data.error});
     }
-};
-
-const getBudgetFail = (dispatch, error) => {
-    dispatch({type: GET_BUDGET_FAIL, payload: error});
 };
 
 export const editBudget = ({budgetID, income, categories}, callback) => async dispatch => {
@@ -120,12 +108,8 @@ export const editBudget = ({budgetID, income, categories}, callback) => async di
 
     } catch (err) {
         let {data} = err.response;
-        editBudgetFail(dispatch, data.error)
+        dispatch({type: EDIT_BUDGET_FAIL, payload: data.error});
     }
-};
-
-const editBudgetFail = (dispatch, error) => {
-    dispatch({type: EDIT_BUDGET_FAIL, payload: error});
 };
 
 export const deleteBudget = ({budgetID}, callback) => async dispatch => {
@@ -163,7 +147,7 @@ export const categoryChanged = (name, amount) => {
 };
 
 export const getLinkedAccounts = () => async dispatch => {
-    dispatch({type: LINK_ACCOUNTS});
+    dispatch({type: GET_LINKED_ACCOUNTS});
 
     try {
         let token = await firebase.auth().currentUser.getIdToken();
@@ -173,72 +157,88 @@ export const getLinkedAccounts = () => async dispatch => {
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({
-            type: LINK_ACCOUNTS_SUCCESS,
+            type: GET_LINKED_ACCOUNTS_SUCCESS,
             payload: data
         });
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: LINK_ACCOUNTS_FAIL, payload: data.error});
+        dispatch({type: GET_LINKED_ACCOUNTS_FAIL, payload: data.error});
     }
 };
 
 export const mapExpensesToBudget = (accounts) => async dispatch => {
-    console.log("Entering mapper action");
-    console.log("Accounts: " + accounts);
-
-    dispatch({type: MAP_EXPENSES});
-
-    try {
-        let token = await firebase.auth().currentUser.getIdToken();
-
-        const expenses = [];
-        const categories = [];
-        let amount = 0;
-
-        accounts.forEach(async account => {
-            console.log("account: " + account);
-
-            let {data} = await axios.get(`${EBANKING_FUNCTIONS_URL}/getExpense?accountID=${account}`);
-                let index = expenses.indexOf(data.categoryID);
-
-                if (index !== -1) {
-                    expenses[index].amount += data.amount;
-                } else {
-                    expenses.push({
-                        categoryTypesID: account.categoryTypesID,
-                        amount: account.amount
-                    })
-                }
-            }
-        );
-        console.log("Expenses: " + expenses);
-
-        let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
-            {headers: {Authorization: 'Bearer ' + token}});
-
-        expenses.forEach(expense => {
-            categoryTypes.data.filter(obj => {
-                if (obj.categoryTypesID === expense.categoryTypesID) {
-                    amount = expense.amount
-                } else {
-                    amount = 0
-                }
-                categories.push({
-                    name: obj.name,
-                    amount
-                })
-            });
-        });
-
-        console.log("Categories: " + categories);
-
-        dispatch({
-            type: MAP_EXPENSES_SUCCESS,
-            payload: categories
-        });
-    } catch
-        (err) {
-        let {data} = err.response;
-        dispatch({type: MAP_EXPENSES_FAIL, payload: data.error});
+        // console.log("Entering mapper action");
+        // console.log("Accounts: " + accounts);
+        //
+        // dispatch({type: MAP_EXPENSES});
+        //
+        // try {
+        //     let token = await firebase.auth().currentUser.getIdToken();
+        //
+        //     const expenses = [];
+        //     const categories = [];
+        //     let amount = 0;
+        //
+        //     accounts.forEach(async account => {
+        //             console.log("accountt: " + account);
+        //             let {data} = await axios.get(`${EBANKING_FUNCTIONS_URL}/getExpenses?accountID=${account}`);
+        //
+        //             console.log(data);
+        //
+        //             data.forEach(dataObject => {
+        //                 console.log("Dataobject fra foreach: " + dataObject.amount);
+        //
+        //                 let index = expenses.indexOf(dataObject.categoryID);
+        //
+        //                 if (index !== -1) {
+        //                     console.log("Overskrev");
+        //                     expenses[index].amount += dataObject.amount;
+        //                 } else {
+        //                     console.log("Pushing " + dataObject.categoryTypeID + " and " + dataObject.amount);
+        //                     expenses.push({
+        //                         categoryTypeID: dataObject.categoryTypeID,
+        //                         amount: dataObject.amount
+        //                     });
+        //                     console.log(expenses);
+        //                     console.log("Pushed");
+        //                 }
+        //                 console.log("Iterater push");
+        //             })
+        //             console.log("Forladt indre forEach")
+        //         }
+        //     );
+        //
+        //     console.log("Expenses: " + expenses);
+        //
+        //     // let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
+        //     //     {headers: {Authorization: 'Bearer ' + token}});
+        //     //
+        //     // expenses.forEach(expense => {
+        //     //     categoryTypes.data.filter(obj => {
+        //     //         if (obj.categoryTypesID === expense.categoryTypesID) {
+        //     //             amount = expense.amount
+        //     //         } else {
+        //     //             amount = 0
+        //     //         }
+        //     //         categories.push({
+        //     //             name: obj.name,
+        //     //             amount
+        //     //         })
+        //     //     });
+        //     // });
+        //
+        //
+        //     console.log("Categories: " + categories);
+        //
+        //     dispatch({
+        //         type: MAP_EXPENSES_SUCCESS,
+        //         payload: categories
+        //     });
+        // }
+        // catch
+        //     (err) {
+        //     let {data} = err.response;
+        //     dispatch({type: MAP_EXPENSES_FAIL, payload: data.error});
+        // }
     }
-};
+;

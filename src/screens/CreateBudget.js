@@ -15,7 +15,7 @@ import {
 class CreateBudget extends Component {
     async componentWillMount() {
         await this.props.getLinkedAccounts();
-        await this.props.mapExpensesToBudget(this.props.accounts);
+        await this.props.mapExpensesToBudget(this.props.linkedAccounts);
     };
 
     onIncomeChange = (text) => {
@@ -34,6 +34,20 @@ class CreateBudget extends Component {
         });
     };
 
+    testInput = (income, categories) => {
+        let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
+        if (!allowedRegex.test(income))
+            return false;
+
+        categories.forEach(c => {
+            if (!allowedRegex.test(c.amount))
+                return false;
+        });
+        return true;
+    };
+
+
+
     render() {
         return (
             <Container style={[{alignItems: 'stretch'}]}>
@@ -45,6 +59,7 @@ class CreateBudget extends Component {
                 <BudgetForm handleSubmit={this.handleSubmit}
                             onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
+                            testInput={this.testInput}
                             income={this.props.income}
                             totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}
@@ -68,12 +83,12 @@ const mapStateToProps = (state) => {
         error
     } = state.budget;
 
-    const {categories, accounts} = state.account;
+    const {categories, linkedAccounts} = state.account;
 
     return {
         income,
         categories,
-        accounts,
+        linkedAccounts,
         debts,
         totalExpenses,
         disposable,

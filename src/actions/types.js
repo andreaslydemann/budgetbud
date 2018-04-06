@@ -71,6 +71,7 @@ export const ACCOUNTS_SELECTED = 'accounts_selected';
 export const MAP_EXPENSES = 'map_expenses';
 export const MAP_EXPENSES_SUCCESS = 'map_expenses_success';
 export const MAP_EXPENSES_FAIL = 'map_expenses_fail';
+export const GET_LINKED_ACCOUNTS = 'get_linked_accounts';
 export const GET_LINKED_ACCOUNTS_SUCCESS = 'get_linked_accounts_success';
 export const GET_LINKED_ACCOUNTS_FAIL = 'get_linked_accounts_fail';
 

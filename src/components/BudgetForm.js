@@ -2,13 +2,14 @@ import React, {PureComponent} from 'react';
 import {FlatList, Text, View} from 'react-native';
 import {
     Container,
-    Form,
     Input,
     Item,
     Label,
     ListItem,
     Body,
-    Button, Spinner
+    Button,
+    Spinner,
+    Toast
 } from 'native-base';
 import {Separator} from '../components/';
 import {
@@ -20,6 +21,14 @@ import {
 import I18n from "../strings/i18n";
 
 export class BudgetForm extends PureComponent {
+    showToast = () => Toast.show({
+        text: 'Ugyldig indtastning!',
+        position: 'bottom',
+        buttonText: 'Okay',
+        duration: 3000,
+        type: 'warning'
+    });
+
     render() {
         return (
             <Container>
@@ -31,7 +40,7 @@ export class BudgetForm extends PureComponent {
                     <Item rounded style={input.inputField}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
-                            amount={String (this.props.income)}
+                            amount={String(this.props.income)}
                             keyboardType="numeric"
                         />
                     </Item>
@@ -39,13 +48,13 @@ export class BudgetForm extends PureComponent {
 
                 <Separator/>
 
-                <Form style={{flex: 4, alignItems: 'stretch'}}>
+                <View style={{flex: 4, alignItems: 'stretch'}}>
                     <FlatList
                         data={this.props.categoryItems}
                         renderItem={this.renderItem}
                         style={container.removeIndenting}
                     />
-                </Form>
+                </View>
 
                 <Separator/>
 
@@ -55,7 +64,8 @@ export class BudgetForm extends PureComponent {
                             <Text style={text.listText}>
                                 {I18n.t('budgetTotalExpenses')}
                             </Text>
-                            <Text style={text.listText}>{(this.props.totalExpenses).toString()} {I18n.t('currency')}</Text>
+                            <Text
+                                style={text.listText}>{(this.props.totalExpenses).toString()} {I18n.t('currency')}</Text>
                         </View>
 
                         <View style={container.spacedTextChild}>
@@ -72,7 +82,11 @@ export class BudgetForm extends PureComponent {
 
                 <View>
                     <Button rounded
-                            onPress={this.props.handleSubmit}
+                            onPress={
+                                !this.props.testInput(this.props.income, this.props.categories) ?
+                                    this.showToast :
+                                    this.props.handleSubmit
+                            }
                             style={button.defaultButton}
                     >
                         {this.props.loading ? (
@@ -96,7 +110,7 @@ export class BudgetForm extends PureComponent {
                 <Item rounded style={input.inputField}>
                     <Input
                         onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
-                        amount={String (item.amount)}
+                        amount={String(item.amount)}
                         keyboardType="numeric"
                         style={{width: '90%', fontSize: 13}}
                     />
