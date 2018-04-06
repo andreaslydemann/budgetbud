@@ -21,8 +21,14 @@ import {
 import I18n from "../strings/i18n";
 
 export class BudgetForm extends PureComponent {
-    showToast = () => Toast.show({
-        text: 'Ugyldig indtastning!',
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.error)
+            this.showToast(nextProps.error);
+    }
+
+    showToast = (errorMsg) => Toast.show({
+        text: errorMsg,
         position: 'bottom',
         buttonText: 'Okay',
         duration: 3000,
@@ -84,7 +90,7 @@ export class BudgetForm extends PureComponent {
                     <Button rounded
                             onPress={
                                 !this.props.testInput(this.props.income, this.props.categories) ?
-                                    this.showToast :
+                                    this.showToast('Ugyldig indtastning!') :
                                     this.props.handleSubmit
                             }
                             style={button.defaultButton}
