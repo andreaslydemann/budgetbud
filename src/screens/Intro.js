@@ -12,7 +12,6 @@ import {Image} from "react-native";
 import {connect} from "react-redux";
 import {color} from "../style/";
 import I18n from "../strings/i18n";
-import {getBudget} from "../actions";
 
 class Intro extends Component {
     async componentWillMount() {
@@ -21,6 +20,8 @@ class Intro extends Component {
 
         await this.props.getLinkedAccounts();
     }
+
+
 
     render() {
         return (

@@ -169,69 +169,78 @@ export const getLinkedAccounts = () => async dispatch => {
 };
 
 export const mapExpensesToBudget = (accounts) => async dispatch => {
-    console.log("Entering mapper action");
-    console.log("Accounts: " + accounts);
+        console.log("Entering mapper action");
+        console.log("Accounts: " + accounts);
 
-    dispatch({type: MAP_EXPENSES});
+        dispatch({type: MAP_EXPENSES});
 
-    try {
-        let token = await firebase.auth().currentUser.getIdToken();
+        try {
+            let token = await firebase.auth().currentUser.getIdToken();
 
-        const expenses = [];
-        const categories = [];
-        let amount = 0;
+            const expenses = [];
+            const categories = [];
+            let amount = 0;
 
-        accounts.forEach(async account => {
-                let {data} = await axios.get(`${EBANKING_FUNCTIONS_URL}/getExpenses?accountID=${account}`);
+            accounts.forEach(async account => {
+                    console.log("accountt: " + account);
+                    let {data} = await axios.get(`${EBANKING_FUNCTIONS_URL}/getExpenses?accountID=${account}`);
 
-                data.forEach(dataObject => {
-                    console.log("Dataobject fra foreach: " + dataObject.amount);
+                    console.log(data);
 
-                    let index = expenses.indexOf(dataObject.categoryID);
+                    data.forEach(dataObject => {
+                        console.log("Dataobject fra foreach: " + dataObject.amount);
 
-                    if (index !== -1) {
-                        console.log("Overskrev");
-                        expenses[index].amount += dataObject.amount;
-                    } else {
-                        console.log("Pushing" + dataObject.categoryTypeID + " and " + dataObject.amount);
-                        expenses.push({
-                            categoryTypeID: dataObject.categoryTypeID,
-                            amount: dataObject.amount
-                        });
-                        console.log("Pushed");
+                        let index = expenses.indexOf(dataObject.categoryID);
 
-                    }
-                })
-            }
-        );
-        console.log(expenses);
-
-        let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
-            {headers: {Authorization: 'Bearer ' + token}});
-
-        expenses.forEach(expense => {
-            categoryTypes.data.filter(obj => {
-                if (obj.categoryTypesID === expense.categoryTypesID) {
-                    amount = expense.amount
-                } else {
-                    amount = 0
+                        if (index !== -1) {
+                            console.log("Overskrev");
+                            expenses[index].amount += dataObject.amount;
+                        } else {
+                            console.log("Pushing " + dataObject.categoryTypeID + " and " + dataObject.amount);
+                            expenses.push({
+                                categoryTypeID: dataObject.categoryTypeID,
+                                amount: dataObject.amount
+                            });
+                            console.log(expenses);
+                            console.log("Pushed");
+                        }
+                        console.log("Iterater push");
+                    })
+                    console.log("Forladt indre forEach")
                 }
-                categories.push({
-                    name: obj.name,
-                    amount
-                })
+            );
+
+            console.log("Expenses: " + expenses);
+
+            // let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
+            //     {headers: {Authorization: 'Bearer ' + token}});
+            //
+            // expenses.forEach(expense => {
+            //     categoryTypes.data.filter(obj => {
+            //         if (obj.categoryTypesID === expense.categoryTypesID) {
+            //             amount = expense.amount
+            //         } else {
+            //             amount = 0
+            //         }
+            //         categories.push({
+            //             name: obj.name,
+            //             amount
+            //         })
+            //     });
+            // });
+
+
+            console.log("Categories: " + categories);
+
+            dispatch({
+                type: MAP_EXPENSES_SUCCESS,
+                payload: categories
             });
-        });
-
-        console.log("Categories: " + categories);
-
-        dispatch({
-            type: MAP_EXPENSES_SUCCESS,
-            payload: categories
-        });
-    } catch
-        (err) {
-        let {data} = err.response;
-        dispatch({type: MAP_EXPENSES_FAIL, payload: data.error});
+        }
+        catch
+            (err) {
+            let {data} = err.response;
+            dispatch({type: MAP_EXPENSES_FAIL, payload: data.error});
+        }
     }
-};
+;
