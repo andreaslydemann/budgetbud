@@ -15,7 +15,7 @@ import I18n from "../strings/i18n";
 
 class Intro extends Component {
     async componentWillMount() {
-        if (this.props.budgetID === '')
+        if (this.props.budgetID)
             this.props.navigation.navigate("MyBudget");
 
         await this.props.getLinkedAccounts();

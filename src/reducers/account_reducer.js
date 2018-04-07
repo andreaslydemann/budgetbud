@@ -46,6 +46,7 @@ export default (state = INITIAL_STATE, action) => {
         case MAP_EXPENSES:
             return {...state, linkLoading: true};
         case MAP_EXPENSES_SUCCESS:
+            console.log("Success");
             return {...state, linkLoading: false, categories: action.payload};
         case MAP_EXPENSES_FAIL:
             return {...state, linkLoading: false, error: action.payload};
