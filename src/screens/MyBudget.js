@@ -45,17 +45,18 @@ class MyBudget extends Component {
                             justifyContent: 'center'
                         }} color='#1c313a'/>) : (
                         <Container>
-                            <View style={[styles.incomeFormStyle, {flex: 0.1, alignItems: 'center'}]}>
-                                <Text style={styles.listText}>{I18n.t('budgetIncome')}
-                                </Text>
-                                <Text style={styles.listText}>{this.props.income} {I18n.t('currency')}
-                                </Text>
+                            <View style={{flex: 0.1, justifyContent: 'center', paddingVertical: 10}}>
+                                <View style={[styles.incomeFormStyle]}>
+                                    <Text style={styles.listText}>{I18n.t('budgetIncome')}
+                                    </Text>
+                                    <Text style={styles.listText}>{this.props.income} {I18n.t('currency')}
+                                    </Text>
+                                </View>
                             </View>
-
                             <Separator/>
 
-                            <View style={{flex: 0.7, alignSelf: 'stretch'}}>
-                                <View style={styles.incomeFormStyle}>
+                            <View style={{flex: 0.5, alignSelf: 'stretch', paddingTop: 20}}>
+                                <View style={[styles.incomeFormStyle, ]}>
                                     <Label style={styles.textStyle}>{I18n.t('budgetExpenses')}
                                     </Label>
                                 </View>
@@ -69,9 +70,9 @@ class MyBudget extends Component {
                             <Separator/>
 
                             {this.props.debts.length !== 0 &&
-                            <View style={[this.props.debts.length > 2 ?
-                                {flex: 0.25, alignSelf: 'stretch'} :
-                                {flex: 0.125, alignSelf: 'stretch'}]}>
+                            <View style={this.props.debts.length > 2 ?
+                                {flex: 0.4, alignSelf: 'stretch', paddingTop: 20} :
+                                {flex: 0.27}}>
                                 <View style={styles.incomeFormStyle}>
                                     <Label style={styles.textStyle}>{I18n.t('budgetDebts')}</Label>
                                 </View>
@@ -84,9 +85,9 @@ class MyBudget extends Component {
                             </View>
                             }
 
-                            <View style={[styles.newStyle]}>
+                            <View style={{flex: 0.30}}>
                                 <View style={styles.budgetSummary}>
-                                    <View style={styles.incomeFormStyle}>
+                                    <View style={[styles.incomeFormStyle, {paddingTop: '5%', flex: 1}]}>
                                         <Text style={styles.listText}>
                                             {I18n.t('budgetTotalExpenses')}
                                         </Text>
@@ -95,7 +96,7 @@ class MyBudget extends Component {
                                         </Text>
                                     </View>
 
-                                    <View style={styles.incomeFormStyle}>
+                                    <View style={[styles.incomeFormStyle, {flex: 1}]}>
                                         <Text style={styles.listText}>
                                             {I18n.t('budgetDisposable')}
                                         </Text>
@@ -106,7 +107,7 @@ class MyBudget extends Component {
 
                                     <Button transparent
                                             onPress={() => this.bottomModal.showModal()}
-                                            style={styles.buttonStyle}
+                                            style={[styles.buttonStyle, {flex: 1}]}
                                     >
                                         <Icon name="ios-arrow-dropup-circle"
                                               style={{color: "#1c313a"}}/>
@@ -129,7 +130,7 @@ class MyBudget extends Component {
 
     renderCategory = ({item}) => {
         return (
-            <ListItem>
+            <ListItem style={{paddingLeft: 6, paddingRight: 18}}>
                 <Body>
                 <Text style={styles.listText}>{item.categoryData.name}</Text>
                 </Body>
@@ -142,7 +143,7 @@ class MyBudget extends Component {
 
     renderDebt = ({item}) => {
         return (
-            <ListItem>
+            <ListItem style={{paddingLeft: 6, paddingRight: 18}}>
                 <Body>
                 <Text style={styles.listText}>{item.debtData.name}</Text>
                 </Body>
@@ -156,20 +157,21 @@ class MyBudget extends Component {
 const styles = StyleSheet.create({
     buttonStyle: {
         justifyContent: 'flex-end',
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
+        paddingBottom: 10
     },
     incomeFormStyle: {
         alignSelf: 'center',
         width: '90%',
         justifyContent: 'space-between',
-        flexDirection: 'row',
-        marginTop: '3%'
+        flexDirection: 'row'
     },
-    newStyle: {
+    expenseListStyle: {
         alignSelf: 'center',
+        width: '90%',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        flex: 0.30
+        paddingTop: 23
     },
     itemStyle: {
         fontWeight: '600',
@@ -185,11 +187,9 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     budgetSummary: {
-        flexDirection: 'column',
-        flexGrow: 1,
+        marginBottom: 0,
         justifyContent: 'space-between',
-        alignItems: 'stretch',
-        width: '100%'
+        flex: 1
     },
     textStyle: {
         fontWeight: '400',
@@ -198,8 +198,8 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
     listText: {
-        alignSelf: 'flex-start',
         marginLeft: 5,
+        alignSelf: 'flex-start',
         fontSize: 16
     },
     modalButton: {
@@ -221,14 +221,16 @@ const mapStateToProps = (state) => {
         budgetID
     } = state.budget;
 
-    return {categories,
+    return {
+        categories,
         loading,
         income,
         debts,
         totalExpenses,
         disposable,
         destination,
-        budgetID}
+        budgetID
+    }
 };
 
 export default connect(mapStateToProps, {

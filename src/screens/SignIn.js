@@ -13,7 +13,7 @@ import {
     codeChanged,
     authScreenSwitched
 } from '../actions';
-import screenStyles from './ScreenStyles';
+import {container} from "../style";
 import I18n from "../strings/i18n";
 
 class SignIn extends Component {
@@ -46,7 +46,7 @@ class SignIn extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView behavior='padding' style={screenStyles.container}>
+            <KeyboardAvoidingView behavior='padding' style={container.signedOutContainer}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <Container style={{alignSelf: 'stretch'}}>
 
@@ -86,13 +86,6 @@ class SignIn extends Component {
 }
 
 const styles = {
-    container: {
-        backgroundColor: '#455a64',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '80%'
-    },
     optionContainer: {
         alignItems: 'flex-start',
         alignSelf: 'center',

@@ -14,53 +14,54 @@ export class Toolbox extends Component {
             <Modal position={"bottom"} ref={"bottomModal"}>
                 <Label style={[text.defaultText, {
                     alignSelf: 'center',
-                    marginTop: 10
+                    marginTop: 5
                 }]}>{I18n.t('myBudgetToolboxEdit')}</Label>
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginTop: 5,
-                    marginHorizontal: 40
-                }}>
-                    <Button
-                        transparent
-                        onPress={() => this.props.navigateUser("EditBudget")}
-                    >
-                        <View style={button.modalButton}>
-                            <Icon name="md-clipboard"
-                                  style={{color: "#1c313a"}}/>
-                            <Label style={text.defaultText}>
-                                {I18n.t('myBudgetToolboxBudget')}
+
+                <View style={{flexGrow: 1, flexDirection: 'column', justifyContent: 'center'}}>
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginHorizontal: 40
+                    }}>
+                        <Button
+                            transparent
+                            onPress={() => this.props.navigateUser("EditBudget")}
+                        >
+                            <View style={button.modalButton}>
+                                <Icon name="md-clipboard"
+                                      style={{color: "#1c313a"}}/>
+                                <Label style={text.defaultText}>
+                                    {I18n.t('myBudgetToolboxBudget')}
                                 </Label>
-                        </View>
-                    </Button>
+                            </View>
+                        </Button>
 
-                    <Button
-                        transparent
-                        onPress={() => this.props.navigateUser("EditDisposable")}
-                    >
-                        <View style={button.modalButton}>
-                            <Icon name="logo-usd" style={{color: "#1c313a"}}/>
-                            <Label style={text.defaultText}>
-                                {I18n.t('myBudgetToolboxDisposable')}
-                            </Label>
-                        </View>
-                    </Button>
+                        <Button
+                            transparent
+                            onPress={() => this.props.navigateUser("EditDisposable")}
+                        >
+                            <View style={button.modalButton}>
+                                <Icon name="logo-usd" style={{color: "#1c313a"}}/>
+                                <Label style={text.defaultText}>
+                                    {I18n.t('myBudgetToolboxDisposable')}
+                                </Label>
+                            </View>
+                        </Button>
 
-                    <Button
-                        transparent
-                        onPress={() => this.props.navigateUser("DebtOverview")}
-                    >
-                        <View style={button.modalButton}>
-                            <Icon name="ios-archive" style={{color: "#1c313a"}}/>
-                            <Label style={text.defaultText}>
-                                {I18n.t('myBudgetToolboxDebt')}
-                            </Label>
-                        </View>
-                    </Button>
+                        <Button
+                            transparent
+                            onPress={() => this.props.navigateUser("DebtOverview")}
+                        >
+                            <View style={button.modalButton}>
+                                <Icon name="ios-archive" style={{color: "#1c313a"}}/>
+                                <Label style={text.defaultText}>
+                                    {I18n.t('myBudgetToolboxDebt')}
+                                </Label>
+                            </View>
+                        </Button>
+                    </View>
                 </View>
-
                 <Button transparent
                         onPress={() => this.refs.bottomModal.close()}
                         style={button.bottomRight}

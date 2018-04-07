@@ -31,7 +31,8 @@ export const button = StyleSheet.create({
     },
     bottomRight: {
         justifyContent: 'flex-end',
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
+        marginBottom: 5
     },
     headerDialogButton: {
         height: 30,

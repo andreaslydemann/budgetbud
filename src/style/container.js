@@ -9,17 +9,17 @@ export const container = StyleSheet.create({
         width: '100%'
     },
     signedOutContainer: {
-        backgroundColor: '#455a64',
-        flex: 1,
+        backgroundColor: "#166a97",
+        flex: 2,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     spacedTextWrapper: {
         alignSelf: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row'
     },
-    fullWidth: {
+    fullWidth: {
         width: '100%'
     },
     removeIndenting: {

@@ -21,6 +21,8 @@ class Intro extends Component {
         await this.props.getLinkedAccounts();
     }
 
+
+
     render() {
         return (
             <Container style={{alignItems: 'stretch'}}>

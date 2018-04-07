@@ -26,7 +26,7 @@ class Setup extends Component {
 
     handleConnectivityChange = (connectionInfo) => {
         if (connectionInfo.type === 'none') {
-            this.setState({isReady: true, isAuthorized: false, isOffline: true});
+            this.setState({...this.state, isReady: true, isOffline: true});
 
             NetInfo.removeEventListener(
                 'connectionChange',
@@ -46,10 +46,10 @@ class Setup extends Component {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 this.props.getBudgetID(user, () => {
-                    this.setState({isReady: true, isAuthorized: true, isOffline: false});
+                    this.setState({...this.state, isReady: true, isAuthorized: true});
                 });
             } else {
-                this.setState({isReady: true, isAuthorized: false, isOffline: false});
+                this.setState({...this.state, isReady: true, isAuthorized: false});
             }
         });
     }

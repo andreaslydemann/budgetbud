@@ -13,7 +13,7 @@ import {
     phoneNumberChanged,
     authScreenSwitched
 } from '../actions';
-import screenStyles from './ScreenStyles';
+import {container} from "../style";
 import I18n from "../strings/i18n";
 
 class SignUp extends Component {
@@ -41,11 +41,11 @@ class SignUp extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView behavior='padding' style={screenStyles.container}>
+            <KeyboardAvoidingView behavior='padding' style={container.signedOutContainer}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <Container style={{alignSelf: 'stretch'}}>
 
-                        <Logo logoText={I18n.t('signInLogoWelcome')}/>
+                        <Logo style={{flex: 2}} logoText={I18n.t('signInLogoWelcome')}/>
 
                         <AuthForm handleSubmit={this.handleSubmit}
                                   onCprNumberChange={this.onCprNumberChange}
@@ -76,13 +76,6 @@ class SignUp extends Component {
 }
 
 const styles = {
-    container: {
-        backgroundColor: '#455a64',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '80%'
-    },
     optionContainer: {
         flexShrink: 1,
         alignItems: 'flex-start',
