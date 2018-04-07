@@ -8,6 +8,12 @@ export const container = StyleSheet.create({
         alignItems: 'stretch',
         width: '100%'
     },
+    signedOutContainer: {
+        backgroundColor: '#455a64',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     spacedTextWrapper: {
         alignSelf: 'center',
         justifyContent: 'space-between',

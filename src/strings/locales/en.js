@@ -54,6 +54,7 @@ export default {
     myBudgetToolboxBudget: 'Budget',
     myBudgetToolboxDisposable: 'Disposable',
     myBudgetToolboxDebt: 'Debt',
+    noConnection: 'Lost connection to the internet',
     settingsHeader: 'Settings',
     settingsConfirmDialogBody: 'Do you want to delete your budget?',
     settingsUserDetails: 'User details',

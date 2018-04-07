@@ -45,7 +45,7 @@ class SignUp extends Component {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <Container style={{alignSelf: 'stretch'}}>
 
-                        <Logo/>
+                        <Logo logoText={I18n.t('signInLogoWelcome')}/>
 
                         <AuthForm handleSubmit={this.handleSubmit}
                                   onCprNumberChange={this.onCprNumberChange}

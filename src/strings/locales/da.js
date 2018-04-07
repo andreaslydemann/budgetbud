@@ -54,6 +54,7 @@ export default {
     myBudgetToolboxBudget: 'Budget',
     myBudgetToolboxDisposable: 'Rådighedsbeløb',
     myBudgetToolboxDebt: 'Gæld',
+    noConnection: 'Mistet forbindelse til internettet',
     settingsHeader: 'Indstillinger',
     settingsConfirmDialogBody: 'Vil du slette dit budget?',
     settingsUserDetails: 'Brugeroplysninger',

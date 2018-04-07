@@ -20,6 +20,7 @@ import DebtPreview from './screens/DebtPreview';
 import EditDisposable from "./screens/EditDisposable";
 import Accounts from "./screens/Accounts";
 import DisposablePreview from "./screens/DisposablePreview";
+import Offline from "./screens/Offline";
 import {connect} from "react-redux";
 
 class App extends Component {
@@ -87,9 +88,12 @@ class App extends Component {
                 Drawer: {screen: Drawer},
                 SignIn: {screen: SignIn},
                 SignUp: {screen: SignUp},
+                Offline: {screen: Offline},
             },
             {
-                initialRouteName: this.props.isAuthorized ? 'Drawer' : 'SignIn',
+                initialRouteName:
+                    (this.props.isOffline ? 'Offline' :
+                        (this.props.isAuthorized ? 'Drawer' : 'SignIn')),
                 navigationOptions: {gesturesEnabled: false},
                 headerMode: "none"
             }
