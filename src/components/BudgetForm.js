@@ -36,6 +36,7 @@ export class BudgetForm extends PureComponent {
     });
 
     render() {
+        console.log(this.props.categories);
         return (
             <Container>
                 <View style={container.incomeFormStyle}>
@@ -56,7 +57,7 @@ export class BudgetForm extends PureComponent {
 
                 <View style={{flex: 4, alignItems: 'stretch'}}>
                     <FlatList
-                        data={this.props.categoryItems}
+                        data={this.props.categories}
                         renderItem={this.renderItem}
                         style={container.removeIndenting}
                     />
@@ -98,7 +99,7 @@ export class BudgetForm extends PureComponent {
                         {this.props.loading ? (
                             <Spinner color='#D0D0D0'/>) : (
                             <Text style={text.submitButtonText}>
-                                {this.props.budgetID !== '' ?
+                                {!this.props.budgetID ?
                                     I18n.t('editBudgetButton') : I18n.t('createBudgetButton')}
                             </Text>
                         )}
@@ -112,7 +113,7 @@ export class BudgetForm extends PureComponent {
         return (
             <ListItem>
                 <Body>
-                <Label style={text.defaultText}>{item.name + ":"}</Label>
+                <Label style={text.defaultText}>{item.name}</Label>
                 <Item rounded style={input.inputField}>
                     <Input
                         onChangeText={this.props.onCategoryChanged.bind(this, item.name)}

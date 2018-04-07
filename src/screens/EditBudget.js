@@ -12,6 +12,11 @@ import {
 import * as _ from "lodash";
 
 class EditBudget extends Component {
+    async componentWillMount() {
+        await this.props.getLinkedAccounts();
+        await this.props.mapExpensesToBudget(this.props.linkedAccounts);
+    };
+
     onIncomeChange = (text) => {
         this.props.incomeChanged(text);
     };
@@ -78,6 +83,8 @@ const mapStateToProps = (state) => {
         return {...item.categoryData, categoryID: item.id, key: key};
     });
 
+    const {linkedAccounts} = state.account;
+
     return {
         income,
         debt,
@@ -85,7 +92,8 @@ const mapStateToProps = (state) => {
         disposable,
         loading,
         error,
-        categoryItems
+        categoryItems,
+        linkedAccounts
     };
 };
 
