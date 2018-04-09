@@ -17,13 +17,13 @@ import {getBudget, getCategories, getDebts} from "../actions";
 import I18n from "../strings/i18n";
 
 class MyBudget extends Component {
-    componentWillMount() {
-        this.props.getBudget(this.props.budgetID, () => {
-            this.props.navigation.navigate('CreateBudget')
-        });
+    async componentWillMount() {
+        if (!this.props.budgetID)
+            this.props.navigation.navigate("CreateBudget");
 
-        this.props.getCategories(this.props.budgetID);
-        this.props.getDebts(this.props.budgetID);
+        await this.props.getBudget(this.props.budgetID);
+        await this.props.getCategories(this.props.budgetID);
+        await this.props.getDebts(this.props.budgetID);
     }
 
     navigateUser = (destination) => {
@@ -63,7 +63,7 @@ class MyBudget extends Component {
                                 <FlatList
                                     data={this.props.categories}
                                     renderItem={this.renderCategory}
-                                    keyExtractor={item => item.id}
+                                    keyExtractor={item => item.categoryData.name}
                                 />
                             </View>
 
@@ -130,7 +130,7 @@ class MyBudget extends Component {
 
     renderCategory = ({item}) => {
         return (
-            <ListItem style={{paddingLeft: 6, paddingRight: 18}}>
+            <ListItem key={item.categoryData.name} style={{paddingLeft: 6, paddingRight: 18}}>
                 <Body>
                 <Text style={styles.listText}>{item.categoryData.name}</Text>
                 </Body>
@@ -143,7 +143,7 @@ class MyBudget extends Component {
 
     renderDebt = ({item}) => {
         return (
-            <ListItem style={{paddingLeft: 6, paddingRight: 18}}>
+            <ListItem key={item.debtData.name} style={{paddingLeft: 6, paddingRight: 18}}>
                 <Body>
                 <Text style={styles.listText}>{item.debtData.name}</Text>
                 </Body>

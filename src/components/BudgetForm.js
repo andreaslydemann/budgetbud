@@ -22,8 +22,8 @@ import I18n from "../strings/i18n";
 
 export class BudgetForm extends PureComponent {
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.error)
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.error)
             this.showToast(nextProps.error);
     }
 
@@ -36,7 +36,6 @@ export class BudgetForm extends PureComponent {
     });
 
     render() {
-        console.log(this.props.categories);
         return (
             <Container>
                 <View style={container.incomeFormStyle}>
@@ -47,7 +46,7 @@ export class BudgetForm extends PureComponent {
                     <Item rounded style={input.inputField}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
-                            amount={String(this.props.income)}
+                            value={String(this.props.income)}
                             keyboardType="numeric"
                         />
                     </Item>
@@ -56,11 +55,14 @@ export class BudgetForm extends PureComponent {
                 <Separator/>
 
                 <View style={{flex: 4, alignItems: 'stretch'}}>
-                    <FlatList
-                        data={this.props.categories}
-                        renderItem={this.renderItem}
-                        style={container.removeIndenting}
-                    />
+                    {this.props.linkLoading ? (
+                        <Spinner color='#1c313a'/>) : (
+                        <FlatList
+                            data={this.props.categories}
+                            renderItem={this.renderItem}
+                            style={container.removeIndenting}
+                            keyExtractor={(item, index) => index}
+                        />)}
                 </View>
 
                 <Separator/>
@@ -90,7 +92,7 @@ export class BudgetForm extends PureComponent {
                 <View>
                     <Button rounded
                             onPress={
-                                !this.props.testInput(this.props.income, this.props.categories) ?
+                                !this.props.checkInput(this.props.income, this.props.categories) ?
                                     this.showToast('Ugyldig indtastning!') :
                                     this.props.handleSubmit
                             }
@@ -117,7 +119,7 @@ export class BudgetForm extends PureComponent {
                 <Item rounded style={input.inputField}>
                     <Input
                         onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
-                        amount={String(item.amount)}
+                        value={String(item.amount)}
                         keyboardType="numeric"
                         style={{width: '90%', fontSize: 13}}
                     />

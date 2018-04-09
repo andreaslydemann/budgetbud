@@ -34,7 +34,7 @@ class CreateBudget extends Component {
         });
     };
 
-    testInput = (income, categories) => {
+    checkInput = (income, categories) => {
         let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
         if (!allowedRegex.test(income))
             return false;
@@ -59,7 +59,7 @@ class CreateBudget extends Component {
                 <BudgetForm handleSubmit={this.handleSubmit}
                             onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
-                            testInput={this.testInput}
+                            checkInput={this.checkInput}
                             income={this.props.income}
                             totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}
@@ -67,6 +67,7 @@ class CreateBudget extends Component {
                             debts={this.props.debts}
                             loading={this.props.loading}
                             error={this.props.error}
+                            linkLoading={this.props.linkLoading}
                 />
             </Container>
         );
@@ -83,7 +84,7 @@ const mapStateToProps = (state) => {
         error
     } = state.budget;
 
-    const {categories, linkedAccounts} = state.account;
+    const {categories, linkedAccounts, linkLoading} = state.account;
 
     return {
         income,
@@ -93,7 +94,8 @@ const mapStateToProps = (state) => {
         totalExpenses,
         disposable,
         loading,
-        error
+        error,
+        linkLoading
     };
 };
 

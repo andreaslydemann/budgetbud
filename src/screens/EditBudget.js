@@ -7,9 +7,10 @@ import I18n from "../strings/i18n";
 import {
     editBudget,
     incomeChanged,
-    categoryChanged
+    categoryChanged,
+    getLinkedAccounts,
+    mapExpensesToBudget
 } from "../actions";
-import * as _ from "lodash";
 
 class EditBudget extends Component {
     async componentWillMount() {
@@ -33,7 +34,7 @@ class EditBudget extends Component {
         });
     };
 
-    testInput = (income, categories) => {
+    checkInput = (income, categories) => {
         let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
         if (!allowedRegex.test(income))
             return false;
@@ -55,14 +56,15 @@ class EditBudget extends Component {
                 <BudgetForm handleSubmit={this.handleSubmit}
                             onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
-                            testInput={this.testInput}
+                            checkInput={this.checkInput}
                             income={this.props.income}
                             totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}
                             categories={this.props.categories}
-                            debt={this.props.debt}
+                            debts={this.props.debts}
                             loading={this.props.loading}
                             error={this.props.error}
+                            linkLoading={this.props.linkLoading}
                 />
             </Container>
         );
@@ -72,35 +74,35 @@ class EditBudget extends Component {
 const mapStateToProps = (state) => {
     const {
         income,
-        debt,
+        debts,
         totalExpenses,
         disposable,
         loading,
         error
     } = state.budget;
 
-    const categoryItems = _.map(state.category.categories, (item, key) => {
-        return {...item.categoryData, categoryID: item.id, key: key};
-    });
-
-    const {linkedAccounts} = state.account;
+    const {categories, linkedAccounts, linkLoading} = state.account;
 
     return {
         income,
-        debt,
+        categories,
+        linkedAccounts,
+        debts,
         totalExpenses,
         disposable,
         loading,
         error,
-        categoryItems,
-        linkedAccounts
+        linkLoading
     };
 };
+
 
 const mapDispatchToProps = {
     editBudget,
     incomeChanged,
-    categoryChanged
+    categoryChanged,
+    getLinkedAccounts,
+    mapExpensesToBudget
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditBudget);

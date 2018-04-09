@@ -68,13 +68,10 @@ export const createBudget = ({income, categories, totalExpenses, disposable}, ca
         }
     };
 
-export const getBudget = (budgetID, callback) => async dispatch => {
+export const getBudget = (budgetID) => async dispatch => {
     dispatch({type: GET_BUDGET});
 
     try {
-        if (budgetID)
-            callback();
-
         let token = await firebase.auth().currentUser.getIdToken();
 
         let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudget?budgetID=${budgetID}`,
