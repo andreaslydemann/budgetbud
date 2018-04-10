@@ -25,7 +25,6 @@ import {BUDGETBUD_FUNCTIONS_URL, EBANKING_FUNCTIONS_URL} from "./consts";
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
         let token = await user.getIdToken();
-        console.log(token)
 
         const {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudgetID?userID=${user.uid}`,
             {headers: {Authorization: 'Bearer ' + token}});
@@ -81,19 +80,20 @@ export const getBudget = (budgetID) => async dispatch => {
     }
 };
 
-export const editBudget = ({budgetID, income, categories}, callback) => async dispatch => {
+export const editBudget = ({budgetID, income, disposable, totalGoalsAmount}, callback) => async dispatch => {
     dispatch({type: EDIT_BUDGET});
     let token = await firebase.auth().currentUser.getIdToken();
 
     try {
         await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editBudget`,
-            {budgetID, income, categories},
+            {budgetID, income, disposable, totalGoalsAmount},
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({
             type: EDIT_BUDGET_SUCCESS,
             income,
-            categories
+            disposable,
+            totalGoalsAmount
         });
 
     } catch (err) {
