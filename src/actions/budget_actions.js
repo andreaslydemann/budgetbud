@@ -66,14 +66,13 @@ export const getBudget = (budgetID) => async dispatch => {
 
     try {
         let token = await firebase.auth().currentUser.getIdToken();
-        console.log(token)
 
         let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudget?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({
             type: GET_BUDGET_SUCCESS,
-            payload: data.error
+            payload: data.budgetData
         });
 
     } catch (err) {

@@ -31,6 +31,7 @@ class MyBudget extends Component {
     };
 
     render() {
+        console.log(this.props.budgetID);
         return (
             <Container style={{flexGrow: 1}}>
                 <AppHeader headerText={I18n.t('myBudgetHeader')}
@@ -156,7 +157,7 @@ class MyBudget extends Component {
                 <Text style={styles.listText}>{item.debtData.name}</Text>
                 </Body>
                 <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>
-                    {item.debtData.amount} {I18n.t('currency')}</Text>
+                    {item.debtData.totalAmount} {I18n.t('currency')}</Text>
             </ListItem>
         );
     };

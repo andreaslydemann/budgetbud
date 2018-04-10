@@ -49,6 +49,8 @@ export default (state = INITIAL_STATE, action) => {
         case GET_BUDGET:
             return {...state, budgetLoading: true, budgetError: ''};
         case GET_BUDGET_SUCCESS:
+            console.log("Success");
+            console.log(action.payload);
             return {
                 ...state,
                 budgetLoading: false,
