@@ -59,6 +59,7 @@ export const GET_CATEGORIES_OF_DEBT_FAIL = 'get_categories_of_debt_fail';
 export const CATEGORIES_SELECTED = 'categories_selected';
 export const CALCULATE_CATEGORY_SUBTRACTIONS = 'calculate_category_subtractions';
 export const CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_category_subtractions_success';
+export const CALCULATE_CATEGORY_SUBTRACTIONS_FAIL  = 'calculate_category_subtractions_fail';
 
 // ----------ACCOUNT RELATED TYPES----------
 export const GET_ACCOUNTS = 'get_ebanking_accounts';

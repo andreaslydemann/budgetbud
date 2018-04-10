@@ -10,7 +10,8 @@ import {
     GET_CATEGORIES_OF_DEBT_SUCCESS,
     CATEGORIES_SELECTED,
     CALCULATE_CATEGORY_SUBTRACTIONS,
-    CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS
+    CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS,
+    CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
 } from "./types";
 
 export const getCategories = (budgetID) => async dispatch => {
@@ -33,8 +34,6 @@ export const getCategories = (budgetID) => async dispatch => {
 export const getCategoriesOfDebt = (debtID) => async dispatch => {
     try {
         dispatch({type: GET_CATEGORIES_OF_DEBT});
-
-        // check for categories != null, else get categories first
 
         let token = await firebase.auth().currentUser.getIdToken();
 
@@ -78,7 +77,7 @@ export const calculateCategorySubtractions =
             callback();
         } catch (err) {
             let {data} = err.response;
-            //getCategoriesFail(dispatch, data.error);
+            dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_FAIL, payload: data});
         }
     };
 

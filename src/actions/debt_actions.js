@@ -77,37 +77,8 @@ const getDebtsFail = (dispatch, error) => {
 };
 
 export const createDebt =
-    ({name, amount, expirationDate, categoryDebtItems, budgetID}) => async dispatch => {
-    dispatch({type: CREATE_DEBT});
-
-    try {
-        const categories = [];
-
-        categoryDebtItems.forEach(c => {
-            categories.push({
-                categoryID: c.categoryID,
-                newAmount: c.afterAmount,
-                amountToSubtract: c.amountToSubtract
-            });
-        });
-
-        let token = await firebase.auth().currentUser.getIdToken();
-
-        await axios.post(`${ROOT_URL}/createDebt`,
-            {name, amount, expirationDate, budgetID, categories}, {
-                headers: {Authorization: 'Bearer ' + token}
-            });
-
-        dispatch({type: CREATE_DEBT_SUCCESS});
-    } catch (err) {
-        let {data} = err.response;
-        console.log(data.error);
-    }
-};
-
-export const editDebt =
-    ({name, amount, expirationDate, categoryDebtItems, selectedDebt, budgetID}) => async dispatch => {
-        dispatch({type: EDIT_DEBT});
+    ({name, totalAmount, expirationDate, categoryDebtItems, budgetID}) => async dispatch => {
+        dispatch({type: CREATE_DEBT});
 
         try {
             const categories = [];
@@ -122,17 +93,47 @@ export const editDebt =
 
             let token = await firebase.auth().currentUser.getIdToken();
 
-            await axios.post(`${ROOT_URL}/editDebt`,
-                {name, amount, expirationDate, selectedDebtID: selectedDebt.id, budgetID, categories}, {
+            await axios.post(`${ROOT_URL}/createDebt`,
+                {name, totalAmount, expirationDate, budgetID, categories}, {
                     headers: {Authorization: 'Bearer ' + token}
                 });
 
-            dispatch({type: EDIT_DEBT_SUCCESS});
+            dispatch({type: CREATE_DEBT_SUCCESS});
         } catch (err) {
             let {data} = err.response;
             console.log(data.error);
         }
     };
+
+export const editDebt =
+    ({name, totalAmount, expirationDate, categoryDebtItems, selectedDebt, budgetID}) =>
+        async dispatch => {
+            dispatch({type: EDIT_DEBT});
+
+            try {
+                const categories = [];
+
+                categoryDebtItems.forEach(c => {
+                    categories.push({
+                        categoryID: c.categoryID,
+                        newAmount: c.afterAmount,
+                        amountToSubtract: c.amountToSubtract
+                    });
+                });
+
+                let token = await firebase.auth().currentUser.getIdToken();
+
+                await axios.post(`${ROOT_URL}/editDebt`,
+                    {name, totalAmount, expirationDate, debtID: selectedDebt.id, budgetID, categories}, {
+                        headers: {Authorization: 'Bearer ' + token}
+                    });
+
+                dispatch({type: EDIT_DEBT_SUCCESS});
+            } catch (err) {
+                let {data} = err.response;
+                console.log(data.error);
+            }
+        };
 
 export const deleteDebt = (debtID) => async dispatch => {
     try {

@@ -22,7 +22,7 @@ class EditDebt extends Component {
 
     onContinuePress = () => {
         this.props.calculateCategorySubtractions(
-            this.props.amount,
+            this.props.totalAmount,
             this.props.expirationDate,
             this.props.selectedCategories, () => {
                 this.props.navigation.navigate('DebtPreview');
@@ -42,7 +42,7 @@ class EditDebt extends Component {
                           expirationDateChanged={this.props.expirationDateChanged}
                           categoriesSelected={this.props.categoriesSelected}
                           name={this.props.name}
-                          amount={this.props.amount}
+                          amount={this.props.totalAmount}
                           expirationDate={this.props.expirationDate}
                           categoryItems={this.props.categoryItems}
                           selectedCategories={this.props.selectedCategories}
@@ -56,7 +56,7 @@ class EditDebt extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {name, amount, expirationDate, selectedDebt} = state.debt;
+    const {name, totalAmount, expirationDate, selectedDebt} = state.debt;
     const {
         categories,
         categoriesOfDebt,
@@ -87,7 +87,7 @@ const mapStateToProps = (state) => {
 
     return {
         name,
-        amount,
+        totalAmount,
         expirationDate,
         selectedDebt,
         categoriesOfDebt,

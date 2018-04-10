@@ -87,7 +87,7 @@ class DebtPreview extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {name, amount, expirationDate, selectedDebt, debtLoading} = state.debt;
+    const {name, totalAmount, expirationDate, selectedDebt, debtLoading} = state.debt;
     const {
         categories,
         categoriesOfDebt,
@@ -129,7 +129,7 @@ const mapStateToProps = (state) => {
 
     return {
         name,
-        amount,
+        totalAmount,
         expirationDate,
         categoryDebtItems,
         selectedDebt,

@@ -47,40 +47,38 @@ class Accounts extends PureComponent {
     render() {
         return (
             <Container>
-                <Container>
-                    <AppHeader headerText={I18n.t('accountsHeader')}
-                               showBackButton={true}
-                               onLeftButtonPress={() => this.props.navigation.pop()}/>
+                <AppHeader headerText={I18n.t('accountsHeader')}
+                           showBackButton={true}
+                           onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                    <Container style={{flex: 4, justifyContent: 'center'}}>
-                        {this.props.accountsLoading ? (
-                            <Spinner style={{
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }} color='#1c313a'/>) : (
-                            <FlatList
-                                data={this.props.accountItems}
-                                renderItem={this.renderItem}
-                            />
-                        )}
-                    </Container>
-
-                    <Separator/>
-
-                    <Button rounded
-                            onPress={() => {
-                                if (!this.props.linkLoading) {
-                                    this.onSavePress()
-                                }
-                            }}
-                            style={button.defaultButton}
-                    >
-                        {this.props.linkLoading ? (
-                            <Spinner color='#D0D0D0'/>) : (
-                            <Text style={text.submitButtonText}>{I18n.t('accountsSaveButton')}</Text>
-                        )}
-                    </Button>
+                <Container style={{flex: 4, justifyContent: 'center'}}>
+                    {this.props.accountsLoading ? (
+                        <Spinner style={{
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }} color='#1c313a'/>) : (
+                        <FlatList
+                            data={this.props.accountItems}
+                            renderItem={this.renderItem}
+                        />
+                    )}
                 </Container>
+
+                <Separator/>
+
+                <Button rounded
+                        onPress={() => {
+                            if (!this.props.linkLoading) {
+                                this.onSavePress()
+                            }
+                        }}
+                        style={button.defaultButton}
+                >
+                    {this.props.linkLoading ? (
+                        <Spinner color='#D0D0D0'/>) : (
+                        <Text style={text.submitButtonText}>{I18n.t('accountsSaveButton')}</Text>
+                    )}
+                </Button>
             </Container>
         );
     }
