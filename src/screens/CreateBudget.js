@@ -8,8 +8,8 @@ import {
     incomeChanged,
     categoryChanged,
     createBudget,
-    getLinkedAccounts,
-    mapExpensesToBudget
+    mapExpensesToBudget,
+    getLinkedAccounts
 } from '../actions';
 
 class CreateBudget extends Component {
@@ -63,10 +63,10 @@ class CreateBudget extends Component {
                             income={this.props.income}
                             totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}
-                            categories={this.props.categories}
+                            tmpCategories={this.props.tmpCategories}
                             debts={this.props.debts}
                             budgetLoading={this.props.budgetLoading}
-                            error={this.props.error}
+                            budgetError={this.props.budgetError}
                             linkLoading={this.props.linkLoading}
                 />
             </Container>
@@ -81,21 +81,23 @@ const mapStateToProps = (state) => {
         totalExpenses,
         disposable,
         budgetLoading,
-        error
+        budgetError
     } = state.budget;
 
-    const {categories, linkedAccounts, linkLoading} = state.account;
+    const linkedAccounts = state.account.linkedAccounts;
+    const {tmpCategories, categoriesLoading, categoriesError} = state.category;
 
     return {
         income,
-        categories,
+        tmpCategories,
         linkedAccounts,
         debts,
         totalExpenses,
         disposable,
         budgetLoading,
-        error,
-        linkLoading
+        categoriesError,
+        budgetError,
+        categoriesLoading
     };
 };
 

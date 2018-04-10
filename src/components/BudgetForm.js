@@ -23,8 +23,8 @@ import I18n from "../strings/i18n";
 export class BudgetForm extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.error)
-            this.showToast(nextProps.error);
+        if (nextProps.budgetError)
+            this.showToast(nextProps.budgetError);
     }
 
     showToast = (errorMsg) => Toast.show({
@@ -58,7 +58,7 @@ export class BudgetForm extends PureComponent {
                     {this.props.linkLoading ? (
                         <Spinner color='#1c313a'/>) : (
                         <FlatList
-                            data={this.props.categories}
+                            data={this.props.tmpCategories}
                             renderItem={this.renderItem}
                             style={container.removeIndenting}
                             keyExtractor={(item, index) => index}
@@ -92,7 +92,7 @@ export class BudgetForm extends PureComponent {
                 <View>
                     <Button rounded
                             onPress={
-                                !this.props.checkInput(this.props.income, this.props.categories) ?
+                                !this.props.checkInput(this.props.income, this.props.tmpCategories) ?
                                     this.showToast('Ugyldig indtastning!') :
                                     this.props.handleSubmit
                             }

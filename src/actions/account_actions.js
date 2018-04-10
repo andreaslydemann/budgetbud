@@ -14,7 +14,8 @@ import {
     LINK_ACCOUNTS_FAIL,
     ACCOUNTS_SELECTED,
     GET_LINKED_ACCOUNTS_SUCCESS,
-    GET_LINKED_ACCOUNTS_FAIL
+    GET_LINKED_ACCOUNTS_FAIL,
+    GET_LINKED_ACCOUNTS
 } from './types';
 
 export const getAccounts = () => async dispatch => {
@@ -70,7 +71,7 @@ export const accountsSelected = list => {
     };
 };
 
-export const getlinkedAccounts = () => async dispatch => {
+export const getLinkedAccounts = () => async dispatch => {
     dispatch({type: GET_LINKED_ACCOUNTS});
 
     try {
@@ -81,7 +82,10 @@ export const getlinkedAccounts = () => async dispatch => {
             await axios.get(`${budgetBudFunctionsURL}/getLinkedAccounts?userID=${userID}`,
                 {headers: {Authorization: 'Bearer ' + token}});
 
-        dispatch({type: GET_LINKED_ACCOUNTS_SUCCESS, payload: data});
+        dispatch({
+            type: GET_LINKED_ACCOUNTS_SUCCESS,
+            payload: data
+        });
     } catch (err) {
         let {data} = err.response;
         dispatch({type: GET_LINKED_ACCOUNTS_FAIL, payload: data});

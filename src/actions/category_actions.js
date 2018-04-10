@@ -10,15 +10,41 @@ import {
     GET_CATEGORIES_OF_DEBT_SUCCESS,
     CATEGORIES_SELECTED,
     CALCULATE_CATEGORY_SUBTRACTIONS,
-    CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS
+    CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS,
+    CREATE_CATEGORIES,
+    CREATE_CATEGORIES_SUCCESS,
+    CREATE_CATEGORIES_FAIL,
+    GET_MAPPED_CATEGORIES,
+    GET_MAPPED_CATEGORIES_SUCCESS,
+    GET_MAPPED_CATEGORIES_FAIL
 } from "./types";
+import {BUDGETBUD_FUNCTIONS_URL} from "./consts";
+
+export const createCategories = ({budgetID, categories}, callback) =>
+    async dispatch => {
+
+        dispatch({type: CREATE_CATEGORIES});
+
+        try {
+            let token = await firebase.auth().currentUser.getIdToken();
+
+            await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createCategories`,
+                {budgetID, categories},
+                {headers: {Authorization: 'Bearer ' + token}});
+
+            dispatch({type: CREATE_CATEGORIES_SUCCESS, payload: {categories}});
+            callback();
+        } catch (err) {
+            let {data} = err.response;
+            dispatch({type: CREATE_CATEGORIES_FAIL, payload: data.error});
+        }
+    };
 
 export const getCategories = (budgetID) => async dispatch => {
     try {
         dispatch({type: GET_CATEGORIES});
 
         let token = await firebase.auth().currentUser.getIdToken();
-
         let {data} = await axios.get(`${budgetBudFunctionsURL}/getCategories?budgetID=${budgetID}`, {
             headers: {Authorization: 'Bearer ' + token}
         });
@@ -35,7 +61,6 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
         dispatch({type: GET_CATEGORIES_OF_DEBT});
 
         // check for categories != null, else get categories first
-
         let token = await firebase.auth().currentUser.getIdToken();
 
         let {data} = await axios.get(`${budgetBudFunctionsURL}/getCategoriesOfDebt?debtID=${debtID}`, {
@@ -87,4 +112,39 @@ export const categoriesSelected = (selectedCategories) => {
         type: CATEGORIES_SELECTED,
         payload: selectedCategories
     };
+};
+
+export const getMappedCategories = (categories) => async dispatch => {
+    dispatch({type: GET_MAPPED_CATEGORIES});
+
+    try {
+        let amount = 0;
+        let token = await firebase.auth().currentUser.getIdToken();
+        const newCategories = categories;
+
+        let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        categoryTypes.data.filter(obj => {
+            if (obj.id === newCategories.categoryTypeID || newCategories.amount > 0)
+                    amount = newCategories.amount;
+            else
+                amount = 0;
+
+            newCategories.push({
+                categoryTypeID: obj.categoryTypeID,
+                amount
+            });
+        });
+
+        dispatch({
+            type: GET_MAPPED_CATEGORIES_SUCCESS,
+            payload: newCategories
+        });
+    }
+    catch
+        (err) {
+        let {data} = err.response;
+        dispatch({type: GET_MAPPED_CATEGORIES_FAIL, payload: data.error});
+    }
 };

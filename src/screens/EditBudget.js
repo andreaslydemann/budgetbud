@@ -8,14 +8,12 @@ import {
     editBudget,
     incomeChanged,
     categoryChanged,
-    getLinkedAccounts,
-    mapExpensesToBudget
+    getMappedCategories
 } from "../actions";
 
 class EditBudget extends Component {
     async componentWillMount() {
-        await this.props.getLinkedAccounts();
-        await this.props.mapExpensesToBudget(this.props.linkedAccounts);
+        await this.props.getMappedCategories();
     };
 
     onIncomeChange = (text) => {
@@ -60,10 +58,10 @@ class EditBudget extends Component {
                             income={this.props.income}
                             totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}
-                            categories={this.props.categories}
+                            categories={this.props.tmpCategories}
                             debts={this.props.debts}
                             budgetLoading={this.props.budgetLoading}
-                            error={this.props.error}
+                            budgetError={this.props.budgetError}
                             linkLoading={this.props.linkLoading}
                 />
             </Container>
@@ -78,21 +76,21 @@ const mapStateToProps = (state) => {
         totalExpenses,
         disposable,
         budgetLoading,
-        error
+        budgetError
     } = state.budget;
 
-    const {categories, linkedAccounts, linkLoading} = state.account;
+    const {tmpCategories, categoriesLoading, categoriesError} = state.category;
 
     return {
         income,
-        categories,
-        linkedAccounts,
         debts,
         totalExpenses,
         disposable,
         budgetLoading,
-        error,
-        linkLoading
+        budgetError,
+        tmpCategories,
+        categoriesLoading,
+        categoriesError
     };
 };
 
@@ -101,8 +99,7 @@ const mapDispatchToProps = {
     editBudget,
     incomeChanged,
     categoryChanged,
-    getLinkedAccounts,
-    mapExpensesToBudget
+    getMappedCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditBudget);

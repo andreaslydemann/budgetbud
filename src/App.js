@@ -39,13 +39,13 @@ class App extends Component {
 
         const BudgetStack = StackNavigator(
             {
-                MyBudget: {screen: MyBudget},
-                CreateBudget: {screen: CreateBudget},
                 EditBudget: {screen: EditBudget},
+                CreateBudget: {screen: CreateBudget},
+                MyBudget: {screen: MyBudget},
                 EditDisposable: {screen: EditDisposable},
+                DebtOverview: {screen: DebtOverview},
                 DisposablePreview: {screen: DisposablePreview},
                 BudgetPreview: {screen: BudgetPreview},
-                DebtOverview: {screen: DebtOverview},
                 CreateDebt: {screen: CreateDebt},
                 EditDebt: {screen: EditDebt},
                 DebtPreview: {screen: DebtPreview}

@@ -20,11 +20,10 @@ import {fromJS} from "immutable";
 const INITIAL_STATE = {
     budgetID: '',
     income: 0,
-    error: '',
+    budgetError: '',
     budgetLoading: false,
     totalExpenses: 0,
-    disposable: 0,
-    categories: []
+    disposable: 0
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -34,22 +33,21 @@ export default (state = INITIAL_STATE, action) => {
         case GET_BUDGET_ID_SUCCESS:
             return {...state, budgetID: action.payload};
         case GET_BUDGET_ID_FAIL:
-            return {...state, error: action.payload};
+            return {...state, budgetError: action.payload};
         case CREATE_BUDGET:
-            return {...state, budgetLoading: true, error: ''};
+            return {...state, budgetLoading: true, budgetError: ''};
         case CREATE_BUDGET_SUCCESS:
             return {
                 ...state,
                 budgetLoading: false,
                 income: action.payload.income,
-                categories: action.payload.categories,
                 totalExpenses: action.payload.totalExpenses,
                 disposable: action.payload.disposable
             };
         case CREATE_BUDGET_FAIL:
-            return {...state, ...INITIAL_STATE, error: action.payload};
+            return {...state, ...INITIAL_STATE, budgetError: action.payload};
         case GET_BUDGET:
-            return {...state, budgetLoading: true, error: ''};
+            return {...state, budgetLoading: true, budgetError: ''};
         case GET_BUDGET_SUCCESS:
             return {
                 ...state,
@@ -59,7 +57,7 @@ export default (state = INITIAL_STATE, action) => {
                 totalExpenses: action.payload.totalExpenses
             };
         case GET_BUDGET_FAIL:
-            return {...state, error: action.payload};
+            return {...state, budgetError: action.payload};
         case INCOME_CHANGED:
             let newDisposable = action.payload - state.totalExpenses;
             return {...state, income: action.payload, disposable: newDisposable};
@@ -76,18 +74,17 @@ export default (state = INITIAL_STATE, action) => {
             list = list.setIn([indexOfListToUpdate, 'amount'], action.payload.amount);
             return {...state, categories: list.toJS(), totalExpenses: newExpenses};
         case EDIT_BUDGET:
-            return {...state, budgetLoading: true, error: ''};
+            return {...state, budgetLoading: true, budgetError: ''};
         case EDIT_BUDGET_SUCCESS:
             return {
                 ...state,
                 budgetLoading: false,
                 income: action.payload.income,
-                categories: action.payload.categories,
                 totalExpenses: action.payload.totalExpenses,
                 disposable: action.payload.disposable
             };
         case EDIT_BUDGET_FAIL:
-            return {...state, error: action.payload};
+            return {...state, budgetError: action.payload};
         case GET_ACCOUNT_DATA:
             return state;
         default:
