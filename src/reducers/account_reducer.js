@@ -6,9 +6,6 @@ import {
     LINK_ACCOUNTS_SUCCESS,
     LINK_ACCOUNTS_FAIL,
     ACCOUNTS_SELECTED,
-    MAP_EXPENSES,
-    MAP_EXPENSES_SUCCESS,
-    MAP_EXPENSES_FAIL,
     GET_LINKED_ACCOUNTS_FAIL,
     GET_LINKED_ACCOUNTS_SUCCESS,
     GET_LINKED_ACCOUNTS
@@ -43,13 +40,6 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, linkLoading: false, error: action.payload};
         case ACCOUNTS_SELECTED:
             return {...state, linkedAccounts: action.payload};
-        case MAP_EXPENSES:
-            return {...state, linkLoading: true};
-        case MAP_EXPENSES_SUCCESS:
-            console.log("Success");
-            return {...state, linkLoading: false, categories: action.payload};
-        case MAP_EXPENSES_FAIL:
-            return {...state, linkLoading: false, error: action.payload};
         case GET_LINKED_ACCOUNTS:
             return {...state, accountsLoading: true};
         case GET_LINKED_ACCOUNTS_SUCCESS:
