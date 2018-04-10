@@ -49,6 +49,7 @@ export default (state = INITIAL_STATE, action) => {
         case GET_CATEGORIES:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case GET_CATEGORIES_SUCCESS:
+            console.log("Category success");
             return {...state, categoriesLoading: false, categories: action.payload};
         case GET_CATEGORIES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};

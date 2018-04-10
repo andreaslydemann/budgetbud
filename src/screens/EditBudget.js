@@ -13,7 +13,7 @@ import {
 
 class EditBudget extends Component {
     async componentWillMount() {
-        await this.props.getMappedCategories();
+        await this.props.getMappedCategories(this.props.categories);
     };
 
     onIncomeChange = (text) => {
@@ -58,7 +58,7 @@ class EditBudget extends Component {
                             income={this.props.income}
                             totalExpenses={this.props.totalExpenses}
                             disposable={this.props.disposable}
-                            categories={this.props.tmpCategories}
+                            tmpCategories={this.props.tmpCategories}
                             debts={this.props.debts}
                             budgetLoading={this.props.budgetLoading}
                             budgetError={this.props.budgetError}
@@ -79,6 +79,8 @@ const mapStateToProps = (state) => {
         budgetError
     } = state.budget;
 
+    const categories = state.category.categories;
+
     const {tmpCategories, categoriesLoading, categoriesError} = state.category;
 
     return {
@@ -90,15 +92,16 @@ const mapStateToProps = (state) => {
         budgetError,
         tmpCategories,
         categoriesLoading,
-        categoriesError
+        categoriesError,
+        categories
     };
 };
 
 
 const mapDispatchToProps = {
     editBudget,
-    incomeChanged,
     categoryChanged,
+    incomeChanged,
     getMappedCategories
 };
 

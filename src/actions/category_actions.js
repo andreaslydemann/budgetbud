@@ -132,7 +132,7 @@ export const getMappedCategories = (categories) => async dispatch => {
                 amount = 0;
 
             newCategories.push({
-                categoryTypeID: obj.categoryTypeID,
+                name: obj.name,
                 amount
             });
         });
