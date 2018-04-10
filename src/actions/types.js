@@ -68,6 +68,7 @@ export const GET_MAPPED_CATEGORIES_FAIL = 'get_mapped_categories_fail';
 export const CATEGORIES_SELECTED = 'categories_selected';
 export const CALCULATE_CATEGORY_SUBTRACTIONS = 'calculate_category_subtractions';
 export const CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_category_subtractions_success';
+export const CALCULATE_CATEGORY_SUBTRACTIONS_FAIL  = 'calculate_category_subtractions_fail';
 
 // ----------ACCOUNT RELATED TYPES----------
 export const GET_ACCOUNTS = 'get_ebanking_accounts';

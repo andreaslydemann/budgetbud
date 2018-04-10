@@ -27,10 +27,6 @@ import {
 } from "../actions";
 
 class DebtOverview extends PureComponent {
-    componentWillMount() {
-        this.props.getDebts(this.props.budgetID);
-    }
-
     onCreateDebtPress = () => {
         this.props.resetDebtForm(() => {
             this.props.navigation.navigate('CreateDebt');
@@ -132,7 +128,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    resetDebtForm, debtSelected, getDebts, deleteDebt
+    resetDebtForm, debtSelected, deleteDebt
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DebtOverview);

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Container} from 'native-base';
+import {Container, Toast} from 'native-base';
 import {AppHeader, DebtForm} from "../components/";
 import _ from 'lodash';
 import I18n from "../strings/i18n";
@@ -20,9 +20,22 @@ class CreateDebt extends Component {
         this.props.getCategories(this.props.budgetID);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.error)
+            this.showToast(nextProps.error);
+    }
+
+    showToast = (errorMsg) => Toast.show({
+        text: errorMsg,
+        position: 'bottom',
+        buttonText: 'Okay',
+        duration: 3000,
+        type: 'warning'
+    });
+
     onContinuePress = () => {
         this.props.calculateCategorySubtractions(
-            this.props.amount,
+            this.props.totalAmount,
             this.props.expirationDate,
             this.props.selectedCategories, () => {
                 this.props.navigation.navigate('DebtPreview');
@@ -41,7 +54,7 @@ class CreateDebt extends Component {
                           expirationDateChanged={this.props.expirationDateChanged}
                           categoriesSelected={this.props.categoriesSelected}
                           name={this.props.name}
-                          amount={this.props.amount}
+                          amount={this.props.totalAmount}
                           expirationDate={this.props.expirationDate}
                           categoryItems={this.props.categoryItems}
                           selectedCategories={this.props.selectedCategories}
@@ -55,7 +68,7 @@ class CreateDebt extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {name, amount, expirationDate} = state.debt;
+    const {name, totalAmount, expirationDate} = state.debt;
     const {
         categories,
         categoriesOfDebt,
@@ -74,7 +87,7 @@ const mapStateToProps = (state) => {
 
     return {
         name,
-        amount,
+        totalAmount,
         expirationDate,
         categoriesOfDebt,
         selectedCategories,

@@ -16,7 +16,8 @@ import {
 
 const INITIAL_STATE = {
     name: '',
-    amount: '',
+    totalAmount: '',
+    amountPerMonth: '',
     expirationDate: '',
     debts: [],
     selectedDebt: '',
@@ -31,14 +32,15 @@ export default (state = INITIAL_STATE, action) => {
         case DEBT_NAME_CHANGED:
             return {...state, name: action.payload};
         case DEBT_AMOUNT_CHANGED:
-            return {...state, amount: action.payload};
+            return {...state, totalAmount: action.payload};
         case DEBT_EXPIRATION_DATE_CHANGED:
             return {...state, expirationDate: action.payload};
         case DEBT_SELECTED:
             return {
                 ...state,
                 name: action.payload.name,
-                amount: action.payload.amount,
+                totalAmount: action.payload.totalAmount,
+                amountPerMonth: action.payload.amountPerMonth,
                 expirationDate: action.payload.expirationDate,
                 selectedDebt: {id: action.payload.debtID, key: action.payload.key}
             };

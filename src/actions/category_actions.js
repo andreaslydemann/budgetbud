@@ -11,12 +11,13 @@ import {
     CATEGORIES_SELECTED,
     CALCULATE_CATEGORY_SUBTRACTIONS,
     CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS,
+    CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
     CREATE_CATEGORIES,
     CREATE_CATEGORIES_SUCCESS,
     CREATE_CATEGORIES_FAIL,
     GET_MAPPED_CATEGORIES,
     GET_MAPPED_CATEGORIES_SUCCESS,
-    GET_MAPPED_CATEGORIES_FAIL
+    GET_MAPPED_CATEGORIES_FAIL, SIGN_IN_FAIL
 } from "./types";
 import {BUDGETBUD_FUNCTIONS_URL} from "./consts";
 
@@ -103,7 +104,7 @@ export const calculateCategorySubtractions =
             callback();
         } catch (err) {
             let {data} = err.response;
-            //getCategoriesFail(dispatch, data.error);
+            dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_FAIL, payload: data.error});
         }
     };
 
