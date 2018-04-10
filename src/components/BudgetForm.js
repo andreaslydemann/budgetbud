@@ -74,7 +74,7 @@ export class BudgetForm extends PureComponent {
                                 {I18n.t('budgetTotalExpenses')}
                             </Text>
                             <Text
-                                style={text.listText}>{(this.props.totalExpenses).toString()} {I18n.t('currency')}</Text>
+                                style={text.listText}>{(this.props.totalGoalsAmount).toString()} {I18n.t('currency')}</Text>
                         </View>
 
                         <View style={container.spacedTextChild}>

@@ -45,7 +45,6 @@ export default (state = INITIAL_STATE, action) => {
         case GET_DEBTS:
             return {...state, debtLoading: true, error: ''};
         case GET_DEBTS_SUCCESS:
-            console.log("debt success")
             return {...state, debtLoading: false, debts: action.payload};
         case GET_DEBTS_FAIL:
             return {...state, debtLoading: false, error: action.payload};

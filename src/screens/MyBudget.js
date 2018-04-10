@@ -31,7 +31,6 @@ class MyBudget extends Component {
     };
 
     render() {
-        console.log(this.props.budgetID);
         return (
             <Container style={{flexGrow: 1}}>
                 <AppHeader headerText={I18n.t('myBudgetHeader')}
@@ -40,20 +39,20 @@ class MyBudget extends Component {
                 />
                 <Container style={{flex: 4, justifyContent: 'center'}}>
                     <Container>
+                        <View style={{flex: 0.1, justifyContent: 'center'}}>
                         {this.props.budgetLoading ? (
                             <Spinner style={{
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }} color='#1c313a'/>) : (
-                            <View style={{flex: 0.1, justifyContent: 'center'}}>
-                                <View style={[styles.incomeFormStyle]}>
+                                <View style={styles.incomeFormStyle}>
                                     <Text style={styles.listText}>{I18n.t('budgetIncome')}
                                     </Text>
                                     <Text style={styles.listText}>{this.props.income} {I18n.t('currency')}
                                     </Text>
                                 </View>
-                            </View>
                         )}
+                        </View>
                         <Separator/>
 
 
@@ -102,7 +101,7 @@ class MyBudget extends Component {
                                         {I18n.t('budgetTotalExpenses')}
                                     </Text>
                                     <Text style={styles.listText}>
-                                        {this.props.totalExpenses} {I18n.t('currency')}
+                                        {this.props.totalGoalsAmount} {I18n.t('currency')}
                                     </Text>
                                 </View>
 
@@ -219,12 +218,12 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const categories = state.category.categories;
+    const {categories, categoriesLoading} = state.category;
     const debts = state.debt.debts;
     const {
         budgetLoading,
         income,
-        totalExpenses,
+        totalGoalsAmount,
         disposable,
         destination,
         budgetID
@@ -235,10 +234,11 @@ const mapStateToProps = (state) => {
         budgetLoading,
         income,
         debts,
-        totalExpenses,
+        totalGoalsAmount,
         disposable,
         destination,
-        budgetID
+        budgetID,
+        categoriesLoading
     }
 };
 
