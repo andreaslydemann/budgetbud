@@ -60,7 +60,8 @@ class MyBudget extends Component {
                             {this.props.categoriesLoading ? (
                                 <Spinner style={{
                                     alignItems: 'center',
-                                    justifyContent: 'center'
+                                    justifyContent: 'center',
+                                    flex: 1
                                 }} color='#1c313a'/>) : (
                                 <View style={{flex: 1, alignSelf: 'stretch', paddingTop: 20}}>
                                     <View style={styles.incomeFormStyle}>
@@ -72,10 +73,11 @@ class MyBudget extends Component {
                                         renderItem={this.renderCategory}
                                         keyExtractor={item => item.id}
                                     />
-                                    <Separator/>
+
                                 </View>
                             )}
 
+                            <Separator/>
 
                             {this.props.debts.length !== 0 &&
                             <View style={this.props.debts.length > 2 ?
