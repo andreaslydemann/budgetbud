@@ -36,7 +36,7 @@ class UserDetails extends Component {
                     title={I18n.t('confirmDialogDeletionHeader')}
                     text={I18n.t('userDetailsConfirmDialogBody')}
                     confirmCallback={() => this.deleteUser()}
-                    loading={this.props.loading}
+                    authLoading={this.props.authLoading}
                     ref={(confirmDialog) => {
                         this.confirmDialog = confirmDialog
                     }}
@@ -91,7 +91,7 @@ class UserDetails extends Component {
 }
 
 const mapStateToProps = ({auth}) => {
-    return {loading} = auth;
+    return {authLoading} = auth;
 };
 
 const mapDispatchToProps = {

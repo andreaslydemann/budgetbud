@@ -63,7 +63,7 @@ export class AuthForm extends Component {
                             onPress={this.props.handleSubmit}
                             style={button.authButton}
                     >
-                        {this.props.loading ? (
+                        {this.props.authLoading ? (
                             <Spinner color='#D0D0D0'/>) : (
                             <Label style={color.white}>
                                 {this.props.isSignIn ?

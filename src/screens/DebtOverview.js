@@ -53,7 +53,7 @@ class DebtOverview extends PureComponent {
                     title={I18n.t('confirmDialogDeletionHeader')}
                     text={I18n.t('debtOverviewConfirmDialogBody')}
                     confirmCallback={() => this.deleteDebt()}
-                    loading={this.props.loading}
+                    debtLoading={this.props.debtLoading}
                     ref={(confirmDialog) => {
                         this.confirmDialog = confirmDialog
                     }}
@@ -65,7 +65,7 @@ class DebtOverview extends PureComponent {
                                onLeftButtonPress={() => this.props.navigation.pop()}/>
 
                     <Container style={{flex: 4, justifyContent: 'center'}}>
-                        {this.props.loading ? (
+                        {this.props.debtLoading ? (
                             <Spinner style={{
                                 alignItems: 'center',
                                 justifyContent: 'center'
@@ -122,13 +122,13 @@ class DebtOverview extends PureComponent {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {loading, selectedDebt} = state.debt;
+    const {debtLoading, selectedDebt} = state.debt;
 
     const debts = _.map(state.debt.debts, (item, key) => {
         return {...item.debtData, debtID: item.id, key: key};
     });
 
-    return {budgetID, debts, loading, selectedDebt};
+    return {budgetID, debts, debtLoading, selectedDebt};
 };
 
 const mapDispatchToProps = {

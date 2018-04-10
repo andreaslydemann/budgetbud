@@ -49,7 +49,7 @@ class DebtPreview extends Component {
                         onPress={() => this.onSavePress()}
                         style={button.defaultButton}
                 >
-                    {this.props.loading ? (
+                    {this.props.debtLoading ? (
                         <Spinner color='#D0D0D0'/>) : (
                         <Text style={text.submitButtonText}>
                             {I18n.t('debtPreviewSaveButton')}
@@ -87,7 +87,7 @@ class DebtPreview extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {name, amount, expirationDate, selectedDebt, loading} = state.debt;
+    const {name, amount, expirationDate, selectedDebt, debtLoading} = state.debt;
     const {
         categories,
         categoriesOfDebt,
@@ -133,7 +133,7 @@ const mapStateToProps = (state) => {
         expirationDate,
         categoryDebtItems,
         selectedDebt,
-        loading,
+        debtLoading,
         budgetID
     };
 };

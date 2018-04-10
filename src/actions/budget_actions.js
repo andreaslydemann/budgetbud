@@ -198,7 +198,6 @@ export const mapExpensesToBudget = (accounts) => async dispatch => {
                     });
                 }
             });
-
         });
 
         let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,

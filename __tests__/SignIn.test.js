@@ -15,7 +15,7 @@ describe('Testing SignIn', () => {
             cprNumber: '',
             code: '',
             error: '',
-            loading: false
+            budgetLoading: false
         };
 
         const wrapper = shallow(

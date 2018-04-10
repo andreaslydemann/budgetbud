@@ -98,7 +98,7 @@ export class BudgetForm extends PureComponent {
                             }
                             style={button.defaultButton}
                     >
-                        {this.props.loading ? (
+                        {this.props.budgetLoading ? (
                             <Spinner color='#D0D0D0'/>) : (
                             <Text style={text.submitButtonText}>
                                 {!this.props.budgetID ?

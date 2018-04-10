@@ -21,11 +21,9 @@ const INITIAL_STATE = {
     budgetID: '',
     income: 0,
     error: '',
-    loading: false,
-    isAccountCreated: true,
+    budgetLoading: false,
     totalExpenses: 0,
     disposable: 0,
-    debts: [],
     categories: []
 };
 
@@ -38,11 +36,11 @@ export default (state = INITIAL_STATE, action) => {
         case GET_BUDGET_ID_FAIL:
             return {...state, error: action.payload};
         case CREATE_BUDGET:
-            return {...state, loading: true, error: ''};
+            return {...state, budgetLoading: true, error: ''};
         case CREATE_BUDGET_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                budgetLoading: false,
                 income: action.payload.income,
                 categories: action.payload.categories,
                 totalExpenses: action.payload.totalExpenses,
@@ -51,11 +49,11 @@ export default (state = INITIAL_STATE, action) => {
         case CREATE_BUDGET_FAIL:
             return {...state, ...INITIAL_STATE, error: action.payload};
         case GET_BUDGET:
-            return {...state, loading: true, error: ''};
+            return {...state, budgetLoading: true, error: ''};
         case GET_BUDGET_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                budgetLoading: false,
                 income: action.payload.income,
                 disposable: action.payload.disposable,
                 totalExpenses: action.payload.totalExpenses
@@ -78,11 +76,11 @@ export default (state = INITIAL_STATE, action) => {
             list = list.setIn([indexOfListToUpdate, 'amount'], action.payload.amount);
             return {...state, categories: list.toJS(), totalExpenses: newExpenses};
         case EDIT_BUDGET:
-            return {...state, loading: true, error: ''};
+            return {...state, budgetLoading: true, error: ''};
         case EDIT_BUDGET_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                budgetLoading: false,
                 income: action.payload.income,
                 categories: action.payload.categories,
                 totalExpenses: action.payload.totalExpenses,

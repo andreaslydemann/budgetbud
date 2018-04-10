@@ -31,7 +31,7 @@ export class ConfirmDialog extends Component {
                     dismissOnTouchOutside={false}
                 >
                     <Container style={container.yCenteredFullSpan}>
-                        {this.props.loading ? (<Spinner color='#1c313a' style={spinner.dialogStandard}/>) : (<View/>)}
+                        {this.props.budgetLoading ? (<Spinner color='#1c313a' style={spinner.dialogStandard}/>) : (<View/>)}
                         <View style={[container.justifyCenter, {flex: 4}]}>
                             <Label style={text.textCenter}>{this.props.text}</Label>
                         </View>
@@ -47,7 +47,7 @@ export class ConfirmDialog extends Component {
                                 textStyle={text.dialogButtonText}
                                 text={I18n.t('confirmDialogCancelButton')}
                                 onPress={() => {
-                                    if (!this.props.loading)
+                                    if (!this.props.budgetLoading)
                                         this.popupDialog.dismiss();
                                 }}
                                 key="button-1"
@@ -63,7 +63,7 @@ export class ConfirmDialog extends Component {
                                 textStyle={text.dialogButtonText}
                                 text={I18n.t('confirmDialogOkButton')}
                                 onPress={() => {
-                                    if (!this.props.loading)
+                                    if (!this.props.budgetLoading)
                                         this.props.confirmCallback();
                                 }}
                                 key="button-2"

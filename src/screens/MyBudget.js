@@ -39,13 +39,13 @@ class MyBudget extends Component {
                                () => this.props.navigation.navigate("DrawerOpen")}
                 />
                 <Container style={{flex: 4, justifyContent: 'center'}}>
-                    {this.props.loading ? (
+                    {this.props.budgetLoading ? (
                         <Spinner style={{
                             alignItems: 'center',
                             justifyContent: 'center'
                         }} color='#1c313a'/>) : (
                         <Container>
-                            <View style={{flex: 0.1, justifyContent: 'center', paddingVertical: 10}}>
+                            <View style={{flex: 0.1, justifyContent: 'center'}}>
                                 <View style={[styles.incomeFormStyle]}>
                                     <Text style={styles.listText}>{I18n.t('budgetIncome')}
                                     </Text>
@@ -55,37 +55,39 @@ class MyBudget extends Component {
                             </View>
                             <Separator/>
 
-                            <View style={{flex: 0.5, alignSelf: 'stretch', paddingTop: 20}}>
-                                <View style={[styles.incomeFormStyle, ]}>
-                                    <Label style={styles.textStyle}>{I18n.t('budgetExpenses')}
-                                    </Label>
+                            <View style={{flex:0.7}}>
+                                <View style={{flex: 1, alignSelf: 'stretch', paddingTop: 20}}>
+                                    <View style={[styles.incomeFormStyle,]}>
+                                        <Label style={styles.textStyle}>{I18n.t('budgetExpenses')}
+                                        </Label>
+                                    </View>
+                                    <FlatList
+                                        data={this.props.categories}
+                                        renderItem={this.renderCategory}
+                                        keyExtractor={item => item.id}
+                                    />
                                 </View>
-                                <FlatList
-                                    data={this.props.categories}
-                                    renderItem={this.renderCategory}
-                                    keyExtractor={item => item.categoryData.name}
-                                />
-                            </View>
 
-                            <Separator/>
-
-                            {this.props.debts.length !== 0 &&
-                            <View style={this.props.debts.length > 2 ?
-                                {flex: 0.4, alignSelf: 'stretch', paddingTop: 20} :
-                                {flex: 0.27}}>
-                                <View style={styles.incomeFormStyle}>
-                                    <Label style={styles.textStyle}>{I18n.t('budgetDebts')}</Label>
-                                </View>
-                                <FlatList
-                                    data={this.props.debts}
-                                    renderItem={this.renderDebt}
-                                    keyExtractor={item => item.name}
-                                />
                                 <Separator/>
-                            </View>
-                            }
 
-                            <View style={{flex: 0.30}}>
+                                {this.props.debts.length !== 0 &&
+                                <View style={this.props.debts.length > 2 ?
+                                    {flex: 0.4, alignSelf: 'stretch', paddingTop: 20} :
+                                    {flex: 0.27}}>
+                                    <View style={styles.incomeFormStyle}>
+                                        <Label style={styles.textStyle}>{I18n.t('budgetDebts')}</Label>
+                                    </View>
+                                    <FlatList
+                                        data={this.props.debts}
+                                        renderItem={this.renderDebt}
+                                        keyExtractor={item => item.id}
+                                    />
+                                    <Separator/>
+                                </View>
+                                }
+                            </View>
+
+                            <View style={{flex: 0.2}}>
                                 <View style={styles.budgetSummary}>
                                     <View style={[styles.incomeFormStyle, {paddingTop: '5%', flex: 1}]}>
                                         <Text style={styles.listText}>
@@ -130,7 +132,7 @@ class MyBudget extends Component {
 
     renderCategory = ({item}) => {
         return (
-            <ListItem key={item.categoryData.name} style={{paddingLeft: 6, paddingRight: 18}}>
+            <ListItem style={{paddingLeft: 6, paddingRight: 18}}>
                 <Body>
                 <Text style={styles.listText}>{item.categoryData.name}</Text>
                 </Body>
@@ -143,7 +145,7 @@ class MyBudget extends Component {
 
     renderDebt = ({item}) => {
         return (
-            <ListItem key={item.debtData.name} style={{paddingLeft: 6, paddingRight: 18}}>
+            <ListItem style={{paddingLeft: 6, paddingRight: 18}}>
                 <Body>
                 <Text style={styles.listText}>{item.debtData.name}</Text>
                 </Body>
@@ -213,7 +215,7 @@ const mapStateToProps = (state) => {
     const categories = state.category.categories;
     const debts = state.debt.debts;
     const {
-        loading,
+        budgetLoading,
         income,
         totalExpenses,
         disposable,
@@ -223,7 +225,7 @@ const mapStateToProps = (state) => {
 
     return {
         categories,
-        loading,
+        budgetLoading,
         income,
         debts,
         totalExpenses,

@@ -44,7 +44,7 @@ class DisposablePreview extends Component {
                         onPress={() => this.onSavePress()}
                         style={button.defaultButton}
                 >
-                    {this.props.loading ? (
+                    {this.props.disposableLoading ? (
                         <Spinner color='#D0D0D0'/>) : (
                         <Text style={text.submitButtonText}>
                             {I18n.t('disposablePreviewSaveButton')}
@@ -112,7 +112,7 @@ const mapStateToProps = (state) => {
 
     return {
         disposable,
-        loading,
+        disposableLoading,
         budgetID,
     };
 };

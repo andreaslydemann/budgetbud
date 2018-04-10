@@ -30,7 +30,7 @@ class Settings extends Component {
                     title={I18n.t('confirmDialogDeletionHeader')}
                     text={I18n.t('settingsConfirmDialogBody')}
                     confirmCallback={() => this.deleteBudget()}
-                    loading={this.props.loading}
+                    budgetLoading={this.props.budgetLoading}
                     ref={(confirmDialog) => {
                         this.confirmDialog = confirmDialog
                     }}

@@ -33,7 +33,7 @@ class Intro extends Component {
                         this.props.navigation.navigate("Accounts");
                         this.confirmDialog.dismissDialog();
                     }}
-                    loading={this.props.loading}
+                    budgetLoading={this.props.budgetLoading}
                     ref={(confirmDialog) => {
                         this.confirmDialog = confirmDialog
                     }}
@@ -64,7 +64,7 @@ class Intro extends Component {
                                     (this.props.navigation.navigate("CreateBudget"))}
                                 style={styles.buttonStyle}
                         >
-                            {this.props.loading ? (
+                            {this.props.budgetLoading ? (
                                 <Spinner color='#D0D0D0'/>) : (
                                 <Label style={color.white}>
                                     {I18n.t('introGetStarted')}

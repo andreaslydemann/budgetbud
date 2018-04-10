@@ -20,7 +20,7 @@ const INITIAL_STATE = {
     expirationDate: '',
     debts: [],
     selectedDebt: '',
-    loading: false,
+    debtLoading: false,
     error: ''
 };
 
@@ -43,19 +43,19 @@ export default (state = INITIAL_STATE, action) => {
                 selectedDebt: {id: action.payload.debtID, key: action.payload.key}
             };
         case GET_DEBTS:
-            return {...state, loading: true, error: ''};
+            return {...state, debtLoading: true, error: ''};
         case GET_DEBTS_SUCCESS:
-            return {...state, loading: false, debts: action.payload};
+            return {...state, debtLoading: false, debts: action.payload};
         case GET_DEBTS_FAIL:
-            return {...state, loading: false, error: action.payload};
+            return {...state, debtLoading: false, error: action.payload};
         case CREATE_DEBT:
-            return {...state, loading: true, error: ''};
+            return {...state, debtLoading: true, error: ''};
         case CREATE_DEBT_SUCCESS:
-            return {...state, loading: false};
+            return {...state, debtLoading: false};
         case EDIT_DEBT:
-            return {...state, loading: true, error: ''};
+            return {...state, debtLoading: true, error: ''};
         case EDIT_DEBT_SUCCESS:
-            return {...state, loading: false};
+            return {...state, debtLoading: false};
         case DELETE_DEBT:
             return {
                 ...state, debts: state.debts.filter(

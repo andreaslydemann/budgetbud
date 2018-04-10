@@ -62,7 +62,7 @@ class EditBudget extends Component {
                             disposable={this.props.disposable}
                             categories={this.props.categories}
                             debts={this.props.debts}
-                            loading={this.props.loading}
+                            budgetLoading={this.props.budgetLoading}
                             error={this.props.error}
                             linkLoading={this.props.linkLoading}
                 />
@@ -77,7 +77,7 @@ const mapStateToProps = (state) => {
         debts,
         totalExpenses,
         disposable,
-        loading,
+        budgetLoading,
         error
     } = state.budget;
 
@@ -90,7 +90,7 @@ const mapStateToProps = (state) => {
         debts,
         totalExpenses,
         disposable,
-        loading,
+        budgetLoading,
         error,
         linkLoading
     };
