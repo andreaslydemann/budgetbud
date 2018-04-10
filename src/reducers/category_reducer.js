@@ -9,10 +9,16 @@ import {
     CATEGORIES_SELECTED,
     CALCULATE_CATEGORY_SUBTRACTIONS,
     CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS,
+    CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
     CREATE_CATEGORIES,
     CREATE_CATEGORIES_SUCCESS,
-    CREATE_CATEGORIES_FAIL, GET_MAPPED_CATEGORIES, GET_MAPPED_CATEGORIES_SUCCESS, GET_MAPPED_CATEGORIES_FAIL,
-    MAP_EXPENSES, MAP_EXPENSES_SUCCESS, MAP_EXPENSES_FAIL
+    CREATE_CATEGORIES_FAIL,
+    GET_MAPPED_CATEGORIES,
+    GET_MAPPED_CATEGORIES_SUCCESS,
+    GET_MAPPED_CATEGORIES_FAIL,
+    MAP_EXPENSES,
+    MAP_EXPENSES_SUCCESS,
+    MAP_EXPENSES_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -74,6 +80,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, subtractionsLoading: true};
         case CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS:
             return {...state, subtractionsLoading: false, categorySubtractions: action.payload};
+        case CALCULATE_CATEGORY_SUBTRACTIONS_FAIL:
+            return {...state, subtractionsLoading: false, categoriesError: action.payload};
         default:
             return state;
     }

@@ -17,13 +17,13 @@ import {getBudget, getCategories, getDebts} from "../actions";
 import I18n from "../strings/i18n";
 
 class MyBudget extends Component {
-    async componentWillMount() {
+    componentWillMount() {
         if (!this.props.budgetID)
             this.props.navigation.navigate("CreateBudget");
 
-        await this.props.getBudget(this.props.budgetID);
-        await this.props.getCategories(this.props.budgetID);
-        await this.props.getDebts(this.props.budgetID);
+        this.props.getBudget(this.props.budgetID);
+        this.props.getCategories(this.props.budgetID);
+        this.props.getDebts(this.props.budgetID);
     }
 
     navigateUser = (destination) => {

@@ -21,15 +21,15 @@ class CreateDebt extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.error)
-            this.showToast(nextProps.error);
+        if (nextProps.categoriesError)
+            this.showToast(nextProps.categoriesError);
     }
 
     showToast = (errorMsg) => Toast.show({
         text: errorMsg,
         position: 'bottom',
         buttonText: 'Okay',
-        duration: 3000,
+        duration: 5000,
         type: 'warning'
     });
 
@@ -74,7 +74,8 @@ const mapStateToProps = (state) => {
         categoriesOfDebt,
         selectedCategories,
         categoriesLoading,
-        subtractionsLoading
+        subtractionsLoading,
+        categoriesError
     } = state.category;
 
     const categoriesWithAmounts = categories.filter((obj) => {
@@ -94,7 +95,8 @@ const mapStateToProps = (state) => {
         budgetID,
         categoryItems,
         categoriesLoading,
-        subtractionsLoading
+        subtractionsLoading,
+        categoriesError
     };
 };
 
