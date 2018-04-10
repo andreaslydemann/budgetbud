@@ -56,7 +56,7 @@ class EditBudget extends Component {
                             onCategoryChanged={this.onCategoryChange}
                             checkInput={this.checkInput}
                             income={this.props.income}
-                            totalExpenses={this.props.totalExpenses}
+                            totalGoalsAmount={this.props.totalGoalsAmount}
                             disposable={this.props.disposable}
                             tmpCategories={this.props.tmpCategories}
                             debts={this.props.debts}
@@ -73,7 +73,7 @@ const mapStateToProps = (state) => {
     const {
         income,
         debts,
-        totalExpenses,
+        totalGoalsAmount,
         disposable,
         budgetLoading,
         budgetError
@@ -86,7 +86,7 @@ const mapStateToProps = (state) => {
     return {
         income,
         debts,
-        totalExpenses,
+        totalGoalsAmount,
         disposable,
         budgetLoading,
         budgetError,

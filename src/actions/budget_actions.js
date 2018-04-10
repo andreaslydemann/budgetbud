@@ -39,7 +39,7 @@ export const getBudgetID = (user, callback) => async dispatch => {
     }
 };
 
-export const createBudget = ({income, totalExpenses, disposable}, callback) =>
+export const createBudget = ({income, totalGoalsAmount, disposable}, callback) =>
     async dispatch => {
 
         dispatch({type: CREATE_BUDGET});
@@ -49,10 +49,10 @@ export const createBudget = ({income, totalExpenses, disposable}, callback) =>
             let userID = await firebase.auth().currentUser.uid;
 
             await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createBudget`,
-                {userID, income, totalExpenses, disposable},
+                {userID, income, totalGoalsAmount, disposable},
                 {headers: {Authorization: 'Bearer ' + token}});
 
-            dispatch({type: CREATE_BUDGET_SUCCESS, payload: {income, totalExpenses, disposable}});
+            dispatch({type: CREATE_BUDGET_SUCCESS, payload: {income, totalGoalsAmount, disposable}});
 
             callback();
         } catch (err) {

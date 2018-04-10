@@ -22,7 +22,7 @@ const INITIAL_STATE = {
     income: 0,
     budgetError: '',
     budgetLoading: false,
-    totalExpenses: 0,
+    totalGoalsAmount: 0,
     disposable: 0
 };
 
@@ -41,7 +41,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 budgetLoading: false,
                 income: action.payload.income,
-                totalExpenses: action.payload.totalExpenses,
+                totalGoalsAmount: action.payload.totalGoalsAmount,
                 disposable: action.payload.disposable
             };
         case CREATE_BUDGET_FAIL:
@@ -49,19 +49,17 @@ export default (state = INITIAL_STATE, action) => {
         case GET_BUDGET:
             return {...state, budgetLoading: true, budgetError: ''};
         case GET_BUDGET_SUCCESS:
-            console.log("Success");
-            console.log(action.payload);
             return {
                 ...state,
                 budgetLoading: false,
                 income: action.payload.income,
                 disposable: action.payload.disposable,
-                totalExpenses: action.payload.totalExpenses
+                totalGoalsAmount: action.payload.totalGoalsAmount
             };
         case GET_BUDGET_FAIL:
             return {...state, budgetError: action.payload};
         case INCOME_CHANGED:
-            let newDisposable = action.payload - state.totalExpenses;
+            let newDisposable = action.payload - state.totalGoalsAmount;
             return {...state, income: action.payload, disposable: newDisposable};
         case CATEGORY_CHANGED:
             // Create list of new categories
@@ -71,10 +69,10 @@ export default (state = INITIAL_STATE, action) => {
             });
             // Calculate new total expenses
             let oldAmount = list.getIn([indexOfListToUpdate, 'amount']);
-            let newExpenses = state.totalExpenses - (oldAmount - action.payload.amount);
+            let newExpenses = state.totalGoalsAmount - (oldAmount - action.payload.amount);
             // Edit list for the new categories-state
             list = list.setIn([indexOfListToUpdate, 'amount'], action.payload.amount);
-            return {...state, categories: list.toJS(), totalExpenses: newExpenses};
+            return {...state, categories: list.toJS(), totalGoalsAmount: newExpenses};
         case EDIT_BUDGET:
             return {...state, budgetLoading: true, budgetError: ''};
         case EDIT_BUDGET_SUCCESS:
@@ -82,7 +80,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 budgetLoading: false,
                 income: action.payload.income,
-                totalExpenses: action.payload.totalExpenses,
+                totalGoalsAmount: action.payload.totalGoalsAmount,
                 disposable: action.payload.disposable
             };
         case EDIT_BUDGET_FAIL:
