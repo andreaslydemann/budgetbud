@@ -25,7 +25,7 @@ import {
     getDebts,
     deleteDebt
 } from "../actions";
-import {container} from "../style";
+import {container, color} from "../style";
 
 class DebtOverview extends PureComponent {
     onCreateDebtPress = () => {
@@ -78,7 +78,7 @@ class DebtOverview extends PureComponent {
 
                     <Button rounded
                             onPress={() => this.onCreateDebtPress()}
-                            style={button.defaultButton}
+                            style={[button.defaultButton, color.button]}
                     >
                         <Text style={text.submitButtonText}>{I18n.t('debtOverviewCreateDebtButton')}</Text>
                     </Button>
@@ -91,8 +91,8 @@ class DebtOverview extends PureComponent {
         return (
             <ListItem>
                 <Body>
-                <Text>{item.name}</Text>
-                <Text note>{item.amount} {I18n.t('currency')}</Text>
+                <Text color={color.text}>{item.name}</Text>
+                <Text color={color.text} note>{item.totalAmount} {I18n.t('currency')}</Text>
                 </Body>
                 <Right>
                     <View style={{flexDirection: 'row'}}>

@@ -52,7 +52,9 @@ export class AppHeader extends Component {
                     actions={[
                         <DialogButton
                             buttonStyle={button.headerDialogButton}
-                            textContainerStyle={container.dialogButtonTextContainer}
+                            textContainerStyle={[
+                                container.dialogButtonTextContainer,
+                                color.button]}
                             textStyle={color.white}
                             text={I18n.t('appHeaderInfoCloseButton')}
                             onPress={() => {
@@ -63,7 +65,7 @@ export class AppHeader extends Component {
                     ]}
                 >
                     <Container style={container.xyCenteredFullSpan}>
-                        <Label>{this.props.infoButtonText}</Label>
+                        <Label style={color.text}>{this.props.infoButtonText}</Label>
                     </Container>
                 </PopupDialog>
             </View>

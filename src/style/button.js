@@ -4,7 +4,6 @@ export const button = StyleSheet.create({
     defaultButton: {
         width: '90%',
         height: 40,
-        backgroundColor: '#1c313a',
         marginTop: 20,
         marginBottom: 20,
         justifyContent: 'center',

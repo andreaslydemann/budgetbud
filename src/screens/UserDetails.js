@@ -15,7 +15,7 @@ import {
 } from "native-base";
 import I18n from '../strings/i18n';
 import {deleteUser} from "../actions";
-import {container} from "../style";
+import {color, container} from "../style";
 
 class UserDetails extends Component {
     deleteUser = () => {
@@ -52,10 +52,10 @@ class UserDetails extends Component {
                         <List>
                             <ListItem icon>
                                 <Left>
-                                    <Icon name="md-phone-portrait"/>
+                                    <Icon style={color.darkIcon} name="md-phone-portrait"/>
                                 </Left>
                                 <Body>
-                                <Label>{I18n.t('userDetailsChangePhoneNumber')}</Label>
+                                <Label style={color.text}>{I18n.t('userDetailsChangePhoneNumber')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -63,10 +63,10 @@ class UserDetails extends Component {
                             </ListItem>
                             <ListItem icon>
                                 <Left>
-                                    <Icon name="md-lock"/>
+                                    <Icon style={color.darkIcon} name="md-lock"/>
                                 </Left>
                                 <Body>
-                                <Label>{I18n.t('userDetailsChangeCode')}</Label>
+                                <Label style={color.text}>{I18n.t('userDetailsChangeCode')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -74,10 +74,10 @@ class UserDetails extends Component {
                             </ListItem>
                             <ListItem icon onPress={() => this.confirmDialog.showDialog()}>
                                 <Left>
-                                    <Icon name="md-trash"/>
+                                    <Icon style={color.darkIcon} name="md-trash"/>
                                 </Left>
                                 <Body>
-                                <Label>{I18n.t('userDetailsDeleteUser')}</Label>
+                                <Label style={color.text}>{I18n.t('userDetailsDeleteUser')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>

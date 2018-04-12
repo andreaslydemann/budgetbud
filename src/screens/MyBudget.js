@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         alignSelf: 'flex-start',
         fontSize: 16,
-        color: '#003755'
+        color: '#00263A'
     },
     modalButton: {
         flexDirection: 'column',

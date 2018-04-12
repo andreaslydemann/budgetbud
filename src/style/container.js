@@ -66,7 +66,6 @@ export const container = StyleSheet.create({
         justifyContent: 'center'
     },
     dialogButtonTextContainer: {
-        backgroundColor: '#002940',
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0
     },

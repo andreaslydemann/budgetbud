@@ -12,6 +12,7 @@ import {
     Left
 } from "native-base";
 import I18n from "../strings/i18n";
+import {color} from '../style/';
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
@@ -76,7 +77,7 @@ class SideBar extends Component {
                                     <Icon
                                         active
                                         name={data.icon}
-                                        style={{color: "#295E80", fontSize: 26, width: 30, marginLeft: 5}}
+                                        style={[color.lightIcon, {fontSize: 26, width: 30, marginLeft: 5}]}
                                     />
                                     <Text style={styling.text}>
                                         {data.name}

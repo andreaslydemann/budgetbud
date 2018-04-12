@@ -13,7 +13,7 @@ import {
 import _ from 'lodash';
 import {AppHeader, Separator} from "../components/";
 import {connect} from "react-redux";
-import {button, text, container} from "../style/";
+import {button, text, container, color} from "../style/";
 import {getDebts, createDebt, editDebt, getCategories} from "../actions";
 import I18n from "../strings/i18n";
 
@@ -47,7 +47,7 @@ class DebtPreview extends Component {
 
                 <Button rounded
                         onPress={() => this.onSavePress()}
-                        style={button.defaultButton}
+                        style={[button.defaultButton, color.button]}
                 >
                     {this.props.debtLoading ? (
                         <Spinner color='#D0D0D0'/>) : (
@@ -65,7 +65,7 @@ class DebtPreview extends Component {
             <ListItem>
                 <View style={container.fullWidth}>
                     <Body>
-                    <Text>{item.name}</Text>
+                    <Text style={color.text}>{item.name}</Text>
                     </Body>
                     <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
                         <Body style={{flex: 1}}>

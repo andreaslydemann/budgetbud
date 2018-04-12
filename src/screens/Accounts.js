@@ -25,7 +25,7 @@ import {
     button,
     text,
     list,
-    container
+    container, color
 } from "../style";
 
 class Accounts extends PureComponent {
@@ -77,7 +77,7 @@ class Accounts extends PureComponent {
                                 this.onSavePress()
                             }
                         }}
-                        style={button.defaultButton}
+                        style={[button.defaultButton, color.button]}
                 >
                     {this.props.linkLoading ? (
                         <Spinner color='#D0D0D0'/>) : (
@@ -92,11 +92,11 @@ class Accounts extends PureComponent {
         return (
             <ListItem>
                 <Body>
-                <Text>{item.name}</Text>
+                <Text style={color.text}>{item.name}</Text>
                 </Body>
                 <Right style={list.listItemCheckBoxPadding}>
                     <CheckBox
-                        style={{borderColor: '#777777'}}
+                        style={color.checkbox}
                         checked={this.props.linkedAccounts.includes(item.accountID)}
                         onPress={() => this.onCheckBoxPress(item)}
                     />

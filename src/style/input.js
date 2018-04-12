@@ -2,7 +2,6 @@ import {StyleSheet} from 'react-native';
 
 export const input = StyleSheet.create({
     inputField: {
-        borderColor: '#000',
         marginVertical: 5,
         paddingVertical: 0,
         alignSelf: 'center',

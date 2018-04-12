@@ -14,7 +14,7 @@ import {AppHeader, ConfirmDialog} from "../components/";
 import {connect} from "react-redux";
 import I18n from "../strings/i18n";
 import {deleteBudget} from "../actions";
-import {container} from "../style";
+import {container, color} from "../style";
 
 class Settings extends Component {
     deleteBudget = () => {
@@ -45,10 +45,10 @@ class Settings extends Component {
                         <List>
                             <ListItem icon onPress={() => this.props.navigation.navigate("UserDetails")}>
                                 <Left>
-                                    <Icon name="md-person"/>
+                                    <Icon style={color.darkIcon} name="md-person"/>
                                 </Left>
                                 <Body>
-                                <Label>{I18n.t('settingsUserDetails')}</Label>
+                                <Label style={color.text}>{I18n.t('settingsUserDetails')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -56,10 +56,10 @@ class Settings extends Component {
                             </ListItem>
                             <ListItem icon onPress={() => this.props.navigation.navigate("Accounts")}>
                                 <Left>
-                                    <Icon name="md-card"/>
+                                    <Icon style={color.darkIcon} name="md-card"/>
                                 </Left>
                                 <Body>
-                                <Label>{I18n.t('settingsAccounts')}</Label>
+                                <Label style={color.text}>{I18n.t('settingsAccounts')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -67,10 +67,10 @@ class Settings extends Component {
                             </ListItem>
                             <ListItem icon>
                                 <Left>
-                                    <Icon name="md-notifications-outline"/>
+                                    <Icon style={color.darkIcon} name="md-notifications-outline"/>
                                 </Left>
                                 <Body>
-                                <Label>{I18n.t('settingsAlarms')}</Label>
+                                <Label style={color.text}>{I18n.t('settingsAlarms')}</Label>
                                 </Body>
                                 <Right>
                                     <Icon name="arrow-forward"/>
@@ -78,10 +78,10 @@ class Settings extends Component {
                             </ListItem>
                             <ListItem icon onPress={() => this.confirmDialog.showDialog()}>
                                 <Left>
-                                    <Icon name="md-trash"/>
+                                    <Icon style={color.darkIcon} name="md-trash"/>
                                 </Left>
                                 <Body>
-                                <Label>{I18n.t('settingsDeleteBudget')}</Label>
+                                <Label style={color.text}>{I18n.t('settingsDeleteBudget')}</Label>
                                 </Body>
                                 <Right >
                                     <Icon name="arrow-forward"/>

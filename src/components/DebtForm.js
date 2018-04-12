@@ -24,11 +24,11 @@ import {Separator} from '../components/';
 import {
     button,
     container,
+    color,
     text,
     input
 } from "../style/";
 import I18n from "../strings/i18n";
-import {color} from "../style";
 
 export class DebtForm extends Component {
     onNameChange = (text) => {
@@ -60,22 +60,28 @@ export class DebtForm extends Component {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <Container>
                     <View style={[container.incomeFormStyle, {paddingTop: 10}]}>
-                        <Label style={text.defaultText}>{I18n.t('debtName')}</Label>
-                        <Item rounded style={input.inputField}>
+                        <Label style={[text.defaultText, color.text]}>{I18n.t('debtName')}</Label>
+                        <Item rounded style={[input.inputField, color.input]}>
                             <Input
                                 value={this.props.name}
                                 onChangeText={this.onNameChange}
+                                placeholder={I18n.t('debtNamePlaceholder')}
+                                placeholderTextColor='#7F9BAA'
+                                style={color.text}
                             />
                         </Item>
                     </View>
 
                     <View style={container.incomeFormStyle}>
-                        <Label style={text.defaultText}>{I18n.t('debtAmount')}</Label>
-                        <Item rounded style={input.inputField}>
+                        <Label style={[text.defaultText, color.text]}>{I18n.t('debtAmount')}</Label>
+                        <Item rounded style={[input.inputField, color.input]}>
                             <Input
                                 value={String(this.props.amount)}
                                 onChangeText={this.onAmountChange}
                                 keyboardType="numeric"
+                                placeholder={I18n.t('debtAmountPlaceholder')}
+                                placeholderTextColor='#7F9BAA'
+                                style={color.text}
                             />
                         </Item>
                     </View>
@@ -85,7 +91,7 @@ export class DebtForm extends Component {
                     </View>
 
                     <View style={container.incomeFormStyle}>
-                        <Label style={text.defaultText}>{I18n.t('debtExpirationDate')}</Label>
+                        <Label style={[text.defaultText, color.text]}>{I18n.t('debtExpirationDate')}</Label>
                         <DatePicker
                             date={this.props.expirationDate}
                             onDateChange={this.onExpirationDateChange}
@@ -93,16 +99,16 @@ export class DebtForm extends Component {
                             style={[input.inputField, {width: '100%'}]}
                             cancelBtnText={I18n.t('datePickerCancelButton')}
                             confirmBtnText={I18n.t('datePickerOkButton')}
-                            iconComponent={<Icon style={{color: '#777777'}} name="md-calendar"/>}
+                            iconComponent={<Icon style={{color: '#295E80'}} name="md-calendar"/>}
                             customStyles={{
                                 dateInput: {
                                     borderRadius: 100,
-                                    borderColor: '#001',
+                                    borderColor: '#003755',
                                     borderWidth: 1,
                                     marginRight: 5
                                 },
                                 dateText: {
-                                    color: 'black',
+                                    color: '#003755',
                                     fontSize: 17
                                 }
                             }}
@@ -115,7 +121,7 @@ export class DebtForm extends Component {
 
                     <View style={{flex: 2, alignSelf: 'stretch'}}>
                         <View style={container.incomeFormStyle}>
-                            <Label style={text.defaultText}>{I18n.t('debtCategories')}</Label>
+                            <Label style={[text.defaultText, color.text]}>{I18n.t('debtCategories')}</Label>
                         </View>
 
                         {this.props.categoriesLoading ? (
@@ -138,7 +144,7 @@ export class DebtForm extends Component {
 
                     <Button rounded
                             onPress={() => this.props.onContinuePress()}
-                            style={button.defaultButton}
+                            style={[button.defaultButton, color.button]}
                     >
                         {this.props.subtractionsLoading ? (
                             <Spinner color='#D0D0D0'/>) : (
@@ -154,15 +160,15 @@ export class DebtForm extends Component {
         return (
             <ListItem style={{paddingLeft: 9}}>
                 <CheckBox
-                    style={{borderColor: '#777777'}}
+                    style={color.checkbox}
                     checked={this.props.selectedCategories.includes(item.categoryID)}
                     onPress={() => this.onCheckBoxPress(item)}
                 />
                 <Body>
-                <Text>{item.name}</Text>
+                <Text style={color.text}>{item.name}</Text>
                 </Body>
                 <Right style={{paddingRight: 9}}>
-                    <Text>{item.amount} {I18n.t('currency')}</Text>
+                    <Text style={color.text}>{item.amount} {I18n.t('currency')}</Text>
                 </Right>
             </ListItem>
         );

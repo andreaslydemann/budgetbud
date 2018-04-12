@@ -6,6 +6,7 @@ import I18n from '../strings/i18n';
 import {
     container,
     text,
+    color,
     button,
     spinner
 } from "../style/";
@@ -31,15 +32,19 @@ export class ConfirmDialog extends Component {
                     dismissOnTouchOutside={false}
                 >
                     <Container style={container.yCenteredFullSpan}>
-                        {this.props.budgetLoading ? (<Spinner color='#1c313a' style={spinner.dialogStandard}/>) : (<View/>)}
+                        {this.props.budgetLoading ? (<Spinner color='#1c313a' style={spinner.dialogStandard}/>) : (
+                            <View/>)}
                         <View style={[container.justifyCenter, {flex: 4}]}>
-                            <Label style={text.textCenter}>{this.props.text}</Label>
+                            <Label style={[text.textCenter, color.text]}>{this.props.text}</Label>
                         </View>
                         <View style={container.flexRow}>
                             <DialogButton
                                 buttonStyle={button.dialogButton}
-                                textContainerStyle={[container.dialogButtonTextContainer,
-                                    {borderBottomLeftRadius: 8,
+                                textContainerStyle={[
+                                    container.dialogButtonTextContainer,
+                                    color.button,
+                                    {
+                                        borderBottomLeftRadius: 8,
                                         borderBottomRightRadius: 0,
                                         borderRightWidth: 1,
                                         borderRightColor: '#fff'
@@ -55,11 +60,15 @@ export class ConfirmDialog extends Component {
 
                             <DialogButton
                                 buttonStyle={button.dialogButton}
-                                textContainerStyle={[container.dialogButtonTextContainer,
-                                    {borderBottomLeftRadius: 0,
+                                textContainerStyle={[
+                                    container.dialogButtonTextContainer,
+                                    color.button,
+                                    {
+                                        borderBottomLeftRadius: 0,
                                         borderBottomRightRadius: 8,
                                         borderLeftWidth: 1,
-                                        borderLeftColor: '#fff'}]}
+                                        borderLeftColor: '#fff'
+                                    }]}
                                 textStyle={text.dialogButtonText}
                                 text={I18n.t('confirmDialogOkButton')}
                                 onPress={() => {

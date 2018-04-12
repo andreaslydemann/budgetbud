@@ -85,16 +85,16 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
 
 export const calculateCategorySubtractions =
     (amount, expirationDate, categories, callback, debtID) => async dispatch => {
-        try {
-            dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS});
+        dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS});
 
+        try {
             let token = await firebase.auth().currentUser.getIdToken();
             let requestBody;
 
             if (debtID)
-                requestBody = {amount, expirationDate, categories, debtID};
+                requestBody = {totalAmount: amount, expirationDate, categories, debtID};
             else
-                requestBody = {amount, expirationDate, categories};
+                requestBody = {totalAmount: amount, expirationDate, categories};
 
             let {data} = await axios.post(`${budgetBudFunctionsURL}/calculateCategorySubtractions`,
                 requestBody, {headers: {Authorization: 'Bearer ' + token}});
@@ -128,7 +128,7 @@ export const getMappedCategories = (categories) => async dispatch => {
 
         categoryTypes.data.filter(obj => {
             if (obj.id === newCategories.categoryTypeID || newCategories.amount > 0)
-                    amount = newCategories.amount;
+                amount = newCategories.amount;
             else
                 amount = 0;
 

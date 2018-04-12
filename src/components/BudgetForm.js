@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {
     Container,
     Input,
@@ -9,13 +9,15 @@ import {
     Body,
     Button,
     Spinner,
-    Toast
+    Toast,
+    Text
 } from 'native-base';
 import {Separator} from '../components/';
 import {
     container,
     text,
     button,
+    color,
     input
 } from "../style/";
 import I18n from "../strings/i18n";
@@ -39,20 +41,25 @@ export class BudgetForm extends PureComponent {
         return (
             <Container>
                 <View style={container.incomeFormStyle}>
-                    <Label style={text.listText}>
+                    <Label style={[text.listText, color.text]}>
                         {I18n.t('budgetIncome')}
                     </Label>
 
-                    <Item rounded style={input.inputField}>
+                    <Item rounded style={[input.inputField, color.input]}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
                             value={String(this.props.income)}
                             keyboardType="numeric"
+                            placeholder={"37000"}
+                            placeholderTextColor='#7F9BAA'
+                            style={color.text}
                         />
                     </Item>
                 </View>
 
-                <Separator/>
+                <View style={{marginTop: 10}}>
+                    <Separator/>
+                </View>
 
                 <View style={{flex: 4, alignItems: 'stretch'}}>
                     {this.props.linkLoading ? (
@@ -70,19 +77,22 @@ export class BudgetForm extends PureComponent {
                 <View style={container.spacedTextWrapper}>
                     <View style={container.parentBudgetSummary}>
                         <View style={container.spacedTextChild}>
-                            <Text style={text.listText}>
+                            <Text style={[text.listText, color.text]}>
                                 {I18n.t('budgetTotalExpenses')}
                             </Text>
                             <Text
-                                style={text.listText}>{(this.props.totalGoalsAmount).toString()} {I18n.t('currency')}</Text>
+                                style={[text.listText, color.text]}>
+                                {(this.props.totalGoalsAmount).toString()} {I18n.t('currency')}
+                            </Text>
                         </View>
 
                         <View style={container.spacedTextChild}>
-                            <Text style={text.listText}>
+                            <Text style={[text.listText, color.text]}>
                                 {I18n.t('budgetDisposable')}
                             </Text>
-                            <Text style={[text.listText,
-                                this.props.disposable >= 0 ? {color: 'black'} : {color: 'red'}]}>
+                            <Text style={[
+                                text.listText,
+                                this.props.disposable >= 0 ? color.text : {color: 'red'}]}>
                                 {this.props.disposable} {I18n.t('currency')}
                             </Text>
                         </View>
@@ -96,7 +106,7 @@ export class BudgetForm extends PureComponent {
                                     this.showToast('Ugyldig indtastning!') :
                                     this.props.handleSubmit
                             }
-                            style={button.defaultButton}
+                            style={[button.defaultButton, color.button]}
                     >
                         {this.props.budgetLoading ? (
                             <Spinner color='#D0D0D0'/>) : (
@@ -115,13 +125,14 @@ export class BudgetForm extends PureComponent {
         return (
             <ListItem>
                 <Body>
-                <Label style={text.defaultText}>{item.name}</Label>
-                <Item rounded style={input.inputField}>
+                <Label style={[text.defaultText, color.text]}>{item.name}</Label>
+                <Item rounded style={[input.inputField, color.input, {width: '97%'}]}>
                     <Input
                         onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
                         value={String(item.amount)}
                         keyboardType="numeric"
-                        style={{width: '90%', fontSize: 13}}
+                        placeholderTextColor='#7F9BAA'
+                        style={[color.text]}
                     />
                 </Item>
                 </Body>
