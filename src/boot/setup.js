@@ -1,4 +1,4 @@
-import {Font, AppLoading, Notifications} from 'expo';
+import {Font, AppLoading} from 'expo';
 import React, {Component} from 'react';
 import firebase from 'firebase';
 import firebaseConfig from "../config/firebase_config";
@@ -22,7 +22,7 @@ class Setup extends Component {
         conn.removeConnectionChangeEventListener(this.handleConnectivityChange);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         conn.addConnectionChangeEventListener(this.handleConnectivityChange);
         firebase.initializeApp(firebaseConfig);
 
