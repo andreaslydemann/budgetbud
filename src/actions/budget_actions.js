@@ -33,8 +33,10 @@ export const getBudgetID = (user, callback) => async dispatch => {
 
         callback();
     } catch (err) {
-        let {data} = err.response;
-        dispatch({type: GET_BUDGET_ID_FAIL, payload: data.error});
+        if (err.response) {
+            let {data} = err.response.data;
+            dispatch({type: GET_BUDGET_ID_FAIL, payload: data.error});
+        }
     }
 };
 
