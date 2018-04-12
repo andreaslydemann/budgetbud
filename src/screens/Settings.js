@@ -14,6 +14,7 @@ import {AppHeader, ConfirmDialog} from "../components/";
 import {connect} from "react-redux";
 import I18n from "../strings/i18n";
 import {deleteBudget} from "../actions";
+import {container} from "../style";
 
 class Settings extends Component {
     deleteBudget = () => {
@@ -25,7 +26,7 @@ class Settings extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={container.signedInContainer}>
                 <ConfirmDialog
                     title={I18n.t('confirmDialogDeletionHeader')}
                     text={I18n.t('settingsConfirmDialogBody')}

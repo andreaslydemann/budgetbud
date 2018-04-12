@@ -11,7 +11,7 @@ export const input = StyleSheet.create({
     authInputItem: {
         marginTop: 10,
         height: 40,
-        backgroundColor: 'rgba(255, 255,255,0.2)',
+        backgroundColor: 'rgba(255,255,255,0.15)',
         borderBottomWidth: 0,
         borderTopWidth: 0,
         borderLeftWidth: 0,

@@ -9,6 +9,7 @@ import {
     disposableChanged,
     getCategories
 } from "../actions";
+import {container} from "../style";
 
 class EditDisposable extends Component {
     componentWillMount() {
@@ -21,7 +22,7 @@ class EditDisposable extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('editDisposableHeader')}
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>

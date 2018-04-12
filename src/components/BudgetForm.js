@@ -68,7 +68,7 @@ export class BudgetForm extends PureComponent {
                 <Separator/>
 
                 <View style={container.spacedTextWrapper}>
-                    <View style={container.parenBudgetSummary}>
+                    <View style={container.parentBudgetSummary}>
                         <View style={container.spacedTextChild}>
                             <Text style={text.listText}>
                                 {I18n.t('budgetTotalExpenses')}

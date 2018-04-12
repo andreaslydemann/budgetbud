@@ -15,6 +15,7 @@ import {FlatList, StyleSheet} from "react-native";
 import {connect} from "react-redux";
 import {getBudget, getCategories, getDebts} from "../actions";
 import I18n from "../strings/i18n";
+import {container} from "../style";
 
 class ExpenseOverview extends Component {
     componentWillMount() {
@@ -28,7 +29,7 @@ class ExpenseOverview extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('expenseOverviewHeader')}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
                 <Container>

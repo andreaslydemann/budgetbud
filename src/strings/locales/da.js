@@ -50,7 +50,6 @@ export default {
     "Det er nemt og hurtigt at oprette for at opnå økonomisk overblik og stabilitet.",
     introGetStarted: 'Kom i gang',
     myBudgetHeader: 'Mit budget',
-    myBudgetToolboxEdit: 'Redigér:',
     myBudgetToolboxBudget: 'Budget',
     myBudgetToolboxDisposable: 'Rådighedsbeløb',
     myBudgetToolboxDebt: 'Gæld',

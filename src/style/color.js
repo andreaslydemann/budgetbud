@@ -10,7 +10,22 @@ export const color = StyleSheet.create({
     spinnerColor: {
         color: '#D0D0D0'
     },
-    placeHolder: {
-        color: 'rgba(255,255,255,0.6)'
+    placeholder: {
+        color: '#81A1B4'
+    },
+    button: {
+        color: '#00263A'
+    },
+    icon: {
+        color: '#00263A'
+    },
+    cover: {
+        color: '#03426A'
+    },
+    text: {
+        color: '#003755'
+    },
+    smallText: {
+        color: '#00263A'
     }
 });

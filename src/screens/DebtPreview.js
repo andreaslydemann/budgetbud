@@ -31,7 +31,7 @@ class DebtPreview extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('debtPreviewHeader')}
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>

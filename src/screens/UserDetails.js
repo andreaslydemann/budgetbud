@@ -15,6 +15,7 @@ import {
 } from "native-base";
 import I18n from '../strings/i18n';
 import {deleteUser} from "../actions";
+import {container} from "../style";
 
 class UserDetails extends Component {
     deleteUser = () => {
@@ -31,7 +32,7 @@ class UserDetails extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={container.signedInContainer}>
                 <ConfirmDialog
                     title={I18n.t('confirmDialogDeletionHeader')}
                     text={I18n.t('userDetailsConfirmDialogBody')}

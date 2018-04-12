@@ -14,6 +14,7 @@ import {
     categoriesSelected,
     calculateCategorySubtractions
 } from "../actions";
+import {container} from "../style";
 
 class EditDebt extends Component {
     componentWillMount() {
@@ -32,7 +33,7 @@ class EditDebt extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('editDebtHeader')}
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>

@@ -15,6 +15,9 @@ import {FlatList, StyleSheet} from "react-native";
 import {connect} from "react-redux";
 import {getBudget, getCategories, getDebts} from "../actions";
 import I18n from "../strings/i18n";
+import {
+    container
+} from "../style/";
 
 class MyBudget extends Component {
     componentWillMount() {
@@ -32,7 +35,7 @@ class MyBudget extends Component {
 
     render() {
         return (
-            <Container style={{flexGrow: 1}}>
+            <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('myBudgetHeader')}
                            onLeftButtonPress={
                                () => this.props.navigation.navigate("DrawerOpen")}
@@ -121,7 +124,7 @@ class MyBudget extends Component {
                                         style={[styles.buttonStyle, {flex: 1}]}
                                 >
                                     <Icon name="ios-arrow-dropup-circle"
-                                          style={{color: "#1c313a"}}/>
+                                          style={{color: "#00263A"}}/>
                                 </Button>
 
                                 <Toolbox
@@ -206,11 +209,13 @@ const styles = StyleSheet.create({
         fontSize: 14,
         alignSelf: 'flex-start',
         marginLeft: 5,
+        color: '#00263A'
     },
     listText: {
         marginLeft: 5,
         alignSelf: 'flex-start',
-        fontSize: 16
+        fontSize: 16,
+        color: '#003755'
     },
     modalButton: {
         flexDirection: 'column',

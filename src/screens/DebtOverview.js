@@ -25,6 +25,7 @@ import {
     getDebts,
     deleteDebt
 } from "../actions";
+import {container} from "../style";
 
 class DebtOverview extends PureComponent {
     onCreateDebtPress = () => {
@@ -44,7 +45,7 @@ class DebtOverview extends PureComponent {
 
     render() {
         return (
-            <Container>
+            <Container style={container.signedInContainer}>
                 <ConfirmDialog
                     title={I18n.t('confirmDialogDeletionHeader')}
                     text={I18n.t('debtOverviewConfirmDialogBody')}

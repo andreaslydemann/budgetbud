@@ -11,6 +11,7 @@ import {
     mapExpensesToBudget,
     getLinkedAccounts
 } from '../actions';
+import {container} from "../style";
 
 class CreateBudget extends Component {
     async componentWillMount() {
@@ -50,7 +51,7 @@ class CreateBudget extends Component {
 
     render() {
         return (
-            <Container style={[{alignItems: 'stretch'}]}>
+            <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
                 <AppHeader headerText={I18n.t('createBudgetHeader')}
                            onLeftButtonPress={
                                () => this.props.navigation.navigate("DrawerOpen")}

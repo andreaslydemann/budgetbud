@@ -76,7 +76,7 @@ class SideBar extends Component {
                                     <Icon
                                         active
                                         name={data.icon}
-                                        style={{color: "#777", fontSize: 26, width: 30, marginLeft: 5}}
+                                        style={{color: "#295E80", fontSize: 26, width: 30, marginLeft: 5}}
                                     />
                                     <Text style={styling.text}>
                                         {data.name}
@@ -97,7 +97,7 @@ styling = {
         width: null,
         position: "relative",
         marginBottom: 10,
-        backgroundColor: '#002940'
+        backgroundColor: '#03426A'
     },
     drawerImage: {
         position: "absolute",
@@ -109,7 +109,8 @@ styling = {
     text: {
         fontWeight: Platform.OS === "ios" ? "500" : "400",
         fontSize: 16,
-        marginLeft: 20
+        marginLeft: 20,
+        color: '#003755'
     }
 };
 

@@ -13,7 +13,7 @@ export const button = StyleSheet.create({
     authButton: {
         width: '100%',
         height: 40,
-        backgroundColor: '#1c313a',
+        backgroundColor: '#00263A',
         marginTop: 20,
         justifyContent: 'center'
     },

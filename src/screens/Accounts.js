@@ -21,7 +21,12 @@ import {
     linkAccounts,
     accountsSelected
 } from "../actions";
-import {button, text, list} from "../style";
+import {
+    button,
+    text,
+    list,
+    container
+} from "../style";
 
 class Accounts extends PureComponent {
     componentWillMount() {
@@ -46,7 +51,7 @@ class Accounts extends PureComponent {
 
     render() {
         return (
-            <Container>
+            <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('accountsHeader')}
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>

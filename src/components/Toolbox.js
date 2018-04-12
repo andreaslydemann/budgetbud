@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Modal from 'react-native-modalbox';
 import {Button, Icon, Label, View} from "native-base";
-import {button, text} from "../style/";
+import {button, text, color} from "../style/";
 import I18n from "../strings/i18n";
 
 export class Toolbox extends Component {
@@ -12,17 +12,14 @@ export class Toolbox extends Component {
     render() {
         return (
             <Modal position={"bottom"} ref={"bottomModal"}>
-                <Label style={[text.defaultText, {
-                    alignSelf: 'center',
-                    marginTop: 5
-                }]}>{I18n.t('myBudgetToolboxEdit')}</Label>
-
                 <View style={{flexGrow: 1, flexDirection: 'column', justifyContent: 'center'}}>
                     <View style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        marginHorizontal: 40
+                        marginHorizontal: 40,
+                        marginTop: 20
+
                     }}>
                         <Button
                             transparent
@@ -30,7 +27,7 @@ export class Toolbox extends Component {
                         >
                             <View style={button.modalButton}>
                                 <Icon name="md-clipboard"
-                                      style={{color: "#1c313a"}}/>
+                                      style={{color: "#00263A"}}/>
                                 <Label style={text.defaultText}>
                                     {I18n.t('myBudgetToolboxBudget')}
                                 </Label>
@@ -42,7 +39,7 @@ export class Toolbox extends Component {
                             onPress={() => this.props.navigateUser("EditDisposable")}
                         >
                             <View style={button.modalButton}>
-                                <Icon name="logo-usd" style={{color: "#1c313a"}}/>
+                                <Icon name="logo-usd" style={{color: "#00263A"}}/>
                                 <Label style={text.defaultText}>
                                     {I18n.t('myBudgetToolboxDisposable')}
                                 </Label>
@@ -54,7 +51,7 @@ export class Toolbox extends Component {
                             onPress={() => this.props.navigateUser("DebtOverview")}
                         >
                             <View style={button.modalButton}>
-                                <Icon name="ios-archive" style={{color: "#1c313a"}}/>
+                                <Icon name="ios-archive" style={{color: "#00263A"}}/>
                                 <Label style={text.defaultText}>
                                     {I18n.t('myBudgetToolboxDebt')}
                                 </Label>
@@ -67,7 +64,7 @@ export class Toolbox extends Component {
                         style={button.bottomRight}
                 >
                     <Icon name="ios-arrow-dropdown-circle"
-                          style={{color: "#1c313a"}}/>
+                          style={{color: "#00263A"}}/>
                 </Button>
             </Modal>
         )

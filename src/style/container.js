@@ -1,15 +1,18 @@
 import {StyleSheet, Platform} from 'react-native';
 
 export const container = StyleSheet.create({
-    parenBudgetSummary: {
+    parentBudgetSummary: {
         flexDirection: 'column',
         flexGrow: 1,
         justifyContent: 'space-between',
         alignItems: 'stretch',
         width: '100%'
     },
+    signedInContainer: {
+        backgroundColor: "#ffffff",
+    },
     signedOutContainer: {
-        backgroundColor: "#166a97",
+        backgroundColor: "#03426A",
         flex: 2,
         alignItems: 'center',
         justifyContent: 'center',

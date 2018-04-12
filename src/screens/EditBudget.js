@@ -10,6 +10,7 @@ import {
     categoryChanged,
     getMappedCategories
 } from "../actions";
+import {container} from "../style";
 
 class EditBudget extends Component {
     async componentWillMount() {
@@ -46,7 +47,7 @@ class EditBudget extends Component {
 
     render() {
         return (
-            <Container style={[{alignItems: 'stretch'}]}>
+            <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
                 <AppHeader headerText={I18n.t('editBudgetHeader')}
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>

@@ -19,25 +19,25 @@ export class AppHeader extends Component {
     render() {
         return (
             <View style={[container.iosElevation, container.androidMargin]}>
-                <Header>
+                <Header style={{backgroundColor: '#03426A'}}>
                     <Left style={{flex: 0.2}}>
                         <Button
                             transparent
                             onPress={() => this.props.onLeftButtonPress()}
                         >
-                            {this.props.showBackButton ? (<Icon name="arrow-back"/>)
-                                : (<Icon name="menu"/>)}
+                            {this.props.showBackButton ? (<Icon style={{color: '#fff'}} name="arrow-back"/>)
+                                : (<Icon style={{color: '#fff'}} name="menu"/>)}
                         </Button>
                     </Left>
                     <Body style={{flex: 0.6}}>
-                    <Title style={{width: '100%'}}>{this.props.headerText}</Title>
+                    <Title style={{color: '#fff', width: '100%'}}>{this.props.headerText}</Title>
                     </Body>
                     <Right style={{flex: 0.2}}>
                         <Button
                             transparent
                             onPress={() => this.popupDialog.show()}
                         >
-                            <Icon name="ios-information-circle-outline"/>
+                            <Icon style={{color: '#fff'}} name="ios-information-circle-outline"/>
                         </Button>
                     </Right>
                 </Header>

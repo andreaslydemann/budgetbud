@@ -12,6 +12,7 @@ import {Image} from "react-native";
 import {connect} from "react-redux";
 import {color} from "../style/";
 import I18n from "../strings/i18n";
+import {container} from "../style";
 
 class Intro extends Component {
     async componentWillMount() {
@@ -25,7 +26,7 @@ class Intro extends Component {
 
     render() {
         return (
-            <Container style={{alignItems: 'stretch'}}>
+            <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
                 <ConfirmDialog
                     title={I18n.t('introConfirmDialogHeader')}
                     text={I18n.t('introConfirmDialogBody')}
