@@ -43,21 +43,20 @@ class MyBudget extends Component {
                 <Container style={{flex: 4, justifyContent: 'center'}}>
                     <Container>
                         <View style={{flex: 0.1, justifyContent: 'center'}}>
-                        {this.props.budgetLoading ? (
-                            <Spinner style={{
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }} color='#1c313a'/>) : (
+                            {this.props.budgetLoading ? (
+                                <Spinner style={{
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }} color='#1c313a'/>) : (
                                 <View style={styles.incomeFormStyle}>
                                     <Text style={styles.listText}>{I18n.t('budgetIncome')}
                                     </Text>
                                     <Text style={styles.listText}>{this.props.income} {I18n.t('currency')}
                                     </Text>
                                 </View>
-                        )}
+                            )}
                         </View>
                         <Separator/>
-
 
                         <View style={{flex: 0.7}}>
                             {this.props.categoriesLoading ? (
@@ -68,11 +67,12 @@ class MyBudget extends Component {
                                 }} color='#1c313a'/>) : (
                                 <View style={{flex: 1, alignSelf: 'stretch', paddingTop: 20}}>
                                     <View style={styles.incomeFormStyle}>
-                                        <Label style={styles.textStyle}>{I18n.t('budgetExpenses')}
+                                        <Label style={styles.textStyle}>
+                                            {I18n.t('budgetExpenses')}
                                         </Label>
                                     </View>
                                     <FlatList
-                                        data={this.props.categories}
+                                        data={this.props.categoryItems}
                                         renderItem={this.renderCategory}
                                         keyExtractor={item => item.id}
                                     />
@@ -85,7 +85,7 @@ class MyBudget extends Component {
                             {this.props.debts.length !== 0 &&
                             <View style={this.props.debts.length > 2 ?
                                 {flex: 1, alignSelf: 'stretch', paddingTop: 20} :
-                                {flex: 0.5}}>
+                                {flex: 0.5, alignSelf: 'stretch', paddingTop: 20}}>
                                 <View style={styles.incomeFormStyle}>
                                     <Label style={styles.textStyle}>{I18n.t('budgetDebts')}</Label>
                                 </View>
@@ -161,7 +161,7 @@ class MyBudget extends Component {
                 <Text style={styles.listText}>{item.debtData.name}</Text>
                 </Body>
                 <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>
-                    {item.debtData.totalAmount} {I18n.t('currency')}</Text>
+                    {item.debtData.amountPerMonth} {I18n.t('currency')}</Text>
             </ListItem>
         );
     };
@@ -236,8 +236,12 @@ const mapStateToProps = (state) => {
         budgetID
     } = state.budget;
 
+    const categoryItems = categories.filter((obj) => {
+        return obj.categoryData.amount > 0
+    });
+
     return {
-        categories,
+        categoryItems,
         budgetLoading,
         income,
         debts,

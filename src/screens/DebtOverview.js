@@ -91,8 +91,8 @@ class DebtOverview extends PureComponent {
         return (
             <ListItem>
                 <Body>
-                <Text color={color.text}>{item.name}</Text>
-                <Text color={color.text} note>{item.totalAmount} {I18n.t('currency')}</Text>
+                <Text style={color.text}>{item.name}</Text>
+                <Text note>{item.totalAmount} {I18n.t('currency')}</Text>
                 </Body>
                 <Right>
                     <View style={{flexDirection: 'row'}}>

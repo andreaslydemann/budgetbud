@@ -101,7 +101,7 @@ export const createDebt =
             dispatch({type: CREATE_DEBT_SUCCESS});
         } catch (err) {
             let {data} = err.response;
-            console.log(data.error);
+            console.log(data.debtError);
         }
     };
 
@@ -124,21 +124,27 @@ export const editDebt =
                 let token = await firebase.auth().currentUser.getIdToken();
 
                 await axios.post(`${ROOT_URL}/editDebt`,
-                    {name, totalAmount, expirationDate, debtID: selectedDebt.id, budgetID, categories}, {
-                        headers: {Authorization: 'Bearer ' + token}
-                    });
+                    {
+                        name,
+                        totalAmount,
+                        expirationDate,
+                        debtID: selectedDebt.id,
+                        budgetID,
+                        categories
+                    },
+                    {headers: {Authorization: 'Bearer ' + token}});
 
                 dispatch({type: EDIT_DEBT_SUCCESS});
             } catch (err) {
                 let {data} = err.response;
-                console.log(data.error);
+                console.log(data.debtError);
             }
         };
 
 export const deleteDebt = (debtID) => async dispatch => {
-    try {
-        dispatch({type: DELETE_DEBT});
+    dispatch({type: DELETE_DEBT});
 
+    try {
         let token = await firebase.auth().currentUser.getIdToken();
 
         await axios.post(`${ROOT_URL}/deleteDebt`, {debtID: debtID}, {
@@ -146,6 +152,6 @@ export const deleteDebt = (debtID) => async dispatch => {
         });
     } catch (err) {
         let {data} = err.response;
-        console.log(data.error);
+        console.log(data.debtError);
     }
 };

@@ -12,12 +12,15 @@ import {
     CALCULATE_CATEGORY_SUBTRACTIONS,
     CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS,
     CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
+    VALIDATE_DEBT_NAME_FAIL,
+    VALIDATE_DEBT_AMOUNT_FAIL,
+    VALIDATE_DEBT_CATEGORIES_FAIL,
     CREATE_CATEGORIES,
     CREATE_CATEGORIES_SUCCESS,
     CREATE_CATEGORIES_FAIL,
     GET_MAPPED_CATEGORIES,
     GET_MAPPED_CATEGORIES_SUCCESS,
-    GET_MAPPED_CATEGORIES_FAIL, SIGN_IN_FAIL
+    GET_MAPPED_CATEGORIES_FAIL,
 } from "./types";
 import {BUDGETBUD_FUNCTIONS_URL} from "./consts";
 
@@ -84,7 +87,18 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
 };
 
 export const calculateCategorySubtractions =
-    (amount, expirationDate, categories, callback, debtID) => async dispatch => {
+    (name, amount, expirationDate, categories, callback, debtID) => async dispatch => {
+        if (name.length === 0) {
+            dispatch({type: VALIDATE_DEBT_NAME_FAIL});
+            return;
+        } else if (amount.length === 0 || amount <= 0) {
+            dispatch({type: VALIDATE_DEBT_AMOUNT_FAIL});
+            return;
+        } else if (categories.length === 0) {
+            dispatch({type: VALIDATE_DEBT_CATEGORIES_FAIL});
+            return;
+        }
+
         dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS});
 
         try {

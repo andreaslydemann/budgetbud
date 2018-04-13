@@ -25,7 +25,6 @@ import {BUDGETBUD_FUNCTIONS_URL, EBANKING_FUNCTIONS_URL} from "./consts";
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
         let token = await user.getIdToken();
-console.log(token);
         const {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudgetID?userID=${user.uid}`,
             {headers: {Authorization: 'Bearer ' + token}});
 

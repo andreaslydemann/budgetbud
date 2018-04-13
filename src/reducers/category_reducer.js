@@ -7,6 +7,7 @@ import {
     GET_CATEGORIES_OF_DEBT_SUCCESS,
     GET_CATEGORIES_OF_DEBT_FAIL,
     CATEGORIES_SELECTED,
+    VALIDATE_DEBT_CATEGORIES_FAIL,
     CALCULATE_CATEGORY_SUBTRACTIONS,
     CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS,
     CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
@@ -18,7 +19,7 @@ import {
     GET_MAPPED_CATEGORIES_FAIL,
     MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
-    MAP_EXPENSES_FAIL
+    MAP_EXPENSES_FAIL,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -75,7 +76,9 @@ export default (state = INITIAL_STATE, action) => {
         case GET_MAPPED_CATEGORIES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case CATEGORIES_SELECTED:
-            return {...state, selectedCategories: action.payload};
+            return {...state, selectedCategories: action.payload, categoriesError: ''};
+        case VALIDATE_DEBT_CATEGORIES_FAIL:
+            return {...state, categoriesError: 'Ingen kategorier valgt.'};
         case CALCULATE_CATEGORY_SUBTRACTIONS:
             return {...state, subtractionsLoading: true};
         case CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS:

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Container, Toast} from 'native-base';
+import {Container} from 'native-base';
 import {AppHeader, DebtForm} from "../components/";
 import _ from 'lodash';
 import I18n from "../strings/i18n";
+import showToast from '../helpers/toast';
 import {
     deleteDebt,
     getDebts,
@@ -22,20 +23,15 @@ class CreateDebt extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.categoriesError)
-            this.showToast(nextProps.categoriesError);
+        if (nextProps.debtError)
+            showToast(nextProps.debtError);
+        else if (nextProps.categoriesError)
+            showToast(nextProps.categoriesError);
     }
-
-    showToast = (errorMsg) => Toast.show({
-        text: errorMsg,
-        position: 'bottom',
-        buttonText: 'Okay',
-        duration: 5000,
-        type: 'warning'
-    });
 
     onContinuePress = () => {
         this.props.calculateCategorySubtractions(
+            this.props.name,
             this.props.totalAmount,
             this.props.expirationDate,
             this.props.selectedCategories, () => {
@@ -69,7 +65,7 @@ class CreateDebt extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {name, totalAmount, expirationDate} = state.debt;
+    const {name, totalAmount, expirationDate, debtError} = state.debt;
     const {
         categories,
         categoriesOfDebt,
@@ -97,7 +93,8 @@ const mapStateToProps = (state) => {
         categoryItems,
         categoriesLoading,
         subtractionsLoading,
-        categoriesError
+        categoriesError,
+        debtError
     };
 };
 

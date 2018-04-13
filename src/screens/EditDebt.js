@@ -3,6 +3,7 @@ import {Container} from 'native-base';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import I18n from "../strings/i18n";
+import showToast from '../helpers/toast';
 import {AppHeader, DebtForm} from "../components/";
 import {
     deleteDebt,
@@ -21,8 +22,16 @@ class EditDebt extends Component {
         this.props.getCategoriesOfDebt(this.props.selectedDebt.id);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.debtError)
+            showToast(nextProps.debtError);
+        else if (nextProps.categoriesError)
+            showToast(nextProps.categoriesError);
+    }
+
     onContinuePress = () => {
         this.props.calculateCategorySubtractions(
+            this.props.name,
             this.props.totalAmount,
             this.props.expirationDate,
             this.props.selectedCategories, () => {
@@ -57,13 +66,14 @@ class EditDebt extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {name, totalAmount, expirationDate, selectedDebt} = state.debt;
+    const {name, totalAmount, expirationDate, selectedDebt, debtError} = state.debt;
     const {
         categories,
         categoriesOfDebt,
         selectedCategories,
         categoriesLoading,
-        subtractionsLoading
+        subtractionsLoading,
+        categoriesError
     } = state.category;
 
     const unfilteredCategories = _.map(categories, (item, key) => {
@@ -96,7 +106,9 @@ const mapStateToProps = (state) => {
         budgetID,
         categoryItems,
         categoriesLoading,
-        subtractionsLoading
+        subtractionsLoading,
+        categoriesError,
+        debtError
     };
 };
 

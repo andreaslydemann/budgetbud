@@ -96,6 +96,7 @@ export class DebtForm extends Component {
                             date={this.props.expirationDate}
                             onDateChange={this.onExpirationDateChange}
                             format="DD-MM-YYYY"
+                            minDate={new Date()}
                             style={[input.inputField, {width: '100%'}]}
                             cancelBtnText={I18n.t('datePickerCancelButton')}
                             confirmBtnText={I18n.t('datePickerOkButton')}
