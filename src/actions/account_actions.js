@@ -1,7 +1,7 @@
 import axios from 'axios';
 import firebase from 'firebase';
 import {
-    BUDGETBUD_FUNCTIONS_URL
+    BUDGETBUD_FUNCTIONS_URL, EBANKING_FUNCTIONS_URL
 } from "../config/firebase_config";
 
 import {
