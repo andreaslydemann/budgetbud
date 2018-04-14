@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import {budgetBudFunctionsURL} from "../config/firebase_config";
+import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
 import {
     RESET_DISPOSABLE_FORM,
@@ -8,8 +8,6 @@ import {
     CREATE_DISPOSABLE,
     CREATE_DISPOSABLE_SUCCESS,
 } from './types';
-
-const ROOT_URL = budgetBudFunctionsURL;
 
 export const resetDisposableForm = (callback) => async dispatch => {
     dispatch({
@@ -43,7 +41,7 @@ export const editDisposable = ({amount, categoryDisposableItems, budgetID},
 
         let token = await firebase.auth().currentUser.getIdToken();
 
-        await axios.post(`${ROOT_URL}/createDisposable`,
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createDisposable`,
             {amount, budgetID, categories}, {
                 headers: {Authorization: 'Bearer ' + token}
             });

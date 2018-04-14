@@ -15,7 +15,6 @@ import {
     GET_BUDGET_ID_SUCCESS,
     GET_BUDGET_ID_FAIL
 } from "../actions/types";
-import {fromJS} from "immutable";
 
 const INITIAL_STATE = {
     budgetID: '',
@@ -61,18 +60,6 @@ export default (state = INITIAL_STATE, action) => {
         case INCOME_CHANGED:
             let newDisposable = action.payload - state.totalGoalsAmount;
             return {...state, income: action.payload, disposable: newDisposable};
-        case CATEGORY_CHANGED:
-            // Create list of new categories
-            let list = fromJS(state.categories);
-            const indexOfListToUpdate = list.findIndex(listItem => {
-                return listItem.get('name') === action.payload.name;
-            });
-            // Calculate new total expenses
-            let oldAmount = list.getIn([indexOfListToUpdate, 'amount']);
-            let newExpenses = state.totalGoalsAmount - (oldAmount - action.payload.amount);
-            // Edit list for the new categories-state
-            list = list.setIn([indexOfListToUpdate, 'amount'], action.payload.amount);
-            return {...state, categories: list.toJS(), totalGoalsAmount: newExpenses};
         case EDIT_BUDGET:
             return {...state, budgetLoading: true, budgetError: ''};
         case EDIT_BUDGET_SUCCESS:

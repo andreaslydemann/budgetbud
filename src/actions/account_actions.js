@@ -1,8 +1,7 @@
 import axios from 'axios';
 import firebase from 'firebase';
 import {
-    budgetBudFunctionsURL,
-    eBankingFunctionsURL
+    BUDGETBUD_FUNCTIONS_URL
 } from "../config/firebase_config";
 
 import {
@@ -26,12 +25,12 @@ export const getAccounts = () => async dispatch => {
         let userID = await firebase.auth().currentUser.uid;
 
         let getAccountsResponse =
-            await axios.get(`${eBankingFunctionsURL}/getAccounts?userID=${userID}`);
+            await axios.get(`${EBANKING_FUNCTIONS_URL}/getAccounts?userID=${userID}`);
 
         const eBankingAccounts = getAccountsResponse.data;
 
         let getLinkedAccountsResponse =
-            await axios.get(`${budgetBudFunctionsURL}/getLinkedAccounts?userID=${userID}`,
+            await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getLinkedAccounts?userID=${userID}`,
                 {headers: {Authorization: 'Bearer ' + token}});
 
         const linkedAccounts = getLinkedAccountsResponse.data;
@@ -53,7 +52,7 @@ export const linkAccounts = (selectedAccounts) => async dispatch => {
         let token = await firebase.auth().currentUser.getIdToken();
         let userID = await firebase.auth().currentUser.uid;
 
-        await axios.post(`${budgetBudFunctionsURL}/linkAccounts`,
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/linkAccounts`,
             {eBankingAccIDs: selectedAccounts, userID},
             {headers: {Authorization: 'Bearer ' + token}});
 
@@ -79,7 +78,7 @@ export const getLinkedAccounts = () => async dispatch => {
         let userID = await firebase.auth().currentUser.uid;
 
         let {data} =
-            await axios.get(`${budgetBudFunctionsURL}/getLinkedAccounts?userID=${userID}`,
+            await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getLinkedAccounts?userID=${userID}`,
                 {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({

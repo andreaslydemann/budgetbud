@@ -15,16 +15,14 @@ import {
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_FAIL,
-    GET_BUDGET_ID_SUCCESS,
-    MAP_EXPENSES,
-    MAP_EXPENSES_SUCCESS,
-    MAP_EXPENSES_FAIL
+    GET_BUDGET_ID_SUCCESS
 } from './types';
-import {BUDGETBUD_FUNCTIONS_URL, EBANKING_FUNCTIONS_URL} from "./consts";
 
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
         let token = await user.getIdToken();
+        console.log(token);
+
         const {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudgetID?userID=${user.uid}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
@@ -108,8 +106,9 @@ export const deleteBudget = ({budgetID}, callback) => async dispatch => {
         dispatch({type: DELETE_BUDGET});
         let token = await firebase.auth().currentUser.getIdToken();
 
-        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/deleteBudget`, {budgetID}, {
-            headers: {Authorization: 'Bearer ' + token}
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/deleteBudget`,
+            {budgetID},
+            {headers: {Authorization: 'Bearer ' + token}
         });
 
         dispatch({type: GET_INITIAL_BUDGET_STATE});
@@ -135,57 +134,4 @@ export const categoryChanged = (name, amount) => {
             amount
         }
     };
-};
-
-export const mapExpensesToBudget = (accounts) => async dispatch => {
-    dispatch({type: MAP_EXPENSES});
-
-    try {
-        let token = await firebase.auth().currentUser.getIdToken();
-        const categories = [];
-        let amount = 0;
-        const expenses = [];
-
-        for (const account of accounts) {
-            let unsortedExpenses = await axios.get(`${EBANKING_FUNCTIONS_URL}/getExpenses?accountID=${account}`);
-            unsortedExpenses.data.forEach(expenseObj => {
-                let index = expenses.indexOf(expenseObj.categoryID);
-                if (index !== -1) {
-                    expenses[index].amount += expenseObj.amount;
-                } else {
-                    expenses.push({
-                        categoryTypeID: expenseObj.categoryTypeID,
-                        amount: expenseObj.amount
-                    });
-                }
-            })
-        }
-
-        let categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
-            {headers: {Authorization: 'Bearer ' + token}});
-
-        expenses.forEach(expense => {
-            categoryTypes.data.filter(obj => {
-                if (obj.id === expense.categoryTypeID) {
-                    amount = expense.amount
-                } else {
-                    amount = 0
-                }
-                categories.push({
-                    name: obj.name,
-                    amount
-                });
-            });
-        });
-
-        dispatch({
-            type: MAP_EXPENSES_SUCCESS,
-            payload: categories
-        });
-    }
-    catch
-        (err) {
-        let {data} = err.response;
-        dispatch({type: MAP_EXPENSES_FAIL, payload: data.error});
-    }
 };

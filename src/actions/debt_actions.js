@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import {budgetBudFunctionsURL} from "../config/firebase_config";
+import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
 import {
     RESET_DEBT_FORM,
@@ -17,8 +17,6 @@ import {
     DEBT_SELECTED,
     DELETE_DEBT
 } from './types';
-
-const ROOT_URL = budgetBudFunctionsURL;
 
 export const resetDebtForm = (callback) => async dispatch => {
     dispatch({
@@ -61,7 +59,7 @@ export const getDebts = (budgetID) => async dispatch => {
         dispatch({type: GET_DEBTS});
         let token = await firebase.auth().currentUser.getIdToken();
 
-        let {data} = await axios.get(`${ROOT_URL}/getDebts?budgetID=${budgetID}`, {
+        let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getDebts?budgetID=${budgetID}`, {
             headers: {Authorization: 'Bearer ' + token}
         });
 
@@ -93,7 +91,7 @@ export const createDebt =
 
             let token = await firebase.auth().currentUser.getIdToken();
 
-            await axios.post(`${ROOT_URL}/createDebt`,
+            await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createDebt`,
                 {name, totalAmount, expirationDate, budgetID, categories}, {
                     headers: {Authorization: 'Bearer ' + token}
                 });
@@ -123,7 +121,7 @@ export const editDebt =
 
                 let token = await firebase.auth().currentUser.getIdToken();
 
-                await axios.post(`${ROOT_URL}/editDebt`,
+                await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editDebt`,
                     {
                         name,
                         totalAmount,
@@ -147,7 +145,7 @@ export const deleteDebt = (debtID) => async dispatch => {
     try {
         let token = await firebase.auth().currentUser.getIdToken();
 
-        await axios.post(`${ROOT_URL}/deleteDebt`, {debtID: debtID}, {
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/deleteDebt`, {debtID: debtID}, {
             headers: {Authorization: 'Bearer ' + token}
         });
     } catch (err) {

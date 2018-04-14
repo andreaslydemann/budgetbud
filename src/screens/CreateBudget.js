@@ -14,9 +14,8 @@ import {
 import {container} from "../style";
 
 class CreateBudget extends Component {
-    async componentWillMount() {
-        await this.props.getLinkedAccounts();
-        await this.props.mapExpensesToBudget(this.props.linkedAccounts);
+    componentWillMount() {
+        this.props.mapExpensesToBudget();
     };
 
     onIncomeChange = (text) => {
