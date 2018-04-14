@@ -100,4 +100,9 @@ export const container = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
+    toastContainer: {
+        height: 0,
+        borderRadius: 100,
+        marginBottom: 15
+    }
 });

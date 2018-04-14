@@ -30,6 +30,9 @@ class CreateDebt extends Component {
     }
 
     onContinuePress = () => {
+        if (this.props.subtractionsLoading)
+            return;
+
         this.props.calculateCategorySubtractions(
             this.props.name,
             this.props.totalAmount,
@@ -44,7 +47,12 @@ class CreateDebt extends Component {
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('createDebtHeader')}
                            showBackButton={true}
-                           onLeftButtonPress={() => this.props.navigation.pop()}/>
+                           onLeftButtonPress={() => {
+                               if (!this.props.subtractionsLoading) {
+                                   this.props.navigation.pop();
+                               }
+
+                           }}/>
 
                 <DebtForm nameChanged={this.props.nameChanged}
                           amountChanged={this.props.amountChanged}

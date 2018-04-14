@@ -22,8 +22,8 @@ import I18n from "../strings/i18n";
 import {
     resetDebtForm,
     debtSelected,
-    getDebts,
-    deleteDebt
+    deleteDebt,
+    getCategories
 } from "../actions";
 import {container, color} from "../style";
 
@@ -34,9 +34,10 @@ class DebtOverview extends PureComponent {
         });
     };
 
-    deleteDebt = () => {
+    deleteDebt = async () => {
         this.confirmDialog.dismissDialog();
-        this.props.deleteDebt(this.props.selectedDebt.id);
+        await this.props.deleteDebt(this.props.selectedDebt.id);
+        await this.props.getCategories(this.props.budgetID);
     };
 
     onDebtSelect = (debt) => {
@@ -129,7 +130,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    resetDebtForm, debtSelected, deleteDebt
+    resetDebtForm, debtSelected, deleteDebt, getCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DebtOverview);

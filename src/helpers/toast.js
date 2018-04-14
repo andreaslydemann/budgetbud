@@ -1,9 +1,11 @@
 import {Toast} from "native-base";
+import {container, color} from "../style";
+import I18n from "../strings/i18n";
 
 export default showToast = (errorMsg) => Toast.show({
     text: errorMsg,
-    position: 'bottom',
-    buttonText: 'Okay',
     duration: 3000,
-    type: 'warning'
+    position: 'bottom',
+    buttonText: I18n.t('toastCloseButton'),
+    style: [container.toastContainer, color.warning]
 });

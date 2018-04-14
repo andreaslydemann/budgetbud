@@ -19,6 +19,9 @@ import I18n from "../strings/i18n";
 
 class DebtPreview extends Component {
     onSavePress = async () => {
+        if (this.props.debtLoading)
+            return;
+
         if (this.props.selectedDebt)
             await this.props.editDebt(this.props);
         else
@@ -34,7 +37,11 @@ class DebtPreview extends Component {
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('debtPreviewHeader')}
                            showBackButton={true}
-                           onLeftButtonPress={() => this.props.navigation.pop()}/>
+                           onLeftButtonPress={() => {
+                               if (!this.props.debtLoading) {
+                                   this.props.navigation.pop();
+                               }
+                           }}/>
 
                 <Content style={{flex: 4}}>
                     <FlatList

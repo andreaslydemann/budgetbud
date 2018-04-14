@@ -7,6 +7,12 @@ export const color = StyleSheet.create({
     yellow: {
         color: '#fff800'
     },
+    warning: {
+        backgroundColor: '#FBB373'
+    },
+    error: {
+        backgroundColor: '#EB7C83'
+    },
     spinnerColor: {
         color: '#D0D0D0'
     },
@@ -33,5 +39,5 @@ export const color = StyleSheet.create({
     },
     text: {
         color: '#003755'
-    }
+    },
 });

@@ -75,11 +75,12 @@ export default {
     signUpButton: 'Registrér dig',
     signUpPhoneNumberPlaceholder: 'Telefonnummer',
     signUpGoToSignIn: 'Allerede registreret?',
+    toastCloseButton: 'Luk',
     expenseOverviewHeader: 'Forbrugsoversigt',
     userDetailsHeader: 'Brugeroplysninger',
     userDetailsConfirmDialogHeader: 'Bekræft sletning',
     userDetailsConfirmDialogBody: 'Vil du slette din bruger?',
-    userDetailsChangePhoneNumber: 'Ændre telefonnummer',
+    userDetailsChangePhoneNumber: 'Ændr telefonnummer',
     userDetailsChangeCode: 'Ændr pinkode',
     userDetailsDeleteUser: 'Slet bruger'
 };

@@ -75,6 +75,7 @@ export default {
     signUpButton: 'Sign up',
     signUpPhoneNumberPlaceholder: 'Phone number',
     signUpGoToSignIn: 'Already signed up?',
+    toastCloseButton: 'Close',
     expenseOverviewHeader: 'Expense overview',
     userDetailsHeader: 'User details',
     userDetailsConfirmDialogHeader: 'Confirm deletion',

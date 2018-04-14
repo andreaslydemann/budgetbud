@@ -38,8 +38,8 @@ export default (state = INITIAL_STATE, action) => {
         case RESET_DEBT_FORM:
             return {
                 ...state,
-                categoriesOfDebt: INITIAL_STATE.categoriesOfDebt,
-                selectedCategories: INITIAL_STATE.selectedCategories
+                categoriesOfDebt: [],
+                selectedCategories: []
             };
         case MAP_EXPENSES:
             return {...state, categoriesLoading: true};
