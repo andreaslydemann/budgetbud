@@ -3,7 +3,7 @@ import {Container} from 'native-base';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import I18n from "../strings/i18n";
-import showToast from '../helpers/toast';
+import {showWarningToast} from '../helpers/toast';
 import {AppHeader, DebtForm} from "../components/";
 import {
     deleteDebt,
@@ -13,7 +13,7 @@ import {
     expirationDateChanged,
     getCategoriesOfDebt,
     categoriesSelected,
-    calculateCategorySubtractions
+    calculateDebtCategorySubtractions
 } from "../actions";
 import {container} from "../style";
 
@@ -24,16 +24,14 @@ class EditDebt extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.debtError)
-            showToast(nextProps.debtError);
-        else if (nextProps.categoriesError)
-            showToast(nextProps.categoriesError);
+            showWarningToast(nextProps.debtError);
     }
 
     onContinuePress = () => {
-        if (this.props.subtractionsLoading)
+        if (this.props.debtLoading)
             return;
 
-        this.props.calculateCategorySubtractions(
+        this.props.calculateDebtCategorySubtractions(
             this.props.name,
             this.props.totalAmount,
             this.props.expirationDate,
@@ -49,7 +47,7 @@ class EditDebt extends Component {
                 <AppHeader headerText={I18n.t('editDebtHeader')}
                            showBackButton={true}
                            onLeftButtonPress={() => {
-                               if (!this.props.subtractionsLoading) {
+                               if (!this.props.debtLoading) {
                                    this.props.navigation.pop();
                                }
                            }}/>
@@ -64,7 +62,7 @@ class EditDebt extends Component {
                           categoryItems={this.props.categoryItems}
                           selectedCategories={this.props.selectedCategories}
                           categoriesLoading={this.props.categoriesLoading}
-                          subtractionsLoading={this.props.subtractionsLoading}
+                          debtLoading={this.props.debtLoading}
                           onContinuePress={this.onContinuePress}/>
             </Container>
         );
@@ -77,6 +75,7 @@ const mapStateToProps = (state) => {
         totalAmount,
         expirationDate,
         selectedDebt,
+        debtLoading,
         debtError
     } = state.debt;
     const {
@@ -84,8 +83,6 @@ const mapStateToProps = (state) => {
         categoriesOfDebt,
         selectedCategories,
         categoriesLoading,
-        subtractionsLoading,
-        categoriesError
     } = state.category;
 
     const unfilteredCategories = _.map(categories, (item) => {
@@ -113,8 +110,7 @@ const mapStateToProps = (state) => {
         selectedCategories,
         categoryItems,
         categoriesLoading,
-        subtractionsLoading,
-        categoriesError,
+        debtLoading,
         debtError
     };
 };
@@ -123,7 +119,7 @@ const mapDispatchToProps = {
     nameChanged,
     amountChanged,
     expirationDateChanged,
-    calculateCategorySubtractions,
+    calculateDebtCategorySubtractions,
     categoriesSelected,
     getCategoriesOfDebt,
     getDebts,

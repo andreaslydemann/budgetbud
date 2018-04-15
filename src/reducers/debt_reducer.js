@@ -13,7 +13,8 @@ import {
     CREATE_DEBT_SUCCESS,
     EDIT_DEBT,
     EDIT_DEBT_SUCCESS,
-    DELETE_DEBT
+    DELETE_DEBT, CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS, CALCULATE_DEBT_CATEGORY_SUBTRACTIONS,
+    CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_FAIL, CATEGORIES_SELECTED, VALIDATE_DEBT_CATEGORIES_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -23,6 +24,7 @@ const INITIAL_STATE = {
     expirationDate: '',
     debts: [],
     selectedDebt: '',
+    categorySubtractions: [],
     debtLoading: false,
     debtError: ''
 };
@@ -41,6 +43,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, debtError: 'Navn er ugyldigt.'};
         case VALIDATE_DEBT_AMOUNT_FAIL:
             return {...state, debtError: 'Beløb er ugyldigt.'};
+        case VALIDATE_DEBT_CATEGORIES_FAIL:
+            return {...state, debtError: 'Ingen kategorier valgt.'};
         case DEBT_SELECTED:
             return {
                 ...state,
@@ -71,6 +75,14 @@ export default (state = INITIAL_STATE, action) => {
                     (item) => item.id !== state.selectedDebt
                 )
             };
+        case CALCULATE_DEBT_CATEGORY_SUBTRACTIONS:
+            return {...state, debtLoading: true};
+        case CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS:
+            return {...state, debtLoading: false, categorySubtractions: action.payload};
+        case CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_FAIL:
+            return {...state, debtLoading: false, debtError: action.payload};
+        case CATEGORIES_SELECTED:
+            return {...state, debtError: ''};
         default:
             return state;
     }

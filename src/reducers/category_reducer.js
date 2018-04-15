@@ -7,10 +7,6 @@ import {
     GET_CATEGORIES_OF_DEBT_SUCCESS,
     GET_CATEGORIES_OF_DEBT_FAIL,
     CATEGORIES_SELECTED,
-    VALIDATE_DEBT_CATEGORIES_FAIL,
-    CALCULATE_CATEGORY_SUBTRACTIONS,
-    CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS,
-    CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
     CREATE_CATEGORIES,
     CREATE_CATEGORIES_SUCCESS,
     CREATE_CATEGORIES_FAIL,
@@ -19,7 +15,9 @@ import {
     GET_MAPPED_CATEGORIES_FAIL,
     MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
-    MAP_EXPENSES_FAIL, CATEGORY_CHANGED, GET_TOTAL_GOALS_AMOUNT_SUCCESS,
+    MAP_EXPENSES_FAIL,
+    CATEGORY_CHANGED,
+    GET_TOTAL_GOALS_AMOUNT_SUCCESS
 } from '../actions/types';
 import {fromJS} from "immutable";
 
@@ -27,7 +25,7 @@ const INITIAL_STATE = {
     categories: [],
     categoriesOfDebt: [],
     selectedCategories: [],
-    disposableCategorySubtractions: [],
+    categorySubtractions: [],
     categoriesLoading: false,
     subtractionsLoading: false,
     categoriesError: '',
@@ -96,14 +94,6 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case CATEGORIES_SELECTED:
             return {...state, selectedCategories: action.payload, categoriesError: ''};
-        case VALIDATE_DEBT_CATEGORIES_FAIL:
-            return {...state, categoriesError: 'Ingen kategorier valgt.'};
-        case CALCULATE_CATEGORY_SUBTRACTIONS:
-            return {...state, subtractionsLoading: true};
-        case CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS:
-            return {...state, subtractionsLoading: false, disposableCategorySubtractions: action.payload};
-        case CALCULATE_CATEGORY_SUBTRACTIONS_FAIL:
-            return {...state, subtractionsLoading: false, categoriesError: action.payload};
         default:
             return state;
     }
