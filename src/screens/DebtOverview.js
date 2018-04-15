@@ -36,7 +36,7 @@ class DebtOverview extends PureComponent {
 
     deleteDebt = async () => {
         this.confirmDialog.dismissDialog();
-        await this.props.deleteDebt(this.props.selectedDebt.id);
+        await this.props.deleteDebt(this.props.selectedDebt);
         await this.props.getCategories(this.props.budgetID);
     };
 

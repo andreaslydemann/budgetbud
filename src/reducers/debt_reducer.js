@@ -48,7 +48,7 @@ export default (state = INITIAL_STATE, action) => {
                 totalAmount: action.payload.totalAmount,
                 amountPerMonth: action.payload.amountPerMonth,
                 expirationDate: action.payload.expirationDate,
-                selectedDebt: {id: action.payload.debtID, key: action.payload.key},
+                selectedDebt: action.payload.debtID,
                 debtError: ''
             };
         case GET_DEBTS:
@@ -68,7 +68,7 @@ export default (state = INITIAL_STATE, action) => {
         case DELETE_DEBT:
             return {
                 ...state, debts: state.debts.filter(
-                    (item, key) => key !== state.selectedDebt.key
+                    (item) => item.id !== state.selectedDebt
                 )
             };
         default:

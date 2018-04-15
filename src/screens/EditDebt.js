@@ -19,7 +19,7 @@ import {container} from "../style";
 
 class EditDebt extends Component {
     componentWillMount() {
-        this.props.getCategoriesOfDebt(this.props.selectedDebt.id);
+        this.props.getCategoriesOfDebt(this.props.selectedDebt);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -40,7 +40,7 @@ class EditDebt extends Component {
             this.props.selectedCategories, () => {
                 this.props.navigation.navigate('DebtPreview');
             },
-            this.props.selectedDebt.id);
+            this.props.selectedDebt);
     };
 
     render() {
@@ -72,8 +72,13 @@ class EditDebt extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const budgetID = state.budget.budgetID;
-    const {name, totalAmount, expirationDate, selectedDebt, debtError} = state.debt;
+    const {
+        name,
+        totalAmount,
+        expirationDate,
+        selectedDebt,
+        debtError
+    } = state.debt;
     const {
         categories,
         categoriesOfDebt,
@@ -83,19 +88,15 @@ const mapStateToProps = (state) => {
         categoriesError
     } = state.category;
 
-    const unfilteredCategories = _.map(categories, (item, key) => {
+    const unfilteredCategories = _.map(categories, (item) => {
         const categoryOfDebt = categoriesOfDebt.filter((obj) => {
-            return obj.categoryID === item.id;
+            return obj.categoryID === item.categoryID;
         });
-
-        const amount = (categoryOfDebt[0] ? categoryOfDebt[0].amount : 0);
-
         return {
-            budgetID: item.categoryData.budgetID,
-            name: item.categoryData.name,
-            amount: (item.categoryData.amount + amount),
-            categoryID: item.id,
-            key: key
+            name: item.name,
+            amount: (item.amount +
+                (categoryOfDebt[0] ? categoryOfDebt[0].amount : 0)),
+            categoryID: item.categoryID
         };
     });
 
@@ -110,7 +111,6 @@ const mapStateToProps = (state) => {
         selectedDebt,
         categoriesOfDebt,
         selectedCategories,
-        budgetID,
         categoryItems,
         categoriesLoading,
         subtractionsLoading,

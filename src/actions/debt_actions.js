@@ -126,7 +126,7 @@ export const editDebt =
                         name,
                         totalAmount,
                         expirationDate,
-                        debtID: selectedDebt.id,
+                        debtID: selectedDebt,
                         budgetID,
                         categories
                     },

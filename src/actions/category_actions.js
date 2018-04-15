@@ -60,6 +60,7 @@ export const getCategories = (budgetID) => async dispatch => {
             const index = categoryTypes.data.findIndex(x => x.id === category.categoryData.categoryTypeID);
 
             categories.push({
+                categoryID: category.id,
                 name: categoryTypes.data[index].name,
                 amount: category.categoryData.amount,
                 categoryTypeID: categoryTypes.data[index].id
@@ -77,6 +78,7 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
     try {
         dispatch({type: GET_CATEGORIES_OF_DEBT});
 
+        console.log(debtID);
         // check for categories != null, else get categories first
         let token = await firebase.auth().currentUser.getIdToken();
 
@@ -87,7 +89,9 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
         const categoriesOfDebt = data;
         const categoriesOfDebtIDs = [];
 
-        categoriesOfDebt.forEach(c => categoriesOfDebtIDs.push(c.categoryID));
+        categoriesOfDebt.forEach(c => {
+            categoriesOfDebtIDs.push(c.categoryID);
+        });
 
         dispatch({
             type: GET_CATEGORIES_OF_DEBT_SUCCESS,

@@ -108,7 +108,7 @@ const mapStateToProps = (state) => {
         });
 
         const category = categories.filter((obj) => {
-            return obj.id === item.toString();
+            return obj.categoryID === item.toString();
         });
 
         const amountToSubtract = categorySubtraction[0].amountToSubtract;
@@ -122,13 +122,13 @@ const mapStateToProps = (state) => {
             categoryOfDebtAmount = categoryOfDebt[0] ? categoryOfDebt[0].amount : 0;
         }
 
-        const beforeAmount = category[0].categoryData.amount + categoryOfDebtAmount;
+        const beforeAmount = category[0].amount + categoryOfDebtAmount;
 
         return {
             amountToSubtract: amountToSubtract,
             beforeAmount: beforeAmount,
             afterAmount: (beforeAmount - amountToSubtract),
-            name: category[0].categoryData.name,
+            name: category[0].name,
             categoryID: item,
             key: key
         };

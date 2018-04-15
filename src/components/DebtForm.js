@@ -136,6 +136,7 @@ export class DebtForm extends Component {
                             <FlatList
                                 data={this.props.categoryItems}
                                 renderItem={this.renderItem}
+                                keyExtractor={item => item.categoryID}
                             />
                         )}
                     </View>
