@@ -9,18 +9,15 @@ import {
     GET_CATEGORIES_OF_DEBT,
     GET_CATEGORIES_OF_DEBT_SUCCESS,
     CATEGORIES_SELECTED,
-    CALCULATE_CATEGORY_SUBTRACTIONS,
-    CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS,
-    CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
-    VALIDATE_DEBT_NAME_FAIL,
-    VALIDATE_DEBT_AMOUNT_FAIL,
-    VALIDATE_DEBT_CATEGORIES_FAIL,
     CREATE_CATEGORIES,
     CREATE_CATEGORIES_SUCCESS,
     CREATE_CATEGORIES_FAIL,
     GET_MAPPED_CATEGORIES,
     GET_MAPPED_CATEGORIES_SUCCESS,
-    GET_MAPPED_CATEGORIES_FAIL, MAP_EXPENSES_SUCCESS, MAP_EXPENSES_FAIL, MAP_EXPENSES,
+    GET_MAPPED_CATEGORIES_FAIL,
+    MAP_EXPENSES_SUCCESS,
+    MAP_EXPENSES_FAIL,
+    MAP_EXPENSES,
 } from "./types";
 
 export const createCategories = ({budgetID, categories}, callback) =>
@@ -102,42 +99,6 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
         //getCategoriesFail(dispatch, data.error);
     }
 };
-
-export const calculateCategorySubtractions =
-    (name, amount, expirationDate, categories, callback, debtID) => async dispatch => {
-        if (name.length === 0) {
-            dispatch({type: VALIDATE_DEBT_NAME_FAIL});
-            return;
-        } else if (amount.length === 0 || amount <= 0) {
-            dispatch({type: VALIDATE_DEBT_AMOUNT_FAIL});
-            return;
-        } else if (categories.length === 0) {
-            dispatch({type: VALIDATE_DEBT_CATEGORIES_FAIL});
-            return;
-        }
-
-        dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS});
-
-        try {
-            let token = await firebase.auth().currentUser.getIdToken();
-            let requestBody;
-
-            if (debtID)
-                requestBody = {totalAmount: amount, expirationDate, categories, debtID};
-            else
-                requestBody = {totalAmount: amount, expirationDate, categories};
-
-            let {data} = await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/calculateCategorySubtractions`,
-                requestBody, {headers: {Authorization: 'Bearer ' + token}});
-
-            dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS, payload: data});
-
-            callback();
-        } catch (err) {
-            let {data} = err.response;
-            dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_FAIL, payload: data.error});
-        }
-    };
 
 export const categoriesSelected = (selectedCategories) => {
     return {

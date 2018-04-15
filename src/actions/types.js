@@ -50,6 +50,9 @@ export const EDIT_DEBT = 'edit_debt';
 export const EDIT_DEBT_SUCCESS = 'edit_debt_success';
 export const EDIT_DEBT_FAIL = 'edit_debt_fail';
 export const DELETE_DEBT = 'delete_debt';
+export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS = 'calculate_debt_category_subtractions';
+export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_debt_category_subtractions_success';
+export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_FAIL  = 'calculate_debt_category_subtractions_fail';
 
 // ----------CATEGORY RELATED TYPES----------
 export const MAP_EXPENSES = 'map_expenses';
@@ -69,9 +72,6 @@ export const GET_MAPPED_CATEGORIES_SUCCESS = 'get_mapped_categories_success';
 export const GET_MAPPED_CATEGORIES_FAIL = 'get_mapped_categories_fail';
 export const CATEGORIES_SELECTED = 'categories_selected';
 export const VALIDATE_DEBT_CATEGORIES_FAIL = 'validate_debt_categories_fail';
-export const CALCULATE_CATEGORY_SUBTRACTIONS = 'calculate_category_subtractions';
-export const CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_category_subtractions_success';
-export const CALCULATE_CATEGORY_SUBTRACTIONS_FAIL  = 'calculate_category_subtractions_fail';
 
 // ----------ACCOUNT RELATED TYPES----------
 export const GET_ACCOUNTS = 'get_ebanking_accounts';

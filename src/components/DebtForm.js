@@ -149,7 +149,7 @@ export class DebtForm extends Component {
                             onPress={() => this.props.onContinuePress()}
                             style={[button.defaultButton, color.button]}
                     >
-                        {this.props.subtractionsLoading ? (
+                        {this.props.debtLoading ? (
                             <Spinner color='#D0D0D0'/>) : (
                             <Text style={text.submitButtonText}>{I18n.t('debtContinueButton')}</Text>
                         )}

@@ -8,9 +8,6 @@ import {
     GET_CATEGORIES_OF_DEBT_FAIL,
     CATEGORIES_SELECTED,
     VALIDATE_DEBT_CATEGORIES_FAIL,
-    CALCULATE_CATEGORY_SUBTRACTIONS,
-    CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS,
-    CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
     CREATE_CATEGORIES,
     CREATE_CATEGORIES_SUCCESS,
     CREATE_CATEGORIES_FAIL,
@@ -92,12 +89,6 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, selectedCategories: action.payload, categoriesError: ''};
         case VALIDATE_DEBT_CATEGORIES_FAIL:
             return {...state, categoriesError: 'Ingen kategorier valgt.'};
-        case CALCULATE_CATEGORY_SUBTRACTIONS:
-            return {...state, subtractionsLoading: true};
-        case CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS:
-            return {...state, subtractionsLoading: false, categorySubtractions: action.payload};
-        case CALCULATE_CATEGORY_SUBTRACTIONS_FAIL:
-            return {...state, subtractionsLoading: false, categoriesError: action.payload};
         default:
             return state;
     }
