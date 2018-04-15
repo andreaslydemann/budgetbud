@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Container} from 'native-base';
 import {AppHeader, DebtForm} from "../components/";
 import I18n from "../strings/i18n";
-import showToast from '../helpers/toast';
+import {showWarningToast} from '../helpers/toast';
 import {
     deleteDebt,
     getDebts,
@@ -19,7 +19,7 @@ import {container} from "../style";
 class CreateDebt extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.debtError)
-            showToast(nextProps.debtError);
+            showWarningToast(nextProps.debtError);
     }
 
     onContinuePress = () => {
@@ -33,18 +33,6 @@ class CreateDebt extends Component {
             this.props.selectedCategories, () => {
                 this.props.navigation.navigate('DebtPreview');
             });
-    };
-
-    checkInput = (income, categories) => {
-        let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
-        if (!allowedRegex.test(income))
-            return false;
-
-        categories.forEach(c => {
-            if (!allowedRegex.test(c.amount))
-                return false;
-        });
-        return true;
     };
 
     render() {

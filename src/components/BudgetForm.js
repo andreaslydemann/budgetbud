@@ -9,7 +9,6 @@ import {
     Body,
     Button,
     Spinner,
-    Toast,
     Text
 } from 'native-base';
 import {Separator} from '../components/';
@@ -21,21 +20,14 @@ import {
     input
 } from "../style/";
 import I18n from "../strings/i18n";
+import {showWarningToast} from '../helpers/toast';
 
 export class BudgetForm extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.budgetError)
-            this.showToast(nextProps.budgetError);
+            showWarningToast(nextProps.budgetError);
     }
-
-    showToast = (errorMsg) => Toast.show({
-        text: errorMsg,
-        position: 'bottom',
-        buttonText: 'Okay',
-        duration: 3000,
-        type: 'warning'
-    });
 
     render() {
         return (
@@ -103,7 +95,7 @@ export class BudgetForm extends PureComponent {
                     <Button rounded
                             onPress={
                                 !this.props.checkInput(this.props.income, this.props.tmpCategories) ?
-                                    this.showToast('Ugyldig indtastning!') :
+                                    showWarningToast('Ugyldig indtastning!') :
                                     this.props.handleSubmit
                             }
                             style={[button.defaultButton, color.button]}

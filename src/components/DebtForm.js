@@ -35,8 +35,9 @@ export class DebtForm extends Component {
         this.props.nameChanged(text);
     };
 
-    onAmountChange = (text) => {
-        this.props.amountChanged(text);
+    onAmountChange = (amount) => {
+        if (this.checkAmount(amount))
+            this.props.amountChanged(amount);
     };
 
     onExpirationDateChange = (text) => {
@@ -53,6 +54,14 @@ export class DebtForm extends Component {
         }
 
         this.props.categoriesSelected(tmp);
+    };
+
+    checkAmount = (amount) => {
+        if (amount.length === 0)
+            return true;
+
+        const amountWithPeriod = amount.replace(/,/g, '.');
+        return !isNaN(parseFloat(amountWithPeriod)) && isFinite(amountWithPeriod);
     };
 
     render() {

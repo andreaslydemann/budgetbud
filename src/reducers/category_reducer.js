@@ -7,7 +7,6 @@ import {
     GET_CATEGORIES_OF_DEBT_SUCCESS,
     GET_CATEGORIES_OF_DEBT_FAIL,
     CATEGORIES_SELECTED,
-    VALIDATE_DEBT_CATEGORIES_FAIL,
     CREATE_CATEGORIES,
     CREATE_CATEGORIES_SUCCESS,
     CREATE_CATEGORIES_FAIL,
@@ -87,8 +86,6 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case CATEGORIES_SELECTED:
             return {...state, selectedCategories: action.payload, categoriesError: ''};
-        case VALIDATE_DEBT_CATEGORIES_FAIL:
-            return {...state, categoriesError: 'Ingen kategorier valgt.'};
         default:
             return state;
     }

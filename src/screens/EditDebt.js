@@ -3,7 +3,7 @@ import {Container} from 'native-base';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import I18n from "../strings/i18n";
-import showToast from '../helpers/toast';
+import {showWarningToast} from '../helpers/toast';
 import {AppHeader, DebtForm} from "../components/";
 import {
     deleteDebt,
@@ -24,7 +24,7 @@ class EditDebt extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.debtError)
-            showToast(nextProps.debtError);
+            showWarningToast(nextProps.debtError);
     }
 
     onContinuePress = () => {
