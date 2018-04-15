@@ -14,7 +14,7 @@ import {
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_FAIL,
-    GET_BUDGET_ID_SUCCESS, DISPOSABLE_CHANGED, GET_DISPOSABLE_SUCCESS, GET_TOTAL_GOALS_AMOUNT_SUCCESS
+    GET_BUDGET_ID_SUCCESS, UPDATE_DISPOSABLE, GET_DISPOSABLE_SUCCESS, GET_TOTAL_GOALS_AMOUNT_SUCCESS
 } from './types';
 import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
@@ -130,7 +130,7 @@ export const deleteBudget = ({budgetID}, callback) => async dispatch => {
 
 export const incomeChanged = amount => async dispatch => {
     dispatch({
-        type: DISPOSABLE_CHANGED,
+        type: UPDATE_DISPOSABLE,
         payload: amount
     });
     return {

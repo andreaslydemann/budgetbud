@@ -24,6 +24,7 @@ export const color = StyleSheet.create({
     },
     input: {
         borderColor: '#003755',
+        backgroundColor: '#F6F7F9'
     },
     darkIcon: {
         color: '#00263A'
@@ -34,8 +35,13 @@ export const color = StyleSheet.create({
     cover: {
         color: '#03426A'
     },
-    checkbox: {
-        borderColor: '#003755'
+    checkboxChecked: {
+        borderColor: '#003755',
+        backgroundColor: '#295E80'
+    },
+    checkboxUnchecked: {
+        borderColor: '#003755',
+        backgroundColor: '#F6F7F9'
     },
     text: {
         color: '#003755'

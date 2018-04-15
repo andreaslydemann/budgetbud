@@ -23,7 +23,7 @@ import {
     MAP_EXPENSES_SUCCESS,
     MAP_EXPENSES_FAIL,
     MAP_EXPENSES,
-    CATEGORY_CHANGED, DISPOSABLE_CHANGED
+    CATEGORY_CHANGED, UPDATE_DISPOSABLE
 } from "./types";
 
 export const createCategories = ({budgetID, categories}, callback) =>
@@ -48,7 +48,7 @@ export const createCategories = ({budgetID, categories}, callback) =>
 
 export const categoryChanged = (name, amount) => async dispatch => {
     dispatch({
-        type: DISPOSABLE_CHANGED,
+        type: UPDATE_DISPOSABLE,
         payload: amount
     });
 
@@ -78,6 +78,7 @@ export const getCategories = (budgetID) => async dispatch => {
             const index = categoryTypes.data.findIndex(x => x.id === category.categoryData.categoryTypeID);
 
             categories.push({
+                categoryID: category.id,
                 name: categoryTypes.data[index].name,
                 amount: category.categoryData.amount,
                 categoryTypeID: categoryTypes.data[index].id
@@ -95,6 +96,7 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
     try {
         dispatch({type: GET_CATEGORIES_OF_DEBT});
 
+        console.log(debtID);
         // check for categories != null, else get categories first
         let token = await firebase.auth().currentUser.getIdToken();
 
@@ -105,7 +107,9 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
         const categoriesOfDebt = data;
         const categoriesOfDebtIDs = [];
 
-        categoriesOfDebt.forEach(c => categoriesOfDebtIDs.push(c.categoryID));
+        categoriesOfDebt.forEach(c => {
+            categoriesOfDebtIDs.push(c.categoryID);
+        });
 
         dispatch({
             type: GET_CATEGORIES_OF_DEBT_SUCCESS,
@@ -179,7 +183,7 @@ export const mapExpensesToBudget = () => async dispatch => {
         const negativeDisposable = totalGoalsAmount*(-1);
 
         dispatch({
-           type: DISPOSABLE_CHANGED,
+           type: UPDATE_DISPOSABLE,
            payload: negativeDisposable
         });
 
@@ -208,7 +212,7 @@ export const getMappedCategories = (categories) => async dispatch => {
         negativeDisposable = negativeDisposable*(-1);
 
         dispatch({
-            type: DISPOSABLE_CHANGED,
+            type: UPDATE_DISPOSABLE,
             payload: negativeDisposable
         });
 

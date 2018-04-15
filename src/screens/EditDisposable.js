@@ -1,23 +1,33 @@
 import React, {Component} from 'react';
 import {Container} from 'native-base';
 import {connect} from "react-redux";
-import _ from 'lodash';
 import I18n from "../strings/i18n";
 import {AppHeader, DisposableForm} from "../components/";
 import {
     resetDisposableForm,
     disposableChanged,
-    getCategories
+    getCategories,
+    calculateDisposableCategoryDifferences,
+    categoriesSelected,
+    setTmpDisposable
 } from "../actions";
 import {container} from "../style";
 
 class EditDisposable extends Component {
     componentWillMount() {
-        this.props.getCategories(this.props.budgetID);
+        this.props.setTmpDisposable();
     }
 
     onContinuePress = () => {
-        this.props.navigation.navigate('DisposablePreview');
+        if (this.props.subtractionsLoading)
+            return;
+
+        this.props.calculateDisposableCategoryDifferences(
+            this.props.disposable,
+            this.props.tmpDisposable,
+            this.props.selectedCategories, () => {
+                this.props.navigation.navigate('DisposablePreview');
+            });
     };
 
     render() {
@@ -28,10 +38,16 @@ class EditDisposable extends Component {
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
                 <DisposableForm disposableChanged={this.props.disposableChanged}
-                                selectedCategories={this.props.categoriesOfDebtIDs}
-                                disposable={this.props.disposable}
+                                categoriesSelected={this.props.categoriesSelected}
                                 categoryItems={this.props.categoryItems}
+                                selectedCategories={this.props.selectedCategories}
                                 categoriesLoading={this.props.categoriesLoading}
+                                disposable={this.props.disposable}
+                                tmpDisposable={this.props.tmpDisposable}
+                                disposableError={this.props.disposableError}
+                                disposableCalculationLoading={this.props.disposableCalculationLoading}
+                                disposableLoading={this.props.disposableLoading}
+                                subtractionsLoading={this.props.subtractionsLoading}
                                 onContinuePress={this.onContinuePress}/>
             </Container>
         );
@@ -39,52 +55,46 @@ class EditDisposable extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const unfilteredCategories = _.map(categories, (item, key) => {
-        const categoryOfDebt = categoriesOfDebt.filter((obj) => {
-            return obj.categoryID === item.id;
-        });
-
-        const amount = (categoryOfDebt[0] ? categoryOfDebt[0].amount : 0);
-
-        return {
-            budgetID: item.categoryData.budgetID,
-            name: item.categoryData.name,
-            amount: (item.categoryData.amount + amount),
-            categoryID: item.id,
-            key: key
-        };
-    });
-
-    const budgetID = state.budget.budgetID;
-    const {disposable} = state.disposable;
+    const {
+        disposable,
+        tmpDisposable,
+        disposableError,
+        disposableLoading,
+        disposableCalculationLoading
+    } = state.disposable;
     const {
         categories,
+        selectedCategories,
         categoriesLoading,
+        subtractionsLoading,
+        categoriesError
     } = state.category;
 
-    const categoryItems = _.map(categories, (item, key) => {
-
-        return {
-            budgetID: item.categoryData.budgetID,
-            name: item.categoryData.name,
-            amount: (item.categoryData.amount + amount),
-            categoryID: item.id,
-            key: key
-        };
+    const categoryItems = categories.filter((obj) => {
+        return obj.amount > 0
     });
 
     return {
-        disposable,
-        budgetID,
+        selectedCategories,
         categoryItems,
-        categoriesLoading
+        categoriesLoading,
+        subtractionsLoading,
+        categoriesError,
+        disposable,
+        tmpDisposable,
+        disposableError,
+        disposableLoading,
+        disposableCalculationLoading
     };
 };
 
 const mapDispatchToProps = {
     disposableChanged,
     getCategories,
-    resetDisposableForm
+    resetDisposableForm,
+    calculateDisposableCategoryDifferences,
+    categoriesSelected,
+    setTmpDisposable
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditDisposable);

@@ -13,15 +13,19 @@ import {
 import _ from 'lodash';
 import {AppHeader, Separator} from "../components/";
 import {connect} from "react-redux";
-import {button, text, container} from "../style/";
-import {editDisposable} from "../actions";
 import I18n from "../strings/i18n";
+import {button, text, container, color} from "../style/";
+import {editDisposable} from "../actions/";
+import {getCategories} from "../actions/category_actions";
 
 class DisposablePreview extends Component {
-    onSavePress = () => {
-        this.props.editDisposable(this.props, () => {
-            this.props.navigation.pop(2);
-        });
+    onSavePress = async () => {
+        if (this.props.disposableLoading)
+            return;
+
+        await this.props.editDisposable(this.props);
+        this.props.navigation.pop(2);
+        this.props.getCategories(this.props.budgetID);
     };
 
     render() {
@@ -29,20 +33,37 @@ class DisposablePreview extends Component {
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('disposablePreviewHeader')}
                            showBackButton={true}
-                           onLeftButtonPress={() => this.props.navigation.pop()}/>
+                           onLeftButtonPress={() => {
+                               if (!this.props.disposableLoading) {
+                                   this.props.navigation.pop();
+                               }
+                           }}/>
 
                 <Content style={{flex: 4}}>
                     <FlatList
                         data={this.props.categoryDisposableItems}
                         renderItem={this.renderItem}
                     />
+                    <Text style={color.text}>{I18n.t('disposable')}</Text>
+                    <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
+                        <Body style={{flex: 1}}>
+                        <Text note>{I18n.t('disposablePreviewBefore')}</Text>
+                        <Text note>{I18n.t('disposablePreviewAfter')}</Text>
+                        </Body>
+                        <Right style={{flex: 2}}>
+                            <Text note>{this.props.disposable} {I18n.t('currency')}</Text>
+                            <Text note>{this.props.tmpDisposable} {I18n.t('currency')} (-
+                                {this.props.disposableDiff} {I18n.t('currency')})
+                            </Text>
+                        </Right>
+                    </View>
                 </Content>
 
                 <Separator/>
 
                 <Button rounded
                         onPress={() => this.onSavePress()}
-                        style={button.defaultButton}
+                        style={[button.defaultButton, color.button]}
                 >
                     {this.props.disposableLoading ? (
                         <Spinner color='#D0D0D0'/>) : (
@@ -60,7 +81,7 @@ class DisposablePreview extends Component {
             <ListItem>
                 <View style={container.fullWidth}>
                     <Body>
-                    <Text>{item.name}</Text>
+                    <Text style={color.text}>{item.name}</Text>
                     </Body>
                     <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
                         <Body style={{flex: 1}}>
@@ -82,43 +103,55 @@ class DisposablePreview extends Component {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {disposable, loading} = state.disposable;
     const {
         categories,
-        categorySubtractions,
+        selectedCategories,
     } = state.category;
+    const {disposableCategorySubtractions,
+        disposableLoading,
+        disposable,
+        tmpDisposable
+    } = state.disposable;
 
-    const categoryDisposableItems = _.map(categoriesOfDisposableIDs, (item, key) => {
-        const categorySubtraction = categorySubtractions.filter((obj) => {
+    const categoryDisposableItems = _.map(selectedCategories, (item, key) => {
+        const categorySubtraction = disposableCategorySubtractions.filter((obj) => {
             return obj.categoryID === item.toString();
         });
 
         const category = categories.filter((obj) => {
-            return obj.id === item.toString();
+            return obj.categoryID === item.toString();
         });
 
-        const amountToSubtract = categorySubtraction[0].amountToSubtract;
-        const beforeAmount = category[0].categoryData.amount;
+        const amountToSubtract = categorySubtraction[0].amountDifference;
+        let categoryOfDebtAmount = 0;
+
+        const beforeAmount = category[0].amount + categoryOfDebtAmount;
 
         return {
             amountToSubtract: amountToSubtract,
             beforeAmount: beforeAmount,
             afterAmount: (beforeAmount - amountToSubtract),
-            name: category[0].categoryData.name,
+            name: category[0].name,
             categoryID: item,
             key: key
         };
     });
 
+    const disposableDiff = tmpDisposable-disposable;
+
     return {
-        disposable,
+        categoryDisposableItems,
         disposableLoading,
         budgetID,
+        disposable,
+        tmpDisposable,
+        disposableDiff
     };
 };
 
 const mapDispatchToProps = {
-    editDisposable
+    editDisposable,
+    getCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DisposablePreview);

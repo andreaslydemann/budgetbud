@@ -27,7 +27,7 @@ const INITIAL_STATE = {
     categories: [],
     categoriesOfDebt: [],
     selectedCategories: [],
-    categorySubtractions: [],
+    disposableCategorySubtractions: [],
     categoriesLoading: false,
     subtractionsLoading: false,
     categoriesError: '',
@@ -77,8 +77,6 @@ export default (state = INITIAL_STATE, action) => {
         case GET_CATEGORIES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case GET_TOTAL_GOALS_AMOUNT_SUCCESS:
-            console.log("GET_TOTAL_GOALS_AMOUNT_SUCCESS")
-            console.log(action.payload)
             return {...state, totalGoalsAmount: action.payload};
         case GET_CATEGORIES_OF_DEBT:
             return {...state, categoriesLoading: true, categoriesError: ''};
@@ -103,7 +101,7 @@ export default (state = INITIAL_STATE, action) => {
         case CALCULATE_CATEGORY_SUBTRACTIONS:
             return {...state, subtractionsLoading: true};
         case CALCULATE_CATEGORY_SUBTRACTIONS_SUCCESS:
-            return {...state, subtractionsLoading: false, categorySubtractions: action.payload};
+            return {...state, subtractionsLoading: false, disposableCategorySubtractions: action.payload};
         case CALCULATE_CATEGORY_SUBTRACTIONS_FAIL:
             return {...state, subtractionsLoading: false, categoriesError: action.payload};
         default:

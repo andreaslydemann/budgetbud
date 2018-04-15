@@ -89,6 +89,8 @@ class Accounts extends PureComponent {
     }
 
     renderItem = ({item}) => {
+        const checked = this.props.linkedAccounts.includes(item.accountID);
+
         return (
             <ListItem>
                 <Body>
@@ -96,8 +98,8 @@ class Accounts extends PureComponent {
                 </Body>
                 <Right style={list.listItemCheckBoxPadding}>
                     <CheckBox
-                        style={color.checkbox}
-                        checked={this.props.linkedAccounts.includes(item.accountID)}
+                        style={checked ? color.checkboxChecked : color.checkboxUnchecked}
+                        checked={checked}
                         onPress={() => this.onCheckBoxPress(item)}
                     />
                 </Right>

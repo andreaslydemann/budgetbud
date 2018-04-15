@@ -18,10 +18,6 @@ import {
 import {container} from "../style";
 
 class CreateDebt extends Component {
-    componentWillMount() {
-        this.props.getCategories(this.props.budgetID);
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.debtError)
             showToast(nextProps.debtError);
@@ -42,6 +38,18 @@ class CreateDebt extends Component {
             });
     };
 
+    checkInput = (income, categories) => {
+        let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
+        if (!allowedRegex.test(income))
+            return false;
+
+        categories.forEach(c => {
+            if (!allowedRegex.test(c.amount))
+                return false;
+        });
+        return true;
+    };
+
     render() {
         return (
             <Container style={container.signedInContainer}>
@@ -51,7 +59,6 @@ class CreateDebt extends Component {
                                if (!this.props.subtractionsLoading) {
                                    this.props.navigation.pop();
                                }
-
                            }}/>
 
                 <DebtForm nameChanged={this.props.nameChanged}
@@ -72,8 +79,12 @@ class CreateDebt extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const budgetID = state.budget.budgetID;
-    const {name, totalAmount, expirationDate, debtError} = state.debt;
+    const {
+        name,
+        totalAmount,
+        expirationDate,
+        debtError
+    } = state.debt;
     const {
         categories,
         categoriesOfDebt,
@@ -83,8 +94,8 @@ const mapStateToProps = (state) => {
         categoriesError
     } = state.category;
 
-    const categoryItems = _.map(categoriesWithAmounts, (item, key) => {
-        return {...item.categoryData, categoryID: item.id, key: key};
+    const categoryItems = categories.filter((obj) => {
+        return obj.amount > 0
     });
 
     return {
@@ -93,7 +104,6 @@ const mapStateToProps = (state) => {
         expirationDate,
         categoriesOfDebt,
         selectedCategories,
-        budgetID,
         categoryItems,
         categoriesLoading,
         subtractionsLoading,

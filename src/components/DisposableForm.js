@@ -28,9 +28,9 @@ import {
     input
 } from "../style/";
 import I18n from "../strings/i18n";
+import {color} from "../style/color";
 
 export class DisposableForm extends Component {
-
     onDisposableChange = (text) => {
         this.props.disposableChanged(text);
     };
@@ -55,8 +55,9 @@ export class DisposableForm extends Component {
                         <Label style={text.defaultText}>{I18n.t('disposable')}</Label>
                         <Item rounded style={input.inputField}>
                             <Input
-                                value={this.props.disposable}
-                                onChangeText={this.onAmountChange}
+                                value={String(this.props.tmpDisposable)}
+                                onChangeText={this.onDisposableChange}
+                                keyboardType="numeric"
                             />
                         </Item>
                     </View>
@@ -80,6 +81,7 @@ export class DisposableForm extends Component {
                             < FlatList
                                 data={this.props.categoryItems}
                                 renderItem={this.renderItem}
+                                keyExtractor={item => item.categoryID}
                             />
                         )}
                     </View>
@@ -90,9 +92,12 @@ export class DisposableForm extends Component {
 
                     <Button rounded
                             onPress={() => this.props.onContinuePress()}
-                            style={button.defaultButton}
+                            style={[button.defaultButton, color.button]}
                     >
-                        <Text style={text.submitButtonText}>{I18n.t('disposableContinueButton')}</Text>
+                        {this.props.disposableCalculationLoading ? (
+                            <Spinner color='#D0D0D0'/>) : (
+                            <Text style={text.submitButtonText}>{I18n.t('disposableContinueButton')}</Text>
+                        )}
                     </Button>
                 </Container>
             </TouchableWithoutFeedback>
@@ -100,18 +105,20 @@ export class DisposableForm extends Component {
     }
 
     renderItem = ({item}) => {
+        const checked = this.props.selectedCategories.includes(item.categoryID);
+
         return (
             <ListItem style={{paddingLeft: 9}}>
                 <CheckBox
-                    style={{borderColor: '#777777'}}
-                    checked={this.props.selectedCategories.includes(item.categoryID)}
+                    style={checked ? color.checkboxChecked : color.checkboxUnchecked}
+                    checked={checked}
                     onPress={() => this.onCheckBoxPress(item)}
                 />
                 <Body>
-                <Text>{item.name}</Text>
+                <Text style={color.text}>{item.name}</Text>
                 </Body>
                 <Right style={{paddingRight: 9}}>
-                    <Text>{item.amount} {I18n.t('currency')}</Text>
+                    <Text style={color.text}>{item.amount} {I18n.t('currency')}</Text>
                 </Right>
             </ListItem>
         );
