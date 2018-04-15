@@ -42,6 +42,18 @@ class CreateDebt extends Component {
             });
     };
 
+    checkInput = (income, categories) => {
+        let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
+        if (!allowedRegex.test(income))
+            return false;
+
+        categories.forEach(c => {
+            if (!allowedRegex.test(c.amount))
+                return false;
+        });
+        return true;
+    };
+
     render() {
         return (
             <Container style={container.signedInContainer}>
@@ -51,7 +63,6 @@ class CreateDebt extends Component {
                                if (!this.props.subtractionsLoading) {
                                    this.props.navigation.pop();
                                }
-
                            }}/>
 
                 <DebtForm nameChanged={this.props.nameChanged}

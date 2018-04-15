@@ -105,6 +105,7 @@ export class DebtForm extends Component {
                                 dateInput: {
                                     borderRadius: 100,
                                     borderColor: '#003755',
+                                    backgroundColor: '#F6F7F9',
                                     borderWidth: 1,
                                     marginRight: 5
                                 },
@@ -158,11 +159,13 @@ export class DebtForm extends Component {
     }
 
     renderItem = ({item}) => {
+        const checked = this.props.selectedCategories.includes(item.categoryID);
+
         return (
             <ListItem style={{paddingLeft: 9}}>
                 <CheckBox
-                    style={color.checkbox}
-                    checked={this.props.selectedCategories.includes(item.categoryID)}
+                    style={checked ? color.checkboxChecked : color.checkboxUnchecked}
+                    checked={checked}
                     onPress={() => this.onCheckBoxPress(item)}
                 />
                 <Body>
