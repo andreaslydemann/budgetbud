@@ -20,9 +20,7 @@ const INITIAL_STATE = {
     budgetID: '',
     income: 0,
     budgetError: '',
-    budgetLoading: false,
-    totalGoalsAmount: 0,
-    disposable: 0
+    budgetLoading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -39,9 +37,7 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 budgetLoading: false,
-                income: action.payload.income,
-                totalGoalsAmount: action.payload.totalGoalsAmount,
-                disposable: action.payload.disposable
+                income: action.payload
             };
         case CREATE_BUDGET_FAIL:
             return {...state, ...INITIAL_STATE, budgetError: action.payload};
@@ -51,24 +47,19 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 budgetLoading: false,
-                income: action.payload.income,
-                disposable: action.payload.disposable,
-                totalGoalsAmount: action.payload.totalGoalsAmount
+                income: action.payload
             };
         case GET_BUDGET_FAIL:
             return {...state, budgetError: action.payload};
         case INCOME_CHANGED:
-            let newDisposable = action.payload - state.totalGoalsAmount;
-            return {...state, income: action.payload, disposable: newDisposable};
+            return {...state, income: action.payload};
         case EDIT_BUDGET:
             return {...state, budgetLoading: true, budgetError: ''};
         case EDIT_BUDGET_SUCCESS:
             return {
                 ...state,
                 budgetLoading: false,
-                income: action.payload.income,
-                totalGoalsAmount: action.payload.totalGoalsAmount,
-                disposable: action.payload.disposable
+                income: action.payload
             };
         case EDIT_BUDGET_FAIL:
             return {...state, budgetError: action.payload};

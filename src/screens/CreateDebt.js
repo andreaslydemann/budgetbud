@@ -83,10 +83,6 @@ const mapStateToProps = (state) => {
         categoriesError
     } = state.category;
 
-    const categoriesWithAmounts = categories.filter((obj) => {
-        return obj.categoryData.amount > 0
-    });
-
     const categoryItems = _.map(categoriesWithAmounts, (item, key) => {
         return {...item.categoryData, categoryID: item.id, key: key};
     });

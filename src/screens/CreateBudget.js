@@ -12,6 +12,7 @@ import {
     getLinkedAccounts
 } from '../actions';
 import {container} from "../style";
+import {createCategories} from "../actions/category_actions";
 
 class CreateBudget extends Component {
     componentWillMount() {
@@ -32,6 +33,7 @@ class CreateBudget extends Component {
         this.props.createBudget(this.props, () => {
             this.props.navigation.navigate('MyBudget');
         });
+        this.props.createCategories(this.props.categories)
     };
 
     checkInput = (income, categories) => {
@@ -78,14 +80,14 @@ const mapStateToProps = (state) => {
     const {
         income,
         debts,
-        totalGoalsAmount,
-        disposable,
         budgetLoading,
         budgetError
     } = state.budget;
 
+    const disposable = state.disposable.disposable;
+
     const linkedAccounts = state.account.linkedAccounts;
-    const {tmpCategories, categoriesLoading, categoriesError} = state.category;
+    const {tmpCategories, categoriesLoading, categoriesError, totalGoalsAmount} = state.category;
 
     return {
         income,
@@ -106,7 +108,8 @@ const mapDispatchToProps = {
     incomeChanged,
     categoryChanged,
     getLinkedAccounts,
-    mapExpensesToBudget
+    mapExpensesToBudget,
+    createCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateBudget);

@@ -55,8 +55,8 @@ export class DisposableForm extends Component {
                         <Label style={text.defaultText}>{I18n.t('disposable')}</Label>
                         <Item rounded style={input.inputField}>
                             <Input
-                                value={this.props.name}
-                                onChangeText={this.onNameChange}
+                                value={this.props.disposable}
+                                onChangeText={this.onAmountChange}
                             />
                         </Item>
                     </View>

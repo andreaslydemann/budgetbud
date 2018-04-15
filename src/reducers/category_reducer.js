@@ -19,7 +19,7 @@ import {
     GET_MAPPED_CATEGORIES_FAIL,
     MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
-    MAP_EXPENSES_FAIL, CATEGORY_CHANGED,
+    MAP_EXPENSES_FAIL, CATEGORY_CHANGED, GET_TOTAL_GOALS_AMOUNT_SUCCESS,
 } from '../actions/types';
 import {fromJS} from "immutable";
 
@@ -31,7 +31,8 @@ const INITIAL_STATE = {
     categoriesLoading: false,
     subtractionsLoading: false,
     categoriesError: '',
-    tmpCategories: []
+    tmpCategories: [],
+    totalGoalsAmount: 0
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -45,7 +46,10 @@ export default (state = INITIAL_STATE, action) => {
         case MAP_EXPENSES:
             return {...state, categoriesLoading: true};
         case MAP_EXPENSES_SUCCESS:
-            return {...state, categoriesLoading: false, tmpCategories: action.payload};
+            return {...state, categoriesLoading: false,
+                tmpCategories: action.payload.categories,
+                totalGoalsAmount: action.payload.totalGoalsAmount
+            };
         case MAP_EXPENSES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case CREATE_CATEGORIES:
@@ -72,6 +76,10 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, categoriesLoading: false, categories: action.payload};
         case GET_CATEGORIES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
+        case GET_TOTAL_GOALS_AMOUNT_SUCCESS:
+            console.log("GET_TOTAL_GOALS_AMOUNT_SUCCESS")
+            console.log(action.payload)
+            return {...state, totalGoalsAmount: action.payload};
         case GET_CATEGORIES_OF_DEBT:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case GET_CATEGORIES_OF_DEBT_SUCCESS:

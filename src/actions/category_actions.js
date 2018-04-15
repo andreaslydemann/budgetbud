@@ -5,7 +5,6 @@ import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 import {
     GET_CATEGORIES,
     GET_CATEGORIES_SUCCESS,
-    GET_CATEGORIES_FAIL,
     GET_CATEGORIES_OF_DEBT,
     GET_CATEGORIES_OF_DEBT_SUCCESS,
     CATEGORIES_SELECTED,
@@ -20,7 +19,11 @@ import {
     CREATE_CATEGORIES_FAIL,
     GET_MAPPED_CATEGORIES,
     GET_MAPPED_CATEGORIES_SUCCESS,
-    GET_MAPPED_CATEGORIES_FAIL, MAP_EXPENSES_SUCCESS, MAP_EXPENSES_FAIL, MAP_EXPENSES,
+    GET_MAPPED_CATEGORIES_FAIL,
+    MAP_EXPENSES_SUCCESS,
+    MAP_EXPENSES_FAIL,
+    MAP_EXPENSES,
+    CATEGORY_CHANGED, DISPOSABLE_CHANGED
 } from "./types";
 
 export const createCategories = ({budgetID, categories}, callback) =>
@@ -42,6 +45,21 @@ export const createCategories = ({budgetID, categories}, callback) =>
             dispatch({type: CREATE_CATEGORIES_FAIL, payload: data.error});
         }
     };
+
+export const categoryChanged = (name, amount) => async dispatch => {
+    dispatch({
+        type: DISPOSABLE_CHANGED,
+        payload: amount
+    });
+
+    return {
+        type: CATEGORY_CHANGED,
+        payload: {
+            name,
+            amount
+        }
+    };
+};
 
 export const getCategories = (budgetID) => async dispatch => {
     try {
@@ -154,9 +172,20 @@ export const mapExpensesToBudget = () => async dispatch => {
 
         const categories = await getAllCategoryTypes(data);
 
+        let totalGoalsAmount = 0;
+        categories.forEach(category => {
+            totalGoalsAmount += category.amount
+        });
+        const negativeDisposable = totalGoalsAmount*(-1);
+
+        dispatch({
+           type: DISPOSABLE_CHANGED,
+           payload: negativeDisposable
+        });
+
         dispatch({
             type: MAP_EXPENSES_SUCCESS,
-            payload: categories
+            payload: {categories, totalGoalsAmount}
         });
     }
     catch
@@ -171,6 +200,17 @@ export const getMappedCategories = (categories) => async dispatch => {
 
     try {
         const newCategories = await getAllCategoryTypes(categories);
+
+        let negativeDisposable = 0;
+        categories.forEach(category => {
+            negativeDisposable += category.amount
+        });
+        negativeDisposable = negativeDisposable*(-1);
+
+        dispatch({
+            type: DISPOSABLE_CHANGED,
+            payload: negativeDisposable
+        });
 
         dispatch({
             type: GET_MAPPED_CATEGORIES_SUCCESS,
@@ -204,7 +244,6 @@ const getAllCategoryTypes = async (currentCategories) => {
             name: categoryType.name,
             amount
         })
-
     });
     return categories;
 };

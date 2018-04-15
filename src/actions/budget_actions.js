@@ -2,7 +2,6 @@ import axios from 'axios';
 import firebase from 'firebase';
 import {
     INCOME_CHANGED,
-    CATEGORY_CHANGED,
     CREATE_BUDGET,
     CREATE_BUDGET_FAIL,
     GET_BUDGET,
@@ -15,7 +14,7 @@ import {
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_FAIL,
-    GET_BUDGET_ID_SUCCESS
+    GET_BUDGET_ID_SUCCESS, DISPOSABLE_CHANGED, GET_DISPOSABLE_SUCCESS, GET_TOTAL_GOALS_AMOUNT_SUCCESS
 } from './types';
 import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
@@ -51,7 +50,7 @@ export const createBudget = ({income, totalGoalsAmount, disposable}, callback) =
                 {userID, income, totalGoalsAmount, disposable},
                 {headers: {Authorization: 'Bearer ' + token}});
 
-            dispatch({type: CREATE_BUDGET_SUCCESS, payload: {income, totalGoalsAmount, disposable}});
+            dispatch({type: CREATE_BUDGET_SUCCESS, payload: income});
 
             callback();
         } catch (err) {
@@ -70,8 +69,18 @@ export const getBudget = (budgetID) => async dispatch => {
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({
+            type: GET_DISPOSABLE_SUCCESS,
+            payload: data.budgetData.disposable
+        });
+
+        dispatch({
+            type: GET_TOTAL_GOALS_AMOUNT_SUCCESS,
+            payload: data.budgetData.totalGoalsAmount
+        });
+
+        dispatch({
             type: GET_BUDGET_SUCCESS,
-            payload: data.budgetData
+            payload: data.budgetData.income
         });
 
     } catch (err) {
@@ -91,9 +100,8 @@ export const editBudget = ({budgetID, income, disposable, totalGoalsAmount}, cal
 
         dispatch({
             type: EDIT_BUDGET_SUCCESS,
-            income,
-            disposable,
-            totalGoalsAmount
+            payload: income
+
         });
 
     } catch (err) {
@@ -120,19 +128,13 @@ export const deleteBudget = ({budgetID}, callback) => async dispatch => {
     }
 };
 
-export const incomeChanged = text => {
+export const incomeChanged = amount => async dispatch => {
+    dispatch({
+        type: DISPOSABLE_CHANGED,
+        payload: amount
+    });
     return {
         type: INCOME_CHANGED,
-        payload: text
-    };
-};
-
-export const categoryChanged = (name, amount) => {
-    return {
-        type: CATEGORY_CHANGED,
-        payload: {
-            name,
-            amount
-        }
+        payload: amount
     };
 };

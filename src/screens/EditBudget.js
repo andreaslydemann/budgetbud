@@ -75,7 +75,6 @@ const mapStateToProps = (state) => {
         income,
         debts,
         totalGoalsAmount,
-        disposable,
         budgetLoading,
         budgetError
     } = state.budget;
@@ -83,6 +82,8 @@ const mapStateToProps = (state) => {
     const categories = state.category.categories;
 
     const {tmpCategories, categoriesLoading, categoriesError} = state.category;
+
+    const disposable = state.disposable.disposable;
 
     return {
         income,

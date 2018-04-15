@@ -225,13 +225,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const {categories, categoriesLoading} = state.category;
+    const {categories, categoriesLoading, totalGoalsAmount} = state.category;
     const debts = state.debt.debts;
     const {
         budgetLoading,
         income,
-        totalGoalsAmount,
-        disposable,
         destination,
         budgetID
     } = state.budget;
@@ -239,6 +237,8 @@ const mapStateToProps = (state) => {
     const categoryItems = categories.filter((obj) => {
         return obj.amount > 0
     });
+
+    const disposable = state.disposable.disposable;
 
     return {
         categoryItems,

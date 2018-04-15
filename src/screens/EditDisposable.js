@@ -39,20 +39,30 @@ class EditDisposable extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const budgetID = state.budget.budgetID;
-    const {disposable} = state.disposable;
-    const {
-        categories,
-        categoriesOfDebt,
-        categoriesLoading,
-    } = state.category;
-
-    const categoryItems = _.map(categories, (item, key) => {
+    const unfilteredCategories = _.map(categories, (item, key) => {
         const categoryOfDebt = categoriesOfDebt.filter((obj) => {
             return obj.categoryID === item.id;
         });
 
         const amount = (categoryOfDebt[0] ? categoryOfDebt[0].amount : 0);
+
+        return {
+            budgetID: item.categoryData.budgetID,
+            name: item.categoryData.name,
+            amount: (item.categoryData.amount + amount),
+            categoryID: item.id,
+            key: key
+        };
+    });
+
+    const budgetID = state.budget.budgetID;
+    const {disposable} = state.disposable;
+    const {
+        categories,
+        categoriesLoading,
+    } = state.category;
+
+    const categoryItems = _.map(categories, (item, key) => {
 
         return {
             budgetID: item.categoryData.budgetID,
