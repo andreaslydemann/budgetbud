@@ -19,8 +19,9 @@ import {
     GET_MAPPED_CATEGORIES_FAIL,
     MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
-    MAP_EXPENSES_FAIL,
+    MAP_EXPENSES_FAIL, CATEGORY_CHANGED,
 } from '../actions/types';
+import {fromJS} from "immutable";
 
 const INITIAL_STATE = {
     categories: [],
@@ -55,6 +56,18 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case GET_CATEGORIES:
             return {...state, categoriesLoading: true, categoriesError: ''};
+        case CATEGORY_CHANGED:
+            // Create list of new categories
+            let list = fromJS(state.tmpCategories);
+            const indexOfListToUpdate = list.findIndex(listItem => {
+                return listItem.get('name') === action.payload.name;
+            });
+            // Calculate new total expenses
+            let oldAmount = list.getIn([indexOfListToUpdate, 'amount']);
+            let newExpenses = state.totalGoalsAmount - (oldAmount - action.payload.amount);
+            // Edit list for the new categories-state
+            list = list.setIn([indexOfListToUpdate, 'amount'], action.payload.amount);
+            return {...state, tmpCategories: list.toJS(), totalGoalsAmount: newExpenses};
         case GET_CATEGORIES_SUCCESS:
             return {...state, categoriesLoading: false, categories: action.payload};
         case GET_CATEGORIES_FAIL:

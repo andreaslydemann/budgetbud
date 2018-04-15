@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import {budgetBudFunctionsURL} from "../config/firebase_config";
+import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
 import {
     GET_INITIAL_AUTH_STATE,
@@ -16,8 +16,6 @@ import {
     SIGN_UP_FAIL,
     DELETE_USER,
 } from './types';
-
-const ROOT_URL = budgetBudFunctionsURL;
 
 export const authScreenSwitched = (callback) => async dispatch => {
     dispatch({type: GET_INITIAL_AUTH_STATE});
@@ -57,8 +55,8 @@ export const signUp = ({cprNumber, phoneNumber}, callback) => async dispatch => 
     dispatch({type: SIGN_UP});
 
     try {
-        await axios.post(`${ROOT_URL}/createUser`, {cprNumber});
-        await axios.post(`${ROOT_URL}/requestCode`, {cprNumber, phoneNumber});
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createUser`, {cprNumber});
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/requestCode`, {cprNumber, phoneNumber});
 
         dispatch({type: GET_INITIAL_AUTH_STATE});
         callback();
@@ -84,7 +82,7 @@ export const signIn = ({cprNumber, code}) => async dispatch => {
     dispatch({type: SIGN_IN});
 
     try {
-        let {data} = await axios.post(`${ROOT_URL}/verifyCode`, {
+        let {data} = await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/verifyCode`, {
             cprNumber, code
         });
 
@@ -116,7 +114,7 @@ export const deleteUser = (callback) => async dispatch => {
         let token = await firebase.auth().currentUser.getIdToken();
         let uid = await firebase.auth().currentUser.uid;
 
-        await axios.post(`${ROOT_URL}/deleteUser`, {cprNumber: uid}, {
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/deleteUser`, {cprNumber: uid}, {
             headers: { Authorization: 'Bearer ' + token }
         });
 

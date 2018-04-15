@@ -74,7 +74,7 @@ class MyBudget extends Component {
                                     <FlatList
                                         data={this.props.categoryItems}
                                         renderItem={this.renderCategory}
-                                        keyExtractor={item => item.id}
+                                        keyExtractor={item => item.categoryTypeID}
                                     />
 
                                 </View>
@@ -145,10 +145,10 @@ class MyBudget extends Component {
         return (
             <ListItem style={{paddingLeft: 6, paddingRight: 18}}>
                 <Body>
-                <Text style={styles.listText}>{item.categoryData.name}</Text>
+                <Text style={styles.listText}>{item.name}</Text>
                 </Body>
                 <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>
-                    {item.categoryData.amount} {I18n.t('currency')}
+                    {item.amount} {I18n.t('currency')}
                 </Text>
             </ListItem>
         );
@@ -237,7 +237,7 @@ const mapStateToProps = (state) => {
     } = state.budget;
 
     const categoryItems = categories.filter((obj) => {
-        return obj.categoryData.amount > 0
+        return obj.amount > 0
     });
 
     return {
