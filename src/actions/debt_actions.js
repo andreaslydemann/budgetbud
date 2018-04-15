@@ -184,7 +184,7 @@ export const calculateDebtCategorySubtractions =
             else
                 requestBody = {totalAmount: amount, expirationDate, categories};
 
-            let {data} = await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/calculateCategorySubtractions`,
+            let {data} = await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/calculateDebtCategorySubtractions`,
                 requestBody, {headers: {Authorization: 'Bearer ' + token}});
 
             dispatch({type: CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS, payload: data});
