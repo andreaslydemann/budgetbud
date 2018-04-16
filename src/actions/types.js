@@ -75,7 +75,6 @@ export const VALIDATE_DEBT_CATEGORIES_FAIL = 'validate_debt_categories_fail';
 export const CALCULATE_CATEGORY_SUBTRACTIONS_FAIL  = 'calculate_category_subtractions_fail';
 export const GET_TOTAL_GOALS_AMOUNT_SUCCESS = 'get_total_goals_amount';
 
-
 // ----------ACCOUNT RELATED TYPES----------
 export const GET_ACCOUNTS = 'get_ebanking_accounts';
 export const GET_ACCOUNTS_SUCCESS = 'get_ebanking_accounts_success';
@@ -104,3 +103,10 @@ export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS = 'calculate_disp
 export const GET_EXPENSES_OF_MONTH = 'get_expenses_of_month';
 export const GET_EXPENSES_OF_MONTH_SUCCESS = 'get_expenses_of_month_success';
 export const GET_EXPENSES_OF_MONTH_FAIL = 'get_expenses_of_month_fail';
+
+// ----------ALARM RELATED TYPES----------
+export const CATEGORY_ALARM_ENABLED = 'category_alarm_enabled';
+export const CATEGORY_ALARM_ENABLED_FAIL = 'category_alarm_enabled_fail';
+export const GET_ENABLED_CATEGORY_ALARMS = 'get_enabled_category_alarms';
+export const GET_ENABLED_CATEGORY_ALARMS_SUCCESS = 'get_enabled_category_alarms_success';
+export const GET_ENABLED_CATEGORY_ALARMS_FAIL = 'get_enabled_category_alarms_fail';

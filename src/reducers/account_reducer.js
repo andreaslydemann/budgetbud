@@ -14,7 +14,6 @@ import {
 const INITIAL_STATE = {
     accounts: [],
     linkedAccounts: [],
-    categories: [],
     accountsLoading: false,
     linkLoading: false,
     error: ''

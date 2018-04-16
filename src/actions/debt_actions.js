@@ -91,7 +91,7 @@ export const createDebt =
                 categories.push({
                     categoryID: c.categoryID,
                     newAmount: c.afterAmount,
-                    amountDiff: c.amountDiff
+                    amountToSubtract: c.amountToSubtract
                 });
             });
 
@@ -121,7 +121,7 @@ export const editDebt =
                     categories.push({
                         categoryID: c.categoryID,
                         newAmount: c.afterAmount,
-                        amountDiff: c.amountDiff
+                        amountToSubtract: c.amountToSubtract
                     });
                 });
 

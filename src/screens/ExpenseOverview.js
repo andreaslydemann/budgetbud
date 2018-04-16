@@ -10,9 +10,9 @@ import {
     Spinner
 } from "native-base";
 import {AppHeader, Separator} from "../components/";
-import {FlatList, StyleSheet} from "react-native";
+import {FlatList, StyleSheet, TouchableOpacity} from "react-native";
 import {connect} from "react-redux";
-import {getExpensesOfMonth} from "../actions";
+import {getExpensesOfMonth, categoryAlarmEnabled} from "../actions";
 import I18n from "../strings/i18n";
 import {color, container} from "../style";
 
@@ -20,10 +20,6 @@ class ExpenseOverview extends Component {
     componentWillMount() {
         this.props.getExpensesOfMonth();
     }
-
-    navigateUser = (destination) => {
-        this.props.navigation.navigate(destination)
-    };
 
     render() {
         return (
@@ -80,6 +76,8 @@ class ExpenseOverview extends Component {
     }
 
     renderCategory = ({item}) => {
+        const notificationsEnabled = this.props.enabledCategoryAlarms.includes(item.categoryID);
+
         return (
             <ListItem>
                 <View style={{width: '100%', paddingHorizontal: 4}}>
@@ -88,9 +86,10 @@ class ExpenseOverview extends Component {
                         <Text style={color.text}>{item.name}</Text>
                         </Body>
                         <Right>
-                            {item.notificationsEnabled ?
-                                (<Icon style={[color.darkIcon, {fontSize: 26}]} name="ios-notifications"/>) :
-                                (<Icon style={[color.darkIcon, {fontSize: 26}]} name="ios-notifications-outline"/>)}
+                            <TouchableOpacity onPress={() => this.props.categoryAlarmEnabled(item)}>
+                                <Icon style={[color.darkIcon, {fontSize: 26}]}
+                                      name={notificationsEnabled ? "ios-notifications" : "ios-notifications-outline"}/>
+                            </TouchableOpacity>
                         </Right>
                     </View>
                     <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
@@ -178,6 +177,7 @@ const mapStateToProps = (state) => {
     const {expenses, totalExpenses, expensesLoading} = state.expense;
     const disposable = state.disposable.disposable;
     const {categories} = state.category;
+    const {enabledCategoryAlarms} = state.alarm;
 
     let totalDebtPerMonth = 0;
     debts.forEach(d => totalDebtPerMonth += d.debtData.amountPerMonth);
@@ -199,6 +199,7 @@ const mapStateToProps = (state) => {
     });
 
     return {
+        enabledCategoryAlarms,
         totalDebtPerMonth,
         disposable,
         expenses,
@@ -209,5 +210,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-    getExpensesOfMonth
+    getExpensesOfMonth, categoryAlarmEnabled
 })(ExpenseOverview);
