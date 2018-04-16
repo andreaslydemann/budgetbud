@@ -99,3 +99,8 @@ export const GET_DISPOSABLE_SUCCESS = 'get_disposable_success';
 export const SET_TMP_DISPOSABLE = 'set_tmp_disposable';
 export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES = 'calculate_disposable_category_differences';
 export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS = 'calculate_disposable_category_differences_success';
+
+// ----------EXPENSES RELATED TYPES----------
+export const MAP_EXPENSES_TO_EXPENSE_OVERVIEW = 'map_expenses_to_expense_overview';
+export const MAP_EXPENSES_TO_EXPENSE_OVERVIEW_SUCCESS = 'map_expenses_to_expense_overview_success';
+export const MAP_EXPENSES_TO_EXPENSE_OVERVIEW_FAIL = 'map_expenses_to_expense_overview_fail';

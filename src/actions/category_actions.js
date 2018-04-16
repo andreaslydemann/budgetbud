@@ -130,7 +130,7 @@ export const mapExpensesToBudget = () => async dispatch => {
         let token = await firebase.auth().currentUser.getIdToken();
         let userID = await firebase.auth().currentUser.uid;
 
-        let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getExpensesOfMonth?userID=${userID}`,
+        let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getAverageExpenses?userID=${userID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
         const categories = await getAllCategoryTypes(data);

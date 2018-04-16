@@ -52,7 +52,7 @@ class DisposablePreview extends Component {
                         </Body>
                         <Right style={{flex: 2}}>
                             <Text note>{this.props.disposable} {I18n.t('currency')}</Text>
-                            <Text note>{this.props.tmpDisposable} {I18n.t('currency')} (-
+                            <Text note>{this.props.tmpDisposable} {I18n.t('currency')} (
                                 {this.props.disposableDiff} {I18n.t('currency')})
                             </Text>
                         </Right>
@@ -90,8 +90,8 @@ class DisposablePreview extends Component {
                         </Body>
                         <Right style={{flex: 2}}>
                             <Text note>{item.beforeAmount} {I18n.t('currency')}</Text>
-                            <Text note>{item.afterAmount} {I18n.t('currency')} (-
-                                {item.amountToSubtract} {I18n.t('currency')})
+                            <Text note>{item.afterAmount} {I18n.t('currency')} (
+                                {item.amountDiff} {I18n.t('currency')})
                             </Text>
                         </Right>
                     </View>
@@ -123,12 +123,13 @@ const mapStateToProps = (state) => {
         });
 
         const amountToSubtract = categorySubtraction[0].amountDifference;
+        let amountDiff = amountToSubtract * (-1);
         let categoryOfDebtAmount = 0;
 
         const beforeAmount = category[0].amount + categoryOfDebtAmount;
 
         return {
-            amountToSubtract: amountToSubtract,
+            amountDiff: amountDiff,
             beforeAmount: beforeAmount,
             afterAmount: (beforeAmount - amountToSubtract),
             name: category[0].name,
