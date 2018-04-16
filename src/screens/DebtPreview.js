@@ -82,7 +82,7 @@ class DebtPreview extends Component {
                         <Right style={{flex: 2}}>
                             <Text note>{item.beforeAmount} {I18n.t('currency')}</Text>
                             <Text note>{item.afterAmount} {I18n.t('currency')} (-
-                                {item.amountToSubtract} {I18n.t('currency')})
+                                {item.amountDiff} {I18n.t('currency')})
                             </Text>
                         </Right>
                     </View>
@@ -117,7 +117,7 @@ const mapStateToProps = (state) => {
             return obj.categoryID === item.toString();
         });
 
-        const amountToSubtract = categorySubtraction[0].amountToSubtract;
+        const amountToSubtract = categorySubtraction[0].amountDiff;
         let categoryOfDebtAmount = 0;
 
         if (selectedDebt) {
@@ -131,7 +131,7 @@ const mapStateToProps = (state) => {
         const beforeAmount = category[0].amount + categoryOfDebtAmount;
 
         return {
-            amountToSubtract: amountToSubtract,
+            amountDiff: amountToSubtract,
             beforeAmount: beforeAmount,
             afterAmount: (beforeAmount - amountToSubtract),
             name: category[0].name,
