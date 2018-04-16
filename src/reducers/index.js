@@ -7,6 +7,7 @@ import category_reducer from './category_reducer';
 import debt_reducer from './debt_reducer';
 import disposable_reducer from './disposable_reducer';
 import account_reducer from './account_reducer';
+import expense_reducer from './expense_reducer';
 
 export default combineReducers({
     init: initial_reducer,
@@ -17,4 +18,5 @@ export default combineReducers({
     debt: debt_reducer,
     disposable: disposable_reducer,
     account: account_reducer,
+    expense: expense_reducer,
 });

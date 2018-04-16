@@ -12,14 +12,13 @@ import {
 import {AppHeader, Separator} from "../components/";
 import {FlatList, StyleSheet} from "react-native";
 import {connect} from "react-redux";
-import {getBudget, getCategories, getDebts} from "../actions";
+import {getExpensesOfMonth} from "../actions";
 import I18n from "../strings/i18n";
 import {color, container} from "../style";
 
 class ExpenseOverview extends Component {
     componentWillMount() {
-        this.props.getBudget(this.props.budgetID);
-        this.props.getCategories(this.props.budgetID);
+        this.props.getExpensesOfMonth();
     }
 
     navigateUser = (destination) => {
@@ -32,16 +31,16 @@ class ExpenseOverview extends Component {
                 <AppHeader headerText={I18n.t('expenseOverviewHeader')}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
                 <Container>
-                    {this.props.budgetLoading ? (
+                    {this.props.expensesLoading ? (
                         <Spinner style={{
                             flex: 1
                         }} color='#1c313a'/>) : (
                         <Container>
                             <View style={{flex: 0.82}}>
                                 <FlatList
-                                    data={this.props.items}
+                                    data={this.props.categoryItems}
                                     renderItem={this.renderCategory}
-                                    keyExtractor={item => item.name}
+                                    keyExtractor={item => item.categoryID}
                                 />
                                 <Separator/>
                             </View>
@@ -60,7 +59,7 @@ class ExpenseOverview extends Component {
                                             {I18n.t('expenseOverviewTotalExpenses')}
                                         </Text>
                                         <Text style={styles.listText}>
-                                            {this.props.disposable} {I18n.t('currency')}
+                                            {this.props.totalExpenses} {I18n.t('currency')}
                                         </Text>
                                     </View>
                                     <View style={[styles.incomeFormStyle, {flex: 1}]}>
@@ -102,10 +101,10 @@ class ExpenseOverview extends Component {
                         </Body>
                         <Right>
                             <Text style={{color: '#808080'}}>{item.budget} {I18n.t('currency')}</Text>
-                            <Text style={{color: '#808080'}}>{item.spending} {I18n.t('currency')}</Text>
+                            <Text style={{color: '#808080'}}>{item.expenses} {I18n.t('currency')}</Text>
                             <Text
-                                style={((item.budget - item.spending) < 0 ? {color: '#EB7C83'} :
-                                    {color: '#808080'})}>{item.budget - item.spending} {I18n.t('currency')}
+                                style={((item.budget - item.expenses) < 0 ? {color: '#EB7C83'} :
+                                    {color: '#808080'})}>{item.budget - item.expenses} {I18n.t('currency')}
                             </Text>
                         </Right>
                     </View>
@@ -125,7 +124,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: '100%',
         paddingRight: 18,
-        paddingLeft: 14,
+        paddingLeft: 15,
         justifyContent: 'space-between',
         flexDirection: 'row'
     },
@@ -176,51 +175,39 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     const {debts} = state.debt;
+    const {expenses, totalExpenses, expensesLoading} = state.expense;
+    const disposable = state.disposable.disposable;
+    const {categories} = state.category;
 
     let totalDebtPerMonth = 0;
     debts.forEach(d => totalDebtPerMonth += d.debtData.amountPerMonth);
 
-    const {
-        budgetLoading,
-        income,
-        totalExpenses,
-        destination,
-        budgetID
-    } = state.budget;
+    const categoryItems = [];
 
-    const disposable = state.disposable.disposable;
+    categories.forEach(category => {
+        const index = expenses.findIndex(x => x.categoryTypeID === category.categoryTypeID);
 
-    const items = [{
-        name: 'Dagligvarer',
-        budget: 150,
-        spending: 300,
-        notificationsEnabled: false
-    }, {
-        name: 'Transport',
-        budget: 1220,
-        spending: 1500,
-        notificationsEnabled: true
-    }, {
-        categoryID: 12,
-        name: 'Bolig',
-        budget: 1750,
-        spending: 100,
-        notificationsEnabled: false
-    },
-    ];
+        if (index !== -1) {
+            categoryItems.push({
+                categoryID: category.categoryID,
+                name: category.name,
+                budget: category.amount,
+                expenses: expenses[index].amount,
+                notificationsEnabled: false
+            });
+        }
+    });
 
     return {
         totalDebtPerMonth,
-        items,
-        budgetLoading,
-        income,
-        totalExpenses,
         disposable,
-        destination,
-        budgetID
+        expenses,
+        totalExpenses,
+        expensesLoading,
+        categoryItems
     }
 };
 
 export default connect(mapStateToProps, {
-    getBudget, getCategories, getDebts
+    getExpensesOfMonth
 })(ExpenseOverview);

@@ -101,6 +101,6 @@ export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES = 'calculate_disposable_c
 export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS = 'calculate_disposable_category_differences_success';
 
 // ----------EXPENSES RELATED TYPES----------
-export const MAP_EXPENSES_TO_EXPENSE_OVERVIEW = 'map_expenses_to_expense_overview';
-export const MAP_EXPENSES_TO_EXPENSE_OVERVIEW_SUCCESS = 'map_expenses_to_expense_overview_success';
-export const MAP_EXPENSES_TO_EXPENSE_OVERVIEW_FAIL = 'map_expenses_to_expense_overview_fail';
+export const GET_EXPENSES_OF_MONTH = 'get_expenses_of_month';
+export const GET_EXPENSES_OF_MONTH_SUCCESS = 'get_expenses_of_month_success';
+export const GET_EXPENSES_OF_MONTH_FAIL = 'get_expenses_of_month_fail';
