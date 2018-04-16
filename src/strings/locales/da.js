@@ -46,7 +46,7 @@ export default {
     expenseOverviewHeader: 'Forbrugsoversigt',
     expenseOverviewBudget: 'Budget',
     expenseOverviewDisposable: 'Til rådighed',
-    expenseOverviewTotalDebtsPerMonth: 'Total gæld pr. måned',
+    expenseOverviewTotalDebtsPerMonth: 'Totale gæld pr. måned',
     expenseOverviewExpenses: 'Forbrug',
     expenseOverviewTotalExpenses: 'Totale forbrug',
     expenseOverviewRemaining: 'Resterende beløb',

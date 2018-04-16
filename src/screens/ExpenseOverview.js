@@ -52,7 +52,7 @@ class ExpenseOverview extends Component {
                                             {I18n.t('expenseOverviewTotalDebtsPerMonth')}
                                         </Text>
                                         <Text style={styles.listText}>
-                                            {this.props.totalExpenses} {I18n.t('currency')}
+                                            {this.props.totalDebtPerMonth} {I18n.t('currency')}
                                         </Text>
                                     </View>
                                     <View style={[styles.incomeFormStyle, {flex: 1}]}>
@@ -175,15 +175,20 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const categories = state.category.categories;
+    const {debts} = state.debt;
+
+    let totalDebtPerMonth = 0;
+    debts.forEach(d => totalDebtPerMonth += d.debtData.amountPerMonth);
+
     const {
         budgetLoading,
         income,
         totalExpenses,
-        disposable,
         destination,
         budgetID
     } = state.budget;
+
+    const disposable = state.disposable.disposable;
 
     const items = [{
         name: 'Dagligvarer',
@@ -196,6 +201,7 @@ const mapStateToProps = (state) => {
         spending: 1500,
         notificationsEnabled: true
     }, {
+        categoryID: 12,
         name: 'Bolig',
         budget: 1750,
         spending: 100,
@@ -204,8 +210,8 @@ const mapStateToProps = (state) => {
     ];
 
     return {
+        totalDebtPerMonth,
         items,
-        categories,
         budgetLoading,
         income,
         totalExpenses,
