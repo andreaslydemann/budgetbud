@@ -14,7 +14,7 @@ import {
     GET_MAPPED_CATEGORIES,
     GET_MAPPED_CATEGORIES_SUCCESS,
     GET_MAPPED_CATEGORIES_FAIL,
-    UPDATE_DISPOSABLE,
+    INCOME_CHANGED,
     CATEGORY_CHANGED,
     MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
@@ -41,17 +41,15 @@ export const createCategories = ({budgetID, categories}, callback) =>
         }
     };
 
-export const categoryChanged = (name, amount) => async dispatch => {
-    dispatch({
-        type: UPDATE_DISPOSABLE,
-        payload: amount
-    });
+export const categoryChanged = (name, oldAmount, newAmount) =>  {
+    const categoryDiff = newAmount-oldAmount;
 
     return {
         type: CATEGORY_CHANGED,
         payload: {
             name,
-            amount
+            newAmount,
+            categoryDiff
         }
     };
 };
@@ -139,12 +137,6 @@ export const mapExpensesToBudget = () => async dispatch => {
         categories.forEach(category => {
             totalGoalsAmount += category.amount
         });
-        const negativeDisposable = totalGoalsAmount*(-1);
-
-        dispatch({
-           type: UPDATE_DISPOSABLE,
-           payload: negativeDisposable
-        });
 
         dispatch({
             type: MAP_EXPENSES_SUCCESS,
@@ -164,20 +156,15 @@ export const getMappedCategories = (categories) => async dispatch => {
     try {
         const newCategories = await getAllCategoryTypes(categories);
 
-        let negativeDisposable = 0;
+        let totalWithdrawal = 0;
         categories.forEach(category => {
-            negativeDisposable += category.amount
+            totalWithdrawal += category.amount
         });
-        negativeDisposable = negativeDisposable*(-1);
-
-        dispatch({
-            type: UPDATE_DISPOSABLE,
-            payload: negativeDisposable
-        });
+        totalWithdrawal = totalWithdrawal*(-1);
 
         dispatch({
             type: GET_MAPPED_CATEGORIES_SUCCESS,
-            payload: newCategories
+            payload: {newCategories, totalWithdrawal}
         });
     }
     catch

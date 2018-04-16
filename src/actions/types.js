@@ -91,7 +91,6 @@ export const GET_LINKED_ACCOUNTS_FAIL = 'get_linked_accounts_fail';
 // ----------DISPOSABLE RELATED TYPES----------
 export const RESET_DISPOSABLE_FORM = 'reset_disposable_form';
 export const DISPOSABLE_AMOUNT_CHANGED = 'disposable_amount_changed';
-export const UPDATE_DISPOSABLE = 'update_disposable';
 export const EDIT_DISPOSABLE = 'edit_disposable';
 export const EDIT_DISPOSABLE_SUCCESS = 'edit_disposable_success';
 export const EDIT_DISPOSABLE_FAIL = 'edit_disposable_fail';

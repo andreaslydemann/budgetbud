@@ -17,12 +17,12 @@ class EditBudget extends Component {
         await this.props.getMappedCategories(this.props.categories);
     };
 
-    onIncomeChange = (text) => {
-        this.props.incomeChanged(text);
+    onIncomeChange = (newIncome) => {
+        this.props.incomeChanged(newIncome, this.props.income);
     };
 
-    onCategoryChange = (text) => {
-        this.props.categoryChanged(text);
+    onCategoryChange = (newAmount, name, oldAmount) => {
+        this.props.categoryChanged(newAmount, name, oldAmount);
     };
 
     handleSubmit = () => {
@@ -74,28 +74,33 @@ const mapStateToProps = (state) => {
     const {
         income,
         debts,
-        totalGoalsAmount,
         budgetLoading,
         budgetError
     } = state.budget;
 
-    const categories = state.category.categories;
-
-    const {tmpCategories, categoriesLoading, categoriesError} = state.category;
-
     const disposable = state.disposable.disposable;
+
+    const linkedAccounts = state.account.linkedAccounts;
+    const {
+        categories,
+        tmpCategories,
+        categoriesLoading,
+        categoriesError,
+        totalGoalsAmount
+    } = state.category;
 
     return {
         income,
+        categories,
+        tmpCategories,
+        linkedAccounts,
         debts,
         totalGoalsAmount,
         disposable,
         budgetLoading,
-        budgetError,
-        tmpCategories,
-        categoriesLoading,
         categoriesError,
-        categories
+        budgetError,
+        categoriesLoading
     };
 };
 

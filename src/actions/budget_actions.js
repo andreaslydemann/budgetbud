@@ -14,7 +14,7 @@ import {
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_FAIL,
-    GET_BUDGET_ID_SUCCESS, UPDATE_DISPOSABLE, GET_DISPOSABLE_SUCCESS, GET_TOTAL_GOALS_AMOUNT_SUCCESS
+    GET_BUDGET_ID_SUCCESS
 } from './types';
 import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
@@ -68,19 +68,15 @@ export const getBudget = (budgetID) => async dispatch => {
         let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudget?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
-        dispatch({
-            type: GET_DISPOSABLE_SUCCESS,
-            payload: data.budgetData.disposable
-        });
+        const disposable = data.budgetData.disposable;
+        const totalGoalsAmount = data.budgetData.totalGoalsAmount;
+        const income = data.budgetData.income;
 
-        dispatch({
-            type: GET_TOTAL_GOALS_AMOUNT_SUCCESS,
-            payload: data.budgetData.totalGoalsAmount
-        });
+        console.log(disposable + " + " + totalGoalsAmount + " + " + income)
 
         dispatch({
             type: GET_BUDGET_SUCCESS,
-            payload: data.budgetData.income
+            payload: {income, totalGoalsAmount, disposable}
         });
 
     } catch (err) {
@@ -101,7 +97,6 @@ export const editBudget = ({budgetID, income, disposable, totalGoalsAmount}, cal
         dispatch({
             type: EDIT_BUDGET_SUCCESS,
             payload: income
-
         });
 
     } catch (err) {
@@ -128,13 +123,12 @@ export const deleteBudget = ({budgetID}, callback) => async dispatch => {
     }
 };
 
-export const incomeChanged = amount => async dispatch => {
-    dispatch({
-        type: UPDATE_DISPOSABLE,
-        payload: amount
-    });
+export const incomeChanged = (newIncome, income) =>  {
+    console.log(newIncome + " + " + income)
+    const incomeDiff = newIncome-income;
+
     return {
         type: INCOME_CHANGED,
-        payload: amount
+        payload: {newIncome, incomeDiff}
     };
 };

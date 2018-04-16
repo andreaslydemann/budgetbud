@@ -17,7 +17,7 @@ import {
     MAP_EXPENSES_SUCCESS,
     MAP_EXPENSES_FAIL,
     CATEGORY_CHANGED,
-    GET_TOTAL_GOALS_AMOUNT_SUCCESS
+    GET_BUDGET_SUCCESS
 } from '../actions/types';
 import {fromJS} from "immutable";
 
@@ -65,17 +65,16 @@ export default (state = INITIAL_STATE, action) => {
                 return listItem.get('name') === action.payload.name;
             });
             // Calculate new total expenses
-            let oldAmount = list.getIn([indexOfListToUpdate, 'amount']);
-            let newExpenses = state.totalGoalsAmount - (oldAmount - action.payload.amount);
+            let newTotalGoalsAmount = state.totalGoalsAmount - action.payload.categoryDiff;
             // Edit list for the new categories-state
-            list = list.setIn([indexOfListToUpdate, 'amount'], action.payload.amount);
-            return {...state, tmpCategories: list.toJS(), totalGoalsAmount: newExpenses};
+            list = list.setIn([indexOfListToUpdate, 'amount'], action.payload.newAmount);
+            return {...state, tmpCategories: list.toJS(), totalGoalsAmount: newTotalGoalsAmount};
         case GET_CATEGORIES_SUCCESS:
             return {...state, categoriesLoading: false, categories: action.payload};
         case GET_CATEGORIES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
-        case GET_TOTAL_GOALS_AMOUNT_SUCCESS:
-            return {...state, totalGoalsAmount: action.payload};
+        case GET_BUDGET_SUCCESS:
+            return {...state, totalGoalsAmount: action.payload.totalGoalsAmount};
         case GET_CATEGORIES_OF_DEBT:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case GET_CATEGORIES_OF_DEBT_SUCCESS:
@@ -89,7 +88,7 @@ export default (state = INITIAL_STATE, action) => {
         case GET_MAPPED_CATEGORIES:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case GET_MAPPED_CATEGORIES_SUCCESS:
-            return {...state, tmpCategories: action.payload};
+            return {...state, tmpCategories: action.payload.newCategories};
         case GET_MAPPED_CATEGORIES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case CATEGORIES_SELECTED:

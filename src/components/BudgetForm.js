@@ -30,6 +30,7 @@ export class BudgetForm extends PureComponent {
     }
 
     render() {
+        console.log(this.props.tmpCategories)
         return (
             <Container>
                 <View style={container.incomeFormStyle}>
@@ -42,8 +43,6 @@ export class BudgetForm extends PureComponent {
                             onChangeText={this.props.onIncomeChanged}
                             value={String(this.props.income)}
                             keyboardType="numeric"
-                            placeholder={"37000"}
-                            placeholderTextColor='#7F9BAA'
                             style={color.text}
                         />
                     </Item>
@@ -120,10 +119,9 @@ export class BudgetForm extends PureComponent {
                 <Label style={[text.defaultText, color.text]}>{item.name}</Label>
                 <Item rounded style={[input.inputField, color.input, {width: '97%'}]}>
                     <Input
-                        onChangeText={this.props.onCategoryChanged.bind(this, item.name)}
+                        onChangeText={this.props.onCategoryChanged.bind(this, item.name, item.amount)}
                         value={String(item.amount)}
                         keyboardType="numeric"
-                        placeholderTextColor='#7F9BAA'
                         style={[color.text]}
                     />
                 </Item>

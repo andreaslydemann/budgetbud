@@ -19,12 +19,12 @@ class CreateBudget extends Component {
         this.props.mapExpensesToBudget();
     };
 
-    onIncomeChange = (text) => {
-        this.props.incomeChanged(text);
+    onIncomeChange = (newIncome) => {
+        this.props.incomeChanged(newIncome, this.props.income);
     };
 
-    onCategoryChange = (amount, name) => {
-        this.props.categoryChanged(amount, name);
+    onCategoryChange = (newAmount, name, oldAmount) => {
+        this.props.categoryChanged(newAmount, name, oldAmount);
     };
 
     handleSubmit = () => {
@@ -33,7 +33,7 @@ class CreateBudget extends Component {
         this.props.createBudget(this.props, () => {
             this.props.navigation.navigate('MyBudget');
         });
-        this.props.createCategories(this.props.categories)
+        this.props.createCategories(this.props.tmpCategories)
     };
 
     checkInput = (income, categories) => {

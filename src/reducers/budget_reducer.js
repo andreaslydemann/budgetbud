@@ -1,5 +1,4 @@
 import {
-    CATEGORY_CHANGED,
     CREATE_BUDGET,
     INCOME_CHANGED,
     GET_BUDGET,
@@ -8,7 +7,6 @@ import {
     GET_BUDGET_SUCCESS,
     CREATE_BUDGET_SUCCESS,
     GET_INITIAL_BUDGET_STATE,
-    GET_ACCOUNT_DATA,
     EDIT_BUDGET,
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
@@ -47,12 +45,12 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 budgetLoading: false,
-                income: action.payload
+                income: action.payload.income
             };
         case GET_BUDGET_FAIL:
             return {...state, budgetError: action.payload};
         case INCOME_CHANGED:
-            return {...state, income: action.payload};
+            return {...state, income: action.payload.newIncome};
         case EDIT_BUDGET:
             return {...state, budgetLoading: true, budgetError: ''};
         case EDIT_BUDGET_SUCCESS:
@@ -63,8 +61,6 @@ export default (state = INITIAL_STATE, action) => {
             };
         case EDIT_BUDGET_FAIL:
             return {...state, budgetError: action.payload};
-        case GET_ACCOUNT_DATA:
-            return state;
         default:
             return state;
     }
