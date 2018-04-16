@@ -1,22 +1,28 @@
-
 import {
-    MAP_EXPENSES_TO_EXPENSE_OVERVIEW, MAP_EXPENSES_TO_EXPENSE_OVERVIEW_FAIL,
-    MAP_EXPENSES_TO_EXPENSE_OVERVIEW_SUCCESS
+    GET_EXPENSES_OF_MONTH,
+    GET_EXPENSES_OF_MONTH_SUCCESS,
+    GET_EXPENSES_OF_MONTH_FAIL
 } from "../actions/types";
 
 const INITIAL_STATE = {
     expenses: [],
+    totalExpenses: 0,
     expensesLoading: false,
     expensesFail: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case MAP_EXPENSES_TO_EXPENSE_OVERVIEW:
+        case GET_EXPENSES_OF_MONTH:
             return {...state, expensesFail: '', expensesLoading: true};
-        case MAP_EXPENSES_TO_EXPENSE_OVERVIEW_SUCCESS:
-            return {...state, expenses: action.payload, expensesLoading: false};
-        case MAP_EXPENSES_TO_EXPENSE_OVERVIEW_FAIL:
+        case GET_EXPENSES_OF_MONTH_SUCCESS:
+            return {
+                ...state,
+                expenses: action.payload.expenses,
+                totalExpenses: action.payload.totalExpenses,
+                expensesLoading: false
+            };
+        case GET_EXPENSES_OF_MONTH_FAIL:
             return {...state, expensesLoading: false, expensesFail: action.payload};
         default:
             return state;
