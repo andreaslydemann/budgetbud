@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {
     Body,
-    Button,
     Container,
     Icon,
     ListItem,
     Text,
     View,
-    Label,
+    Right,
     Spinner
 } from "native-base";
 import {AppHeader, Separator} from "../components/";
@@ -15,7 +14,7 @@ import {FlatList, StyleSheet} from "react-native";
 import {connect} from "react-redux";
 import {getBudget, getCategories, getDebts} from "../actions";
 import I18n from "../strings/i18n";
-import {container} from "../style";
+import {color, container} from "../style";
 
 class ExpenseOverview extends Component {
     componentWillMount() {
@@ -38,24 +37,19 @@ class ExpenseOverview extends Component {
                             flex: 1
                         }} color='#1c313a'/>) : (
                         <Container>
-                            <View style={{flex: 0.82, paddingTop: 20}}>
-                                    <View style={[styles.incomeFormStyle,]}>
-                                        <Label style={styles.textStyle}>{I18n.t('budgetExpenses')}
-                                        </Label>
-                                    </View>
-                                    <FlatList
-                                        data={this.props.categories}
-                                        renderItem={this.renderCategory}
-                                        keyExtractor={item => item.id}
-                                    />
+                            <View style={{flex: 0.82}}>
+                                <FlatList
+                                    data={this.props.items}
+                                    renderItem={this.renderCategory}
+                                    keyExtractor={item => item.name}
+                                />
                                 <Separator/>
                             </View>
-
                             <View style={{flex: 0.18}}>
-                                <View style={[styles.budgetSummary, {paddingVertical: '5%', }]}>
+                                <View style={[styles.budgetSummary, {paddingVertical: '5%',}]}>
                                     <View style={[styles.incomeFormStyle, {flex: 1}]}>
                                         <Text style={styles.listText}>
-                                            {I18n.t('budgetTotalExpenses')}
+                                            {I18n.t('expenseOverviewTotalDebtsPerMonth')}
                                         </Text>
                                         <Text style={styles.listText}>
                                             {this.props.totalExpenses} {I18n.t('currency')}
@@ -63,7 +57,7 @@ class ExpenseOverview extends Component {
                                     </View>
                                     <View style={[styles.incomeFormStyle, {flex: 1}]}>
                                         <Text style={styles.listText}>
-                                            {I18n.t('budgetDisposable')}
+                                            {I18n.t('expenseOverviewTotalExpenses')}
                                         </Text>
                                         <Text style={styles.listText}>
                                             {this.props.disposable} {I18n.t('currency')}
@@ -71,7 +65,7 @@ class ExpenseOverview extends Component {
                                     </View>
                                     <View style={[styles.incomeFormStyle, {flex: 1}]}>
                                         <Text style={styles.listText}>
-                                            {I18n.t('budgetDisposable')}
+                                            {I18n.t('expenseOverviewDisposable')}
                                         </Text>
                                         <Text style={styles.listText}>
                                             {this.props.disposable} {I18n.t('currency')}
@@ -88,13 +82,34 @@ class ExpenseOverview extends Component {
 
     renderCategory = ({item}) => {
         return (
-            <ListItem style={{paddingLeft: 6, paddingRight: 18}}>
-                <Body>
-                <Text style={styles.listText}>{item.categoryData.name}</Text>
-                </Body>
-                <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>
-                    {item.categoryData.amount} {I18n.t('currency')}
-                </Text>
+            <ListItem>
+                <View style={{width: '100%', paddingHorizontal: 4}}>
+                    <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
+                        <Body style={{alignItems: 'flex-start'}}>
+                        <Text style={color.text}>{item.name}</Text>
+                        </Body>
+                        <Right>
+                            {item.notificationsEnabled ?
+                                (<Icon style={[color.darkIcon, {fontSize: 26}]} name="ios-notifications"/>) :
+                                (<Icon style={[color.darkIcon, {fontSize: 26}]} name="ios-notifications-outline"/>)}
+                        </Right>
+                    </View>
+                    <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
+                        <Body style={{alignItems: 'flex-start'}}>
+                        <Text style={{color: '#808080'}}>{I18n.t('expenseOverviewBudget')}</Text>
+                        <Text style={{color: '#808080'}}>{I18n.t('expenseOverviewExpenses')}</Text>
+                        <Text style={{color: '#808080'}}>{I18n.t('expenseOverviewRemaining')}</Text>
+                        </Body>
+                        <Right>
+                            <Text style={{color: '#808080'}}>{item.budget} {I18n.t('currency')}</Text>
+                            <Text style={{color: '#808080'}}>{item.spending} {I18n.t('currency')}</Text>
+                            <Text
+                                style={((item.budget - item.spending) < 0 ? {color: '#EB7C83'} :
+                                    {color: '#808080'})}>{item.budget - item.spending} {I18n.t('currency')}
+                            </Text>
+                        </Right>
+                    </View>
+                </View>
             </ListItem>
         );
     };
@@ -108,7 +123,9 @@ const styles = StyleSheet.create({
     },
     incomeFormStyle: {
         alignSelf: 'center',
-        width: '90%',
+        width: '100%',
+        paddingRight: 18,
+        paddingLeft: 14,
         justifyContent: 'space-between',
         flexDirection: 'row'
     },
@@ -142,11 +159,13 @@ const styles = StyleSheet.create({
         fontSize: 14,
         alignSelf: 'flex-start',
         marginLeft: 5,
+        color: '#00263A'
     },
     listText: {
         marginLeft: 5,
         alignSelf: 'flex-start',
-        fontSize: 16
+        fontSize: 16,
+        color: '#00263A'
     },
     modalButton: {
         flexDirection: 'column',
@@ -166,7 +185,26 @@ const mapStateToProps = (state) => {
         budgetID
     } = state.budget;
 
+    const items = [{
+        name: 'Dagligvarer',
+        budget: 150,
+        spending: 300,
+        notificationsEnabled: false
+    }, {
+        name: 'Transport',
+        budget: 1220,
+        spending: 1500,
+        notificationsEnabled: true
+    }, {
+        name: 'Bolig',
+        budget: 1750,
+        spending: 100,
+        notificationsEnabled: false
+    },
+    ];
+
     return {
+        items,
         categories,
         budgetLoading,
         income,
