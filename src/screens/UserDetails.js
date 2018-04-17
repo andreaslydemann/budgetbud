@@ -50,7 +50,7 @@ class UserDetails extends Component {
 
                     <Content>
                         <List>
-                            <ListItem icon>
+                            <ListItem icon onPress={() => this.props.navigation.navigate("ChangePhoneNumber")}>
                                 <Left>
                                     <Icon style={color.darkIcon} name="md-phone-portrait"/>
                                 </Left>
@@ -61,7 +61,7 @@ class UserDetails extends Component {
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </ListItem>
-                            <ListItem icon>
+                            <ListItem icon onPress={() => this.props.navigation.navigate("ChangeCode")}>
                                 <Left>
                                     <Icon style={color.darkIcon} name="md-lock"/>
                                 </Left>

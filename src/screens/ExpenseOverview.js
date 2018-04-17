@@ -12,13 +12,18 @@ import {
 import {AppHeader, Separator} from "../components/";
 import {FlatList, StyleSheet, TouchableOpacity} from "react-native";
 import {connect} from "react-redux";
-import {getExpensesOfMonth, categoryAlarmEnabled} from "../actions";
+import {getExpensesOfMonth, getCategoryAlarms, toggleCategoryAlarm} from "../actions";
 import I18n from "../strings/i18n";
 import {color, container} from "../style";
 
 class ExpenseOverview extends Component {
-    componentWillMount() {
-        this.props.getExpensesOfMonth();
+    async componentWillMount() {
+        const promises = [];
+
+        promises.push(this.props.getCategoryAlarms(this.props.budgetID));
+        promises.push(this.props.getExpensesOfMonth());
+
+        await Promise.all(promises);
     }
 
     render() {
@@ -76,7 +81,7 @@ class ExpenseOverview extends Component {
     }
 
     renderCategory = ({item}) => {
-        const notificationsEnabled = this.props.enabledCategoryAlarms.includes(item.categoryID);
+        const notificationsEnabled = this.props.categoryAlarms.includes(item.categoryID);
 
         return (
             <ListItem>
@@ -86,7 +91,10 @@ class ExpenseOverview extends Component {
                         <Text style={color.text}>{item.name}</Text>
                         </Body>
                         <Right>
-                            <TouchableOpacity onPress={() => this.props.categoryAlarmEnabled(item)}>
+                            <TouchableOpacity onPress={() => {
+                                if (!this.props.enableLoading)
+                                    this.props.toggleCategoryAlarm(item.categoryID, this.props.budgetID)
+                            }}>
                                 <Icon style={[color.darkIcon, {fontSize: 26}]}
                                       name={notificationsEnabled ? "ios-notifications" : "ios-notifications-outline"}/>
                             </TouchableOpacity>
@@ -173,11 +181,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
+    const {budgetID} = state.budget;
     const {debts} = state.debt;
     const {expenses, totalExpenses, expensesLoading} = state.expense;
     const disposable = state.disposable.disposable;
     const {categories} = state.category;
-    const {enabledCategoryAlarms} = state.alarm;
+    const {categoryAlarms, enableLoading} = state.alarm;
+
+    console.log(categoryAlarms);
 
     let totalDebtPerMonth = 0;
     debts.forEach(d => totalDebtPerMonth += d.debtData.amountPerMonth);
@@ -199,7 +210,9 @@ const mapStateToProps = (state) => {
     });
 
     return {
-        enabledCategoryAlarms,
+        budgetID,
+        categoryAlarms,
+        enableLoading,
         totalDebtPerMonth,
         disposable,
         expenses,
@@ -210,5 +223,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-    getExpensesOfMonth, categoryAlarmEnabled
+    getExpensesOfMonth, getCategoryAlarms, toggleCategoryAlarm
 })(ExpenseOverview);

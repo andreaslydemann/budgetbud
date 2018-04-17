@@ -18,7 +18,10 @@ import CreateDebt from './screens/CreateDebt';
 import EditDebt from './screens/EditDebt';
 import DebtPreview from './screens/DebtPreview';
 import EditDisposable from "./screens/EditDisposable";
+import ChangePhoneNumber from "./screens/ChangePhoneNumber";
+import ChangeCode from "./screens/ChangeCode";
 import Accounts from "./screens/Accounts";
+import Alarms from "./screens/Alarms";
 import DisposablePreview from "./screens/DisposablePreview";
 import Offline from "./screens/Offline";
 import {connect} from "react-redux";
@@ -60,7 +63,10 @@ class App extends Component {
             {
                 Settings: {screen: Settings},
                 Accounts: {screen: Accounts},
-                UserDetails: {screen: UserDetails}
+                Alarms: {screen: Alarms},
+                UserDetails: {screen: UserDetails},
+                ChangePhoneNumber: {screen: ChangePhoneNumber},
+                ChangeCode: {screen: ChangeCode}
             },
             {
                 navigationOptions: {gesturesEnabled: false},

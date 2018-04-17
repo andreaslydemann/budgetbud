@@ -140,8 +140,6 @@ const mapStateToProps = (state) => {
         };
     });
 
-    console.log(categoryDebtItems);
-
     return {
         name,
         totalAmount,
