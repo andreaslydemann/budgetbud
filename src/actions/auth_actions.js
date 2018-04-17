@@ -14,7 +14,7 @@ import {
     SIGN_IN_FAIL,
     SIGN_UP,
     SIGN_UP_FAIL,
-    DELETE_USER,
+    DELETE_USER, GET_INITIAL_STATE,
 } from './types';
 
 export const authScreenSwitched = (callback) => async dispatch => {
@@ -101,7 +101,7 @@ export const signOut = () => async dispatch => {
     try {
         await firebase.auth().signOut();
 
-        dispatch({type: GET_INITIAL_AUTH_STATE});
+        dispatch({type: GET_INITIAL_STATE});
     } catch (err) {
         let {data} = err.response;
         console.log(data.error);
@@ -118,7 +118,7 @@ export const deleteUser = (callback) => async dispatch => {
             headers: { Authorization: 'Bearer ' + token }
         });
 
-        dispatch({type: GET_INITIAL_AUTH_STATE});
+        dispatch({type: GET_INITIAL_STATE});
         callback();
     } catch (err) {
         let {data} = err.response;

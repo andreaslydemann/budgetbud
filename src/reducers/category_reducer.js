@@ -17,7 +17,7 @@ import {
     MAP_EXPENSES_SUCCESS,
     MAP_EXPENSES_FAIL,
     CATEGORY_CHANGED,
-    GET_BUDGET_SUCCESS
+    GET_BUDGET_SUCCESS, GET_INITIAL_STATE
 } from '../actions/types';
 import {fromJS} from "immutable";
 
@@ -35,6 +35,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case GET_INITIAL_STATE:
+            return INITIAL_STATE;
         case RESET_DEBT_FORM:
             return {
                 ...state,

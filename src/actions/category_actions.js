@@ -28,6 +28,8 @@ export const createCategories = ({budgetID, categories}, callback) =>
 
         try {
             let token = await firebase.auth().currentUser.getIdToken();
+            console.log(budgetID)
+            console.log(categories)
 
             await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createCategories`,
                 {budgetID, categories},

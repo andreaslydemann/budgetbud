@@ -8,7 +8,7 @@ import {
     ACCOUNTS_SELECTED,
     GET_LINKED_ACCOUNTS_FAIL,
     GET_LINKED_ACCOUNTS_SUCCESS,
-    GET_LINKED_ACCOUNTS
+    GET_LINKED_ACCOUNTS, GET_INITIAL_STATE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -21,6 +21,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case GET_INITIAL_STATE:
+            return INITIAL_STATE;
         case GET_ACCOUNTS:
             return {...state, accountsLoading: true};
         case GET_ACCOUNTS_SUCCESS:
