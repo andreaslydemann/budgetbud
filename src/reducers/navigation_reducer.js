@@ -3,7 +3,7 @@ import {
     GET_INITIAL_AUTH_STATE,
     GET_BUDGET_ID_SUCCESS,
     CREATE_BUDGET_SUCCESS,
-    DELETE_BUDGET
+    DELETE_BUDGET, GET_BUDGET_ID_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -18,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
             return INITIAL_STATE;
         case GET_BUDGET_ID_SUCCESS:
             return INITIAL_STATE;
+        case GET_BUDGET_ID_FAIL:
+            return {...state, currentRoute: 'Intro'};
         case CREATE_BUDGET_SUCCESS:
             return INITIAL_STATE;
         case DELETE_BUDGET:

@@ -13,17 +13,12 @@ import {connect} from "react-redux";
 import {color} from "../style/";
 import I18n from "../strings/i18n";
 import {container} from "../style";
+import {getLinkedAccounts} from "../actions/account_actions";
 
 class Intro extends Component {
     async componentWillMount() {
-        console.log("intro")
-        if (this.props.budgetID)
-            this.props.navigation.navigate("MyBudget");
-
         await this.props.getLinkedAccounts();
     }
-
-
 
     render() {
         return (
@@ -126,4 +121,8 @@ const mapStateToProps = (state) => {
     return {budgetID, linkedAccounts: linkedAccounts};
 };
 
-export default connect(mapStateToProps, null)(Intro);
+const mapDispatchToProps = {
+    getLinkedAccounts
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Intro);

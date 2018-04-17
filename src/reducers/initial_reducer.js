@@ -1,7 +1,7 @@
 import {
     GET_BUDGET_ID_SUCCESS,
     CREATE_BUDGET_SUCCESS,
-    DELETE_BUDGET
+    DELETE_BUDGET, GET_BUDGET_ID_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -12,6 +12,8 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case GET_BUDGET_ID_SUCCESS:
             return {initialRoute: 'BudgetStack'};
+        case GET_BUDGET_ID_FAIL:
+        return {initialRoute: 'IntroStack'};
         case CREATE_BUDGET_SUCCESS:
             return {initialRoute: 'BudgetStack'};
         case DELETE_BUDGET:
