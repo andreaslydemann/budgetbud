@@ -21,21 +21,24 @@ import {
     MAP_EXPENSES_FAIL
 } from "./types";
 
-export const createCategories = ({budgetID, categories}, callback) =>
+export const createCategories = (budgetID, tmpCategories, callback) =>
     async dispatch => {
+    console.log("Number 2")
 
         dispatch({type: CREATE_CATEGORIES});
 
         try {
+            console.log("Number 4")
             let token = await firebase.auth().currentUser.getIdToken();
+            console.log("Number 5")
             console.log(budgetID)
-            console.log(categories)
+            console.log(tmpCategories)
 
             await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createCategories`,
-                {budgetID, categories},
+                {budgetID, categories: tmpCategories},
                 {headers: {Authorization: 'Bearer ' + token}});
 
-            dispatch({type: CREATE_CATEGORIES_SUCCESS, payload: {categories}});
+            dispatch({type: CREATE_CATEGORIES_SUCCESS, payload: {tmpCategories}});
             callback();
         } catch (err) {
             let {data} = err.response;
@@ -43,8 +46,8 @@ export const createCategories = ({budgetID, categories}, callback) =>
         }
     };
 
-export const categoryChanged = (name, oldAmount, newAmount) =>  {
-    const categoryDiff = oldAmount-newAmount;
+export const categoryChanged = (name, oldAmount, newAmount) => {
+    const categoryDiff = oldAmount - newAmount;
 
     return {
         type: CATEGORY_CHANGED,
@@ -161,7 +164,7 @@ export const getMappedCategories = (categories) => async dispatch => {
         categories.forEach(category => {
             totalWithdrawal += category.amount
         });
-        totalWithdrawal = totalWithdrawal*(-1);
+        totalWithdrawal = totalWithdrawal * (-1);
 
         dispatch({
             type: GET_MAPPED_CATEGORIES_SUCCESS,

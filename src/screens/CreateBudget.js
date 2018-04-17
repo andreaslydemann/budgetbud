@@ -9,15 +9,30 @@ import {
     categoryChanged,
     createBudget,
     mapExpensesToBudget,
-    getLinkedAccounts
+    getLinkedAccounts,
+    createCategories
 } from '../actions';
 import {container} from "../style";
-import {createCategories} from "../actions/category_actions";
+import {showWarningToast} from "../helpers/toast";
 
 class CreateBudget extends Component {
     componentWillMount() {
         this.props.mapExpensesToBudget();
     };
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.budgetError)
+    //         showWarningToast(nextProps.budgetError);
+    //     if (nextProps.budgetID) {
+    //         console.log("Number 1")
+    //         this.props.createCategories(
+    //             nextProps.budgetID,
+    //             this.state.tmpCategories,
+    //             () => {
+    //                 this.state.navigation.navigate('MyBudget');
+    //             });
+    //     }
+    // }
 
     onIncomeChange = (newIncome) => {
         this.props.incomeChanged(newIncome, this.props.income);
@@ -27,13 +42,10 @@ class CreateBudget extends Component {
         this.props.categoryChanged(newAmount, name, oldAmount);
     };
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
         Keyboard.dismiss();
 
-        this.props.createBudget(this.props, () => {
-            this.props.navigation.navigate('MyBudget');
-        });
-        this.props.createCategories(this.props.tmpCategories)
+        this.props.createBudget(this.props);
     };
 
     checkInput = (income, categories) => {
@@ -81,7 +93,8 @@ const mapStateToProps = (state) => {
         income,
         debts,
         budgetLoading,
-        budgetError
+        budgetError,
+        budgetID
     } = state.budget;
 
     const disposable = state.disposable.disposable;
@@ -91,6 +104,7 @@ const mapStateToProps = (state) => {
 
     return {
         income,
+        budgetID,
         tmpCategories,
         linkedAccounts,
         debts,

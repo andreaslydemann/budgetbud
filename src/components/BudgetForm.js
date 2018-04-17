@@ -23,12 +23,6 @@ import I18n from "../strings/i18n";
 import {showWarningToast} from '../helpers/toast';
 
 export class BudgetForm extends PureComponent {
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.budgetError)
-            showWarningToast(nextProps.budgetError);
-    }
-
     render() {
         return (
             <Container>

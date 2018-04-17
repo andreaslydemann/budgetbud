@@ -17,8 +17,8 @@ import {getLinkedAccounts} from "../actions/account_actions";
 import View from "../theme/components/View";
 
 class Intro extends Component {
-    async componentWillMount() {
-        await this.props.getLinkedAccounts();
+    componentWillMount() {
+        this.props.getLinkedAccounts();
     }
 
     render() {

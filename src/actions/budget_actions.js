@@ -38,7 +38,7 @@ export const getBudgetID = (user, callback) => async dispatch => {
     }
 };
 
-export const createBudget = ({income, totalGoalsAmount, disposable}, callback) =>
+export const createBudget = ({income, totalGoalsAmount, disposable}) =>
     async dispatch => {
 
         dispatch({type: CREATE_BUDGET});
@@ -53,7 +53,6 @@ export const createBudget = ({income, totalGoalsAmount, disposable}, callback) =
 
             dispatch({type: CREATE_BUDGET_SUCCESS, payload: income});
 
-            callback();
         } catch (err) {
             let {data} = err.response;
             dispatch({type: CREATE_BUDGET_FAIL, payload: data.error});
