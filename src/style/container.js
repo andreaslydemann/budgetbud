@@ -36,7 +36,7 @@ export const container = StyleSheet.create({
         flexDirection: 'row',
         marginTop: '3%'
     },
-    incomeFormStyle: {
+    defaultFormStyle: {
         alignSelf: 'center',
         marginTop: 10,
         marginBottom: 5,

@@ -53,7 +53,6 @@ class SignUp extends Component {
                                   cprNumber={this.props.cprNumber}
                                   secondInput={this.props.phoneNumber}
                                   authLoading={this.props.authLoading}
-                                  error={this.props.error}
                                   isSignIn={false}
                         />
 
@@ -65,7 +64,7 @@ class SignUp extends Component {
                                 </Button>
                             </Container>
 
-                            <ErrorInfo error={this.props.error}/>
+                            <ErrorInfo error={this.props.authError}/>
                         </Container>
 
                     </Container>
@@ -93,7 +92,7 @@ const styles = {
 };
 
 const mapStateToProps = ({auth}) => {
-    return {cprNumber, phoneNumber, error, authLoading} = auth;
+    return {cprNumber, phoneNumber, authError, authLoading} = auth;
 };
 
 const mapDispatchToProps = {

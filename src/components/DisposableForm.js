@@ -58,7 +58,7 @@ export class DisposableForm extends Component {
                                 justifyContent: 'center'
                             }} color='#1c313a'/>
                         </Container>) : (
-                    <View style={[container.incomeFormStyle, {paddingTop: 10}]}>
+                    <View style={[container.defaultFormStyle, {paddingTop: 10}]}>
                         <Label style={[text.defaultText, color.text,]}>{I18n.t('disposable')}</Label>
                         <Item rounded style={[input.inputField, color.input]}>
                             <Input
@@ -76,7 +76,7 @@ export class DisposableForm extends Component {
                     </View>
 
                     <View style={{flex: 2, alignSelf: 'stretch'}}>
-                        <View style={container.incomeFormStyle}>
+                        <View style={container.defaultFormStyle}>
                             <Label style={[text.defaultText, color.text]}>{I18n.t('disposableCategories')}</Label>
                         </View>
 
