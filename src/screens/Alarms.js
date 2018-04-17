@@ -28,27 +28,7 @@ import {
     container, color
 } from "../style";
 
-class Accounts extends PureComponent {
-    componentWillMount() {
-        //this.props.getBudgetAlarms();
-    }
-
-    onSavePress = () => {
-        //this.props.toggleAlarms(this.props);
-    };
-
-    onCheckBoxPress = ({accountID}) => {
-        let tmp = this.props.linkedAccounts;
-
-        if (tmp.includes(accountID)) {
-            tmp.splice(tmp.indexOf(accountID), 1)
-        } else {
-            tmp.push(accountID);
-        }
-
-        this.props.accountsSelected(tmp);
-    };
-
+class Alarms extends PureComponent {
     render() {
         return (
             <Container style={container.signedInContainer}>
@@ -57,29 +37,19 @@ class Accounts extends PureComponent {
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
                 <Container style={{flex: 4, justifyContent: 'center'}}>
-                    {this.props.accountsLoading ? (
-                        <Spinner style={{
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }} color='#1c313a'/>) : (
-                        <FlatList
-                            data={this.props.accountItems}
-                            renderItem={this.renderItem}
-                        />
-                    )}
                 </Container>
 
                 <Separator/>
 
                 <Button rounded
                         onPress={() => {
-                            if (!this.props.linkLoading) {
+                            if (!this.props.enableLoading) {
                                 this.onSavePress()
                             }
                         }}
                         style={[button.defaultButton, color.button]}
                 >
-                    {this.props.linkLoading ? (
+                    {this.props.enableLoading ? (
                         <Spinner color='#D0D0D0'/>) : (
                         <Text style={text.submitButtonText}>{I18n.t('alarmsSaveButton')}</Text>
                     )}
@@ -89,7 +59,7 @@ class Accounts extends PureComponent {
     }
 
     renderItem = ({item}) => {
-        const checked = this.props.linkedAccounts.includes(item.accountID);
+        const checked = '';
 
         return (
             <ListItem>
@@ -108,30 +78,15 @@ class Accounts extends PureComponent {
     }
 }
 
-const mapStateToProps = ({account}) => {
-    const {
-        accounts,
-        linkedAccounts,
-        accountsLoading,
-        linkLoading
-    } = account;
-
-    const accountItems = _.map(accounts, (item, key) => {
-        return {name: item.name, accountID: item.id, key: key};
-    });
+const mapStateToProps = ({alarm}) => {
+    const {enableLoading} = alarm;
 
     return {
-        accountItems,
-        linkedAccounts,
-        accountsLoading,
-        linkLoading
+        enableLoading
     };
 };
 
 const mapDispatchToProps = {
-    getAccounts,
-    linkAccounts,
-    accountsSelected,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Accounts);
+export default connect(mapStateToProps, mapDispatchToProps)(Alarms);

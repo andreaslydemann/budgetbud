@@ -29,26 +29,6 @@ import {
 } from "../style";
 
 class ChangePhoneNumber extends PureComponent {
-    componentWillMount() {
-        //this.props.getBudgetAlarms();
-    }
-
-    onSavePress = () => {
-        //this.props.toggleAlarms(this.props);
-    };
-
-    onCheckBoxPress = ({accountID}) => {
-        let tmp = this.props.linkedAccounts;
-
-        if (tmp.includes(accountID)) {
-            tmp.splice(tmp.indexOf(accountID), 1)
-        } else {
-            tmp.push(accountID);
-        }
-
-        this.props.accountsSelected(tmp);
-    };
-
     render() {
         return (
             <Container style={container.signedInContainer}>
@@ -57,29 +37,19 @@ class ChangePhoneNumber extends PureComponent {
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
                 <Container style={{flex: 4, justifyContent: 'center'}}>
-                    {this.props.accountsLoading ? (
-                        <Spinner style={{
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }} color='#1c313a'/>) : (
-                        <FlatList
-                            data={this.props.accountItems}
-                            renderItem={this.renderItem}
-                        />
-                    )}
                 </Container>
 
                 <Separator/>
 
                 <Button rounded
                         onPress={() => {
-                            if (!this.props.linkLoading) {
+                            if (!this.props.authLoading) {
                                 this.onSavePress()
                             }
                         }}
                         style={[button.defaultButton, color.button]}
                 >
-                    {this.props.linkLoading ? (
+                    {this.props.authLoading ? (
                         <Spinner color='#D0D0D0'/>) : (
                         <Text style={text.submitButtonText}>{I18n.t('changePhoneNumberSaveButton')}</Text>
                     )}
@@ -89,7 +59,7 @@ class ChangePhoneNumber extends PureComponent {
     }
 
     renderItem = ({item}) => {
-        const checked = this.props.linkedAccounts.includes(item.accountID);
+        const checked = '';
 
         return (
             <ListItem>
@@ -108,30 +78,15 @@ class ChangePhoneNumber extends PureComponent {
     }
 }
 
-const mapStateToProps = ({account}) => {
-    const {
-        accounts,
-        linkedAccounts,
-        accountsLoading,
-        linkLoading
-    } = account;
-
-    const accountItems = _.map(accounts, (item, key) => {
-        return {name: item.name, accountID: item.id, key: key};
-    });
+const mapStateToProps = ({auth}) => {
+    const {authLoading} = auth;
 
     return {
-        accountItems,
-        linkedAccounts,
-        accountsLoading,
-        linkLoading
+        authLoading
     };
 };
 
 const mapDispatchToProps = {
-    getAccounts,
-    linkAccounts,
-    accountsSelected,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePhoneNumber);
