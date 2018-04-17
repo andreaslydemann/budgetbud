@@ -16,6 +16,7 @@ import {container} from "../style";
 
 class Intro extends Component {
     async componentWillMount() {
+        console.log("intro")
         if (this.props.budgetID)
             this.props.navigation.navigate("MyBudget");
 

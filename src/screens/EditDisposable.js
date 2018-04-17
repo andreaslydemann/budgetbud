@@ -22,6 +22,9 @@ class EditDisposable extends Component {
         if (this.props.subtractionsLoading)
             return;
 
+        if (this.props.disposable === this.props.tmpDisposable)
+            return;
+
         this.props.calculateDisposableCategoryDifferences(
             this.props.disposable,
             this.props.tmpDisposable,
@@ -41,6 +44,7 @@ class EditDisposable extends Component {
                                 categoriesSelected={this.props.categoriesSelected}
                                 categoryItems={this.props.categoryItems}
                                 selectedCategories={this.props.selectedCategories}
+                                budgetLoading={this.props.budgetLoading}
                                 categoriesLoading={this.props.categoriesLoading}
                                 disposable={this.props.disposable}
                                 tmpDisposable={this.props.tmpDisposable}
@@ -55,6 +59,7 @@ class EditDisposable extends Component {
 }
 
 const mapStateToProps = (state) => {
+    const budgetLoading = state.budget.budgetLoading;
     const {
         disposable,
         tmpDisposable,
@@ -75,6 +80,7 @@ const mapStateToProps = (state) => {
     });
 
     return {
+        budgetLoading,
         selectedCategories,
         categoryItems,
         categoriesLoading,

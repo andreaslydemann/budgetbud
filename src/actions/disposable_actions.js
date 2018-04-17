@@ -66,6 +66,11 @@ export const setTmpDisposable = () => {
 }
 
 export const calculateDisposableCategoryDifferences = (disposable, tmpDisposable, categories, callback) => async dispatch =>{
+    if (disposable === tmpDisposable) {
+        dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_FAIL, payload: "Rådighedsbeløb uændret."});
+        return;
+    }
+
     dispatch({type: CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES});
 
     const disposableDifference = (tmpDisposable-disposable);

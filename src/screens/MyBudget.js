@@ -21,6 +21,7 @@ import {
 
 class MyBudget extends Component {
     componentWillMount() {
+        console.log("myBudget")
         if (!this.props.budgetID)
             this.props.navigation.navigate("CreateBudget");
 

@@ -89,7 +89,6 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
     try {
         dispatch({type: GET_CATEGORIES_OF_DEBT});
 
-        console.log(debtID);
         // check for categories != null, else get categories first
         let token = await firebase.auth().currentUser.getIdToken();
 

@@ -79,23 +79,23 @@ class DisposablePreview extends Component {
     renderItem = ({item}) => {
         return (
             <ListItem>
-                <View style={container.fullWidth}>
-                    <Body>
-                    <Text style={color.text}>{item.name}</Text>
-                    </Body>
-                    <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
-                        <Body style={{flex: 1}}>
-                        <Text note>{I18n.t('disposablePreviewBefore')}</Text>
-                        <Text note>{I18n.t('disposablePreviewAfter')}</Text>
+                    <View style={container.fullWidth}>
+                        <Body>
+                        <Text style={color.text}>{item.name}</Text>
                         </Body>
-                        <Right style={{flex: 2}}>
-                            <Text note>{item.beforeAmount} {I18n.t('currency')}</Text>
-                            <Text note>{item.afterAmount} {I18n.t('currency')} (
-                                {item.amountDiff} {I18n.t('currency')})
-                            </Text>
-                        </Right>
+                        <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
+                            <Body style={{flex: 1}}>
+                            <Text note>{I18n.t('disposablePreviewBefore')}</Text>
+                            <Text note>{I18n.t('disposablePreviewAfter')}</Text>
+                            </Body>
+                            <Right style={{flex: 2}}>
+                                <Text note>{item.beforeAmount} {I18n.t('currency')}</Text>
+                                <Text note>{item.afterAmount} {I18n.t('currency')} (
+                                    {item.amountDiff} {I18n.t('currency')})
+                                </Text>
+                            </Right>
+                        </View>
                     </View>
-                </View>
             </ListItem>
         );
     }
@@ -107,7 +107,8 @@ const mapStateToProps = (state) => {
         categories,
         selectedCategories,
     } = state.category;
-    const {disposableCategorySubtractions,
+    const {
+        disposableCategorySubtractions,
         disposableLoading,
         disposable,
         tmpDisposable
@@ -138,7 +139,14 @@ const mapStateToProps = (state) => {
         };
     });
 
-    const disposableDiff = tmpDisposable-disposable;
+    const disposableDiff = tmpDisposable - disposable;
+
+    categoryDisposableItems.push({
+        disposable,
+        tmpDisposable,
+        disposableName: I18n.t('disposable'),
+        disposableDiff
+    });
 
     return {
         categoryDisposableItems,
