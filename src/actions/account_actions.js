@@ -45,7 +45,7 @@ export const getAccounts = () => async dispatch => {
     }
 };
 
-export const linkAccounts = (selectedAccounts) => async dispatch => {
+export const linkAccounts = (selectedAccounts, callback) => async dispatch => {
     dispatch({type: LINK_ACCOUNTS});
 
     try {
@@ -57,6 +57,7 @@ export const linkAccounts = (selectedAccounts) => async dispatch => {
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({type: LINK_ACCOUNTS_SUCCESS});
+        callback();
     } catch (err) {
         let {data} = err.response;
         dispatch({type: LINK_ACCOUNTS_FAIL, payload: data});

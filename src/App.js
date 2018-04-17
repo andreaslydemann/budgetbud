@@ -9,7 +9,6 @@ import CreateBudget from "./screens/CreateBudget";
 import MyBudget from "./screens/MyBudget";
 import ExpenseOverview from "./screens/ExpenseOverview";
 import Settings from "./screens/Settings";
-import BudgetPreview from "./screens/BudgetPreview"
 import UserDetails from "./screens/UserDetails";
 import Intro from "./screens/Intro";
 import EditBudget from "./screens/EditBudget";
@@ -48,7 +47,6 @@ class App extends Component {
                 EditDisposable: {screen: EditDisposable},
                 DebtOverview: {screen: DebtOverview},
                 DisposablePreview: {screen: DisposablePreview},
-                BudgetPreview: {screen: BudgetPreview},
                 CreateDebt: {screen: CreateDebt},
                 EditDebt: {screen: EditDebt},
                 DebtPreview: {screen: DebtPreview}

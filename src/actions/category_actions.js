@@ -44,7 +44,7 @@ export const createCategories = ({budgetID, categories}, callback) =>
     };
 
 export const categoryChanged = (name, oldAmount, newAmount) =>  {
-    const categoryDiff = newAmount-oldAmount;
+    const categoryDiff = oldAmount-newAmount;
 
     return {
         type: CATEGORY_CHANGED,

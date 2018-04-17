@@ -18,6 +18,7 @@ const INITIAL_STATE = {
     budgetID: '',
     income: 0,
     budgetError: '',
+    budgetIDError: '',
     budgetLoading: false
 };
 
@@ -28,9 +29,9 @@ export default (state = INITIAL_STATE, action) => {
         case GET_INITIAL_BUDGET_STATE:
             return INITIAL_STATE;
         case GET_BUDGET_ID_SUCCESS:
-            return {...state, budgetID: action.payload};
+            return {...state, budgetIDError: '', budgetID: action.payload};
         case GET_BUDGET_ID_FAIL:
-            return {...state, budgetError: action.payload};
+            return {...state, budgetIDError: action.payload};
         case CREATE_BUDGET:
             return {...state, budgetLoading: true, budgetError: ''};
         case CREATE_BUDGET_SUCCESS:

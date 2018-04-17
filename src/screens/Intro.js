@@ -14,6 +14,7 @@ import {color} from "../style/";
 import I18n from "../strings/i18n";
 import {container} from "../style";
 import {getLinkedAccounts} from "../actions/account_actions";
+import View from "../theme/components/View";
 
 class Intro extends Component {
     async componentWillMount() {
@@ -39,36 +40,42 @@ class Intro extends Component {
                 <AppHeader headerText={I18n.t('introHeader')}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}
                 />
+                <Container style={{justifyContent: 'center'}}>
+                    {this.props.accountsLoading ? (
+                        <Spinner style={{
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }} color='#1c313a'/>) : (
+                        <Container style={styles.container}>
+                            <Form style={styles.formStyle}>
+                                <Text style={styles.headerTextStyle}>
+                                    {I18n.t('introCreateBudgetHeader')}
+                                </Text>
 
-                <Container style={styles.container}>
-                    <Form style={styles.formStyle}>
-                        <Text style={styles.headerTextStyle}>
-                            {I18n.t('introCreateBudgetHeader')}
-                        </Text>
+                                <Container style={styles.logoContainer}>
+                                    <Image style={{width: 200, height: 200}}
+                                           source={require('../../assets/logo.png')}/>
+                                </Container>
 
-                        <Container style={styles.logoContainer}>
-                            <Image style={{width: 200, height: 200}}
-                                   source={require('../../assets/logo.png')}/>
-                        </Container>
+                                <Text style={styles.mainTextStyle}>
+                                    {I18n.t('introCreateBudgetBody')}
+                                </Text>
 
-                        <Text style={styles.mainTextStyle}>
-                            {I18n.t('introCreateBudgetBody')}
-                        </Text>
-
-                        <Button rounded
-                                onPress={() => this.props.linkedAccounts.length === 0 ?
-                                    (this.confirmDialog.showDialog()) :
-                                    (this.props.navigation.navigate("CreateBudget"))}
-                                style={styles.buttonStyle}
-                        >
-                            {this.props.budgetLoading ? (
-                                <Spinner color='#D0D0D0'/>) : (
-                                <Label style={color.white}>
-                                    {I18n.t('introGetStarted')}
-                                </Label>
-                            )}
-                        </Button>
-                    </Form>
+                                <Button rounded
+                                        onPress={() => this.props.linkedAccounts.length === 0 ?
+                                            (this.confirmDialog.showDialog()) :
+                                            (this.props.navigation.navigate("CreateBudget"))}
+                                        style={styles.buttonStyle}
+                                >
+                                    {this.props.budgetLoading ? (
+                                        <Spinner color='#D0D0D0'/>) : (
+                                        <Label style={color.white}>
+                                            {I18n.t('introGetStarted')}
+                                        </Label>
+                                    )}
+                                </Button>
+                            </Form>
+                        </Container>)}
                 </Container>
             </Container>
         );
@@ -116,9 +123,9 @@ const styles = {
 
 const mapStateToProps = (state) => {
     const {budgetID} = state.budget;
-    const {linkedAccounts} = state.account;
+    const {linkedAccounts, accountsLoading} = state.account;
 
-    return {budgetID, linkedAccounts: linkedAccounts};
+    return {budgetID, linkedAccounts, accountsLoading};
 };
 
 const mapDispatchToProps = {

@@ -34,7 +34,10 @@ class Accounts extends PureComponent {
     }
 
     onSavePress = () => {
-        this.props.linkAccounts(this.props.linkedAccounts);
+        this.props.linkAccounts(this.props.linkedAccounts, () => {
+            this.props.navigation.pop();
+        });
+
     };
 
     onCheckBoxPress = ({accountID}) => {
