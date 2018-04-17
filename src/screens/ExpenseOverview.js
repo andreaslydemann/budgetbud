@@ -188,8 +188,6 @@ const mapStateToProps = (state) => {
     const {categories} = state.category;
     const {categoryAlarms, enableLoading} = state.alarm;
 
-    console.log(categoryAlarms);
-
     let totalDebtPerMonth = 0;
     debts.forEach(d => totalDebtPerMonth += d.debtData.amountPerMonth);
 

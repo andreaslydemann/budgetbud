@@ -30,7 +30,6 @@ export class BudgetForm extends PureComponent {
     }
 
     render() {
-        console.log(this.props.tmpCategories)
         return (
             <Container>
                 <View style={container.incomeFormStyle}>

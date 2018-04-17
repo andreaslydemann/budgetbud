@@ -89,6 +89,7 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
     try {
         dispatch({type: GET_CATEGORIES_OF_DEBT});
 
+        // check for categories != null, else get categories first
         let token = await firebase.auth().currentUser.getIdToken();
 
         let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoriesOfDebt?debtID=${debtID}`, {

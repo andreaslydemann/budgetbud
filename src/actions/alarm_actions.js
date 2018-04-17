@@ -16,11 +16,8 @@ export const getCategoryAlarms = (budgetID) => async dispatch => {
     try {
         let token = await firebase.auth().currentUser.getIdToken();
 
-        console.log("hello");
         let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryAlarms?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
-        console.log("hello");
-        console.log(data);
 
         dispatch({type: GET_CATEGORY_ALARMS_SUCCESS, payload: data});
     } catch (err) {
@@ -31,7 +28,6 @@ export const getCategoryAlarms = (budgetID) => async dispatch => {
 
 export const toggleCategoryAlarm = (categoryID, budgetID) => async dispatch => {
     dispatch({type: TOGGLE_CATEGORY_ALARM, payload: categoryID});
-    console.log("hello");
 
     try {
         let token = await firebase.auth().currentUser.getIdToken();

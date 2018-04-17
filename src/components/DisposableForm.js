@@ -51,16 +51,25 @@ export class DisposableForm extends Component {
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <Container>
+                    {this.props.budgetLoading ? (
+                        <Container style={{justifyContent: 'center'}}>
+                            <Spinner style={{
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }} color='#1c313a'/>
+                        </Container>) : (
                     <View style={[container.incomeFormStyle, {paddingTop: 10}]}>
-                        <Label style={text.defaultText}>{I18n.t('disposable')}</Label>
-                        <Item rounded style={input.inputField}>
+                        <Label style={[text.defaultText, color.text,]}>{I18n.t('disposable')}</Label>
+                        <Item rounded style={[input.inputField, color.input]}>
                             <Input
                                 value={String(this.props.tmpDisposable)}
                                 onChangeText={this.onDisposableChange}
                                 keyboardType="numeric"
+                                style={color.text}
                             />
                         </Item>
                     </View>
+                    )}
 
                     <View style={{marginTop: 5, marginBottom: 10}}>
                         <Separator/>
@@ -68,7 +77,7 @@ export class DisposableForm extends Component {
 
                     <View style={{flex: 2, alignSelf: 'stretch'}}>
                         <View style={container.incomeFormStyle}>
-                            <Label style={text.defaultText}>{I18n.t('disposableCategories')}</Label>
+                            <Label style={[text.defaultText, color.text]}>{I18n.t('disposableCategories')}</Label>
                         </View>
 
                         {this.props.categoriesLoading ? (

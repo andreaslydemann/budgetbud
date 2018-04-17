@@ -43,20 +43,8 @@ class DisposablePreview extends Component {
                     <FlatList
                         data={this.props.categoryDisposableItems}
                         renderItem={this.renderItem}
+                        keyExtractor={item => item.categoryID}
                     />
-                    <Text style={color.text}>{I18n.t('disposable')}</Text>
-                    <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
-                        <Body style={{flex: 1}}>
-                        <Text note>{I18n.t('disposablePreviewBefore')}</Text>
-                        <Text note>{I18n.t('disposablePreviewAfter')}</Text>
-                        </Body>
-                        <Right style={{flex: 2}}>
-                            <Text note>{this.props.disposable} {I18n.t('currency')}</Text>
-                            <Text note>{this.props.tmpDisposable} {I18n.t('currency')} (
-                                {this.props.disposableDiff} {I18n.t('currency')})
-                            </Text>
-                        </Right>
-                    </View>
                 </Content>
 
                 <Separator/>
@@ -91,6 +79,7 @@ class DisposablePreview extends Component {
                         <Right style={{flex: 2}}>
                             <Text note>{item.beforeAmount} {I18n.t('currency')}</Text>
                             <Text note>{item.afterAmount} {I18n.t('currency')} (
+                                {(item.beforeAmount < item.afterAmount) ? '+' : ''}
                                 {item.amountDiff} {I18n.t('currency')})
                             </Text>
                         </Right>
@@ -107,7 +96,8 @@ const mapStateToProps = (state) => {
         categories,
         selectedCategories,
     } = state.category;
-    const {disposableCategorySubtractions,
+    const {
+        disposableCategorySubtractions,
         disposableLoading,
         disposable,
         tmpDisposable
@@ -133,20 +123,23 @@ const mapStateToProps = (state) => {
             beforeAmount: beforeAmount,
             afterAmount: (beforeAmount - amountToSubtract),
             name: category[0].name,
-            categoryID: item,
-            key: key
+            categoryID: item
         };
     });
 
-    const disposableDiff = tmpDisposable-disposable;
+    categoryDisposableItems.push({
+        amountDiff: (tmpDisposable - disposable),
+        beforeAmount: disposable,
+        afterAmount: tmpDisposable,
+        name: I18n.t('disposable'),
+        categoryID: 'disposable'
+    });
 
     return {
+        tmpDisposable,
         categoryDisposableItems,
         disposableLoading,
-        budgetID,
-        disposable,
-        tmpDisposable,
-        disposableDiff
+        budgetID
     };
 };
 

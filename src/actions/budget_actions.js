@@ -31,7 +31,7 @@ export const getBudgetID = (user, callback) => async dispatch => {
         callback();
     } catch (err) {
         if (err.response) {
-            let {data} = err.response.data;
+            let {data} = err.response;
             dispatch({type: GET_BUDGET_ID_FAIL, payload: data.error});
         }
     }
@@ -71,8 +71,6 @@ export const getBudget = (budgetID) => async dispatch => {
         const disposable = data.budgetData.disposable;
         const totalGoalsAmount = data.budgetData.totalGoalsAmount;
         const income = data.budgetData.income;
-
-        console.log(disposable + " + " + totalGoalsAmount + " + " + income)
 
         dispatch({
             type: GET_BUDGET_SUCCESS,
@@ -124,7 +122,6 @@ export const deleteBudget = ({budgetID}, callback) => async dispatch => {
 };
 
 export const incomeChanged = (newIncome, income) =>  {
-    console.log(newIncome + " + " + income)
     const incomeDiff = newIncome-income;
 
     return {
