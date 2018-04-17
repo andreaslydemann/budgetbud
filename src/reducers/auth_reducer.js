@@ -10,7 +10,7 @@ import {
     SIGN_UP_FAIL,
     SIGN_IN,
     SIGN_IN_FAIL,
-    DELETE_USER
+    DELETE_USER, GET_INITIAL_STATE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -24,6 +24,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case GET_INITIAL_STATE:
+            return INITIAL_STATE;
         case GET_INITIAL_AUTH_STATE:
             return INITIAL_STATE;
         case CPR_NUMBER_CHANGED:

@@ -11,7 +11,7 @@ import {
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_SUCCESS,
-    GET_BUDGET_ID_FAIL
+    GET_BUDGET_ID_FAIL, GET_INITIAL_STATE
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -23,6 +23,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case GET_INITIAL_STATE:
+            return INITIAL_STATE;
         case GET_INITIAL_BUDGET_STATE:
             return INITIAL_STATE;
         case GET_BUDGET_ID_SUCCESS:

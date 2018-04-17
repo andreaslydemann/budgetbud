@@ -4,7 +4,7 @@ import {
     GET_CATEGORY_ALARMS_FAIL,
     TOGGLE_CATEGORY_ALARM,
     TOGGLE_CATEGORY_ALARM_SUCCESS,
-    TOGGLE_CATEGORY_ALARM_FAIL
+    TOGGLE_CATEGORY_ALARM_FAIL, GET_INITIAL_STATE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -16,6 +16,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case GET_INITIAL_STATE:
+            return INITIAL_STATE;
         case GET_CATEGORY_ALARMS:
             return {...state, alarmsLoading: true};
         case GET_CATEGORY_ALARMS_SUCCESS:

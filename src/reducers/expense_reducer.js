@@ -1,7 +1,7 @@
 import {
     GET_EXPENSES_OF_MONTH,
     GET_EXPENSES_OF_MONTH_SUCCESS,
-    GET_EXPENSES_OF_MONTH_FAIL
+    GET_EXPENSES_OF_MONTH_FAIL, GET_INITIAL_STATE
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -13,6 +13,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case GET_INITIAL_STATE:
+            return INITIAL_STATE;
         case GET_EXPENSES_OF_MONTH:
             return {...state, expensesFail: '', expensesLoading: true};
         case GET_EXPENSES_OF_MONTH_SUCCESS:

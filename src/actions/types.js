@@ -1,3 +1,6 @@
+// ----------*ALL* RELATED TYPES----------
+export const GET_INITIAL_STATE = 'get_initial_state';
+
 // ----------NAVIGATION RELATED TYPES----------
 export const SCREEN_CHANGED = 'screen_changed';
 
