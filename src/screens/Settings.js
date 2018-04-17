@@ -65,7 +65,7 @@ class Settings extends Component {
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </ListItem>
-                            <ListItem icon>
+                            <ListItem icon onPress={() => this.props.navigation.navigate("Alarms")}>
                                 <Left>
                                     <Icon style={color.darkIcon} name="md-notifications-outline"/>
                                 </Left>

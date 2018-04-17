@@ -28,8 +28,7 @@ export const disposableChanged = text => {
     };
 };
 
-export const editDisposable = ({tmpDisposable, categoryDisposableItems, budgetID},
-                           callback) => async dispatch => {
+export const editDisposable = ({tmpDisposable, categoryDisposableItems, budgetID}) => async dispatch => {
 
     dispatch({type: EDIT_DISPOSABLE});
 
@@ -37,10 +36,12 @@ export const editDisposable = ({tmpDisposable, categoryDisposableItems, budgetID
         const categories = [];
 
         categoryDisposableItems.forEach(c => {
-            categories.push({
-                categoryID: c.categoryID,
-                newAmount: c.afterAmount
-            });
+            if (c.categoryID !== 'disposable') {
+                categories.push({
+                    categoryID: c.categoryID,
+                    newAmount: c.afterAmount
+                });
+            }
         });
 
         let token = await firebase.auth().currentUser.getIdToken();
@@ -63,9 +64,9 @@ export const editDisposable = ({tmpDisposable, categoryDisposableItems, budgetID
 
 export const setTmpDisposable = () => {
     return {type: SET_TMP_DISPOSABLE}
-}
+};
 
-export const calculateDisposableCategoryDifferences = (disposable, tmpDisposable, categories, callback) => async dispatch =>{
+export const calculateDisposableCategoryDifferences = (disposable, tmpDisposable, categories, callback) => async dispatch => {
     if (disposable === tmpDisposable) {
         dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_FAIL, payload: "Rådighedsbeløb uændret."});
         return;
@@ -73,7 +74,7 @@ export const calculateDisposableCategoryDifferences = (disposable, tmpDisposable
 
     dispatch({type: CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES});
 
-    const disposableDifference = (tmpDisposable-disposable);
+    const disposableDifference = (tmpDisposable - disposable);
 
     try {
         let token = await firebase.auth().currentUser.getIdToken();

@@ -104,8 +104,9 @@ export const GET_EXPENSES_OF_MONTH_SUCCESS = 'get_expenses_of_month_success';
 export const GET_EXPENSES_OF_MONTH_FAIL = 'get_expenses_of_month_fail';
 
 // ----------ALARM RELATED TYPES----------
-export const CATEGORY_ALARM_ENABLED = 'category_alarm_enabled';
-export const CATEGORY_ALARM_ENABLED_FAIL = 'category_alarm_enabled_fail';
-export const GET_ENABLED_CATEGORY_ALARMS = 'get_enabled_category_alarms';
-export const GET_ENABLED_CATEGORY_ALARMS_SUCCESS = 'get_enabled_category_alarms_success';
-export const GET_ENABLED_CATEGORY_ALARMS_FAIL = 'get_enabled_category_alarms_fail';
+export const TOGGLE_CATEGORY_ALARM = 'toggle_category_alarm';
+export const TOGGLE_CATEGORY_ALARM_SUCCESS = 'toggle_category_alarm_success';
+export const TOGGLE_CATEGORY_ALARM_FAIL = 'toggle_category_alarm_fail';
+export const GET_CATEGORY_ALARMS = 'get_category_alarms';
+export const GET_CATEGORY_ALARMS_SUCCESS = 'get_category_alarms_success';
+export const GET_CATEGORY_ALARMS_FAIL = 'get_category_alarms_fail';

@@ -43,20 +43,8 @@ class DisposablePreview extends Component {
                     <FlatList
                         data={this.props.categoryDisposableItems}
                         renderItem={this.renderItem}
+                        keyExtractor={item => item.categoryID}
                     />
-                    <Text style={color.text}>{I18n.t('disposable')}</Text>
-                    <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
-                        <Body style={{flex: 1}}>
-                        <Text note>{I18n.t('disposablePreviewBefore')}</Text>
-                        <Text note>{I18n.t('disposablePreviewAfter')}</Text>
-                        </Body>
-                        <Right style={{flex: 2}}>
-                            <Text note>{this.props.disposable} {I18n.t('currency')}</Text>
-                            <Text note>{this.props.tmpDisposable} {I18n.t('currency')} (
-                                {this.props.disposableDiff} {I18n.t('currency')})
-                            </Text>
-                        </Right>
-                    </View>
                 </Content>
 
                 <Separator/>
@@ -79,23 +67,24 @@ class DisposablePreview extends Component {
     renderItem = ({item}) => {
         return (
             <ListItem>
-                    <View style={container.fullWidth}>
-                        <Body>
-                        <Text style={color.text}>{item.name}</Text>
+                <View style={container.fullWidth}>
+                    <Body>
+                    <Text style={color.text}>{item.name}</Text>
+                    </Body>
+                    <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
+                        <Body style={{flex: 1}}>
+                        <Text note>{I18n.t('disposablePreviewBefore')}</Text>
+                        <Text note>{I18n.t('disposablePreviewAfter')}</Text>
                         </Body>
-                        <View style={[container.removeIndenting, {flexDirection: 'row'}]}>
-                            <Body style={{flex: 1}}>
-                            <Text note>{I18n.t('disposablePreviewBefore')}</Text>
-                            <Text note>{I18n.t('disposablePreviewAfter')}</Text>
-                            </Body>
-                            <Right style={{flex: 2}}>
-                                <Text note>{item.beforeAmount} {I18n.t('currency')}</Text>
-                                <Text note>{item.afterAmount} {I18n.t('currency')} (
-                                    {item.amountDiff} {I18n.t('currency')})
-                                </Text>
-                            </Right>
-                        </View>
+                        <Right style={{flex: 2}}>
+                            <Text note>{item.beforeAmount} {I18n.t('currency')}</Text>
+                            <Text note>{item.afterAmount} {I18n.t('currency')} (
+                                {(item.beforeAmount < item.afterAmount) ? '+' : ''}
+                                {item.amountDiff} {I18n.t('currency')})
+                            </Text>
+                        </Right>
                     </View>
+                </View>
             </ListItem>
         );
     }
@@ -134,27 +123,23 @@ const mapStateToProps = (state) => {
             beforeAmount: beforeAmount,
             afterAmount: (beforeAmount - amountToSubtract),
             name: category[0].name,
-            categoryID: item,
-            key: key
+            categoryID: item
         };
     });
 
-    const disposableDiff = tmpDisposable - disposable;
-
     categoryDisposableItems.push({
-        disposable,
-        tmpDisposable,
-        disposableName: I18n.t('disposable'),
-        disposableDiff
+        amountDiff: (tmpDisposable - disposable),
+        beforeAmount: disposable,
+        afterAmount: tmpDisposable,
+        name: I18n.t('disposable'),
+        categoryID: 'disposable'
     });
 
     return {
+        tmpDisposable,
         categoryDisposableItems,
         disposableLoading,
-        budgetID,
-        disposable,
-        tmpDisposable,
-        disposableDiff
+        budgetID
     };
 };
 
