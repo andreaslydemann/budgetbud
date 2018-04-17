@@ -20,15 +20,15 @@ import {
     input
 } from "../style/";
 import I18n from "../strings/i18n";
-import {showWarningToast} from '../helpers/toast';
+import {showWarningToast} from '../helpers/toasts';
 
 export class BudgetForm extends PureComponent {
     render() {
         return (
             <Container>
-                <View style={container.incomeFormStyle}>
-                    <Label style={[text.listText, color.text]}>
-                        {I18n.t('budgetIncome')}
+                <View style={[container.defaultFormStyle, {paddingTop: 10}]}>
+                    <Label style={[text.defaultText, color.text]}>
+                        {I18n.t('budgetIncomeLabel')}
                     </Label>
 
                     <Item rounded style={[input.inputField, color.input]}>

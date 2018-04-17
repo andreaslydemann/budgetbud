@@ -1,5 +1,5 @@
 import {StyleSheet, Platform} from 'react-native';
-//TODO: default != auth
+
 export const button = StyleSheet.create({
     defaultButton: {
         width: '90%',

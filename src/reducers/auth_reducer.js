@@ -17,8 +17,9 @@ const INITIAL_STATE = {
     cprNumber: '',
     phoneNumber: '',
     code: '',
-    error: '',
-    authLoading: false
+    authError: '',
+    authLoading: false,
+    changeLoading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -34,19 +35,19 @@ export default (state = INITIAL_STATE, action) => {
         case CODE_CHANGED:
             return {...state, code: action.payload};
         case VALIDATE_CPR_NUMBER_FAIL:
-            return {...state, error: 'CPR-nummer skal være 10 cifre.'};
+            return {...state, authError: 'CPR-nummer skal være 10 cifre.'};
         case VALIDATE_PHONE_NUMBER_FAIL:
-            return {...state, error: 'Telefonnummer skal være 8 cifre.'};
+            return {...state, authError: 'Telefonnummer skal være 8 cifre.'};
         case VALIDATE_CODE_FAIL:
-            return {...state, error: 'Pinkode skal være 4 cifre.'};
+            return {...state, authError: 'Pinkode skal være 4 cifre.'};
         case SIGN_UP:
-            return {...state, authLoading: true, error: ''};
+            return {...state, authLoading: true, authError: ''};
         case SIGN_UP_FAIL:
-            return {...state, ...INITIAL_STATE, error: action.payload};
+            return {...state, ...INITIAL_STATE, authError: action.payload};
         case SIGN_IN:
-            return {...state, authLoading: true, error: ''};
+            return {...state, authLoading: true, authError: ''};
         case SIGN_IN_FAIL:
-            return {...state, ...INITIAL_STATE, error: action.payload};
+            return {...state, ...INITIAL_STATE, authError: action.payload};
         case DELETE_USER:
             return {...state, authLoading: true};
         default:

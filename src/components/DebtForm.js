@@ -29,6 +29,7 @@ import {
     input
 } from "../style/";
 import I18n from "../strings/i18n";
+import {checkInputAmount} from "../helpers/validators";
 
 export class DebtForm extends Component {
     onNameChange = (text) => {
@@ -36,7 +37,7 @@ export class DebtForm extends Component {
     };
 
     onAmountChange = (amount) => {
-        if (this.checkAmount(amount))
+        if (checkInputAmount(amount))
             this.props.amountChanged(amount);
     };
 
@@ -56,19 +57,11 @@ export class DebtForm extends Component {
         this.props.categoriesSelected(tmp);
     };
 
-    checkAmount = (amount) => {
-        if (amount.length === 0)
-            return true;
-
-        const amountWithPeriod = amount.replace(/,/g, '.');
-        return !isNaN(parseFloat(amountWithPeriod)) && isFinite(amountWithPeriod);
-    };
-
     render() {
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <Container>
-                    <View style={[container.incomeFormStyle, {paddingTop: 10}]}>
+                    <View style={[container.defaultFormStyle, {paddingTop: 10}]}>
                         <Label style={[text.defaultText, color.text]}>{I18n.t('debtName')}</Label>
                         <Item rounded style={[input.inputField, color.input]}>
                             <Input
@@ -81,7 +74,7 @@ export class DebtForm extends Component {
                         </Item>
                     </View>
 
-                    <View style={container.incomeFormStyle}>
+                    <View style={container.defaultFormStyle}>
                         <Label style={[text.defaultText, color.text]}>{I18n.t('debtAmount')}</Label>
                         <Item rounded style={[input.inputField, color.input]}>
                             <Input
@@ -99,7 +92,7 @@ export class DebtForm extends Component {
                         <Separator/>
                     </View>
 
-                    <View style={container.incomeFormStyle}>
+                    <View style={container.defaultFormStyle}>
                         <Label style={[text.defaultText, color.text]}>{I18n.t('debtExpirationDate')}</Label>
                         <DatePicker
                             date={this.props.expirationDate}
@@ -131,7 +124,7 @@ export class DebtForm extends Component {
                     </View>
 
                     <View style={{flex: 2, alignSelf: 'stretch'}}>
-                        <View style={container.incomeFormStyle}>
+                        <View style={container.defaultFormStyle}>
                             <Label style={[text.defaultText, color.text]}>{I18n.t('debtCategories')}</Label>
                         </View>
 

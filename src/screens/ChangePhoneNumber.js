@@ -1,92 +1,92 @@
 import React, {PureComponent} from 'react';
-import {FlatList} from 'react-native';
+import {Keyboard, TouchableWithoutFeedback} from "react-native";
 import {connect} from 'react-redux';
-import {
-    AppHeader,
-    Separator
-} from "../components/";
+import {AppHeader, Separator} from "../components/";
 import {
     Container,
-    ListItem,
-    Body,
-    Right,
     Text,
     Spinner,
-    CheckBox,
-    Button
+    Button,
+    Item,
+    Label,
+    Input,
 } from 'native-base';
 import I18n from "../strings/i18n";
-import {
-    getAccounts,
-    linkAccounts,
-    accountsSelected
-} from "../actions";
+import {phoneNumberChanged} from "../actions";
+import {renderInputIcon} from "../helpers/validators";
 import {
     button,
     text,
-    list,
-    container, color
+    container,
+    color,
+    input
 } from "../style";
 
 class ChangePhoneNumber extends PureComponent {
+    onPhoneNumberChange = (text) => {
+        this.props.phoneNumberChanged(text);
+    };
+
     render() {
         return (
-            <Container style={container.signedInContainer}>
-                <AppHeader headerText={I18n.t('changePhoneNumberHeader')}
-                           showBackButton={true}
-                           onLeftButtonPress={() => this.props.navigation.pop()}/>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <Container style={container.signedInContainer}>
+                    <AppHeader headerText={I18n.t('changePhoneNumberHeader')}
+                               showBackButton={true}
+                               onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <Container style={{flex: 4, justifyContent: 'center'}}>
+                    <Container style={{flex: 4, justifyContent: 'center'}}>
+                        <Container style={[container.defaultFormStyle, {paddingTop: 10}]}>
+                            <Label style={[text.defaultText, color.text]}>{I18n.t('changePhoneNumberLabel')}</Label>
+                            <Item rounded style={[input.inputField, color.input]}>
+                                <Input
+                                    value={this.props.phoneNumber}
+                                    onChangeText={this.onPhoneNumberChange}
+                                    keyboardType="numeric"
+                                    maxLength={8}
+                                    placeholder={I18n.t('changePhoneNumberPlaceholder')}
+                                    placeholderTextColor='#7F9BAA'
+                                    style={color.text}
+                                />
+                                {renderInputIcon(this.props.phoneNumber, 8)}
+                            </Item>
+                        </Container>
+                    </Container>
+
+                    <Separator/>
+
+                    <Button rounded
+                            onPress={() => {
+                                if (!this.props.changeLoading) {
+                                    this.onSavePress()
+                                }
+                            }}
+                            style={[button.defaultButton, color.button]}
+                    >
+                        {this.props.changeLoading ? (
+                            <Spinner color='#D0D0D0'/>) : (
+                            <Text style={text.submitButtonText}>
+                                {I18n.t('changePhoneNumberSaveButton')}
+                            </Text>
+                        )}
+                    </Button>
                 </Container>
-
-                <Separator/>
-
-                <Button rounded
-                        onPress={() => {
-                            if (!this.props.authLoading) {
-                                this.onSavePress()
-                            }
-                        }}
-                        style={[button.defaultButton, color.button]}
-                >
-                    {this.props.authLoading ? (
-                        <Spinner color='#D0D0D0'/>) : (
-                        <Text style={text.submitButtonText}>{I18n.t('changePhoneNumberSaveButton')}</Text>
-                    )}
-                </Button>
-            </Container>
-        );
-    }
-
-    renderItem = ({item}) => {
-        const checked = '';
-
-        return (
-            <ListItem>
-                <Body>
-                <Text style={color.text}>{item.name}</Text>
-                </Body>
-                <Right style={list.listItemCheckBoxPadding}>
-                    <CheckBox
-                        style={checked ? color.checkboxChecked : color.checkboxUnchecked}
-                        checked={checked}
-                        onPress={() => this.onCheckBoxPress(item)}
-                    />
-                </Right>
-            </ListItem>
+            </TouchableWithoutFeedback>
         );
     }
 }
 
 const mapStateToProps = ({auth}) => {
-    const {authLoading} = auth;
-
     return {
-        authLoading
-    };
+        phoneNumber,
+        authError,
+        authLoading,
+        changeLoading
+    } = auth;
 };
 
 const mapDispatchToProps = {
+    phoneNumberChanged
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePhoneNumber);

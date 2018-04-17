@@ -7,28 +7,12 @@ import {
     Button,
     Label,
     Spinner,
-    Icon,
     View
 } from 'native-base';
 import I18n from "../strings/i18n";
+import {renderInputIcon} from "../helpers/validators";
 
 export class AuthForm extends Component {
-    renderCprNumberIcon() {
-        if (0 < this.props.cprNumber.length && this.props.cprNumber.length < 10)
-            return (<Icon name='close-circle' style={{color: '#db000e'}}/>);
-        else if (this.props.cprNumber.length === 10)
-            return (<Icon name='checkmark-circle' style={{color: '#00d219'}}/>);
-    }
-
-    renderSecondInputIcon() {
-        const correctLength = this.props.isSignIn ? 4 : 8;
-
-        if (0 < this.props.secondInput.length && this.props.secondInput.length < correctLength)
-            return (<Icon name='close-circle' style={{color: '#db000e'}}/>);
-        else if (this.props.secondInput.length === correctLength)
-            return (<Icon name='checkmark-circle' style={{color: '#00d219'}}/>);
-    }
-
     render() {
         return (
             <Container style={[container.parentContainer, {flex: 1}]}>
@@ -42,7 +26,7 @@ export class AuthForm extends Component {
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={color.white}
                         />
-                        {this.renderCprNumberIcon()}
+                        {renderInputIcon(this.props.cprNumber, 10)}
                     </Item>
 
                     <Item rounded style={input.authInputItem}>
@@ -56,7 +40,7 @@ export class AuthForm extends Component {
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={color.white}
                         />
-                        {this.renderSecondInputIcon()}
+                        {renderInputIcon(this.props.secondInput, (this.props.isSignIn ? 4 : 8))}
                     </Item>
 
                     <Button rounded
