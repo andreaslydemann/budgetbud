@@ -13,7 +13,7 @@ import {
     createCategories
 } from '../actions';
 import {container} from "../style";
-import {showWarningToast} from "../helpers/toast";
+import {showWarningToast} from "../helpers/toasts";
 
 class CreateBudget extends Component {
     componentWillMount() {

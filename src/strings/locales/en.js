@@ -18,7 +18,7 @@ export default {
     changePhoneNumberSaveButton : 'Save',
     changeCodeHeader: 'Change code',
     changeCodeLabel: 'Enter code',
-    changeCodeRepeatLabel: 'Repeat code',
+    changeRepeatedCodeLabel: 'Repeat code',
     changeCodePlaceholder: '1234',
     changeCodeSaveButton : 'Save',
     confirmDialogDeletionHeader: 'Confirm deletion',

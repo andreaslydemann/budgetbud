@@ -18,7 +18,7 @@ export default {
     changePhoneNumberSaveButton : 'Gem',
     changeCodeHeader: 'Ændr pinkode',
     changeCodeLabel: 'Indtast pinkode',
-    changeCodeRepeatLabel: 'Gentag pinkode',
+    changeRepeatedCodeLabel: 'Gentag pinkode',
     changeCodePlaceholder: '1234',
     changeCodeSaveButton : 'Gem',
     confirmDialogDeletionHeader: 'Bekræft sletning',

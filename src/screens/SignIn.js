@@ -11,7 +11,7 @@ import {
     signIn,
     cprNumberChanged,
     codeChanged,
-    authScreenSwitched
+    resetAuthState
 } from '../actions';
 import {container} from "../style";
 import I18n from "../strings/i18n";
@@ -33,13 +33,13 @@ class SignIn extends Component {
 
     onForgotCodeButtonPress = () => {
         /*
-        this.props.authScreenSwitched(() => {
+        this.props.resetAuthState(() => {
             this.props.navigation.navigate('SignUp');
         });*/
     };
 
     onGoToSignUpButtonPress = () => {
-        this.props.authScreenSwitched(() => {
+        this.props.resetAuthState(() => {
             this.props.navigation.navigate('SignUp');
         });
     };
@@ -105,7 +105,7 @@ const mapStateToProps = ({auth}) => {
 };
 
 const mapDispatchToProps = {
-    signIn, cprNumberChanged, codeChanged, authScreenSwitched
+    signIn, cprNumberChanged, codeChanged, resetAuthState
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

@@ -37,7 +37,6 @@ class Accounts extends PureComponent {
         this.props.linkAccounts(this.props.linkedAccounts, () => {
             this.props.navigation.pop();
         });
-
     };
 
     onCheckBoxPress = ({accountID}) => {

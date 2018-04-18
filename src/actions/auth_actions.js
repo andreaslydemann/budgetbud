@@ -4,9 +4,11 @@ import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
 import {
     GET_INITIAL_AUTH_STATE,
+    RESET_AUTH_ERROR,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
+    REPEATED_CODE_CHANGED,
     VALIDATE_CPR_NUMBER_FAIL,
     VALIDATE_PHONE_NUMBER_FAIL,
     VALIDATE_CODE_FAIL,
@@ -15,11 +17,27 @@ import {
     SIGN_UP,
     SIGN_UP_FAIL,
     DELETE_USER, GET_INITIAL_STATE,
+    CHANGE_CODE,
+    CHANGE_CODE_SUCCESS,
+    CHANGE_CODE_FAIL,
+    VALIDATE_CODE_MATCH_FAIL,
+    CHANGE_PHONE_NUMBER,
+    CHANGE_PHONE_NUMBER_SUCCESS,
+    CHANGE_PHONE_NUMBER_FAIL,
+    GET_PHONE_NUMBER,
+    GET_PHONE_NUMBER_SUCCESS,
+    GET_PHONE_NUMBER_FAIL
 } from './types';
 
-export const authScreenSwitched = (callback) => async dispatch => {
+export const resetAuthState = (callback) => async dispatch => {
     dispatch({type: GET_INITIAL_AUTH_STATE});
-    callback();
+
+    if (callback)
+        callback();
+};
+
+export const resetAuthError = () => async dispatch => {
+    dispatch({type: RESET_AUTH_ERROR});
 };
 
 export const cprNumberChanged = text => {
@@ -39,6 +57,13 @@ export const phoneNumberChanged = text => {
 export const codeChanged = text => {
     return {
         type: CODE_CHANGED,
+        payload: text
+    };
+};
+
+export const repeatedCodeChanged = text => {
+    return {
+        type: REPEATED_CODE_CHANGED,
         payload: text
     };
 };
@@ -115,7 +140,7 @@ export const deleteUser = (callback) => async dispatch => {
         let uid = await firebase.auth().currentUser.uid;
 
         await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/deleteUser`, {cprNumber: uid}, {
-            headers: { Authorization: 'Bearer ' + token }
+            headers: {Authorization: 'Bearer ' + token}
         });
 
         dispatch({type: GET_INITIAL_STATE});
@@ -123,5 +148,75 @@ export const deleteUser = (callback) => async dispatch => {
     } catch (err) {
         let {data} = err.response;
         console.log(data.error);
+    }
+};
+
+export const getPhoneNumber = () => async dispatch => {
+    dispatch({type: GET_PHONE_NUMBER});
+
+    try {
+        let token = await firebase.auth().currentUser.getIdToken();
+        let cprNumber = await firebase.auth().currentUser.uid;
+
+        let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getPhoneNumber?cprNumber=${cprNumber}`,
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        dispatch({type: GET_PHONE_NUMBER_SUCCESS, payload: data.phoneNumber});
+    } catch (err) {
+        let {data} = err.response;
+        dispatch({type: GET_PHONE_NUMBER_FAIL, payload: data});
+    }
+};
+
+export const changePhoneNumber = (phoneNumber, callback) => async dispatch => {
+    if (phoneNumber.length !== 8) {
+        dispatch({type: VALIDATE_PHONE_NUMBER_FAIL});
+        return;
+    }
+
+    dispatch({type: CHANGE_PHONE_NUMBER});
+
+    try {
+        let token = await firebase.auth().currentUser.getIdToken();
+        let cprNumber = await firebase.auth().currentUser.uid;
+
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/changePhoneNumber`,
+            {phoneNumber, cprNumber},
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        dispatch({type: CHANGE_PHONE_NUMBER_SUCCESS});
+
+        callback();
+    } catch (err) {
+        let {data} = err.response;
+        dispatch({type: CHANGE_PHONE_NUMBER_FAIL, payload: data});
+    }
+};
+
+export const changeCode = (code, repeatedCode, callback) => async dispatch => {
+    if (code.length !== 4 || repeatedCode.length !== 4) {
+        dispatch({type: VALIDATE_CODE_FAIL});
+        return;
+    } else if (code !== repeatedCode) {
+        dispatch({type: VALIDATE_CODE_MATCH_FAIL});
+        return;
+    }
+
+    dispatch({type: CHANGE_CODE});
+
+    try {
+        let token = await firebase.auth().currentUser.getIdToken();
+        let cprNumber = await firebase.auth().currentUser.uid;
+
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/changeCode`,
+            {code, cprNumber},
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        dispatch({type: CHANGE_CODE_SUCCESS});
+
+        callback();
+    } catch (err) {
+        let {data} = err.response;
+        dispatch({type: CHANGE_CODE_FAIL, payload: data});
     }
 };

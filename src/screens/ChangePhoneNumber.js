@@ -12,7 +12,12 @@ import {
     Input,
 } from 'native-base';
 import I18n from "../strings/i18n";
-import {phoneNumberChanged} from "../actions";
+import {
+    phoneNumberChanged,
+    getPhoneNumber,
+    changePhoneNumber,
+    resetAuthError
+} from "../actions";
 import {renderInputIcon} from "../helpers/validators";
 import {
     button,
@@ -21,10 +26,30 @@ import {
     color,
     input
 } from "../style";
+import {showWarningToast} from "../helpers/toasts";
 
 class ChangePhoneNumber extends PureComponent {
+    componentWillMount() {
+        this.props.getPhoneNumber();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.authError) {
+            showWarningToast(nextProps.authError);
+            this.props.resetAuthError();
+        }
+    }
+
     onPhoneNumberChange = (text) => {
         this.props.phoneNumberChanged(text);
+    };
+
+    onSavePress = () => {
+        this.props.changePhoneNumber(
+            this.props.phoneNumber, () => {
+                this.props.navigation.pop();
+            }
+        );
     };
 
     render() {
@@ -35,12 +60,18 @@ class ChangePhoneNumber extends PureComponent {
                                showBackButton={true}
                                onLeftButtonPress={() => this.props.navigation.pop()}/>
 
+
                     <Container style={{flex: 4, justifyContent: 'center'}}>
+                        {this.props.authLoading ? (
+                            <Spinner style={{
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }} color='#1c313a'/>) : (
                         <Container style={[container.defaultFormStyle, {paddingTop: 10}]}>
                             <Label style={[text.defaultText, color.text]}>{I18n.t('changePhoneNumberLabel')}</Label>
                             <Item rounded style={[input.inputField, color.input]}>
                                 <Input
-                                    value={this.props.phoneNumber}
+                                    value={String(this.props.phoneNumber)}
                                     onChangeText={this.onPhoneNumberChange}
                                     keyboardType="numeric"
                                     maxLength={8}
@@ -50,7 +81,7 @@ class ChangePhoneNumber extends PureComponent {
                                 />
                                 {renderInputIcon(this.props.phoneNumber, 8)}
                             </Item>
-                        </Container>
+                        </Container>)}
                     </Container>
 
                     <Separator/>
@@ -86,7 +117,10 @@ const mapStateToProps = ({auth}) => {
 };
 
 const mapDispatchToProps = {
-    phoneNumberChanged
+    phoneNumberChanged,
+    getPhoneNumber,
+    changePhoneNumber,
+    resetAuthError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePhoneNumber);

@@ -13,7 +13,12 @@ import {
     View
 } from 'native-base';
 import I18n from "../strings/i18n";
-import {codeChanged} from "../actions";
+import {
+    codeChanged,
+    repeatedCodeChanged,
+    changeCode,
+    resetAuthState
+} from "../actions";
 import {renderInputIcon} from "../helpers/validators";
 import {
     button,
@@ -22,10 +27,31 @@ import {
     color,
     input
 } from "../style";
+import {showWarningToast} from "../helpers/toasts";
 
 class ChangeCode extends PureComponent {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.authError) {
+            showWarningToast(nextProps.authError);
+            this.props.resetAuthState();
+        }
+    }
+
     onCodeChange = (text) => {
         this.props.codeChanged(text);
+    };
+
+    onRepeatedCodeChange = (text) => {
+        this.props.repeatedCodeChanged(text);
+    };
+
+    onSavePress = () => {
+        this.props.changeCode(
+            this.props.code,
+            this.props.repeatedCode, () => {
+                this.props.navigation.pop();
+            }
+        );
     };
 
     render() {
@@ -55,19 +81,19 @@ class ChangeCode extends PureComponent {
                         </View>
 
                         <View style={[container.defaultFormStyle, {paddingTop: 10}]}>
-                            <Label style={[text.defaultText, color.text]}>{I18n.t('changeCodeRepeatLabel')}</Label>
+                            <Label style={[text.defaultText, color.text]}>{I18n.t('changeRepeatedCodeLabel')}</Label>
                             <Item rounded style={[input.inputField, color.input]}>
                                 <Input
                                     secureTextEntry={true}
-                                    value={this.props.code}
-                                    onChangeText={this.onCodeChange}
+                                    value={this.props.repeatedCode}
+                                    onChangeText={this.onRepeatedCodeChange}
                                     keyboardType="numeric"
                                     maxLength={4}
                                     placeholder={I18n.t('changeCodePlaceholder')}
                                     placeholderTextColor='#7F9BAA'
                                     style={color.text}
                                 />
-                                {renderInputIcon(this.props.code, 4)}
+                                {renderInputIcon(this.props.repeatedCode, 4)}
                             </Item>
                         </View>
                     </Container>
@@ -98,14 +124,17 @@ class ChangeCode extends PureComponent {
 const mapStateToProps = ({auth}) => {
     return {
         code,
+        repeatedCode,
         authError,
-        authLoading,
         changeLoading
     } = auth;
 };
 
 const mapDispatchToProps = {
-    codeChanged
+    codeChanged,
+    repeatedCodeChanged,
+    changeCode,
+    resetAuthState
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeCode);
