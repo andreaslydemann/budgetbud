@@ -58,8 +58,11 @@ class ChangePhoneNumber extends PureComponent {
                 <Container style={container.signedInContainer}>
                     <AppHeader headerText={I18n.t('changePhoneNumberHeader')}
                                showBackButton={true}
-                               onLeftButtonPress={() => this.props.navigation.pop()}/>
-
+                               onLeftButtonPress={() => {
+                                   if (!this.props.changeLoading) {
+                                       this.props.navigation.pop()
+                                   }
+                               }}/>
 
                     <Container style={{flex: 4, justifyContent: 'center'}}>
                         {this.props.authLoading ? (
@@ -67,28 +70,28 @@ class ChangePhoneNumber extends PureComponent {
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }} color='#1c313a'/>) : (
-                        <Container style={[container.defaultFormStyle, {paddingTop: 10}]}>
-                            <Label style={[text.defaultText, color.text]}>{I18n.t('changePhoneNumberLabel')}</Label>
-                            <Item rounded style={[input.inputField, color.input]}>
-                                <Input
-                                    value={String(this.props.phoneNumber)}
-                                    onChangeText={this.onPhoneNumberChange}
-                                    keyboardType="numeric"
-                                    maxLength={8}
-                                    placeholder={I18n.t('changePhoneNumberPlaceholder')}
-                                    placeholderTextColor='#7F9BAA'
-                                    style={color.text}
-                                />
-                                {renderInputIcon(this.props.phoneNumber, 8)}
-                            </Item>
-                        </Container>)}
+                            <Container style={[container.defaultFormStyle, {paddingTop: 10}]}>
+                                <Label style={[text.defaultText, color.text]}>{I18n.t('changePhoneNumberLabel')}</Label>
+                                <Item rounded style={[input.inputField, color.input]}>
+                                    <Input
+                                        value={String(this.props.phoneNumber)}
+                                        onChangeText={this.onPhoneNumberChange}
+                                        keyboardType="numeric"
+                                        maxLength={8}
+                                        placeholder={I18n.t('changePhoneNumberPlaceholder')}
+                                        placeholderTextColor='#7F9BAA'
+                                        style={color.text}
+                                    />
+                                    {renderInputIcon(this.props.phoneNumber, 8)}
+                                </Item>
+                            </Container>)}
                     </Container>
 
                     <Separator/>
 
                     <Button rounded
                             onPress={() => {
-                                if (!this.props.changeLoading) {
+                                if (!this.props.changeLoading || !this.props.authLoading) {
                                     this.onSavePress()
                                 }
                             }}

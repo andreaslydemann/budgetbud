@@ -60,7 +60,11 @@ class ChangeCode extends PureComponent {
                 <Container style={container.signedInContainer}>
                     <AppHeader headerText={I18n.t('changeCodeHeader')}
                                showBackButton={true}
-                               onLeftButtonPress={() => this.props.navigation.pop()}/>
+                               onLeftButtonPress={() => {
+                                   if (!this.props.changeLoading) {
+                                       this.props.navigation.pop()
+                                   }
+                               }}/>
 
                     <Container style={{flex: 4, justifyContent: 'flex-start'}}>
                         <View style={[container.defaultFormStyle, {paddingTop: 10}]}>
@@ -102,7 +106,7 @@ class ChangeCode extends PureComponent {
 
                     <Button rounded
                             onPress={() => {
-                                if (!this.props.changeLoading) {
+                                if (!this.props.changeLoading || !this.props.authLoading) {
                                     this.onSavePress()
                                 }
                             }}

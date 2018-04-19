@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
     Button,
     Container,
-    Form,
     Label,
     Spinner,
     Text
@@ -10,11 +9,9 @@ import {
 import {AppHeader, ConfirmDialog} from "../components/";
 import {Image} from "react-native";
 import {connect} from "react-redux";
-import {color} from "../style/";
+import {color, container} from "../style/";
 import I18n from "../strings/i18n";
-import {container} from "../style";
 import {getLinkedAccounts} from "../actions/account_actions";
-import View from "../theme/components/View";
 
 class Intro extends Component {
     componentWillMount() {
@@ -46,35 +43,41 @@ class Intro extends Component {
                             alignItems: 'center',
                             justifyContent: 'center'
                         }} color='#1c313a'/>) : (
-                        <Container style={styles.container}>
-                            <Form style={styles.formStyle}>
-                                <Text style={styles.headerTextStyle}>
-                                    {I18n.t('introCreateBudgetHeader')}
-                                </Text>
-
-                                <Container style={styles.logoContainer}>
-                                    <Image style={{width: 200, height: 200}}
+                        <Container style={container.defaultFormStyle}>
+                            <Container style={{flex: 1,}}>
+                                <Container style={{flex: 0.15, justifyContent: 'flex-end'}}>
+                                    <Text style={[styles.headerTextStyle, color.text]}>
+                                        {I18n.t('introCreateBudgetHeader')}
+                                    </Text>
+                                </Container>
+                                <Container style={{
+                                    flex: 0.7,
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                    <Image style={{width: 220, height: 220, borderRadius: 110, borderColor: '#03426A', borderWidth: 2}}
                                            source={require('../../assets/logo.png')}/>
                                 </Container>
 
-                                <Text style={styles.mainTextStyle}>
-                                    {I18n.t('introCreateBudgetBody')}
-                                </Text>
-
-                                <Button rounded
-                                        onPress={() => this.props.linkedAccounts.length === 0 ?
-                                            (this.confirmDialog.showDialog()) :
-                                            (this.props.navigation.navigate("CreateBudget"))}
-                                        style={styles.buttonStyle}
-                                >
-                                    {this.props.budgetLoading ? (
-                                        <Spinner color='#D0D0D0'/>) : (
-                                        <Label style={color.white}>
-                                            {I18n.t('introGetStarted')}
-                                        </Label>
-                                    )}
-                                </Button>
-                            </Form>
+                                <Container style={{flex: 0.15, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
+                                    <Text style={[styles.mainTextStyle, color.text]}>
+                                        {I18n.t('introCreateBudgetBody')}
+                                    </Text>
+                                </Container>
+                            </Container>
+                            <Button rounded
+                                    onPress={() => this.props.linkedAccounts.length === 0 ?
+                                        (this.confirmDialog.showDialog()) :
+                                        (this.props.navigation.navigate("CreateBudget"))}
+                                    style={[styles.buttonStyle]}
+                            >
+                                {this.props.budgetLoading ? (
+                                    <Spinner color='#D0D0D0'/>) : (
+                                    <Label style={color.white}>
+                                        {I18n.t('introGetStarted')}
+                                    </Label>
+                                )}
+                            </Button>
                         </Container>)}
                 </Container>
             </Container>
@@ -83,33 +86,23 @@ class Intro extends Component {
 }
 
 const styles = {
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-end'
-    },
     logoContainer: {
         flex: 4,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    formStyle: {
-        width: '80%',
-        flex: 1,
-        alignItems: 'stretch',
-    },
     headerTextStyle: {
         fontWeight: 'bold',
-        fontSize: 25,
+        fontSize: 26,
         alignSelf: 'center',
-        marginTop: 25,
-        flex: 1,
         color: '#002940'
     },
     mainTextStyle: {
-        fontSize: 16,
+        fontWeight: 'bold',
+        fontSize: 17,
         justifyContent: 'center',
-        width: '100%'
+        alignSelf: 'center',
+        width: 310
     },
     buttonStyle: {
         width: '100%',
