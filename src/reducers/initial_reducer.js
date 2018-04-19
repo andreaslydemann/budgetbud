@@ -14,8 +14,6 @@ export default (state = INITIAL_STATE, action) => {
             return {initialRoute: 'BudgetStack'};
         case GET_BUDGET_ID_FAIL:
         return {initialRoute: 'IntroStack'};
-        case CREATE_BUDGET_SUCCESS:
-            return {initialRoute: 'BudgetStack'};
         case DELETE_BUDGET:
             return {initialRoute: 'IntroStack'};
         default:

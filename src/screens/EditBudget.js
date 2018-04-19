@@ -8,32 +8,72 @@ import {
     editBudget,
     incomeChanged,
     categoryChanged,
-    getMappedCategories
+    setupEditBudget,
+    editCategories
 } from "../actions";
 import {container} from "../style";
+import {getCategories} from "../actions/category_actions";
+import {getBudget} from "../actions/budget_actions";
+import {checkInputAmount} from "../helpers/validators";
 
 class EditBudget extends Component {
-    async componentWillMount() {
-        await this.props.getMappedCategories(this.props.categories);
+    state = {
+        tmpIncome: this.props.income,
+        tmpDisposable: this.props.disposable,
+        tmpTotalGoalsAmount: this.props.totalGoalsAmount
+    };
+
+    componentWillMount() {
+        this.props.setupEditBudget(this.props);
     };
 
     onIncomeChange = (newIncome) => {
-        this.props.incomeChanged(newIncome, this.props.income);
+        if (checkInputAmount(newIncome)) {
+            const incomeDiff = newIncome - this.state.tmpIncome;
+            const newDisposable = this.state.tmpDisposable + incomeDiff;
+
+            this.setState({
+                tmpIncome: newIncome,
+                tmpDisposable: newDisposable
+            })
+        }
     };
 
-    onCategoryChange = (newAmount, name, oldAmount) => {
-        this.props.categoryChanged(newAmount, name, oldAmount);
+    onCategoryChange = (name, oldAmount, newAmount) => {
+        if (checkInputAmount(newAmount)) {
+            const categoryDiff = oldAmount - newAmount;
+            const newDisposable = this.state.tmpDisposable + categoryDiff;
+            const newTotalGoalsAmount = this.state.tmpTotalGoalsAmount - categoryDiff;
+
+            this.props.categoryChanged(name, newAmount);
+            this.setState({
+                tmpDisposable: newDisposable,
+                tmpTotalGoalsAmount: newTotalGoalsAmount
+            })
+        }
     };
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
         Keyboard.dismiss();
 
-        this.props.editBudget(this.props, () => {
-            this.props.navigation.navigate.pop();
-        });
+        if (this.state.tmpIncome.slice(-1) === '.')
+            this.setState({
+                tmpIncome: this.state.tmpIncome.slice(0, -1)
+            });
+
+        await this.props.editBudget(
+            this.props.budgetID,
+            this.state.tmpIncome,
+            this.state.tmpDisposable,
+            this.state.tmpTotalGoalsAmount
+        );
+
+        await this.props.editCategories(this.props);
+        this.props.navigation.pop();
     };
 
     checkInput = (income, categories) => {
+        console.log("here CHECK")
         let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
         if (!allowedRegex.test(income))
             return false;
@@ -42,10 +82,12 @@ class EditBudget extends Component {
             if (!allowedRegex.test(c.amount))
                 return false;
         });
+        console.log("here CHECK foreach")
         return true;
     };
 
     render() {
+        console.log(this.props.categories)
         return (
             <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
                 <AppHeader headerText={I18n.t('editBudgetHeader')}
@@ -56,14 +98,15 @@ class EditBudget extends Component {
                             onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
                             checkInput={this.checkInput}
-                            income={this.props.income}
-                            totalGoalsAmount={this.props.totalGoalsAmount}
-                            disposable={this.props.disposable}
+                            budgetID={this.props.budgetID}
+                            tmpIncome={this.state.tmpIncome}
+                            tmpTotalGoalsAmount={this.state.tmpTotalGoalsAmount}
+                            tmpDisposable={this.state.tmpDisposable}
                             tmpCategories={this.props.tmpCategories}
                             debts={this.props.debts}
                             budgetLoading={this.props.budgetLoading}
+                            categoriesLoading={this.props.categoriesLoading}
                             budgetError={this.props.budgetError}
-                            linkLoading={this.props.linkLoading}
                 />
             </Container>
         );
@@ -75,10 +118,11 @@ const mapStateToProps = (state) => {
         income,
         debts,
         budgetLoading,
-        budgetError
+        budgetError,
+        budgetID
     } = state.budget;
 
-    const disposable = state.disposable.disposable;
+    const {disposable} = state.disposable;
 
     const linkedAccounts = state.account.linkedAccounts;
     const {
@@ -86,10 +130,11 @@ const mapStateToProps = (state) => {
         tmpCategories,
         categoriesLoading,
         categoriesError,
-        totalGoalsAmount
+        totalGoalsAmount,
     } = state.category;
 
     return {
+        budgetID,
         income,
         categories,
         tmpCategories,
@@ -107,9 +152,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     editBudget,
+    editCategories,
+    getBudget,
+    getCategories,
     categoryChanged,
     incomeChanged,
-    getMappedCategories
+    setupEditBudget
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditBudget);

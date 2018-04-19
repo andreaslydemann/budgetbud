@@ -11,28 +11,24 @@ import {
     CREATE_CATEGORIES,
     CREATE_CATEGORIES_SUCCESS,
     CREATE_CATEGORIES_FAIL,
-    GET_MAPPED_CATEGORIES,
-    GET_MAPPED_CATEGORIES_SUCCESS,
-    GET_MAPPED_CATEGORIES_FAIL,
-    INCOME_CHANGED,
+    SETUP_EDIT_BUDGET,
+    SETUP_EDIT_BUDGET_SUCCESS,
+    SETUP_EDIT_BUDGET_FAIL,
     CATEGORY_CHANGED,
     MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
-    MAP_EXPENSES_FAIL
+    MAP_EXPENSES_FAIL,
+    EDIT_CATEGORIES,
+    EDIT_CATEGORIES_SUCCESS,
+    EDIT_CATEGORIES_FAIL
 } from "./types";
 
 export const createCategories = (budgetID, tmpCategories, callback) =>
     async dispatch => {
-    console.log("Number 2")
-
         dispatch({type: CREATE_CATEGORIES});
 
         try {
-            console.log("Number 4")
             let token = await firebase.auth().currentUser.getIdToken();
-            console.log("Number 5")
-            console.log(budgetID)
-            console.log(tmpCategories)
 
             await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createCategories`,
                 {budgetID, categories: tmpCategories},
@@ -45,19 +41,6 @@ export const createCategories = (budgetID, tmpCategories, callback) =>
             dispatch({type: CREATE_CATEGORIES_FAIL, payload: data.error});
         }
     };
-
-export const categoryChanged = (name, oldAmount, newAmount) => {
-    const categoryDiff = oldAmount - newAmount;
-
-    return {
-        type: CATEGORY_CHANGED,
-        payload: {
-            name,
-            newAmount,
-            categoryDiff
-        }
-    };
-};
 
 export const getCategories = (budgetID) => async dispatch => {
     try {
@@ -87,6 +70,23 @@ export const getCategories = (budgetID) => async dispatch => {
     } catch (err) {
         let {data} = err.response;
         //getCategoriesFail(dispatch, data.error);
+    }
+};
+
+export const editCategories = ({budgetID, tmpCategories}) => async dispatch => {
+    dispatch({type: EDIT_CATEGORIES});
+
+    try {
+        let token = await firebase.auth().currentUser.getIdToken();
+
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editCategories`,
+            {budgetID, categories: tmpCategories},
+            {headers: {Authorization: 'Bearer ' + token}});
+
+        dispatch({type: EDIT_CATEGORIES_SUCCESS, payload: tmpCategories});
+    } catch (err) {
+        let {data} = err.response;
+        dispatch({type: EDIT_CATEGORIES_FAIL, payload: data.error});
     }
 };
 
@@ -154,32 +154,37 @@ export const mapExpensesToBudget = () => async dispatch => {
     }
 };
 
-export const getMappedCategories = (categories) => async dispatch => {
-    dispatch({type: GET_MAPPED_CATEGORIES});
+export const setupEditBudget = ({categories}) => async dispatch => {
+    dispatch({type: SETUP_EDIT_BUDGET});
 
     try {
-        const newCategories = await getAllCategoryTypes(categories);
-
-        let totalWithdrawal = 0;
-        categories.forEach(category => {
-            totalWithdrawal += category.amount
-        });
-        totalWithdrawal = totalWithdrawal * (-1);
+        const mappedCategories = await getAllCategoryTypes(categories);
 
         dispatch({
-            type: GET_MAPPED_CATEGORIES_SUCCESS,
-            payload: {newCategories, totalWithdrawal}
+            type: SETUP_EDIT_BUDGET_SUCCESS,
+            payload: mappedCategories
         });
     }
     catch
         (err) {
         let {data} = err.response;
-        dispatch({type: GET_MAPPED_CATEGORIES_FAIL, payload: data.error});
+        dispatch({type: SETUP_EDIT_BUDGET_FAIL, payload: data.error});
     }
+};
+
+export const categoryChanged = (name, newAmount) => {
+    return {
+        type: CATEGORY_CHANGED,
+        payload: {
+            name,
+            newAmount
+        }
+    };
 };
 
 const getAllCategoryTypes = async (currentCategories) => {
     let amount = 0;
+    let categoryID = '';
     let token = await firebase.auth().currentUser.getIdToken();
 
     const categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
@@ -189,14 +194,20 @@ const getAllCategoryTypes = async (currentCategories) => {
     categoryTypes.data.forEach(categoryType => {
         const index = currentCategories.findIndex(x => x.categoryTypeID === categoryType.id);
 
-        if (index !== -1)
+        if (index !== -1) {
             amount = currentCategories[index].amount;
-        else
+            categoryID = currentCategories[index].categoryID;
+        }
+        else {
             amount = 0;
+            categoryID = '';
+        }
 
         categories.push({
             name: categoryType.name,
-            amount
+            categoryTypeID: categoryType.id,
+            amount,
+            categoryID
         })
     });
     return categories;

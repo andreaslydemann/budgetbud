@@ -38,10 +38,11 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 budgetLoading: false,
-                income: action.payload
+                income: action.payload.income,
+                budgetID: action.payload.budgetID
             };
         case CREATE_BUDGET_FAIL:
-            return {...state, ...INITIAL_STATE, budgetError: action.payload};
+            return {...state, budgetLoading: false, budgetError: action.payload};
         case GET_BUDGET:
             return {...state, budgetLoading: true, budgetError: ''};
         case GET_BUDGET_SUCCESS:
@@ -60,10 +61,10 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 budgetLoading: false,
-                income: action.payload
+                income: action.payload.income
             };
         case EDIT_BUDGET_FAIL:
-            return {...state, budgetError: action.payload};
+            return {...state, budgetError: action.payload, budgetLoading: false};
         default:
             return state;
     }

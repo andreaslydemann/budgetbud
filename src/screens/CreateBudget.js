@@ -20,19 +20,10 @@ class CreateBudget extends Component {
         this.props.mapExpensesToBudget();
     };
 
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.budgetError)
-    //         showWarningToast(nextProps.budgetError);
-    //     if (nextProps.budgetID) {
-    //         console.log("Number 1")
-    //         this.props.createCategories(
-    //             nextProps.budgetID,
-    //             this.state.tmpCategories,
-    //             () => {
-    //                 this.state.navigation.navigate('MyBudget');
-    //             });
-    //     }
-    // }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.budgetError)
+            showWarningToast(nextProps.budgetError);
+    }
 
     onIncomeChange = (newIncome) => {
         this.props.incomeChanged(newIncome, this.props.income);
@@ -44,8 +35,13 @@ class CreateBudget extends Component {
 
     handleSubmit = async () => {
         Keyboard.dismiss();
-
-        this.props.createBudget(this.props);
+        this.props.createBudget(this.props, (budgetID) => {
+            this.props.createCategories(
+                budgetID,
+                this.props.tmpCategories, () => {
+                    this.props.navigation.navigate('MyBudget');
+                });
+        })
     };
 
     checkInput = (income, categories) => {
@@ -74,14 +70,15 @@ class CreateBudget extends Component {
                             onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
                             checkInput={this.checkInput}
+                            budgetID={this.props.budgetID}
                             income={this.props.income}
                             totalGoalsAmount={this.props.totalGoalsAmount}
                             disposable={this.props.disposable}
                             tmpCategories={this.props.tmpCategories}
                             debts={this.props.debts}
                             budgetLoading={this.props.budgetLoading}
+                            categoriesLoading={this.props.categoriesLoading}
                             budgetError={this.props.budgetError}
-                            linkLoading={this.props.linkLoading}
                 />
             </Container>
         );

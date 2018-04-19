@@ -12,6 +12,6 @@ export const checkInputAmount = amount => {
     if (amount.length === 0)
         return true;
 
-    const amountWithPeriod = amount.replace(/,/g, '.');
+    let amountWithPeriod = amount.replace(/,/g, '.');
     return !isNaN(parseFloat(amountWithPeriod)) && isFinite(amountWithPeriod);
 };
