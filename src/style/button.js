@@ -16,6 +16,10 @@ export const button = StyleSheet.create({
         marginTop: 20,
         justifyContent: 'center'
     },
+    optionButton: {
+        height: 30,
+        paddingLeft: 5
+    },
     dialogButton: {
         flex: 1,
         height: 31,

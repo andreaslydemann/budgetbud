@@ -22,6 +22,9 @@ export const color = StyleSheet.create({
     button: {
         backgroundColor: '#00263A'
     },
+    optionButton: {
+        color: 'rgba(255,255,255,0.6)'
+    },
     input: {
         borderColor: '#003755',
         backgroundColor: '#F6F7F9'
