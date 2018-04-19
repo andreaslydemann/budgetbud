@@ -14,7 +14,7 @@ import {renderInputIcon} from "../helpers/validators";
 
 export class ActivationCodeForm extends Component {
     render() {
-        const maxLength = this.props.isSendActivationCode ? 10 : 4;
+        const maxLength = this.props.isRequestActivationCode ? 10 : 4;
 
         return (
             <Container style={[container.parentContainer, {flex: 0.2}]}>
@@ -24,8 +24,8 @@ export class ActivationCodeForm extends Component {
                                onChangeText={this.props.onInputValueChange}
                                keyboardType="numeric"
                                maxLength={maxLength}
-                               placeholder={this.props.isSendActivationCode ?
-                                   I18n.t('sendActivationCprNumberPlaceholder') :
+                               placeholder={this.props.isRequestActivationCode ?
+                                   I18n.t('requestActivationCprNumberPlaceholder') :
                                    I18n.t('verifyActivationCprNumberPlaceholder')}
                                placeholderTextColor='rgba(255,255,255,0.6)'
                                style={color.white}
@@ -39,7 +39,7 @@ export class ActivationCodeForm extends Component {
                     >
                         {this.props.authLoading ? (
                             <Spinner color='#D0D0D0'/>) : (
-                            <Label style={color.white}>{I18n.t('sendActivationCodeNextButton')}
+                            <Label style={color.white}>{I18n.t('requestActivationCodeNextButton')}
                             </Label>
                         )}
                     </Button>

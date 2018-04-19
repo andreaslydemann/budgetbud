@@ -9,14 +9,14 @@ import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
 import {Logo, ErrorInfo, ActivationCodeForm} from '../components/';
 import {
-    sendActivationCode,
+    requestActivationCode,
     cprNumberChanged,
     resetAuthState
 } from '../actions';
 import {button, color, container} from "../style/";
 import I18n from "../strings/i18n";
 
-class SendActivationCode extends Component {
+class RequestActivationCode extends Component {
     onCprNumberChange = (text) => {
         this.props.cprNumberChanged(text);
     };
@@ -25,7 +25,7 @@ class SendActivationCode extends Component {
         Keyboard.dismiss();
         this.props.navigation.navigate('VerifyActivationCode');
         /*
-        this.props.sendActivationCode(this.props.cprNumber, () => {
+        this.props.requestActivationCode(this.props.cprNumber, () => {
             this.props.navigation.navigate('VerifyActivationCode');
         });*/
     };
@@ -43,7 +43,7 @@ class SendActivationCode extends Component {
                     <Container style={{alignSelf: 'stretch', justifyContent: 'center'}}>
 
                         <View style={{flex: 0.55, justifyContent: 'flex-end'}}>
-                            <Logo logoText={I18n.t('sendActivationCodeDescription')}/>
+                            <Logo logoText={I18n.t('requestActivationCodeDescription')}/>
                         </View>
 
                         <ActivationCodeForm
@@ -51,7 +51,7 @@ class SendActivationCode extends Component {
                             authLoading={this.props.authLoading}
                             onInputValueChange={this.onCprNumberChange}
                             handleSubmit={this.handleSubmit}
-                            isSendActivationCode={true}
+                            isRequestActivationCode={true}
                         />
 
                         <Container style={{flex: 0.25}}>
@@ -59,7 +59,7 @@ class SendActivationCode extends Component {
                                 <Button transparent style={button.optionButton}
                                         onPress={() => this.onGoToSignInButtonPress()}>
                                     <Label style={color.optionButton}>
-                                        {I18n.t('sendActivationCodeReturnButton')}
+                                        {I18n.t('requestActivationCodeReturnButton')}
                                     </Label>
                                 </Button>
                             </Container>
@@ -79,9 +79,9 @@ const mapStateToProps = ({auth}) => {
 };
 
 const mapDispatchToProps = {
-    sendActivationCode,
+    requestActivationCode,
     cprNumberChanged,
     resetAuthState
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SendActivationCode);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestActivationCode);

@@ -24,9 +24,9 @@ import {
     CHANGE_CODE,
     CHANGE_CODE_SUCCESS,
     CHANGE_CODE_FAIL,
-    SEND_ACTIVATION_CODE_SUCCESS,
-    SEND_ACTIVATION_CODE_FAIL,
-    SEND_ACTIVATION_CODE,
+    REQUEST_ACTIVATION_CODE_SUCCESS,
+    REQUEST_ACTIVATION_CODE_FAIL,
+    REQUEST_ACTIVATION_CODE,
     ACTIVATION_CODE_CHANGED
 } from '../actions/types';
 
@@ -77,11 +77,11 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, ...INITIAL_STATE, authError: action.payload};
         case DELETE_USER:
             return {...state, authLoading: true};
-        case SEND_ACTIVATION_CODE:
+        case REQUEST_ACTIVATION_CODE:
             return {...state, authLoading: true};
-        case SEND_ACTIVATION_CODE_SUCCESS:
+        case REQUEST_ACTIVATION_CODE_SUCCESS:
             return {...state, authLoading: false};
-        case SEND_ACTIVATION_CODE_FAIL:
+        case REQUEST_ACTIVATION_CODE_FAIL:
             return {...state, authLoading: false, authError: action.payload};
         case GET_PHONE_NUMBER:
             return {...state, authLoading: true};

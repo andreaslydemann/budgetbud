@@ -27,9 +27,12 @@ import {
     GET_PHONE_NUMBER,
     GET_PHONE_NUMBER_SUCCESS,
     GET_PHONE_NUMBER_FAIL,
-    SEND_ACTIVATION_CODE,
-    SEND_ACTIVATION_CODE_SUCCESS,
-    SEND_ACTIVATION_CODE_FAIL, VERIFY_ACTIVATION_CODE, VERIFY_ACTIVATION_CODE_SUCCESS, VERIFY_ACTIVATION_CODE_FAIL,
+    REQUEST_ACTIVATION_CODE,
+    REQUEST_ACTIVATION_CODE_SUCCESS,
+    REQUEST_ACTIVATION_CODE_FAIL,
+    VERIFY_ACTIVATION_CODE,
+    VERIFY_ACTIVATION_CODE_SUCCESS,
+    VERIFY_ACTIVATION_CODE_FAIL,
     ACTIVATION_CODE_CHANGED
 } from './types';
 
@@ -159,17 +162,17 @@ export const deleteUser = (callback) => async dispatch => {
     }
 };
 
-export const sendActivationCode = (cprNumber, callback) => async dispatch => {
-    dispatch({type: SEND_ACTIVATION_CODE});
+export const requestActivationCode = (cprNumber, callback) => async dispatch => {
+    dispatch({type: REQUEST_ACTIVATION_CODE});
 
     try {
-        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/sendActivationCode`, {cprNumber});
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/requestActivationCode`, {cprNumber});
 
-        dispatch({type: SEND_ACTIVATION_CODE_SUCCESS});
+        dispatch({type: REQUEST_ACTIVATION_CODE_SUCCESS});
         callback();
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: SEND_ACTIVATION_CODE_FAIL, payload: data});
+        dispatch({type: REQUEST_ACTIVATION_CODE_FAIL, payload: data});
     }
 };
 

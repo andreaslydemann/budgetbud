@@ -23,7 +23,7 @@ import Accounts from "./screens/Accounts";
 import Alarms from "./screens/Alarms";
 import DisposablePreview from "./screens/DisposablePreview";
 import Offline from "./screens/Offline";
-import SendActivationCode from "./screens/SendActivationCode";
+import RequestActivationCode from "./screens/RequestActivationCode";
 import VerifyActivationCode from "./screens/VerifyActivationCode";
 import ChangeForgottenCode from "./screens/ChangeForgottenCode";
 
@@ -35,7 +35,7 @@ class App extends Component {
             {
                 SignIn: {screen: SignIn},
                 SignUp: {screen: SignUp},
-                SendActivationCode: {screen: SendActivationCode},
+                RequestActivationCode: {screen: RequestActivationCode},
                 VerifyActivationCode: {screen: VerifyActivationCode},
                 ChangeForgottenCode: {screen: ChangeForgottenCode},
             },

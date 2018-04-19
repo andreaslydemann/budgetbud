@@ -33,7 +33,7 @@ class SignIn extends Component {
 
     onForgotCodeButtonPress = () => {
         this.props.resetAuthState(() => {
-            this.props.navigation.navigate('SendActivationCode');
+            this.props.navigation.navigate('RequestActivationCode');
         });
     };
 

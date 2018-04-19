@@ -31,7 +31,7 @@ class VerifyActivationCode extends Component {
         });*/
     };
 
-    onGoToSendActivationButtonPress = () => {
+    onGoToRequestActivationButtonPress = () => {
         this.props.resetAuthState(() => {
             this.props.navigation.pop();
         });
@@ -52,13 +52,13 @@ class VerifyActivationCode extends Component {
                             authLoading={this.props.authLoading}
                             onInputValueChange={this.onActivationCodeChange}
                             handleSubmit={this.handleSubmit}
-                            isSendActivationCode={false}
+                            isRequestActivationCode={false}
                         />
 
                         <Container style={{flex: 0.25}}>
                             <Container style={container.optionContainer}>
                                 <Button transparent style={button.optionButton}
-                                        onPress={() => this.onGoToSendActivationButtonPress()}>
+                                        onPress={() => this.onGoToRequestActivationButtonPress()}>
                                     <Label style={color.optionButton}>
                                         {I18n.t('verifyActivationCodeReturnButton')}
                                     </Label>
