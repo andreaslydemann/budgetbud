@@ -24,7 +24,6 @@ class CreateBudget extends Component {
     //     if (nextProps.budgetError)
     //         showWarningToast(nextProps.budgetError);
     //     if (nextProps.budgetID) {
-    //         console.log("Number 1")
     //         this.props.createCategories(
     //             nextProps.budgetID,
     //             this.state.tmpCategories,

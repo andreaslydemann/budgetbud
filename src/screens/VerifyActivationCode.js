@@ -19,16 +19,17 @@ import {ActivationCodeForm} from "../components/ActivationCodeForm";
 
 class VerifyActivationCode extends Component {
     onActivationCodeChange = (text) => {
-        console.log(text);
         this.props.activationCodeChanged(text);
     };
 
     handleSubmit = () => {
         Keyboard.dismiss();
-        this.props.navigation.navigate('ChangeForgottenCode');
-        /*this.props.verifyActivationCode(this.props.activationCode, () => {
-            this.props.navigation.navigate('ChangeForgottenCode');
-        });*/
+        this.props.verifyActivationCode(
+            this.props.activationCode,
+            this.props.cprNumber,
+            () => {
+                this.props.navigation.navigate('ChangeForgottenCode');
+            });
     };
 
     onGoToRequestActivationButtonPress = () => {
@@ -76,7 +77,7 @@ class VerifyActivationCode extends Component {
 }
 
 const mapStateToProps = ({auth}) => {
-    return {activationCode, authError, authLoading} = auth;
+    return {cprNumber, activationCode, authError, authLoading} = auth;
 };
 
 const mapDispatchToProps = {

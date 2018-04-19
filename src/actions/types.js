@@ -7,10 +7,12 @@ export const SCREEN_CHANGED = 'screen_changed';
 // ----------AUTH RELATED TYPES----------
 export const GET_INITIAL_AUTH_STATE = 'get_initial_auth_state';
 export const RESET_AUTH_ERROR = 'reset_auth_error';
+export const RESET_ACTIVATION_CODE = 'reset_activation_code';
 export const CPR_NUMBER_CHANGED = 'cpr_number_changed';
 export const PHONE_NUMBER_CHANGED = 'phone_number_changed';
 export const VALIDATE_CPR_NUMBER_FAIL = 'validate_cpr_number_fail';
 export const VALIDATE_PHONE_NUMBER_FAIL = 'validate_phone_number_fail';
+export const VALIDATE_ACTIVATION_CODE_FAIL = 'validate_activation_code_fail';
 export const VALIDATE_CODE_FAIL = 'validate_code_fail';
 export const VALIDATE_CODE_MATCH_FAIL = 'validate_code_match_fail';
 export const CODE_CHANGED = 'code_changed';

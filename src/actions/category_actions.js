@@ -23,16 +23,10 @@ import {
 
 export const createCategories = (budgetID, tmpCategories, callback) =>
     async dispatch => {
-    console.log("Number 2")
-
         dispatch({type: CREATE_CATEGORIES});
 
         try {
-            console.log("Number 4")
             let token = await firebase.auth().currentUser.getIdToken();
-            console.log("Number 5")
-            console.log(budgetID)
-            console.log(tmpCategories)
 
             await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createCategories`,
                 {budgetID, categories: tmpCategories},

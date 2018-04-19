@@ -5,12 +5,14 @@ import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 import {
     GET_INITIAL_AUTH_STATE,
     RESET_AUTH_ERROR,
+    RESET_ACTIVATION_CODE,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
     REPEATED_CODE_CHANGED,
     VALIDATE_CPR_NUMBER_FAIL,
     VALIDATE_PHONE_NUMBER_FAIL,
+    VALIDATE_ACTIVATION_CODE_FAIL,
     VALIDATE_CODE_FAIL,
     SIGN_IN,
     SIGN_IN_FAIL,
@@ -43,8 +45,15 @@ export const resetAuthState = (callback) => async dispatch => {
         callback();
 };
 
-export const resetAuthError = () => async dispatch => {
-    dispatch({type: RESET_AUTH_ERROR});
+export const resetAuthError = () => {
+    return {
+        type: RESET_AUTH_ERROR
+    };
+};
+
+export const resetActivationCode = callback => async dispatch => {
+    dispatch({type: RESET_ACTIVATION_CODE});
+    callback();
 };
 
 export const cprNumberChanged = text => {
@@ -129,7 +138,7 @@ export const signIn = ({cprNumber, code}) => async dispatch => {
         dispatch({type: GET_INITIAL_AUTH_STATE});
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: SIGN_IN_FAIL, payload: data});
+        dispatch({type: SIGN_IN_FAIL, payload: data.error});
     }
 };
 
@@ -163,6 +172,11 @@ export const deleteUser = (callback) => async dispatch => {
 };
 
 export const requestActivationCode = (cprNumber, callback) => async dispatch => {
+    if (cprNumber.length !== 10) {
+        dispatch({type: VALIDATE_CPR_NUMBER_FAIL});
+        return;
+    }
+
     dispatch({type: REQUEST_ACTIVATION_CODE});
 
     try {
@@ -172,21 +186,26 @@ export const requestActivationCode = (cprNumber, callback) => async dispatch => 
         callback();
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: REQUEST_ACTIVATION_CODE_FAIL, payload: data});
+        dispatch({type: REQUEST_ACTIVATION_CODE_FAIL, payload: data.error});
     }
 };
 
-export const verifyActivationCode = (activationCode, callback) => async dispatch => {
+export const verifyActivationCode = (activationCode, cprNumber, callback) => async dispatch => {
+    if (activationCode.length !== 4) {
+        dispatch({type: VALIDATE_ACTIVATION_CODE_FAIL});
+        return;
+    }
+
     dispatch({type: VERIFY_ACTIVATION_CODE});
 
     try {
-        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/verifyActivationCode`, {activationCode});
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/verifyActivationCode`, {activationCode, cprNumber});
 
         dispatch({type: VERIFY_ACTIVATION_CODE_SUCCESS});
         callback();
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: VERIFY_ACTIVATION_CODE_FAIL, payload: data});
+        dispatch({type: VERIFY_ACTIVATION_CODE_FAIL, payload: data.error});
     }
 };
 
@@ -203,7 +222,7 @@ export const getPhoneNumber = () => async dispatch => {
         dispatch({type: GET_PHONE_NUMBER_SUCCESS, payload: data.phoneNumber});
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: GET_PHONE_NUMBER_FAIL, payload: data});
+        dispatch({type: GET_PHONE_NUMBER_FAIL, payload: data.error});
     }
 };
 
@@ -228,7 +247,7 @@ export const changePhoneNumber = (phoneNumber, callback) => async dispatch => {
         callback();
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: CHANGE_PHONE_NUMBER_FAIL, payload: data});
+        dispatch({type: CHANGE_PHONE_NUMBER_FAIL, payload: data.error});
     }
 };
 
@@ -256,7 +275,7 @@ export const changeCode = (code, repeatedCode, callback) => async dispatch => {
         callback();
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: CHANGE_CODE_FAIL, payload: data});
+        dispatch({type: CHANGE_CODE_FAIL, payload: data.error});
     }
 };
 
@@ -272,12 +291,12 @@ export const changeForgottenCode = (code, repeatedCode, cprNumber, callback) => 
     dispatch({type: CHANGE_CODE});
 
     try {
-        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/changeForgottenCode`, {cprNumber});
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/changeForgottenCode`, {code, cprNumber});
 
         dispatch({type: CHANGE_CODE_SUCCESS});
         callback();
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: CHANGE_CODE_FAIL, payload: data});
+        dispatch({type: CHANGE_CODE_FAIL, payload: data.error});
     }
 };

@@ -30,6 +30,7 @@ export class ChangeForgottenCodeForm extends Component {
                         />
                         {renderInputIcon(this.props.code, 4)}
                     </Item>
+
                     <Item rounded style={input.authInputItem}>
                         <Input
                             secureTextEntry={true}
@@ -43,8 +44,12 @@ export class ChangeForgottenCodeForm extends Component {
                         />
                         {renderInputIcon(this.props.repeatedCode, 4)}
                     </Item>
+
                     <Button rounded
-                            onPress={this.props.handleSubmit}
+                            onPress={() => {
+                                if (!this.props.changeLoading)
+                                    this.props.handleSubmit()
+                            }}
                             style={button.authButton}
                     >
                         {this.props.changeLoading ? (

@@ -87,7 +87,6 @@ export const getLinkedAccounts = () => async dispatch => {
             payload: data
         });
     } catch (err) {
-        console.log("catch")
         let {data} = err.response;
         dispatch({type: GET_LINKED_ACCOUNTS_FAIL, payload: data});
     }

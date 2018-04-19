@@ -34,7 +34,10 @@ export class ActivationCodeForm extends Component {
                     </Item>
 
                     <Button rounded
-                            onPress={this.props.handleSubmit}
+                            onPress={() => {
+                                if (!this.props.authLoading)
+                                    this.props.handleSubmit()
+                            }}
                             style={button.authButton}
                     >
                         {this.props.authLoading ? (
