@@ -1,36 +1,33 @@
 import React, {Component} from 'react';
 import {
-    KeyboardAvoidingView,
     Keyboard,
-    TouchableWithoutFeedback, View
+    KeyboardAvoidingView,
+    TouchableWithoutFeedback,
+    View
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {Logo, AuthForm, ErrorInfo} from '../components/';
+import {Logo, ErrorInfo, ActivationCodeForm} from '../components/';
 import {
-    signUp,
+    sendActivationCode,
     cprNumberChanged,
-    phoneNumberChanged,
     resetAuthState
 } from '../actions';
-import {container, button, color} from "../style";
+import {button, color, container} from "../style/";
 import I18n from "../strings/i18n";
 
-class SignUp extends Component {
+class SendActivationCode extends Component {
     onCprNumberChange = (text) => {
         this.props.cprNumberChanged(text);
     };
 
-    onPhoneNumberChange = (text) => {
-        this.props.phoneNumberChanged(text);
-    };
-
     handleSubmit = () => {
         Keyboard.dismiss();
-        const {cprNumber, phoneNumber} = this.props;
-        this.props.signUp({cprNumber, phoneNumber}, () => {
-            this.props.navigation.pop();
-        });
+        this.props.navigation.navigate('VerifyActivationCode');
+        /*
+        this.props.sendActivationCode(this.props.cprNumber, () => {
+            this.props.navigation.navigate('VerifyActivationCode');
+        });*/
     };
 
     onGoToSignInButtonPress = () => {
@@ -43,25 +40,27 @@ class SignUp extends Component {
         return (
             <KeyboardAvoidingView behavior='padding' style={container.signedOutContainer}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                    <Container style={{alignSelf: 'stretch'}}>
-                        <View style={[container.parentContainer, {flex: 2}]}>
-                            <Logo style={{flex: 2}} logoText={I18n.t('signInLogoWelcome')}/>
+                    <Container style={{alignSelf: 'stretch', justifyContent: 'center'}}>
+
+                        <View style={{flex: 0.55, justifyContent: 'flex-end'}}>
+                            <Logo logoText={I18n.t('sendActivationCodeDescription')}/>
                         </View>
 
-                        <AuthForm handleSubmit={this.handleSubmit}
-                                  onCprNumberChange={this.onCprNumberChange}
-                                  onSecondInputChange={this.onPhoneNumberChange}
-                                  cprNumber={this.props.cprNumber}
-                                  secondInput={this.props.phoneNumber}
-                                  authLoading={this.props.authLoading}
-                                  isSignIn={false}
+                        <ActivationCodeForm
+                            inputValue={this.props.cprNumber}
+                            authLoading={this.props.authLoading}
+                            onInputValueChange={this.onCprNumberChange}
+                            handleSubmit={this.handleSubmit}
+                            isSendActivationCode={true}
                         />
 
-                        <Container>
+                        <Container style={{flex: 0.25}}>
                             <Container style={container.optionContainer}>
                                 <Button transparent style={button.optionButton}
                                         onPress={() => this.onGoToSignInButtonPress()}>
-                                    <Label style={color.optionButton}>{I18n.t('signUpGoToSignIn')}</Label>
+                                    <Label style={color.optionButton}>
+                                        {I18n.t('sendActivationCodeReturnButton')}
+                                    </Label>
                                 </Button>
                             </Container>
 
@@ -76,14 +75,13 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = ({auth}) => {
-    return {cprNumber, phoneNumber, authError, authLoading} = auth;
+    return {cprNumber, authError, authLoading} = auth;
 };
 
 const mapDispatchToProps = {
-    signUp,
+    sendActivationCode,
     cprNumberChanged,
-    phoneNumberChanged,
     resetAuthState
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SendActivationCode);

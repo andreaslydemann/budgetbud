@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
     KeyboardAvoidingView,
     Keyboard,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback, View
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
@@ -13,7 +13,7 @@ import {
     codeChanged,
     resetAuthState
 } from '../actions';
-import {container} from "../style";
+import {container, button, color} from "../style";
 import I18n from "../strings/i18n";
 
 class SignIn extends Component {
@@ -32,10 +32,9 @@ class SignIn extends Component {
     };
 
     onForgotCodeButtonPress = () => {
-        /*
         this.props.resetAuthState(() => {
-            this.props.navigation.navigate('SignUp');
-        });*/
+            this.props.navigation.navigate('SendActivationCode');
+        });
     };
 
     onGoToSignUpButtonPress = () => {
@@ -50,7 +49,9 @@ class SignIn extends Component {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <Container style={{alignSelf: 'stretch'}}>
 
-                        <Logo logoText={I18n.t('signInLogoWelcome')}/>
+                        <View style={[container.parentContainer, {flex: 2}]}>
+                            <Logo logoText={I18n.t('signInLogoWelcome')}/>
+                        </View>
 
                         <AuthForm handleSubmit={this.handleSubmit}
                                   onCprNumberChange={this.onCprNumberChange}
@@ -62,15 +63,15 @@ class SignIn extends Component {
                         />
 
                         <Container>
-                            <Container style={styles.optionContainer}>
-                                <Button transparent style={styles.optionButton}
+                            <Container style={container.optionContainer}>
+                                <Button transparent style={button.optionButton}
                                         onPress={() => this.onForgotCodeButtonPress()}>
-                                    <Label style={styles.optionText}>{I18n.t('signInForgotCode')}</Label>
+                                    <Label style={color.optionButton}>{I18n.t('signInForgotCode')}</Label>
                                 </Button>
 
-                                <Button transparent style={styles.optionButton}
+                                <Button transparent style={button.optionButton}
                                         onPress={() => this.onGoToSignUpButtonPress()}>
-                                    <Label style={styles.optionText}>{I18n.t('signInGoToSignUp')}</Label>
+                                    <Label style={color.optionButton}>{I18n.t('signInGoToSignUp')}</Label>
                                 </Button>
                             </Container>
 
@@ -83,22 +84,6 @@ class SignIn extends Component {
         );
     };
 }
-
-const styles = {
-    optionContainer: {
-        alignItems: 'flex-start',
-        alignSelf: 'center',
-        width: '80%',
-        paddingTop: 13
-    },
-    optionText: {
-        color: 'rgba(255,255,255,0.6)'
-    },
-    optionButton: {
-        height: 30,
-        paddingLeft: 5
-    }
-};
 
 const mapStateToProps = ({auth}) => {
     return {cprNumber, code, authError, authLoading} = auth;

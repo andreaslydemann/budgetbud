@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {Keyboard, TouchableWithoutFeedback} from "react-native";
 import {connect} from 'react-redux';
 import {AppHeader, Separator} from "../components/";
@@ -7,10 +7,6 @@ import {
     Text,
     Spinner,
     Button,
-    Item,
-    Label,
-    Input,
-    View
 } from 'native-base';
 import I18n from "../strings/i18n";
 import {
@@ -19,17 +15,16 @@ import {
     changeCode,
     resetAuthState
 } from "../actions";
-import {renderInputIcon} from "../helpers/validators";
 import {
     button,
     text,
     container,
-    color,
-    input
+    color
 } from "../style";
 import {showWarningToast} from "../helpers/toasts";
+import {ChangeCodeForm} from "../components";
 
-class ChangeCode extends PureComponent {
+class ChangeCode extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.authError) {
             showWarningToast(nextProps.authError);
@@ -66,41 +61,12 @@ class ChangeCode extends PureComponent {
                                    }
                                }}/>
 
-                    <Container style={{flex: 4, justifyContent: 'flex-start'}}>
-                        <View style={[container.defaultFormStyle, {paddingTop: 10}]}>
-                            <Label style={[text.defaultText, color.text]}>{I18n.t('changeCodeLabel')}</Label>
-                            <Item rounded style={[input.inputField, color.input]}>
-                                <Input
-                                    secureTextEntry={true}
-                                    value={this.props.code}
-                                    onChangeText={this.onCodeChange}
-                                    keyboardType="numeric"
-                                    maxLength={4}
-                                    placeholder={I18n.t('changeCodePlaceholder')}
-                                    placeholderTextColor='#7F9BAA'
-                                    style={color.text}
-                                />
-                                {renderInputIcon(this.props.code, 4)}
-                            </Item>
-                        </View>
-
-                        <View style={[container.defaultFormStyle, {paddingTop: 10}]}>
-                            <Label style={[text.defaultText, color.text]}>{I18n.t('changeRepeatedCodeLabel')}</Label>
-                            <Item rounded style={[input.inputField, color.input]}>
-                                <Input
-                                    secureTextEntry={true}
-                                    value={this.props.repeatedCode}
-                                    onChangeText={this.onRepeatedCodeChange}
-                                    keyboardType="numeric"
-                                    maxLength={4}
-                                    placeholder={I18n.t('changeCodePlaceholder')}
-                                    placeholderTextColor='#7F9BAA'
-                                    style={color.text}
-                                />
-                                {renderInputIcon(this.props.repeatedCode, 4)}
-                            </Item>
-                        </View>
-                    </Container>
+                    <ChangeCodeForm
+                        code={this.props.code}
+                        repeatedCode={this.props.repeatedCode}
+                        onCodeChange={this.onCodeChange}
+                        onRepeatedCodeChange={this.onRepeatedCodeChange}
+                    />
 
                     <Separator/>
 

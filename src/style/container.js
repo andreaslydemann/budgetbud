@@ -88,6 +88,13 @@ export const container = StyleSheet.create({
         flexDirection: 'row',
         flex: 1
     },
+    optionContainer: {
+        flexShrink: 1,
+        alignItems: 'flex-start',
+        alignSelf: 'center',
+        width: '80%',
+        paddingTop: 13
+    },
     errorContainer: {
         width: '80%',
         height: 20,

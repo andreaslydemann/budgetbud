@@ -26,7 +26,11 @@ import {
     CHANGE_PHONE_NUMBER_FAIL,
     GET_PHONE_NUMBER,
     GET_PHONE_NUMBER_SUCCESS,
-    GET_PHONE_NUMBER_FAIL
+    GET_PHONE_NUMBER_FAIL,
+    SEND_ACTIVATION_CODE,
+    SEND_ACTIVATION_CODE_SUCCESS,
+    SEND_ACTIVATION_CODE_FAIL, VERIFY_ACTIVATION_CODE, VERIFY_ACTIVATION_CODE_SUCCESS, VERIFY_ACTIVATION_CODE_FAIL,
+    ACTIVATION_CODE_CHANGED
 } from './types';
 
 export const resetAuthState = (callback) => async dispatch => {
@@ -64,6 +68,13 @@ export const codeChanged = text => {
 export const repeatedCodeChanged = text => {
     return {
         type: REPEATED_CODE_CHANGED,
+        payload: text
+    };
+};
+
+export const activationCodeChanged = text => {
+    return {
+        type: ACTIVATION_CODE_CHANGED,
         payload: text
     };
 };
@@ -112,14 +123,11 @@ export const signIn = ({cprNumber, code}) => async dispatch => {
         });
 
         await firebase.auth().signInWithCustomToken(data.token);
+        dispatch({type: GET_INITIAL_AUTH_STATE});
     } catch (err) {
         let {data} = err.response;
-        signInFail(dispatch, data.error);
+        dispatch({type: SIGN_IN_FAIL, payload: data});
     }
-};
-
-const signInFail = (dispatch, error) => {
-    dispatch({type: SIGN_IN_FAIL, payload: error});
 };
 
 export const signOut = () => async dispatch => {
@@ -148,6 +156,34 @@ export const deleteUser = (callback) => async dispatch => {
     } catch (err) {
         let {data} = err.response;
         console.log(data.error);
+    }
+};
+
+export const sendActivationCode = (cprNumber, callback) => async dispatch => {
+    dispatch({type: SEND_ACTIVATION_CODE});
+
+    try {
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/sendActivationCode`, {cprNumber});
+
+        dispatch({type: SEND_ACTIVATION_CODE_SUCCESS});
+        callback();
+    } catch (err) {
+        let {data} = err.response;
+        dispatch({type: SEND_ACTIVATION_CODE_FAIL, payload: data});
+    }
+};
+
+export const verifyActivationCode = (activationCode, callback) => async dispatch => {
+    dispatch({type: VERIFY_ACTIVATION_CODE});
+
+    try {
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/verifyActivationCode`, {activationCode});
+
+        dispatch({type: VERIFY_ACTIVATION_CODE_SUCCESS});
+        callback();
+    } catch (err) {
+        let {data} = err.response;
+        dispatch({type: VERIFY_ACTIVATION_CODE_FAIL, payload: data});
     }
 };
 
@@ -212,8 +248,30 @@ export const changeCode = (code, repeatedCode, callback) => async dispatch => {
             {code, cprNumber},
             {headers: {Authorization: 'Bearer ' + token}});
 
-        dispatch({type: CHANGE_CODE_SUCCESS});
 
+        dispatch({type: CHANGE_CODE_SUCCESS});
+        callback();
+    } catch (err) {
+        let {data} = err.response;
+        dispatch({type: CHANGE_CODE_FAIL, payload: data});
+    }
+};
+
+export const changeForgottenCode = (code, repeatedCode, cprNumber, callback) => async dispatch => {
+    if (code.length !== 4 || repeatedCode.length !== 4) {
+        dispatch({type: VALIDATE_CODE_FAIL});
+        return;
+    } else if (code !== repeatedCode) {
+        dispatch({type: VALIDATE_CODE_MATCH_FAIL});
+        return;
+    }
+
+    dispatch({type: CHANGE_CODE});
+
+    try {
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/changeForgottenCode`, {cprNumber});
+
+        dispatch({type: CHANGE_CODE_SUCCESS});
         callback();
     } catch (err) {
         let {data} = err.response;

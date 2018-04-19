@@ -23,7 +23,11 @@ import {
     CHANGE_PHONE_NUMBER_FAIL,
     CHANGE_CODE,
     CHANGE_CODE_SUCCESS,
-    CHANGE_CODE_FAIL
+    CHANGE_CODE_FAIL,
+    SEND_ACTIVATION_CODE_SUCCESS,
+    SEND_ACTIVATION_CODE_FAIL,
+    SEND_ACTIVATION_CODE,
+    ACTIVATION_CODE_CHANGED
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -31,6 +35,7 @@ const INITIAL_STATE = {
     phoneNumber: '',
     code: '',
     repeatedCode: '',
+    activationCode: '',
     authError: '',
     authLoading: false,
     changeLoading: false
@@ -52,6 +57,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, code: action.payload};
         case REPEATED_CODE_CHANGED:
             return {...state, repeatedCode: action.payload};
+        case ACTIVATION_CODE_CHANGED:
+            return {...state, activationCode: action.payload};
         case VALIDATE_CPR_NUMBER_FAIL:
             return {...state, authError: 'CPR-nummer skal være 10 cifre.'};
         case VALIDATE_PHONE_NUMBER_FAIL:
@@ -70,6 +77,12 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, ...INITIAL_STATE, authError: action.payload};
         case DELETE_USER:
             return {...state, authLoading: true};
+        case SEND_ACTIVATION_CODE:
+            return {...state, authLoading: true};
+        case SEND_ACTIVATION_CODE_SUCCESS:
+            return {...state, authLoading: false};
+        case SEND_ACTIVATION_CODE_FAIL:
+            return {...state, authLoading: false, authError: action.payload};
         case GET_PHONE_NUMBER:
             return {...state, authLoading: true};
         case GET_PHONE_NUMBER_SUCCESS:

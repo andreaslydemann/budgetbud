@@ -8,3 +8,6 @@ export * from './ErrorInfo';
 export * from './Logo';
 export * from './Toolbox';
 export * from './Separator';
+export * from './ActivationCodeForm';
+export * from './ChangeCodeForm';
+export * from './ChangeForgottenCodeForm';

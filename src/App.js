@@ -23,10 +23,28 @@ import Accounts from "./screens/Accounts";
 import Alarms from "./screens/Alarms";
 import DisposablePreview from "./screens/DisposablePreview";
 import Offline from "./screens/Offline";
+import SendActivationCode from "./screens/SendActivationCode";
+import VerifyActivationCode from "./screens/VerifyActivationCode";
+import ChangeForgottenCode from "./screens/ChangeForgottenCode";
+
 import {connect} from "react-redux";
 
 class App extends Component {
     render() {
+        const AuthStack = StackNavigator(
+            {
+                SignIn: {screen: SignIn},
+                SignUp: {screen: SignUp},
+                SendActivationCode: {screen: SendActivationCode},
+                VerifyActivationCode: {screen: VerifyActivationCode},
+                ChangeForgottenCode: {screen: ChangeForgottenCode},
+            },
+            {
+                navigationOptions: {gesturesEnabled: false},
+                headerMode: "none"
+            }
+        );
+
         const IntroStack = StackNavigator(
             {
                 Intro: {screen: Intro},
@@ -90,14 +108,13 @@ class App extends Component {
         const AppNavigator = StackNavigator(
             {
                 Drawer: {screen: Drawer},
-                SignIn: {screen: SignIn},
-                SignUp: {screen: SignUp},
+                AuthStack: {screen: AuthStack},
                 Offline: {screen: Offline},
             },
             {
                 initialRouteName:
                     (this.props.isOffline ? 'Offline' :
-                        (this.props.isAuthorized ? 'Drawer' : 'SignIn')),
+                        (this.props.isAuthorized ? 'Drawer' : 'AuthStack')),
                 navigationOptions: {gesturesEnabled: false},
                 headerMode: "none"
             }
