@@ -10,14 +10,18 @@ import {
     CREATE_CATEGORIES,
     CREATE_CATEGORIES_SUCCESS,
     CREATE_CATEGORIES_FAIL,
-    GET_MAPPED_CATEGORIES,
-    GET_MAPPED_CATEGORIES_SUCCESS,
-    GET_MAPPED_CATEGORIES_FAIL,
+    SETUP_EDIT_BUDGET,
+    SETUP_EDIT_BUDGET_SUCCESS,
+    SETUP_EDIT_BUDGET_FAIL,
     MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
     MAP_EXPENSES_FAIL,
     CATEGORY_CHANGED,
-    GET_BUDGET_SUCCESS, GET_INITIAL_STATE
+    GET_BUDGET_SUCCESS,
+    GET_INITIAL_STATE,
+    EDIT_CATEGORIES,
+    EDIT_CATEGORIES_SUCCESS,
+    EDIT_CATEGORIES_FAIL, EDIT_BUDGET_SUCCESS
 } from '../actions/types';
 import {fromJS} from "immutable";
 
@@ -55,7 +59,7 @@ export default (state = INITIAL_STATE, action) => {
         case CREATE_CATEGORIES:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case CREATE_CATEGORIES_SUCCESS:
-            return {...state, categoriesLoading: false, categories: action.payload};
+            return {...state, categoriesLoading: false};
         case CREATE_CATEGORIES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case GET_CATEGORIES:
@@ -67,10 +71,9 @@ export default (state = INITIAL_STATE, action) => {
                 return listItem.get('name') === action.payload.name;
             });
             // Calculate new total expenses
-            let newTotalGoalsAmount = state.totalGoalsAmount - action.payload.categoryDiff;
             // Edit list for the new categories-state
             list = list.setIn([indexOfListToUpdate, 'amount'], action.payload.newAmount);
-            return {...state, tmpCategories: list.toJS(), totalGoalsAmount: newTotalGoalsAmount};
+            return {...state, tmpCategories: list.toJS()};
         case GET_CATEGORIES_SUCCESS:
             return {...state, categoriesLoading: false, categories: action.payload};
         case GET_CATEGORIES_FAIL:
@@ -87,14 +90,35 @@ export default (state = INITIAL_STATE, action) => {
             };
         case GET_CATEGORIES_OF_DEBT_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
-        case GET_MAPPED_CATEGORIES:
+        case SETUP_EDIT_BUDGET:
             return {...state, categoriesLoading: true, categoriesError: ''};
-        case GET_MAPPED_CATEGORIES_SUCCESS:
-            return {...state, tmpCategories: action.payload.newCategories};
-        case GET_MAPPED_CATEGORIES_FAIL:
+        case SETUP_EDIT_BUDGET_SUCCESS:
+            return {
+                ...state,
+                tmpCategories: action.payload,
+                categoriesLoading: false,
+                tmpTotalGoalsAmount: state.totalGoalsAmount
+            };
+        case SETUP_EDIT_BUDGET_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case CATEGORIES_SELECTED:
             return {...state, selectedCategories: action.payload, categoriesError: ''};
+        case EDIT_CATEGORIES:
+            return {...state, categoriesLoading: true, categoriesError: ''};
+        case EDIT_CATEGORIES_SUCCESS:
+            const categoryItems = action.payload.filter((obj) => {
+                return obj.amount > 0
+            });
+            console.log(categoryItems)
+            return {
+                ...state,
+                categoriesLoading: false,
+                categories: categoryItems
+            };
+        case EDIT_CATEGORIES_FAIL:
+            return {...state, budgetError: action.payload, budgetLoading: false};
+        case EDIT_BUDGET_SUCCESS:
+            return {totalGoalsAmount: action.payload.totalGoalsAmount};
         default:
             return state;
     }

@@ -71,7 +71,7 @@ class MyBudget extends Component {
                                     </Label>
                                 </View>
                                 <FlatList
-                                    data={this.props.categoryItems}
+                                    data={this.props.categories}
                                     renderItem={this.renderCategory}
                                     keyExtractor={item => item.categoryTypeID}
                                 />
@@ -234,14 +234,10 @@ const mapStateToProps = (state) => {
         budgetID
     } = state.budget;
 
-    const categoryItems = categories.filter((obj) => {
-        return obj.amount > 0
-    });
-
     const disposable = state.disposable.disposable;
 
     return {
-        categoryItems,
+        categories,
         budgetLoading,
         income,
         debts,

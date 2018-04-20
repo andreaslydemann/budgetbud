@@ -38,7 +38,7 @@ export const getBudgetID = (user, callback) => async dispatch => {
     }
 };
 
-export const createBudget = ({income, totalGoalsAmount, disposable}) =>
+export const createBudget = ({income, totalGoalsAmount, disposable}, callback) =>
     async dispatch => {
 
         dispatch({type: CREATE_BUDGET});
@@ -47,12 +47,12 @@ export const createBudget = ({income, totalGoalsAmount, disposable}) =>
             let token = await firebase.auth().currentUser.getIdToken();
             let userID = await firebase.auth().currentUser.uid;
 
-            await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createBudget`,
+            let {data} = await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createBudget`,
                 {userID, income, totalGoalsAmount, disposable},
                 {headers: {Authorization: 'Bearer ' + token}});
 
-            dispatch({type: CREATE_BUDGET_SUCCESS, payload: income});
-
+            dispatch({type: CREATE_BUDGET_SUCCESS, payload: {income, budgetID: data.id}});
+            callback(data.id);
         } catch (err) {
             let {data} = err.response;
             dispatch({type: CREATE_BUDGET_FAIL, payload: data.error});
@@ -68,9 +68,9 @@ export const getBudget = (budgetID) => async dispatch => {
         let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudget?budgetID=${budgetID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
-        const disposable = data.budgetData.disposable;
-        const totalGoalsAmount = data.budgetData.totalGoalsAmount;
-        const income = data.budgetData.income;
+        const disposable = parseInt(data.budgetData.disposable);
+        const totalGoalsAmount = parseInt(data.budgetData.totalGoalsAmount);
+        const income = parseInt(data.budgetData.income);
 
         dispatch({
             type: GET_BUDGET_SUCCESS,
@@ -83,9 +83,13 @@ export const getBudget = (budgetID) => async dispatch => {
     }
 };
 
-export const editBudget = ({budgetID, income, disposable, totalGoalsAmount}, callback) => async dispatch => {
+export const editBudget = (budgetID, tmpIncome, tmpDisposable, tmpTotalGoalsAmount) => async dispatch => {
     dispatch({type: EDIT_BUDGET});
     let token = await firebase.auth().currentUser.getIdToken();
+
+    const income = tmpIncome;
+    const disposable = tmpDisposable;
+    const totalGoalsAmount = tmpTotalGoalsAmount;
 
     try {
         await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editBudget`,
@@ -94,9 +98,8 @@ export const editBudget = ({budgetID, income, disposable, totalGoalsAmount}, cal
 
         dispatch({
             type: EDIT_BUDGET_SUCCESS,
-            payload: income
+            payload: {income, disposable, totalGoalsAmount}
         });
-
     } catch (err) {
         let {data} = err.response;
         dispatch({type: EDIT_BUDGET_FAIL, payload: data.error});

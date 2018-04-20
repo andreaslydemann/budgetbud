@@ -34,7 +34,7 @@ export class BudgetForm extends PureComponent {
                     <Item rounded style={[input.inputField, color.input]}>
                         <Input
                             onChangeText={this.props.onIncomeChanged}
-                            value={String(this.props.income)}
+                            value={String(this.props.tmpIncome)}
                             keyboardType="numeric"
                             style={color.text}
                         />
@@ -46,7 +46,7 @@ export class BudgetForm extends PureComponent {
                 </View>
 
                 <View style={{flex: 4, alignItems: 'stretch'}}>
-                    {this.props.linkLoading ? (
+                    {this.props.todooooooooooooooooooooooooooooooooooooooooooooo ? (
                         <Spinner color='#1c313a'/>) : (
                         <FlatList
                             data={this.props.tmpCategories}
@@ -66,7 +66,7 @@ export class BudgetForm extends PureComponent {
                             </Text>
                             <Text
                                 style={[text.listText, color.text]}>
-                                {(this.props.totalGoalsAmount).toString()} {I18n.t('currency')}
+                                {(this.props.tmpTotalGoalsAmount).toString()} {I18n.t('currency')}
                             </Text>
                         </View>
 
@@ -76,8 +76,8 @@ export class BudgetForm extends PureComponent {
                             </Text>
                             <Text style={[
                                 text.listText,
-                                this.props.disposable >= 0 ? color.text : {color: 'red'}]}>
-                                {this.props.disposable} {I18n.t('currency')}
+                                this.props.tmpDisposable >= 0 ? color.text : {color: 'red'}]}>
+                                {this.props.tmpDisposable} {I18n.t('currency')}
                             </Text>
                         </View>
                     </View>
@@ -85,17 +85,13 @@ export class BudgetForm extends PureComponent {
 
                 <View>
                     <Button rounded
-                            onPress={
-                                !this.props.checkInput(this.props.income, this.props.tmpCategories) ?
-                                    showWarningToast('Ugyldig indtastning!') :
-                                    this.props.handleSubmit
-                            }
+                            onPress={this.props.handleSubmit}
                             style={[button.defaultButton, color.button]}
                     >
-                        {this.props.budgetLoading ? (
+                        {this.props.budgetLoading || this.props.categoriesLoading ? (
                             <Spinner color='#D0D0D0'/>) : (
                             <Text style={text.submitButtonText}>
-                                {!this.props.budgetID ?
+                                {this.props.budgetID ?
                                     I18n.t('editBudgetButton') : I18n.t('createBudgetButton')}
                             </Text>
                         )}
