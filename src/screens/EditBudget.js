@@ -73,7 +73,6 @@ class EditBudget extends Component {
     };
 
     checkInput = (income, categories) => {
-        console.log("here CHECK")
         let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
         if (!allowedRegex.test(income))
             return false;
@@ -82,12 +81,10 @@ class EditBudget extends Component {
             if (!allowedRegex.test(c.amount))
                 return false;
         });
-        console.log("here CHECK foreach")
         return true;
     };
 
     render() {
-        console.log(this.props.categories)
         return (
             <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
                 <AppHeader headerText={I18n.t('editBudgetHeader')}

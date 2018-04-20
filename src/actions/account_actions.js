@@ -14,8 +14,15 @@ import {
     ACCOUNTS_SELECTED,
     GET_LINKED_ACCOUNTS_SUCCESS,
     GET_LINKED_ACCOUNTS_FAIL,
-    GET_LINKED_ACCOUNTS
+    GET_LINKED_ACCOUNTS,
+    RESET_ACCOUNTS_ERROR
 } from './types';
+
+export const resetAccountsError = () => {
+    return {
+        type: RESET_ACCOUNTS_ERROR
+    };
+};
 
 export const getAccounts = () => async dispatch => {
     dispatch({type: GET_ACCOUNTS});
@@ -41,7 +48,7 @@ export const getAccounts = () => async dispatch => {
         });
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: GET_ACCOUNTS_FAIL, payload: data});
+        dispatch({type: GET_ACCOUNTS_FAIL, payload: data.error});
     }
 };
 
@@ -60,7 +67,7 @@ export const linkAccounts = (selectedAccounts, callback) => async dispatch => {
         callback();
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: LINK_ACCOUNTS_FAIL, payload: data});
+        dispatch({type: LINK_ACCOUNTS_FAIL, payload: data.error});
     }
 };
 
@@ -88,6 +95,6 @@ export const getLinkedAccounts = () => async dispatch => {
         });
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: GET_LINKED_ACCOUNTS_FAIL, payload: data});
+        dispatch({type: GET_LINKED_ACCOUNTS_FAIL, payload: data.error});
     }
 };

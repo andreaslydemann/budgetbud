@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import {FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {
     AppHeader,
@@ -13,13 +12,16 @@ import {
     Text,
     Spinner,
     CheckBox,
-    Button
+    Button,
+    List, Content
 } from 'native-base';
 import I18n from "../strings/i18n";
 import {
-    getAccounts,
-    linkAccounts,
-    accountsSelected
+    getBudgetAlarms,
+    toggleBudgetAlarms,
+    budgetExceededToggled,
+    weeklyStatusToggled,
+    resetAlarmsError
 } from "../actions";
 import {
     button,
@@ -27,8 +29,34 @@ import {
     list,
     container, color
 } from "../style";
+import {showWarningToast} from "../helpers/toasts";
 
 class Alarms extends PureComponent {
+    componentWillMount() {
+        this.props.getBudgetAlarms(this.props.budgetID);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.alarmsError) {
+            showWarningToast(nextProps.alarmsError);
+            this.props.resetAlarmsError();
+        }
+    }
+
+    onSavePress = () => {
+        this.props.toggleBudgetAlarms(this.props, () => {
+            this.props.navigation.pop();
+        });
+    };
+
+    onBudgetExceededPress = () => {
+        this.props.budgetExceededToggled(this.props.budgetExceeded);
+    };
+
+    onWeeklyStatusPress = () => {
+        this.props.weeklyStatusToggled(this.props.weeklyStatus);
+    };
+
     render() {
         return (
             <Container style={container.signedInContainer}>
@@ -36,14 +64,51 @@ class Alarms extends PureComponent {
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <Container style={{flex: 4, justifyContent: 'center'}}>
+                <Container style={{justifyContent: 'center'}}>
+                    {this.props.alarmsLoading ? (
+                        <Spinner style={{
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }} color='#1c313a'/>) : (
+                        <Content>
+                            <List>
+                                <ListItem>
+                                    <Body>
+                                    <Text style={color.text}>{I18n.t('alarmsNotifyBudgetExceeded')}</Text>
+                                    </Body>
+                                    <Right style={list.listItemCheckBoxPadding}>
+                                        <CheckBox
+                                            style={this.props.budgetExceeded ?
+                                                color.checkboxChecked : color.checkboxUnchecked}
+                                            checked={this.props.budgetExceeded}
+                                            onPress={() => this.onBudgetExceededPress()}
+                                        />
+                                    </Right>
+                                </ListItem>
+                                <ListItem>
+                                    <Body>
+                                    <Text style={color.text}>{I18n.t('alarmsNotifyWeeklyStatus')}</Text>
+                                    </Body>
+                                    <Right style={list.listItemCheckBoxPadding}>
+                                        <CheckBox
+                                            style={this.props.weeklyStatus ?
+                                                color.checkboxChecked : color.checkboxUnchecked}
+                                            checked={this.props.weeklyStatus}
+                                            onPress={() => this.onWeeklyStatusPress()}
+                                        />
+                                    </Right>
+                                </ListItem>
+                            </List>
+                        </Content>
+                    )}
                 </Container>
 
                 <Separator/>
 
                 <Button rounded
                         onPress={() => {
-                            if (!this.props.enableLoading) {
+                            if (!this.props.enableLoading ||
+                                !this.props.alarmsLoading) {
                                 this.onSavePress()
                             }
                         }}
@@ -57,36 +122,35 @@ class Alarms extends PureComponent {
             </Container>
         );
     }
-
-    renderItem = ({item}) => {
-        const checked = '';
-
-        return (
-            <ListItem>
-                <Body>
-                <Text style={color.text}>{item.name}</Text>
-                </Body>
-                <Right style={list.listItemCheckBoxPadding}>
-                    <CheckBox
-                        style={checked ? color.checkboxChecked : color.checkboxUnchecked}
-                        checked={checked}
-                        onPress={() => this.onCheckBoxPress(item)}
-                    />
-                </Right>
-            </ListItem>
-        );
-    }
 }
 
-const mapStateToProps = ({alarm}) => {
-    const {enableLoading} = alarm;
+const mapStateToProps = (state) => {
+    const {budgetID} = state.budget;
+
+    const {
+        alarmsLoading,
+        enableLoading,
+        budgetExceeded,
+        weeklyStatus,
+        alarmsError
+    } = state.alarm;
 
     return {
-        enableLoading
+        budgetID,
+        alarmsLoading,
+        enableLoading,
+        budgetExceeded,
+        weeklyStatus,
+        alarmsError
     };
 };
 
 const mapDispatchToProps = {
+    budgetExceededToggled,
+    weeklyStatusToggled,
+    getBudgetAlarms,
+    toggleBudgetAlarms,
+    resetAlarmsError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Alarms);

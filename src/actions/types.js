@@ -75,8 +75,8 @@ export const EDIT_DEBT_SUCCESS = 'edit_debt_success';
 export const EDIT_DEBT_FAIL = 'edit_debt_fail';
 export const DELETE_DEBT = 'delete_debt';
 export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS = 'calculate_debt_category_subtractions';
-export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS  = 'calculate_debt_category_subtractions_success';
-export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_FAIL  = 'calculate_debt_category_subtractions_fail';
+export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS = 'calculate_debt_category_subtractions_success';
+export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_FAIL = 'calculate_debt_category_subtractions_fail';
 
 // ----------CATEGORY RELATED TYPES----------
 export const MAP_EXPENSES = 'map_expenses';
@@ -99,10 +99,11 @@ export const EDIT_CATEGORIES = 'edit_categories';
 export const EDIT_CATEGORIES_SUCCESS = 'edit_categories_success';
 export const EDIT_CATEGORIES_FAIL = 'edit_categories_fail';
 export const VALIDATE_DEBT_CATEGORIES_FAIL = 'validate_debt_categories_fail';
-export const CALCULATE_CATEGORY_SUBTRACTIONS_FAIL  = 'calculate_category_subtractions_fail';
+export const CALCULATE_CATEGORY_SUBTRACTIONS_FAIL = 'calculate_category_subtractions_fail';
 export const GET_TOTAL_GOALS_AMOUNT_SUCCESS = 'get_total_goals_amount';
 
 // ----------ACCOUNT RELATED TYPES----------
+export const RESET_ACCOUNTS_ERROR = 'reset_accounts_error';
 export const GET_ACCOUNTS = 'get_ebanking_accounts';
 export const GET_ACCOUNTS_SUCCESS = 'get_ebanking_accounts_success';
 export const GET_ACCOUNTS_FAIL = 'get_ebanking_accounts_fail';
@@ -131,9 +132,18 @@ export const GET_EXPENSES_OF_MONTH_SUCCESS = 'get_expenses_of_month_success';
 export const GET_EXPENSES_OF_MONTH_FAIL = 'get_expenses_of_month_fail';
 
 // ----------ALARM RELATED TYPES----------
+export const RESET_ALARMS_ERROR = 'reset_alarms_error';
+export const BUDGET_EXCEEDED_TOGGLED = 'budget_exceeded_toggled';
+export const WEEKLY_STATUS_TOGGLED = 'weekly_status_toggled';
+export const TOGGLE_BUDGET_ALARMS = 'toggle_budget_alarms';
+export const TOGGLE_BUDGET_ALARMS_SUCCESS = 'toggle_budget_alarms_success';
+export const TOGGLE_BUDGET_ALARMS_FAIL = 'toggle_budget_alarms_fail';
 export const TOGGLE_CATEGORY_ALARM = 'toggle_category_alarm';
 export const TOGGLE_CATEGORY_ALARM_SUCCESS = 'toggle_category_alarm_success';
 export const TOGGLE_CATEGORY_ALARM_FAIL = 'toggle_category_alarm_fail';
+export const GET_BUDGET_ALARMS = 'get_budget_alarms';
+export const GET_BUDGET_ALARMS_SUCCESS = 'get_budget_alarms_success';
+export const GET_BUDGET_ALARMS_FAIL = 'get_budget_alarms_fail';
 export const GET_CATEGORY_ALARMS = 'get_category_alarms';
 export const GET_CATEGORY_ALARMS_SUCCESS = 'get_category_alarms_success';
 export const GET_CATEGORY_ALARMS_FAIL = 'get_category_alarms_fail';

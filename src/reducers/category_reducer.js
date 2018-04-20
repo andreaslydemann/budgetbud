@@ -109,7 +109,6 @@ export default (state = INITIAL_STATE, action) => {
             const categoryItems = action.payload.filter((obj) => {
                 return obj.amount > 0
             });
-            console.log(categoryItems)
             return {
                 ...state,
                 categoriesLoading: false,

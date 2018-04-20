@@ -2,6 +2,8 @@ export default {
     accountsHeader: 'Konti',
     accountsSaveButton: 'Gem',
     alarmsHeader: 'Alarmer',
+    alarmsNotifyBudgetExceeded: 'Notificér, hvis budget overskrides',
+    alarmsNotifyWeeklyStatus: 'Notificér ugentlig status',
     alarmsSaveButton: 'Gem',
     appHeaderInfoHeader: 'Hjælpeinformation',
     appHeaderInfoCloseButton: 'Luk',

@@ -1,14 +1,26 @@
 import {
+    GET_INITIAL_STATE,
+    GET_BUDGET_ALARMS,
+    GET_BUDGET_ALARMS_SUCCESS,
+    GET_BUDGET_ALARMS_FAIL,
     GET_CATEGORY_ALARMS,
     GET_CATEGORY_ALARMS_SUCCESS,
     GET_CATEGORY_ALARMS_FAIL,
+    TOGGLE_BUDGET_ALARMS,
+    TOGGLE_BUDGET_ALARMS_SUCCESS,
+    TOGGLE_BUDGET_ALARMS_FAIL,
     TOGGLE_CATEGORY_ALARM,
     TOGGLE_CATEGORY_ALARM_SUCCESS,
-    TOGGLE_CATEGORY_ALARM_FAIL, GET_INITIAL_STATE
+    TOGGLE_CATEGORY_ALARM_FAIL,
+    RESET_ALARMS_ERROR,
+    WEEKLY_STATUS_TOGGLED,
+    BUDGET_EXCEEDED_TOGGLED,
 } from '../actions/types';
 
 const INITIAL_STATE = {
     categoryAlarms: [],
+    budgetExceeded: false,
+    weeklyStatus: false,
     alarmsLoading: false,
     enableLoading: false,
     alarmsError: '',
@@ -18,6 +30,23 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case GET_INITIAL_STATE:
             return INITIAL_STATE;
+        case RESET_ALARMS_ERROR:
+            return {...state, alarmsError: ''};
+        case BUDGET_EXCEEDED_TOGGLED:
+            return {...state, budgetExceeded: action.payload};
+        case WEEKLY_STATUS_TOGGLED:
+            return {...state, weeklyStatus: action.payload};
+        case GET_BUDGET_ALARMS:
+            return {...state, alarmsLoading: true};
+        case GET_BUDGET_ALARMS_SUCCESS:
+            return {
+                ...state,
+                budgetExceeded: action.payload.budgetExceeded,
+                weeklyStatus: action.payload.weeklyStatus,
+                alarmsLoading: false
+            };
+        case GET_BUDGET_ALARMS_FAIL:
+            return {...state, alarmsLoading: false, alarmsError: action.payload};
         case GET_CATEGORY_ALARMS:
             return {...state, alarmsLoading: true};
         case GET_CATEGORY_ALARMS_SUCCESS:
@@ -28,6 +57,12 @@ export default (state = INITIAL_STATE, action) => {
             };
         case GET_CATEGORY_ALARMS_FAIL:
             return {...state, alarmsLoading: false};
+        case TOGGLE_BUDGET_ALARMS:
+            return {...state, enableLoading: true};
+        case TOGGLE_BUDGET_ALARMS_SUCCESS:
+            return {...state, enableLoading: false};
+        case TOGGLE_BUDGET_ALARMS_FAIL:
+            return {...state, alarmsError: action.payload, enableLoading: false};
         case TOGGLE_CATEGORY_ALARM:
             const categoryAlarms = state.categoryAlarms;
             if (categoryAlarms.includes(action.payload)) {

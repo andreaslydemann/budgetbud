@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {FlatList} from 'react-native';
 import {connect} from 'react-redux';
+import _ from 'lodash';
 import {
     AppHeader,
     Separator
@@ -19,7 +20,8 @@ import I18n from "../strings/i18n";
 import {
     getAccounts,
     linkAccounts,
-    accountsSelected
+    accountsSelected,
+    resetAccountsError
 } from "../actions";
 import {
     button,
@@ -27,10 +29,18 @@ import {
     list,
     container, color
 } from "../style";
+import {showWarningToast} from "../helpers/toasts";
 
 class Accounts extends PureComponent {
     componentWillMount() {
         this.props.getAccounts();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.accountsError) {
+            showWarningToast(nextProps.accountsError);
+            this.props.resetAccountsError();
+        }
     }
 
     onSavePress = () => {
@@ -58,7 +68,7 @@ class Accounts extends PureComponent {
                            showBackButton={true}
                            onLeftButtonPress={() => this.props.navigation.pop()}/>
 
-                <Container style={{flex: 4, justifyContent: 'center'}}>
+                <Container style={{justifyContent: 'center'}}>
                     {this.props.accountsLoading ? (
                         <Spinner style={{
                             alignItems: 'center',
@@ -75,7 +85,7 @@ class Accounts extends PureComponent {
 
                 <Button rounded
                         onPress={() => {
-                            if (!this.props.linkLoading) {
+                            if (!this.props.linkLoading || !this.props.accountsLoading) {
                                 this.onSavePress()
                             }
                         }}
@@ -115,7 +125,8 @@ const mapStateToProps = ({account}) => {
         accounts,
         linkedAccounts,
         accountsLoading,
-        linkLoading
+        linkLoading,
+        accountsError
     } = account;
 
     const accountItems = _.map(accounts, (item, key) => {
@@ -126,7 +137,8 @@ const mapStateToProps = ({account}) => {
         accountItems,
         linkedAccounts,
         accountsLoading,
-        linkLoading
+        linkLoading,
+        accountsError
     };
 };
 
@@ -134,6 +146,7 @@ const mapDispatchToProps = {
     getAccounts,
     linkAccounts,
     accountsSelected,
+    resetAccountsError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Accounts);

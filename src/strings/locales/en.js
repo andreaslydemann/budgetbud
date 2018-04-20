@@ -2,6 +2,8 @@ export default {
     accountsHeader: 'Accounts',
     accountsSaveButton: 'Save',
     alarmsHeader: 'Alarms',
+    alarmsNotifyBudgetExceeded: 'Notify if budget is exceeded',
+    alarmsNotifyWeeklyStatus: 'Notify weekly status',
     alarmsSaveButton: 'Save',
     appHeaderInfoHeader: 'Information',
     appHeaderInfoCloseButton: 'Close',

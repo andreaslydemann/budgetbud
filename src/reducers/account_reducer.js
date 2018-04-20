@@ -1,4 +1,6 @@
 import {
+    GET_INITIAL_STATE,
+    RESET_ACCOUNTS_ERROR,
     GET_ACCOUNTS,
     GET_ACCOUNTS_SUCCESS,
     GET_ACCOUNTS_FAIL,
@@ -8,7 +10,7 @@ import {
     ACCOUNTS_SELECTED,
     GET_LINKED_ACCOUNTS_FAIL,
     GET_LINKED_ACCOUNTS_SUCCESS,
-    GET_LINKED_ACCOUNTS, GET_INITIAL_STATE
+    GET_LINKED_ACCOUNTS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -16,13 +18,15 @@ const INITIAL_STATE = {
     linkedAccounts: [],
     accountsLoading: false,
     linkLoading: false,
-    error: ''
+    accountsError: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case GET_INITIAL_STATE:
             return INITIAL_STATE;
+        case RESET_ACCOUNTS_ERROR:
+            return {...state, accountsError: ''};
         case GET_ACCOUNTS:
             return {...state, accountsLoading: true};
         case GET_ACCOUNTS_SUCCESS:
@@ -32,13 +36,13 @@ export default (state = INITIAL_STATE, action) => {
                 linkedAccounts: action.payload.linkedAccounts
             };
         case GET_ACCOUNTS_FAIL:
-            return {...state, accountsLoading: false, error: action.payload};
+            return {...state, accountsLoading: false, accountsError: action.payload};
         case LINK_ACCOUNTS:
             return {...state, linkLoading: true};
         case LINK_ACCOUNTS_SUCCESS:
             return {...state, linkLoading: false};
         case LINK_ACCOUNTS_FAIL:
-            return {...state, linkLoading: false, error: action.payload};
+            return {...state, linkLoading: false, accountsError: action.payload};
         case ACCOUNTS_SELECTED:
             return {...state, linkedAccounts: action.payload};
         case GET_LINKED_ACCOUNTS:
@@ -50,7 +54,7 @@ export default (state = INITIAL_STATE, action) => {
                 linkedAccounts: action.payload
             };
         case GET_LINKED_ACCOUNTS_FAIL:
-            return {...state, accountsLoading: false, error: action.payload};
+            return {...state, accountsLoading: false, accountsError: action.payload};
         default:
             return state;
     }
