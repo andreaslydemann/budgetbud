@@ -21,9 +21,9 @@ export default registerForPushNotificationsAsync = async (user) => {
         return;
     }
 
-    /*let pushToken = await Notifications.getExpoPushTokenAsync();
+    let pushToken = await Notifications.getExpoPushTokenAsync();
     let idToken = await user.getIdToken();
 
     await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/addPushToken`,
-        {pushToken, cprNumber: user.uid}, {headers: {Authorization: 'Bearer ' + idToken}});*/
+        {pushToken, cprNumber: user.uid}, {headers: {Authorization: 'Bearer ' + idToken}});
 };
