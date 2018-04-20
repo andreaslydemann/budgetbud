@@ -66,7 +66,11 @@ class Accounts extends PureComponent {
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('accountsHeader')}
                            showBackButton={true}
-                           onLeftButtonPress={() => this.props.navigation.pop()}/>
+                           onLeftButtonPress={() => {
+                               if (!this.props.linkLoading)
+                                   this.props.navigation.pop()
+                           }}
+                />
 
                 <Container style={{justifyContent: 'center'}}>
                     {this.props.accountsLoading ? (

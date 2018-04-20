@@ -62,7 +62,10 @@ class Alarms extends PureComponent {
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('alarmsHeader')}
                            showBackButton={true}
-                           onLeftButtonPress={() => this.props.navigation.pop()}/>
+                           onLeftButtonPress={() => {
+                               if (!this.props.enableLoading)
+                                   this.props.navigation.pop()
+                           }}/>
 
                 <Container style={{justifyContent: 'center'}}>
                     {this.props.alarmsLoading ? (
