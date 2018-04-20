@@ -63,7 +63,7 @@ class Alarms extends PureComponent {
                 <AppHeader headerText={I18n.t('alarmsHeader')}
                            showBackButton={true}
                            onLeftButtonPress={() => {
-                               if (!this.props.enableLoading)
+                               if (!this.props.toggleLoading)
                                    this.props.navigation.pop()
                            }}/>
 
@@ -110,14 +110,14 @@ class Alarms extends PureComponent {
 
                 <Button rounded
                         onPress={() => {
-                            if (!this.props.enableLoading ||
+                            if (!this.props.toggleLoading ||
                                 !this.props.alarmsLoading) {
                                 this.onSavePress()
                             }
                         }}
                         style={[button.defaultButton, color.button]}
                 >
-                    {this.props.enableLoading ? (
+                    {this.props.toggleLoading ? (
                         <Spinner color='#D0D0D0'/>) : (
                         <Text style={text.submitButtonText}>{I18n.t('alarmsSaveButton')}</Text>
                     )}
@@ -132,7 +132,7 @@ const mapStateToProps = (state) => {
 
     const {
         alarmsLoading,
-        enableLoading,
+        toggleLoading,
         budgetExceeded,
         weeklyStatus,
         alarmsError
@@ -141,7 +141,7 @@ const mapStateToProps = (state) => {
     return {
         budgetID,
         alarmsLoading,
-        enableLoading,
+        toggleLoading,
         budgetExceeded,
         weeklyStatus,
         alarmsError

@@ -17,6 +17,7 @@ import {
 import axios from "axios/index";
 import firebase from "firebase/index";
 import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
+import registerForPushNotificationsAsync from "../helpers/notifications";
 
 export const resetAlarmsError = () => {
     return {
@@ -74,6 +75,7 @@ export const toggleBudgetAlarms = ({budgetExceeded, weeklyStatus, budgetID}, cal
     dispatch({type: TOGGLE_BUDGET_ALARMS});
 
     try {
+        await registerForPushNotificationsAsync();
         let token = await firebase.auth().currentUser.getIdToken();
 
         await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/toggleBudgetAlarms`,
@@ -91,6 +93,7 @@ export const toggleCategoryAlarm = (categoryID, budgetID) => async dispatch => {
     dispatch({type: TOGGLE_CATEGORY_ALARM, payload: categoryID});
 
     try {
+        await registerForPushNotificationsAsync();
         let token = await firebase.auth().currentUser.getIdToken();
 
         await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/toggleCategoryAlarm`,

@@ -22,7 +22,7 @@ const INITIAL_STATE = {
     budgetExceeded: false,
     weeklyStatus: false,
     alarmsLoading: false,
-    enableLoading: false,
+    toggleLoading: false,
     alarmsError: '',
 };
 
@@ -58,11 +58,11 @@ export default (state = INITIAL_STATE, action) => {
         case GET_CATEGORY_ALARMS_FAIL:
             return {...state, alarmsLoading: false};
         case TOGGLE_BUDGET_ALARMS:
-            return {...state, enableLoading: true};
+            return {...state, toggleLoading: true};
         case TOGGLE_BUDGET_ALARMS_SUCCESS:
-            return {...state, enableLoading: false};
+            return {...state, toggleLoading: false};
         case TOGGLE_BUDGET_ALARMS_FAIL:
-            return {...state, alarmsError: action.payload, enableLoading: false};
+            return {...state, alarmsError: action.payload, toggleLoading: false};
         case TOGGLE_CATEGORY_ALARM:
             const categoryAlarms = state.categoryAlarms;
             if (categoryAlarms.includes(action.payload)) {
@@ -70,11 +70,11 @@ export default (state = INITIAL_STATE, action) => {
             } else {
                 categoryAlarms.push(action.payload);
             }
-            return {...state, categoryAlarms, enableLoading: true};
+            return {...state, categoryAlarms, toggleLoading: true};
         case TOGGLE_CATEGORY_ALARM_SUCCESS:
-            return {...state, enableLoading: false};
+            return {...state, toggleLoading: false};
         case TOGGLE_CATEGORY_ALARM_FAIL:
-            return {...state, alarmsError: action.payload, enableLoading: false};
+            return {...state, alarmsError: action.payload, toggleLoading: false};
         default:
             return state;
     }

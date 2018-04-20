@@ -7,7 +7,6 @@ import getTheme from "../theme/components";
 import variables from "../theme/variables/commonColor";
 import {connect} from 'react-redux';
 import {getBudgetID} from "../actions/";
-import registerForPushNotificationsAsync from '../helpers/notifications';
 import * as conn from '../helpers/connectivity';
 import App from "../App";
 
@@ -29,7 +28,6 @@ class Setup extends Component {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 this.props.getBudgetID(user, () => {
-                    registerForPushNotificationsAsync(user);
                     this.setState({...this.state, isReady: true, isAuthorized: true});
                 });
             } else {

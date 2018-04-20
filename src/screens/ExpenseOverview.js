@@ -26,6 +26,11 @@ class ExpenseOverview extends Component {
         await Promise.all(promises);
     }
 
+    onAlarmPress = async ({categoryID}) => {
+        if (!this.props.toggleLoading)
+            this.props.toggleCategoryAlarm(categoryID, this.props.budgetID)
+    };
+
     render() {
         return (
             <Container style={container.signedInContainer}>
@@ -91,10 +96,7 @@ class ExpenseOverview extends Component {
                         <Text style={color.text}>{item.name}</Text>
                         </Body>
                         <Right>
-                            <TouchableOpacity onPress={() => {
-                                if (!this.props.enableLoading)
-                                    this.props.toggleCategoryAlarm(item.categoryID, this.props.budgetID)
-                            }}>
+                            <TouchableOpacity onPress={() => this.onAlarmPress(item)}>
                                 <Icon style={[color.darkIcon, {fontSize: 26}]}
                                       name={notificationsEnabled ? "ios-notifications" : "ios-notifications-outline"}/>
                             </TouchableOpacity>
@@ -186,7 +188,7 @@ const mapStateToProps = (state) => {
     const {expenses, totalExpenses, expensesLoading} = state.expense;
     const disposable = state.disposable.disposable;
     const {categories} = state.category;
-    const {categoryAlarms, enableLoading} = state.alarm;
+    const {categoryAlarms, toggleLoading} = state.alarm;
 
     let totalDebtPerMonth = 0;
     debts.forEach(d => totalDebtPerMonth += d.debtData.amountPerMonth);
@@ -210,7 +212,7 @@ const mapStateToProps = (state) => {
     return {
         budgetID,
         categoryAlarms,
-        enableLoading,
+        toggleLoading,
         totalDebtPerMonth,
         disposable,
         expenses,
