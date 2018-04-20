@@ -23,7 +23,6 @@ class RequestActivationCode extends Component {
 
     handleSubmit = () => {
         Keyboard.dismiss();
-        this.props.navigation.navigate('VerifyActivationCode');
         this.props.requestActivationCode(this.props.cprNumber, () => {
             this.props.navigation.navigate('VerifyActivationCode');
         });
