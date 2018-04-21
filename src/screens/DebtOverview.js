@@ -23,11 +23,20 @@ import {
     resetDebtForm,
     debtSelected,
     deleteDebt,
-    getCategories
+    getCategories,
+    resetDebtError
 } from "../actions";
 import {container, color} from "../style";
+import {showWarningToast} from "../helpers";
 
 class DebtOverview extends PureComponent {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.debtError) {
+            showWarningToast(nextProps.debtError);
+            this.props.resetDebtError();
+        }
+    }
+
     onCreateDebtPress = () => {
         this.props.resetDebtForm(() => {
             this.props.navigation.navigate('CreateDebt');
@@ -120,17 +129,17 @@ class DebtOverview extends PureComponent {
 
 const mapStateToProps = (state) => {
     const budgetID = state.budget.budgetID;
-    const {debtLoading, selectedDebt} = state.debt;
+    const {debtLoading, selectedDebt, debtError} = state.debt;
 
     const debts = _.map(state.debt.debts, (item, key) => {
         return {...item.debtData, debtID: item.id, key: key};
     });
 
-    return {budgetID, debts, debtLoading, selectedDebt};
+    return {budgetID, debts, debtLoading, selectedDebt, debtError};
 };
 
 const mapDispatchToProps = {
-    resetDebtForm, debtSelected, deleteDebt, getCategories
+    resetDebtForm, debtSelected, deleteDebt, getCategories, resetDebtError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DebtOverview);

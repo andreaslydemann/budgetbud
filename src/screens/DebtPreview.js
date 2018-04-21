@@ -14,10 +14,24 @@ import _ from 'lodash';
 import {AppHeader, Separator} from "../components/";
 import {connect} from "react-redux";
 import {button, text, container, color} from "../style/";
-import {getDebts, createDebt, editDebt, getCategories} from "../actions";
+import {
+    getDebts,
+    createDebt,
+    editDebt,
+    getCategories,
+    resetDebtError
+} from "../actions";
 import I18n from "../strings/i18n";
+import {showWarningToast} from "../helpers";
 
 class DebtPreview extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.debtError) {
+            showWarningToast(nextProps.debtError);
+            this.props.resetDebtError();
+        }
+    }
+
     onSavePress = async () => {
         if (this.props.debtLoading)
             return;
@@ -100,7 +114,8 @@ const mapStateToProps = (state) => {
         expirationDate,
         categorySubtractions,
         selectedDebt,
-        debtLoading
+        debtLoading,
+        debtError
     } = state.debt;
     const {
         categories,
@@ -147,7 +162,8 @@ const mapStateToProps = (state) => {
         categoryDebtItems,
         selectedDebt,
         debtLoading,
-        budgetID
+        budgetID,
+        debtError
     };
 };
 
@@ -155,7 +171,8 @@ const mapDispatchToProps = {
     getDebts,
     createDebt,
     editDebt,
-    getCategories
+    getCategories,
+    resetDebtError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DebtPreview);

@@ -4,6 +4,7 @@ import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
 import {
     RESET_DEBT_FORM,
+    RESET_DEBT_ERROR,
     DEBT_NAME_CHANGED,
     DEBT_AMOUNT_CHANGED,
     DEBT_EXPIRATION_DATE_CHANGED,
@@ -12,10 +13,13 @@ import {
     GET_DEBTS_FAIL,
     CREATE_DEBT,
     CREATE_DEBT_SUCCESS,
+    CREATE_DEBT_FAIL,
     EDIT_DEBT,
     EDIT_DEBT_SUCCESS,
+    EDIT_DEBT_FAIL,
     DEBT_SELECTED,
     DELETE_DEBT,
+    DELETE_DEBT_FAIL,
     CALCULATE_DEBT_CATEGORY_SUBTRACTIONS,
     CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS,
     CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_FAIL,
@@ -30,6 +34,12 @@ export const resetDebtForm = (callback) => async dispatch => {
     });
 
     callback();
+};
+
+export const resetDebtError = () => {
+    return {
+        type: RESET_DEBT_ERROR,
+    };
 };
 
 export const nameChanged = text => {
@@ -72,12 +82,8 @@ export const getDebts = (budgetID) => async dispatch => {
         dispatch({type: GET_DEBTS_SUCCESS, payload: data});
     } catch (err) {
         let {data} = err.response;
-        getDebtsFail(dispatch, data.error);
+        dispatch({type: GET_DEBTS_FAIL, payload: data.error});
     }
-};
-
-const getDebtsFail = (dispatch, error) => {
-    dispatch({type: GET_DEBTS_FAIL, payload: error});
 };
 
 export const createDebt =
@@ -105,7 +111,7 @@ export const createDebt =
             dispatch({type: CREATE_DEBT_SUCCESS});
         } catch (err) {
             let {data} = err.response;
-            console.log(data.error);
+            dispatch({type: CREATE_DEBT_FAIL, payload: data.error});
         }
     };
 
@@ -141,7 +147,7 @@ export const editDebt =
                 dispatch({type: EDIT_DEBT_SUCCESS});
             } catch (err) {
                 let {data} = err.response;
-                console.log(data.error);
+                dispatch({type: EDIT_DEBT_FAIL, payload: data.error});
             }
         };
 
@@ -156,7 +162,7 @@ export const deleteDebt = (debtID) => async dispatch => {
         });
     } catch (err) {
         let {data} = err.response;
-        console.log(data.error);
+        dispatch({type: DELETE_DEBT_FAIL, payload: data.error});
     }
 };
 

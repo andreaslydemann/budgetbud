@@ -9,14 +9,22 @@ import {
     GET_BUDGET_SUCCESS,
     CREATE_BUDGET_SUCCESS,
     DELETE_BUDGET,
+    DELETE_BUDGET_FAIL,
     GET_INITIAL_BUDGET_STATE,
     EDIT_BUDGET,
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_FAIL,
-    GET_BUDGET_ID_SUCCESS
+    GET_BUDGET_ID_SUCCESS,
+    RESET_BUDGET_ERROR
 } from './types';
 import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
+
+export const resetBudgetError = () => {
+    return {
+        type: RESET_BUDGET_ERROR
+    };
+};
 
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
@@ -125,7 +133,7 @@ export const deleteBudget = ({budgetID}, callback) => async dispatch => {
         callback();
     } catch (err) {
         const {data} = err.response;
-        console.log(data.error);
+        dispatch({type: DELETE_BUDGET_FAIL, payload: data.error});
     }
 };
 

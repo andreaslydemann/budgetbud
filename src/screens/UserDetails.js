@@ -14,10 +14,18 @@ import {
     Icon
 } from "native-base";
 import I18n from '../strings/i18n';
-import {deleteUser} from "../actions";
+import {deleteUser, resetAuthError} from "../actions";
 import {color, container} from "../style";
+import {showWarningToast} from "../helpers";
 
 class UserDetails extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.authError) {
+            showWarningToast(nextProps.authError);
+            this.props.resetAuthError();
+        }
+    }
+
     deleteUser = () => {
         this.props.deleteUser(() => {
             this.props.navigation.dispatch(NavigationActions.reset({
@@ -92,11 +100,11 @@ class UserDetails extends Component {
 }
 
 const mapStateToProps = ({auth}) => {
-    return {authLoading} = auth;
+    return {authLoading, authError} = auth;
 };
 
 const mapDispatchToProps = {
-    deleteUser
+    deleteUser, resetAuthError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);

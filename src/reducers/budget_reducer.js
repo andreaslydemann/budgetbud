@@ -1,17 +1,20 @@
 import {
+    GET_INITIAL_STATE,
+    GET_INITIAL_BUDGET_STATE,
     CREATE_BUDGET,
     INCOME_CHANGED,
     GET_BUDGET,
     CREATE_BUDGET_FAIL,
     GET_BUDGET_FAIL,
     GET_BUDGET_SUCCESS,
+    DELETE_BUDGET_FAIL,
     CREATE_BUDGET_SUCCESS,
-    GET_INITIAL_BUDGET_STATE,
     EDIT_BUDGET,
     EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_SUCCESS,
-    GET_BUDGET_ID_FAIL, GET_INITIAL_STATE
+    GET_BUDGET_ID_FAIL,
+    RESET_BUDGET_ERROR
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -29,6 +32,8 @@ export default (state = INITIAL_STATE, action) => {
             return INITIAL_STATE;
         case GET_INITIAL_BUDGET_STATE:
             return INITIAL_STATE;
+        case RESET_BUDGET_ERROR:
+            return {...state, budgetError: ''};
         case GET_BUDGET_ID_SUCCESS:
             return {...state, budgetIDError: '', budgetID: action.payload};
         case GET_BUDGET_ID_FAIL:
@@ -53,6 +58,8 @@ export default (state = INITIAL_STATE, action) => {
                 income: action.payload.income,
                 budgetInitialized: true
             };
+        case DELETE_BUDGET_FAIL:
+            return {...state, budgetLoading: false, budgetError: action.payload};
         case GET_BUDGET_FAIL:
             return {...state, budgetError: action.payload};
         case INCOME_CHANGED:

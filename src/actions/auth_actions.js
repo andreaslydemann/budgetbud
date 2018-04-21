@@ -3,6 +3,7 @@ import firebase from 'firebase';
 import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
 import {
+    GET_INITIAL_STATE,
     GET_INITIAL_AUTH_STATE,
     RESET_AUTH_ERROR,
     CPR_NUMBER_CHANGED,
@@ -17,7 +18,8 @@ import {
     SIGN_IN_FAIL,
     SIGN_UP,
     SIGN_UP_FAIL,
-    DELETE_USER, GET_INITIAL_STATE,
+    DELETE_USER,
+    DELETE_USER_FAIL,
     CHANGE_CODE,
     CHANGE_CODE_SUCCESS,
     CHANGE_CODE_FAIL,
@@ -132,14 +134,8 @@ export const signIn = ({cprNumber, code}) => async dispatch => {
 };
 
 export const signOut = () => async dispatch => {
-    try {
-        await firebase.auth().signOut();
-
-        dispatch({type: GET_INITIAL_STATE});
-    } catch (err) {
-        let {data} = err.response;
-        console.log(data.error);
-    }
+    await firebase.auth().signOut();
+    dispatch({type: GET_INITIAL_STATE});
 };
 
 export const deleteUser = (callback) => async dispatch => {
@@ -156,7 +152,7 @@ export const deleteUser = (callback) => async dispatch => {
         callback();
     } catch (err) {
         let {data} = err.response;
-        console.log(data.error);
+        dispatch({type: DELETE_USER_FAIL, payload: data.error});
     }
 };
 

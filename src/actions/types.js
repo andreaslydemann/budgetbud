@@ -22,6 +22,7 @@ export const SIGN_UP_FAIL = 'sign_up_fail';
 export const SIGN_IN = 'sign_in';
 export const SIGN_IN_FAIL = 'sign_in_fail';
 export const DELETE_USER = 'delete_user';
+export const DELETE_USER_FAIL = 'delete_user_fail';
 export const REQUEST_ACTIVATION_CODE = 'request_activation_code';
 export const REQUEST_ACTIVATION_CODE_SUCCESS = 'request_activation_code_success';
 export const REQUEST_ACTIVATION_CODE_FAIL = 'request_activation_code_fail';
@@ -52,11 +53,14 @@ export const EDIT_BUDGET = 'edit_budget';
 export const EDIT_BUDGET_SUCCESS = 'edit_budget_success';
 export const EDIT_BUDGET_FAIL = 'edit_budget_fail';
 export const DELETE_BUDGET = 'delete_budget';
+export const DELETE_BUDGET_FAIL = 'delete_budget_fail';
 export const INCOME_CHANGED = 'income_changed';
 export const CATEGORY_CHANGED = 'category_changed';
+export const RESET_BUDGET_ERROR = 'reset_budget_error';
 
 // ----------DEBT RELATED TYPES----------
 export const RESET_DEBT_FORM = 'reset_debt_form';
+export const RESET_DEBT_ERROR = 'reset_debt_error';
 export const DEBT_NAME_CHANGED = 'debt_name_changed';
 export const DEBT_AMOUNT_CHANGED = 'debt_amount_changed';
 export const DEBT_EXPIRATION_DATE_CHANGED = 'debt_expiration_date_changed';
@@ -73,6 +77,7 @@ export const EDIT_DEBT = 'edit_debt';
 export const EDIT_DEBT_SUCCESS = 'edit_debt_success';
 export const EDIT_DEBT_FAIL = 'edit_debt_fail';
 export const DELETE_DEBT = 'delete_debt';
+export const DELETE_DEBT_FAIL = 'delete_debt_fail';
 export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS = 'calculate_debt_category_subtractions';
 export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS = 'calculate_debt_category_subtractions_success';
 export const CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_FAIL = 'calculate_debt_category_subtractions_fail';
@@ -116,6 +121,7 @@ export const GET_LINKED_ACCOUNTS_FAIL = 'get_linked_accounts_fail';
 
 // ----------DISPOSABLE RELATED TYPES----------
 export const RESET_DISPOSABLE_FORM = 'reset_disposable_form';
+export const RESET_DISPOSABLE_ERROR = 'reset_disposable_error';
 export const DISPOSABLE_AMOUNT_CHANGED = 'disposable_amount_changed';
 export const EDIT_DISPOSABLE = 'edit_disposable';
 export const EDIT_DISPOSABLE_SUCCESS = 'edit_disposable_success';

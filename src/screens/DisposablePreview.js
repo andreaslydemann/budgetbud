@@ -15,10 +15,17 @@ import {AppHeader, Separator} from "../components/";
 import {connect} from "react-redux";
 import I18n from "../strings/i18n";
 import {button, text, container, color} from "../style/";
-import {editDisposable} from "../actions/";
-import {getCategories} from "../actions/category_actions";
+import {editDisposable, getCategories, resetDisposableError} from "../actions/";
+import {showWarningToast} from "../helpers";
 
 class DisposablePreview extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.disposableError) {
+            showWarningToast(nextProps.disposableError);
+            this.props.resetDisposableError();
+        }
+    }
+
     onSavePress = async () => {
         if (this.props.disposableLoading)
             return;
@@ -145,6 +152,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     editDisposable,
+    resetDisposableError,
     getCategories
 };
 

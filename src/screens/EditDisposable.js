@@ -9,13 +9,22 @@ import {
     getCategories,
     calculateDisposableCategoryDifferences,
     categoriesSelected,
-    setTmpDisposable
+    setTmpDisposable,
+    resetDisposableError
 } from "../actions";
 import {container} from "../style";
+import {showWarningToast} from "../helpers";
 
 class EditDisposable extends Component {
     componentWillMount() {
         this.props.setTmpDisposable();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.disposableError) {
+            showWarningToast(nextProps.disposableError);
+            this.props.resetDisposableError();
+        }
     }
 
     onContinuePress = () => {
@@ -100,7 +109,8 @@ const mapDispatchToProps = {
     resetDisposableForm,
     calculateDisposableCategoryDifferences,
     categoriesSelected,
-    setTmpDisposable
+    setTmpDisposable,
+    resetDisposableError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditDisposable);

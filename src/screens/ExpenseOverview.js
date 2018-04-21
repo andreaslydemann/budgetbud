@@ -18,15 +18,11 @@ import {color, container} from "../style";
 
 class ExpenseOverview extends Component {
     async componentWillMount() {
-        const promises = [];
-
         if (!this.props.categoryAlarmsInitialized)
-            promises.push(this.props.getCategoryAlarms(this.props.budgetID));
+            this.props.getCategoryAlarms(this.props.budgetID);
 
         if (!this.props.expensesInitialized)
-            promises.push(this.props.getExpensesOfMonth());
-
-        await Promise.all(promises);
+            this.props.getExpensesOfMonth();
     }
 
     onAlarmPress = async ({categoryID}) => {

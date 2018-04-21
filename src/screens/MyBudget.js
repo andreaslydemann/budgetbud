@@ -21,18 +21,14 @@ import {
 
 class MyBudget extends Component {
     async componentWillMount() {
-        const promises = [];
-
         if (!this.props.budgetInitialized)
-            promises.push(this.props.getBudget(this.props.budgetID));
+            this.props.getBudget(this.props.budgetID);
 
         if (!this.props.categoriesInitialized)
-            promises.push(this.props.getCategories(this.props.budgetID));
+            this.props.getCategories(this.props.budgetID);
 
         if (!this.props.debtsInitialized)
-            promises.push(this.props.getDebts(this.props.budgetID));
-
-        await Promise.all(promises);
+            this.props.getDebts(this.props.budgetID);
     }
 
     navigateUser = (destination) => {
