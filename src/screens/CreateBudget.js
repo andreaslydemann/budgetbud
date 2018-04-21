@@ -14,12 +14,14 @@ import {
 } from '../actions';
 import {container} from "../style";
 import {showWarningToast, checkInputAmount, commaToDotConversion} from "../helpers";
+import {setupNewCategoriesList} from "../helpers/categoryListHelper";
 
 class CreateBudget extends Component {
     state = {
         tmpIncome: this.props.income,
         tmpDisposable: this.props.disposable,
         tmpTotalGoalsAmount: this.props.totalGoalsAmount,
+        tmpCategories: [],
         submitLoading: false
     };
 
@@ -40,7 +42,7 @@ class CreateBudget extends Component {
 
             this.setState({
                 tmpIncome: newIncome,
-                tmpDisposable: newDisposable
+                tmpDisposable: newDisposable,
             })
         }
     };
@@ -52,18 +54,22 @@ class CreateBudget extends Component {
             const newDisposable = this.state.tmpDisposable + categoryDiff;
             const newTotalGoalsAmount = this.state.tmpTotalGoalsAmount - categoryDiff;
 
+            const newTmpCategories = setupNewCategoriesList(
+                this.state.tmpCategories,
+                name,
+                newAmount);
+
             this.props.categoryChanged(name, newAmount);
             this.setState({
                 tmpDisposable: newDisposable,
-                tmpTotalGoalsAmount: newTotalGoalsAmount
+                tmpTotalGoalsAmount: newTotalGoalsAmount,
+                tmpCategories: newTmpCategories
             })
         }
     };
 
     handleSubmit = async () => {
-        if (this.state.submitLoading)
-            return;
-
+        if (this.state.submitLoading) return;
         Keyboard.dismiss();
         this.setState({
             submitLoading: true
@@ -73,13 +79,13 @@ class CreateBudget extends Component {
             this.state.tmpIncome,
             this.state.tmpDisposable,
             this.state.tmpTotalGoalsAmount);
-
-        await this.props.createCategories(this.props);
+        await this.props.createCategories(
+            this.props.budgetID,
+            this.state.tmpCategories);
 
         this.setState({
             submitLoading: false
         });
-
         if(!this.props.budgetError && !this.props.categoriesError)
             this.props.navigation.navigate('MyBudget');
     };
@@ -99,7 +105,7 @@ class CreateBudget extends Component {
                             tmpIncome={this.state.tmpIncome}
                             tmpTotalGoalsAmount={this.state.tmpTotalGoalsAmount}
                             tmpDisposable={this.state.tmpDisposable}
-                            tmpCategories={this.props.tmpCategories}
+                            tmpCategories={this.state.tmpCategories}
                             debts={this.props.debts}
                             budgetLoading={this.props.budgetLoading}
                             submitLoading={this.state.submitLoading}
@@ -124,7 +130,6 @@ const mapStateToProps = (state) => {
 
     const linkedAccounts = state.account.linkedAccounts;
     const {
-        tmpCategories,
         categoriesLoading,
         categoriesError,
         totalGoalsAmount
@@ -133,7 +138,6 @@ const mapStateToProps = (state) => {
     return {
         income,
         budgetID,
-        tmpCategories,
         linkedAccounts,
         debts,
         totalGoalsAmount,

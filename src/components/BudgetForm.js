@@ -45,7 +45,7 @@ export class BudgetForm extends PureComponent {
                 </View>
 
                 <View style={{flex: 4, justifyContent: 'center'}}>
-                    {this.props.categoriesLoading ? (
+                    {this.props.categoriesLoading && !this.props.submitLoading ? (
                         <Spinner style={{
                             alignItems: 'center',
                             justifyContent: 'center'

@@ -73,17 +73,20 @@ export const getCategories = (budgetID) => async dispatch => {
     }
 };
 
-export const editCategories = ({budgetID, tmpCategories}) => async dispatch => {
+export const editCategories = (budgetID, tmpCategories) => async dispatch => {
     dispatch({type: EDIT_CATEGORIES});
 
     try {
         const token = await firebase.auth().currentUser.getIdToken();
+        const categories = tmpCategories;
+        console.log(budgetID)
+        console.log(tmpCategories)
 
         await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editCategories`,
-            {budgetID, categories: tmpCategories},
+            {budgetID, categories},
             {headers: {Authorization: 'Bearer ' + token}});
 
-        dispatch({type: EDIT_CATEGORIES_SUCCESS, payload: tmpCategories});
+        dispatch({type: EDIT_CATEGORIES_SUCCESS, payload: categories});
     } catch (err) {
         let {data} = err.response;
         dispatch({type: EDIT_CATEGORIES_FAIL, payload: data.error});
@@ -127,6 +130,7 @@ export const categoriesSelected = (selectedCategories) => {
 
 export const mapExpensesToBudget = () => async dispatch => {
     dispatch({type: MAP_EXPENSES});
+    let categories;
 
     try {
         let token = await firebase.auth().currentUser.getIdToken();
@@ -135,7 +139,7 @@ export const mapExpensesToBudget = () => async dispatch => {
         let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getAverageExpenses?userID=${userID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
-        const categories = await getAllCategoryTypes(data);
+        categories = await getAllCategoryTypes(data);
 
         let totalGoalsAmount = 0;
         categories.forEach(category => {
@@ -152,17 +156,18 @@ export const mapExpensesToBudget = () => async dispatch => {
         let {data} = err.response;
         dispatch({type: MAP_EXPENSES_FAIL, payload: data.error});
     }
+    return categories;
 };
 
-export const setupEditBudget = ({categories}) => async dispatch => {
+export const setupEditBudget = (categories) => async dispatch => {
     dispatch({type: SETUP_EDIT_BUDGET});
+    let mappedCategories;
 
     try {
-        const mappedCategories = await getAllCategoryTypes(categories);
+        mappedCategories = await getAllCategoryTypes(categories);
 
         dispatch({
-            type: SETUP_EDIT_BUDGET_SUCCESS,
-            payload: mappedCategories
+            type: SETUP_EDIT_BUDGET_SUCCESS
         });
     }
     catch
@@ -170,6 +175,7 @@ export const setupEditBudget = ({categories}) => async dispatch => {
         let {data} = err.response;
         dispatch({type: SETUP_EDIT_BUDGET_FAIL, payload: data.error});
     }
+    return mappedCategories;
 };
 
 export const categoryChanged = (name, newAmount) => {

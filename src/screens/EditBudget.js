@@ -15,17 +15,21 @@ import {
 } from "../actions";
 import {container} from "../style";
 import {checkInputAmount, commaToDotConversion} from "../helpers";
+import {setupNewCategoriesList} from "../helpers/categoryListHelper";
 
 class EditBudget extends Component {
     state = {
         tmpIncome: this.props.income,
         tmpDisposable: this.props.disposable,
         tmpTotalGoalsAmount: this.props.totalGoalsAmount,
+        tmpCategories: [],
         submitLoading: false
     };
 
-    componentWillMount() {
-        this.props.setupEditBudget(this.props);
+    async componentWillMount() {
+        this.setState({
+            tmpCategories: await this.props.setupEditBudget(this.props.categories)
+        })
     };
 
     onIncomeChange = (newIncome) => {
@@ -47,16 +51,21 @@ class EditBudget extends Component {
             const categoryDiff = oldAmount - newAmount;
             const newDisposable = this.state.tmpDisposable + categoryDiff;
             const newTotalGoalsAmount = this.state.tmpTotalGoalsAmount - categoryDiff;
+            const newTmpCategories = setupNewCategoriesList(
+                this.state.tmpCategories,
+                name,
+                newAmount);
 
-            this.props.categoryChanged(name, newAmount);
             this.setState({
                 tmpDisposable: newDisposable,
-                tmpTotalGoalsAmount: newTotalGoalsAmount
+                tmpTotalGoalsAmount: newTotalGoalsAmount,
+                tmpCategories: newTmpCategories
             })
         }
     };
 
     handleSubmit = async () => {
+        if (this.state.submitLoading) return;
         Keyboard.dismiss();
         this.setState({
             submitLoading: true
@@ -68,13 +77,15 @@ class EditBudget extends Component {
             this.state.tmpDisposable,
             this.state.tmpTotalGoalsAmount
         );
-
-        await this.props.editCategories(this.props);
+        await this.props.editCategories(
+            this.props.budgetID,
+            this.state.tmpCategories);
 
         this.setState({
             submitLoading: false
         });
-        this.props.navigation.pop();
+        if(!this.props.budgetError && !this.props.categoriesError)
+            this.props.navigation.pop();
     };
 
     render() {
@@ -91,7 +102,7 @@ class EditBudget extends Component {
                             tmpIncome={this.state.tmpIncome}
                             tmpTotalGoalsAmount={this.state.tmpTotalGoalsAmount}
                             tmpDisposable={this.state.tmpDisposable}
-                            tmpCategories={this.props.tmpCategories}
+                            tmpCategories={this.state.tmpCategories}
                             debts={this.props.debts}
                             budgetLoading={this.props.budgetLoading}
                             submitLoading={this.state.submitLoading}
@@ -117,7 +128,6 @@ const mapStateToProps = (state) => {
     const linkedAccounts = state.account.linkedAccounts;
     const {
         categories,
-        tmpCategories,
         categoriesLoading,
         categoriesError,
         totalGoalsAmount,
@@ -127,7 +137,6 @@ const mapStateToProps = (state) => {
         budgetID,
         income,
         categories,
-        tmpCategories,
         linkedAccounts,
         debts,
         totalGoalsAmount,

@@ -54,7 +54,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, categoriesLoading: true};
         case MAP_EXPENSES_SUCCESS:
             return {
-                ...state, categoriesLoading: false,
+                ...state,
+                categoriesLoading: false,
                 tmpCategories: action.payload.categories,
                 totalGoalsAmount: action.payload.totalGoalsAmount
             };
@@ -102,12 +103,7 @@ export default (state = INITIAL_STATE, action) => {
         case SETUP_EDIT_BUDGET:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case SETUP_EDIT_BUDGET_SUCCESS:
-            return {
-                ...state,
-                tmpCategories: action.payload,
-                categoriesLoading: false,
-                tmpTotalGoalsAmount: state.totalGoalsAmount
-            };
+            return {...state, categoriesLoading: false};
         case SETUP_EDIT_BUDGET_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case CATEGORIES_SELECTED:
