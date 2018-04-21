@@ -10,7 +10,6 @@ import {Container, Button, Label} from 'native-base';
 import {Logo, ChangeForgottenCodeForm, ErrorInfo} from '../components/';
 import {
     resetAuthState,
-    resetActivationCode,
     repeatedCodeChanged,
     changeForgottenCode,
     codeChanged
@@ -32,7 +31,8 @@ class ChangeForgottenCode extends Component {
         this.props.changeForgottenCode(
             this.props.code,
             this.props.repeatedCode,
-            this.props.cprNumber, () => {
+            this.props.cprNumber,
+            this.props.activationCode, () => {
                 this.props.resetAuthState(() => {
                     this.props.navigation.pop(3);
                 });
@@ -41,9 +41,7 @@ class ChangeForgottenCode extends Component {
     };
 
     onGoToVerifyActivationCodeButtonPress = () => {
-        this.props.resetActivationCode(() => {
-            this.props.navigation.pop();
-        });
+        this.props.navigation.pop();
     };
 
     render() {
@@ -90,6 +88,7 @@ const mapStateToProps = ({auth}) => {
         code,
         repeatedCode,
         cprNumber,
+        activationCode,
         authError,
         changeLoading
     } = auth;
@@ -99,7 +98,6 @@ const mapDispatchToProps = {
     codeChanged,
     repeatedCodeChanged,
     changeForgottenCode,
-    resetActivationCode,
     resetAuthState
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeForgottenCode);

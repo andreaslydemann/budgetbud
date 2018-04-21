@@ -279,7 +279,7 @@ export const changeCode = (code, repeatedCode, callback) => async dispatch => {
     }
 };
 
-export const changeForgottenCode = (code, repeatedCode, cprNumber, callback) => async dispatch => {
+export const changeForgottenCode = (code, repeatedCode, cprNumber, activationCode, callback) => async dispatch => {
     if (code.length !== 4 || repeatedCode.length !== 4) {
         dispatch({type: VALIDATE_CODE_FAIL});
         return;
@@ -291,7 +291,7 @@ export const changeForgottenCode = (code, repeatedCode, cprNumber, callback) => 
     dispatch({type: CHANGE_CODE});
 
     try {
-        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/changeForgottenCode`, {code, cprNumber});
+        await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/changeForgottenCode`, {code, cprNumber, activationCode});
 
         dispatch({type: CHANGE_CODE_SUCCESS});
         callback();
