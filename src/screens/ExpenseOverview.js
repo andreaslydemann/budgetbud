@@ -186,7 +186,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    console.log("hello");
     const {budgetID} = state.budget;
     const {debts} = state.debt;
     const {expenses, totalExpenses, expensesLoading, expensesInitialized} = state.expense;
@@ -212,8 +211,6 @@ const mapStateToProps = (state) => {
             });
         }
     });
-
-    console.log("goodbye");
 
     return {
         budgetID,

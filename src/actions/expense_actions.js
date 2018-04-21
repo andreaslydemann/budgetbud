@@ -17,8 +17,6 @@ export const getExpensesOfMonth = () => async dispatch => {
         let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getExpensesOfMonth?userID=${userID}`,
             {headers: {Authorization: 'Bearer ' + token}});
 
-        console.log("data: " + data);
-
         let totalExpenses = 0;
         data.forEach(d => totalExpenses += d.amount);
 
@@ -29,8 +27,6 @@ export const getExpensesOfMonth = () => async dispatch => {
     }
     catch (err) {
         let {data} = err.response;
-
-        console.log("error: " + data.error);
         dispatch({type: GET_EXPENSES_OF_MONTH_FAIL, payload: data.error});
     }
 };
