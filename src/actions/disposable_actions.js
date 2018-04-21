@@ -52,7 +52,7 @@ export const editDisposable = ({tmpDisposable, categoryDisposableItems, budgetID
             }
         });
 
-        let token = await firebase.auth().currentUser.getIdToken();
+        const token = await firebase.auth().currentUser.getIdToken();
 
         await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editDisposable`,
             {disposable: tmpDisposable, categories, budgetID}, {
@@ -75,8 +75,12 @@ export const setTmpDisposable = () => {
 };
 
 export const calculateDisposableCategoryDifferences = (disposable, tmpDisposable, categories, callback) => async dispatch => {
-    if (disposable === tmpDisposable) {
-        dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_FAIL, payload: "Rådighedsbeløb uændret."});
+    let errorMsg;
+    if (disposable === tmpDisposable) {errorMsg = "Rådighedsbeløb uændret."}
+    else if(categories.length === 0) {errorMsg = "Ingen kategorier valgt."}
+
+    if (errorMsg) {
+        dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_FAIL, payload: errorMsg});
         return;
     }
 
@@ -85,13 +89,12 @@ export const calculateDisposableCategoryDifferences = (disposable, tmpDisposable
     const disposableDifference = (tmpDisposable - disposable);
 
     try {
-        let token = await firebase.auth().currentUser.getIdToken();
+        const token = await firebase.auth().currentUser.getIdToken();
 
-        let {data} = await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/calculateDisposableCategoryDifferences`,
+        const {data} = await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/calculateDisposableCategoryDifferences`,
             {categories, disposableDifference}, {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({type: CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS, payload: data});
-
         callback();
     } catch (err) {
         let {data} = err.response;

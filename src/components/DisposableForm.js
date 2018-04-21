@@ -29,22 +29,6 @@ import I18n from "../strings/i18n";
 import {color} from "../style/color";
 
 export class DisposableForm extends Component {
-    onDisposableChange = (text) => {
-        this.props.disposableChanged(text);
-    };
-
-    onCheckBoxPress = ({categoryID}) => {
-        let tmp = this.props.selectedCategories;
-
-        if (tmp.includes(categoryID)) {
-            tmp.splice(tmp.indexOf(categoryID), 1)
-        } else {
-            tmp.push(categoryID);
-        }
-
-        this.props.categoriesSelected(tmp);
-    };
-
     render() {
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -63,7 +47,7 @@ export class DisposableForm extends Component {
                             <Item rounded style={[input.inputField, color.input]}>
                                 <Input
                                     value={String(this.props.tmpDisposable)}
-                                    onChangeText={this.onDisposableChange}
+                                    onChangeText={this.props.onDisposableChanged}
                                     keyboardType="numeric"
                                     style={color.text}
                                 />
@@ -100,7 +84,7 @@ export class DisposableForm extends Component {
                     </View>
 
                     <Button rounded
-                            onPress={() => this.props.onContinuePress()}
+                            onPress={this.props.onContinuePressed}
                             style={[button.defaultButton, color.button]}
                     >
                         {this.props.disposableCalculationLoading ? (
@@ -121,7 +105,7 @@ export class DisposableForm extends Component {
                 <CheckBox
                     style={checked ? color.checkboxChecked : color.checkboxUnchecked}
                     checked={checked}
-                    onPress={() => this.onCheckBoxPress(item)}
+                    onPress={() => this.props.onCheckBoxPressed(item)}
                 />
                 <Body>
                 <Text style={color.text}>{item.name}</Text>

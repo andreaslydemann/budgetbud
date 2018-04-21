@@ -12,7 +12,7 @@ import {
     GET_BUDGET_SUCCESS,
     SETUP_EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_SUCCESS,
-    CREATE_BUDGET_SUCCESS, RESET_DISPOSABLE_ERROR,
+    CREATE_BUDGET_SUCCESS, RESET_DISPOSABLE_ERROR, CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -46,6 +46,12 @@ export default (state = INITIAL_STATE, action) => {
         case MAP_EXPENSES_SUCCESS:
             const totalWithdrawal = action.payload.totalGoalsAmount * (-1);
             return {...state, disposable: totalWithdrawal};
+        case SETUP_EDIT_BUDGET_SUCCESS:
+            return {...state, tmpDisposable: state.disposable};
+        case DISPOSABLE_AMOUNT_CHANGED:
+            return {...state, tmpDisposable: action.payload};
+        case SET_TMP_DISPOSABLE:
+            return {...state, tmpDisposable: state.disposable};
         case CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES:
             return {...state, disposableCalculationLoading: true, disposableError: ''};
         case CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS:
@@ -55,6 +61,8 @@ export default (state = INITIAL_STATE, action) => {
                 disposableError: '',
                 disposableCategorySubtractions: action.payload
             };
+        case CALCULATE_CATEGORY_SUBTRACTIONS_FAIL:
+            return {...state, disposableError: action.payload};
         default:
             return state;
     }

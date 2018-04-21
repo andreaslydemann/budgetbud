@@ -5,8 +5,6 @@ import {connect} from 'react-redux';
 import {BudgetForm, AppHeader} from "../components/";
 import I18n from "../strings/i18n";
 import {
-    incomeChanged,
-    categoryChanged,
     createBudget,
     mapExpensesToBudget,
     getLinkedAccounts,
@@ -151,8 +149,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     createBudget,
-    incomeChanged,
-    categoryChanged,
     getLinkedAccounts,
     mapExpensesToBudget,
     createCategories

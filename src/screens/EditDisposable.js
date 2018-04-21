@@ -14,6 +14,7 @@ import {
 } from "../actions";
 import {container} from "../style";
 import {showWarningToast} from "../helpers";
+import {checkInputAmount, commaToDotConversion} from "../helpers/validators";
 
 class EditDisposable extends Component {
     componentWillMount() {
@@ -27,14 +28,30 @@ class EditDisposable extends Component {
         }
     }
 
-    onContinuePress = () => {
-        if (this.props.subtractionsLoading)
+    onDisposableChange = (newDisposable) => {
+        newDisposable = commaToDotConversion(newDisposable);
+        if (checkInputAmount(newDisposable)) {
+            this.props.disposableChanged(newDisposable);
+        }
+    };
+
+    onCheckBoxPress = ({categoryID}) => {
+        let tmp = this.props.selectedCategories;
+
+        if (tmp.includes(categoryID)) {
+            tmp.splice(tmp.indexOf(categoryID), 1)
+        } else {
+            tmp.push(categoryID);
+        }
+
+        this.props.categoriesSelected(tmp);
+    };
+
+    onContinuePress = async () => {
+        if (this.props.disposableCalculationLoading)
             return;
 
-        if (this.props.disposable === this.props.tmpDisposable)
-            return;
-
-        this.props.calculateDisposableCategoryDifferences(
+        await this.props.calculateDisposableCategoryDifferences(
             this.props.disposable,
             this.props.tmpDisposable,
             this.props.selectedCategories, () => {
@@ -61,7 +78,9 @@ class EditDisposable extends Component {
                                 disposableCalculationLoading={this.props.disposableCalculationLoading}
                                 disposableLoading={this.props.disposableLoading}
                                 subtractionsLoading={this.props.subtractionsLoading}
-                                onContinuePress={this.onContinuePress}/>
+                                onDisposableChanged={this.onDisposableChange}
+                                onCheckBoxPressed={this.onCheckBoxPress}
+                                onContinuePressed={this.onContinuePress}/>
             </Container>
         );
     }

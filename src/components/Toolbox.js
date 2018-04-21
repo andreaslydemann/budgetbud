@@ -23,7 +23,11 @@ export class Toolbox extends Component {
                     }}>
                         <Button
                             transparent
-                            onPress={() => this.props.navigateUser("EditBudget")}
+                            onPress={() => {
+                                this.props.navigateUser("EditBudget");
+                                this.refs.bottomModal.close();
+                            }}
+
                         >
                             <View style={button.modalButton}>
                                 <Icon name="md-clipboard"
@@ -36,7 +40,10 @@ export class Toolbox extends Component {
 
                         <Button
                             transparent
-                            onPress={() => this.props.navigateUser("EditDisposable")}
+                            onPress={() => {
+                                this.props.navigateUser("EditDisposable");
+                                this.refs.bottomModal.close();
+                            }}
                         >
                             <View style={button.modalButton}>
                                 <Icon name="logo-usd" style={{color: "#00263A"}}/>
@@ -48,7 +55,10 @@ export class Toolbox extends Component {
 
                         <Button
                             transparent
-                            onPress={() => this.props.navigateUser("DebtOverview")}
+                            onPress={() => {
+                                this.props.navigateUser("DebtOverview");
+                                this.refs.bottomModal.close();
+                            }}
                         >
                             <View style={button.modalButton}>
                                 <Icon name="ios-archive" style={{color: "#00263A"}}/>
