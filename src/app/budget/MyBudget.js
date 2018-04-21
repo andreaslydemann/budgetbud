@@ -22,7 +22,7 @@ import {getCategories} from "../category/category_actions";
 import {getDebts} from "../debt/debt_actions";
 
 class MyBudget extends Component {
-    async componentWillMount() {
+    componentWillMount() {
         if (!this.props.budgetInitialized)
             this.props.getBudget(this.props.budgetID);
 

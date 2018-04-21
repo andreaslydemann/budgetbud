@@ -8,13 +8,13 @@ import {
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
 import {Logo, ErrorInfo, ActivationCodeForm} from '../../components/index';
-import {
-    requestActivationCode,
-    cprNumberChanged,
-    resetAuthState
-} from '../actions/index';
 import {button, color, container} from "../../style/index";
 import I18n from "../../strings/i18n";
+import {
+    cprNumberChanged,
+    requestActivationCode,
+    resetAuthState
+} from "./auth_actions";
 
 class RequestActivationCode extends Component {
     onCprNumberChange = (text) => {

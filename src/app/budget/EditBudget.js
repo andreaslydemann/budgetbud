@@ -5,10 +5,14 @@ import {connect} from 'react-redux';
 import {BudgetForm, AppHeader} from "../../components/index";
 import I18n from "../../strings/i18n";
 import {container} from "../../style/index";
-import {checkInputAmount, correctConversion} from "../../helpers/index";
-import {setupNewCategoriesList} from "../../helpers/categoryListHelper";
+import {checkInputAmount, correctConversion, setupNewCategoriesList} from "../../helpers/index";
 import {editBudget, getBudget, incomeChanged} from "./budget_actions";
-import {categoryChanged, editCategories, getCategories, setupEditBudget} from "../category/category_actions";
+import {
+    categoryChanged,
+    editCategories,
+    getCategories,
+    setupEditBudget
+} from "../category/category_actions";
 
 class EditBudget extends Component {
     state = {

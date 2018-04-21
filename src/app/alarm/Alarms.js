@@ -17,19 +17,19 @@ import {
 } from 'native-base';
 import I18n from "../../strings/i18n";
 import {
-    getBudgetAlarms,
-    toggleBudgetAlarms,
-    budgetExceededToggled,
-    weeklyStatusToggled,
-    resetAlarmsError
-} from "../actions/index";
-import {
     button,
     text,
     list,
     container, color
 } from "../../style/index";
 import {showWarningToast} from "../../helpers/index";
+import {
+    budgetExceededToggled,
+    getBudgetAlarms,
+    resetAlarmsError,
+    toggleBudgetAlarms,
+    weeklyStatusToggled
+} from "./alarm_actions";
 
 class Alarms extends PureComponent {
     componentWillMount() {

@@ -8,14 +8,14 @@ import {
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
 import {Logo, ChangeForgottenCodeForm, ErrorInfo} from '../../components/index';
-import {
-    resetAuthState,
-    repeatedCodeChanged,
-    changeForgottenCode,
-    codeChanged
-} from '../actions/index';
 import I18n from "../../strings/i18n";
 import {button, container, color} from "../../style/index";
+import {
+    changeForgottenCode,
+    codeChanged,
+    repeatedCodeChanged,
+    resetAuthState
+} from "./auth_actions";
 
 class ChangeForgottenCode extends Component {
     onCodeChange = (text) => {

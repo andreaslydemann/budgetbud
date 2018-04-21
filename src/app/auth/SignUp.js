@@ -7,14 +7,14 @@ import {
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
 import {Logo, AuthForm, ErrorInfo} from '../../components/index';
-import {
-    signUp,
-    cprNumberChanged,
-    phoneNumberChanged,
-    resetAuthState
-} from '../actions/index';
 import {container, button, color} from "../../style/index";
 import I18n from "../../strings/i18n";
+import {
+    cprNumberChanged,
+    phoneNumberChanged,
+    resetAuthState,
+    signUp
+} from "./auth_actions";
 
 class SignUp extends Component {
     onCprNumberChange = (text) => {

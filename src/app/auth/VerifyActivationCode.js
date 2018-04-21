@@ -8,14 +8,10 @@ import {
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
 import {Logo, ErrorInfo} from '../../components/index';
-import {
-    verifyActivationCode,
-    activationCodeChanged,
-    resetAuthState
-} from '../actions/index';
 import {button, color, container} from "../../style/index";
 import I18n from "../../strings/i18n";
 import {ActivationCodeForm} from "../../components/ActivationCodeForm";
+import {activationCodeChanged, resetAuthState, verifyActivationCode} from "./auth_actions";
 
 class VerifyActivationCode extends Component {
     onActivationCodeChange = (text) => {
