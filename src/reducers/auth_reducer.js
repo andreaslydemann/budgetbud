@@ -1,7 +1,6 @@
 import {
     GET_INITIAL_AUTH_STATE,
     RESET_AUTH_ERROR,
-    RESET_ACTIVATION_CODE,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
@@ -55,8 +54,6 @@ export default (state = INITIAL_STATE, action) => {
             return INITIAL_STATE;
         case RESET_AUTH_ERROR:
             return {...state, authError: ''};
-        case RESET_ACTIVATION_CODE:
-            return {...state, activationCode: '', changeLoading: '', authError: ''};
         case CPR_NUMBER_CHANGED:
             return {...state, cprNumber: action.payload, authError: ''};
         case PHONE_NUMBER_CHANGED:
