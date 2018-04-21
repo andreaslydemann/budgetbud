@@ -11,14 +11,14 @@ import {
     Spinner,
     Text
 } from 'native-base';
-import {Separator} from '../components/';
+import {Separator} from './index';
 import {
     container,
     text,
     button,
     color,
     input
-} from "../style/";
+} from "../style/index";
 import I18n from "../strings/i18n";
 
 export class BudgetForm extends PureComponent {

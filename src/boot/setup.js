@@ -6,12 +6,12 @@ import {StyleProvider} from 'native-base';
 import getTheme from "../theme/components";
 import variables from "../theme/variables/commonColor";
 import {connect} from 'react-redux';
-import {getBudgetID} from "../actions/";
 import {
     removeConnectionChangeEventListener,
     addConnectionChangeEventListener
 } from '../helpers';
 import App from "../App";
+import {getBudgetID} from "../app/budget/budget_actions";
 
 class Setup extends Component {
     state = {isReady: false, isAuthorized: false, isOffline: false};
