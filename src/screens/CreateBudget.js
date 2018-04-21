@@ -14,13 +14,14 @@ import {
 } from '../actions';
 import {container} from "../style";
 import {showWarningToast} from "../helpers/toasts";
-import {checkInputAmount} from "../helpers/validators";
+import {checkInputAmount, commaToDotConversion} from "../helpers/validators";
 
 class CreateBudget extends Component {
     state = {
         tmpIncome: this.props.income,
         tmpDisposable: this.props.disposable,
-        tmpTotalGoalsAmount: this.props.totalGoalsAmount
+        tmpTotalGoalsAmount: this.props.totalGoalsAmount,
+        submitLoading: false
     };
 
     componentWillMount() {
@@ -33,7 +34,7 @@ class CreateBudget extends Component {
     }
 
     onIncomeChange = (newIncome) => {
-        newIncome = newIncome.replace(/,/g, '.');
+        newIncome = commaToDotConversion(newIncome);
         if (checkInputAmount(newIncome)) {
             const incomeDiff = newIncome - this.state.tmpIncome;
             const newDisposable = this.state.tmpDisposable + incomeDiff;
@@ -46,7 +47,7 @@ class CreateBudget extends Component {
     };
 
     onCategoryChange = (name, oldAmount, newAmount) => {
-        newAmount = newAmount.replace(/,/g, '.');
+        newAmount = commaToDotConversion(newAmount);
         if (checkInputAmount(newAmount)) {
             const categoryDiff = oldAmount - newAmount;
             const newDisposable = this.state.tmpDisposable + categoryDiff;
@@ -61,26 +62,27 @@ class CreateBudget extends Component {
     };
 
     handleSubmit = async () => {
+        if (this.state.submitLoading)
+            return;
+
         Keyboard.dismiss();
-        this.props.createBudget(this.props, (budgetID) => {
-            this.props.createCategories(
-                budgetID,
-                this.props.tmpCategories, () => {
-                    this.props.navigation.navigate('MyBudget');
-                });
-        })
-    };
-
-    checkInput = (income, categories) => {
-        let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
-        if (!allowedRegex.test(income))
-            return false;
-
-        categories.forEach(c => {
-            if (!allowedRegex.test(c.amount))
-                return false;
+        this.setState({
+            submitLoading: true
         });
-        return true;
+
+        await this.props.createBudget(
+            this.state.tmpIncome,
+            this.state.tmpDisposable,
+            this.state.tmpTotalGoalsAmount);
+
+        await this.props.createCategories(this.props);
+
+        this.setState({
+            submitLoading: false
+        });
+
+        if(!this.props.budgetError && !this.props.categoriesError)
+            this.props.navigation.navigate('MyBudget');
     };
 
     render() {
@@ -94,7 +96,6 @@ class CreateBudget extends Component {
                 <BudgetForm handleSubmit={this.handleSubmit}
                             onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
-                            checkInput={this.checkInput}
                             budgetID={this.props.budgetID}
                             tmpIncome={this.state.tmpIncome}
                             tmpTotalGoalsAmount={this.state.tmpTotalGoalsAmount}
@@ -102,6 +103,7 @@ class CreateBudget extends Component {
                             tmpCategories={this.props.tmpCategories}
                             debts={this.props.debts}
                             budgetLoading={this.props.budgetLoading}
+                            submitLoading={this.state.submitLoading}
                             categoriesLoading={this.props.categoriesLoading}
                             budgetError={this.props.budgetError}
                 />

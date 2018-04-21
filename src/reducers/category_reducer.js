@@ -21,7 +21,7 @@ import {
     GET_INITIAL_STATE,
     EDIT_CATEGORIES,
     EDIT_CATEGORIES_SUCCESS,
-    EDIT_CATEGORIES_FAIL, EDIT_BUDGET_SUCCESS
+    EDIT_CATEGORIES_FAIL, EDIT_BUDGET_SUCCESS, CREATE_BUDGET_SUCCESS
 } from '../actions/types';
 import {fromJS} from "immutable";
 
@@ -42,6 +42,8 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case GET_INITIAL_STATE:
             return INITIAL_STATE;
+        case CREATE_BUDGET_SUCCESS:
+            return {...state, totalGoalsAmount: action.payload.totalGoalsAmount};
         case RESET_DEBT_FORM:
             return {
                 ...state,

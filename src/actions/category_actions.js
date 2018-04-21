@@ -23,21 +23,21 @@ import {
     EDIT_CATEGORIES_FAIL
 } from "./types";
 
-export const createCategories = (budgetID, tmpCategories, callback) =>
+export const createCategories = (budgetID, tmpCategories) =>
     async dispatch => {
         dispatch({type: CREATE_CATEGORIES});
 
         try {
-            let token = await firebase.auth().currentUser.getIdToken();
+            const token = await firebase.auth().currentUser.getIdToken();
+            const categories = tmpCategories;
 
             await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/createCategories`,
-                {budgetID, categories: tmpCategories},
+                {budgetID, categories},
                 {headers: {Authorization: 'Bearer ' + token}});
 
-            dispatch({type: CREATE_CATEGORIES_SUCCESS, payload: {tmpCategories}});
-            callback();
+            dispatch({type: CREATE_CATEGORIES_SUCCESS, payload: categories});
         } catch (err) {
-            let {data} = err.response;
+            const {data} = err.response;
             dispatch({type: CREATE_CATEGORIES_FAIL, payload: data.error});
         }
     };
@@ -47,8 +47,8 @@ export const getCategories = (budgetID) => async dispatch => {
         dispatch({type: GET_CATEGORIES});
 
         const categories = [];
-        let token = await firebase.auth().currentUser.getIdToken();
-        let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategories?budgetID=${budgetID}`, {
+        const token = await firebase.auth().currentUser.getIdToken();
+        const {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategories?budgetID=${budgetID}`, {
             headers: {Authorization: 'Bearer ' + token}
         });
 
@@ -68,7 +68,7 @@ export const getCategories = (budgetID) => async dispatch => {
 
         dispatch({type: GET_CATEGORIES_SUCCESS, payload: categories});
     } catch (err) {
-        let {data} = err.response;
+        const {data} = err.response;
         //getCategoriesFail(dispatch, data.error);
     }
 };
@@ -77,7 +77,7 @@ export const editCategories = ({budgetID, tmpCategories}) => async dispatch => {
     dispatch({type: EDIT_CATEGORIES});
 
     try {
-        let token = await firebase.auth().currentUser.getIdToken();
+        const token = await firebase.auth().currentUser.getIdToken();
 
         await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editCategories`,
             {budgetID, categories: tmpCategories},

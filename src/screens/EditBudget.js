@@ -14,13 +14,14 @@ import {
 import {container} from "../style";
 import {getCategories} from "../actions/category_actions";
 import {getBudget} from "../actions/budget_actions";
-import {checkInputAmount} from "../helpers/validators";
+import {checkInputAmount, commaToDotConversion} from "../helpers/validators";
 
 class EditBudget extends Component {
     state = {
         tmpIncome: this.props.income,
         tmpDisposable: this.props.disposable,
-        tmpTotalGoalsAmount: this.props.totalGoalsAmount
+        tmpTotalGoalsAmount: this.props.totalGoalsAmount,
+        submitLoading: false
     };
 
     componentWillMount() {
@@ -28,7 +29,7 @@ class EditBudget extends Component {
     };
 
     onIncomeChange = (newIncome) => {
-        newIncome = newIncome.replace(/,/g, '.');
+        newIncome = commaToDotConversion(newIncome);
         if (checkInputAmount(newIncome)) {
             const incomeDiff = newIncome - this.state.tmpIncome;
             const newDisposable = this.state.tmpDisposable + incomeDiff;
@@ -41,7 +42,7 @@ class EditBudget extends Component {
     };
 
     onCategoryChange = (name, oldAmount, newAmount) => {
-        newAmount = newAmount.replace(/,/g, '.');
+        newAmount = commaToDotConversion(newAmount);
         if (checkInputAmount(newAmount)) {
             const categoryDiff = oldAmount - newAmount;
             const newDisposable = this.state.tmpDisposable + categoryDiff;
@@ -57,11 +58,9 @@ class EditBudget extends Component {
 
     handleSubmit = async () => {
         Keyboard.dismiss();
-
-        if (this.state.tmpIncome.slice(-1) === '.')
-            this.setState({
-                tmpIncome: this.state.tmpIncome.slice(0, -1)
-            });
+        this.setState({
+            submitLoading: true
+        });
 
         await this.props.editBudget(
             this.props.budgetID,
@@ -71,19 +70,11 @@ class EditBudget extends Component {
         );
 
         await this.props.editCategories(this.props);
-        this.props.navigation.pop();
-    };
 
-    checkInput = (income, categories) => {
-        let allowedRegex = /^[+-]?(?=.)(?:\d+,)*\d*(?:\.\d+)?$/;
-        if (!allowedRegex.test(income))
-            return false;
-
-        categories.forEach(c => {
-            if (!allowedRegex.test(c.amount))
-                return false;
+        this.setState({
+            submitLoading: false
         });
-        return true;
+        this.props.navigation.pop();
     };
 
     render() {
@@ -96,7 +87,6 @@ class EditBudget extends Component {
                 <BudgetForm handleSubmit={this.handleSubmit}
                             onIncomeChanged={this.onIncomeChange}
                             onCategoryChanged={this.onCategoryChange}
-                            checkInput={this.checkInput}
                             budgetID={this.props.budgetID}
                             tmpIncome={this.state.tmpIncome}
                             tmpTotalGoalsAmount={this.state.tmpTotalGoalsAmount}
@@ -104,6 +94,7 @@ class EditBudget extends Component {
                             tmpCategories={this.props.tmpCategories}
                             debts={this.props.debts}
                             budgetLoading={this.props.budgetLoading}
+                            submitLoading={this.state.submitLoading}
                             categoriesLoading={this.props.categoriesLoading}
                             budgetError={this.props.budgetError}
                 />

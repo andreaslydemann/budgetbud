@@ -10,7 +10,7 @@ import {
     MAP_EXPENSES_SUCCESS,
     GET_BUDGET_SUCCESS,
     SETUP_EDIT_BUDGET_SUCCESS,
-    GET_INITIAL_STATE, EDIT_BUDGET_SUCCESS
+    GET_INITIAL_STATE, EDIT_BUDGET_SUCCESS, CREATE_BUDGET_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -25,10 +25,12 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case GET_INITIAL_STATE:
             return INITIAL_STATE;
+        case CREATE_BUDGET_SUCCESS:
+        return {...state, disposable: action.payload.disposable};
         case GET_BUDGET:
             return INITIAL_STATE;
         case EDIT_BUDGET_SUCCESS:
-            return {disposable: action.payload.disposable};
+            return {...state, disposable: action.payload.disposable};
         case EDIT_DISPOSABLE:
             return {...state, disposableLoading: true};
         case EDIT_DISPOSABLE_SUCCESS:

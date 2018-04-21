@@ -29,7 +29,7 @@ import {
     input
 } from "../style/";
 import I18n from "../strings/i18n";
-import {checkInputAmount} from "../helpers/validators";
+import {checkInputAmount, commaToDotConversion} from "../helpers/validators";
 
 export class DebtForm extends Component {
     onNameChange = (text) => {
@@ -37,7 +37,7 @@ export class DebtForm extends Component {
     };
 
     onAmountChange = (amount) => {
-        amount = amount.replace(/,/g, '.');
+        amount = commaToDotConversion(amount);
         if (checkInputAmount(amount))
             this.props.amountChanged(amount);
     };

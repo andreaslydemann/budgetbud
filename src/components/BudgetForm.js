@@ -45,15 +45,20 @@ export class BudgetForm extends PureComponent {
                     <Separator/>
                 </View>
 
-                <View style={{flex: 4, alignItems: 'stretch'}}>
-                    {this.props.todooooooooooooooooooooooooooooooooooooooooooooo ? (
-                        <Spinner color='#1c313a'/>) : (
-                        <FlatList
-                            data={this.props.tmpCategories}
-                            renderItem={this.renderItem}
-                            style={container.removeIndenting}
-                            keyExtractor={(item, index) => index}
-                        />)}
+                <View style={{flex: 4, justifyContent: 'center'}}>
+                    {this.props.categoriesLoading ? (
+                        <Spinner style={{
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }} color='#1c313a'/>) : (
+                    <View style={{flex: 4, alignItems: 'stretch'}}>
+                            <FlatList
+                                data={this.props.tmpCategories}
+                                renderItem={this.renderItem}
+                                style={container.removeIndenting}
+                                keyExtractor={(item, index) => index}
+                            />
+                    </View>)}
                 </View>
 
                 <Separator/>
@@ -88,7 +93,7 @@ export class BudgetForm extends PureComponent {
                             onPress={this.props.handleSubmit}
                             style={[button.defaultButton, color.button]}
                     >
-                        {this.props.budgetLoading || this.props.categoriesLoading ? (
+                        {this.props.submitLoading ? (
                             <Spinner color='#D0D0D0'/>) : (
                             <Text style={text.submitButtonText}>
                                 {this.props.budgetID ?

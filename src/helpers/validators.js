@@ -14,3 +14,8 @@ export const checkInputAmount = amount => {
 
     return !isNaN(parseFloat(amount)) && isFinite(amount);
 };
+
+export const commaToDotConversion = amount => {
+    amount = amount.replace(/,/g, '.');
+    return amount;
+};
