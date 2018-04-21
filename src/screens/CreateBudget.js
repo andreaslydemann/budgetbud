@@ -23,8 +23,10 @@ class CreateBudget extends Component {
         submitLoading: false
     };
 
-    componentWillMount() {
-        this.props.mapExpensesToBudget();
+    async componentWillMount() {
+        this.setState({
+            tmpCategories: await this.props.mapExpensesToBudget()
+        })
     };
 
     componentWillReceiveProps(nextProps) {
@@ -51,13 +53,11 @@ class CreateBudget extends Component {
             const categoryDiff = oldAmount - newAmount;
             const newDisposable = this.state.tmpDisposable + categoryDiff;
             const newTotalGoalsAmount = this.state.tmpTotalGoalsAmount - categoryDiff;
-
             const newTmpCategories = setupNewCategoriesList(
                 this.state.tmpCategories,
                 name,
                 newAmount);
 
-            this.props.categoryChanged(name, newAmount);
             this.setState({
                 tmpDisposable: newDisposable,
                 tmpTotalGoalsAmount: newTotalGoalsAmount,
@@ -84,7 +84,7 @@ class CreateBudget extends Component {
         this.setState({
             submitLoading: false
         });
-        if(!this.props.budgetError && !this.props.categoriesError)
+        if (!this.props.budgetError && !this.props.categoriesError)
             this.props.navigation.navigate('MyBudget');
     };
 
