@@ -29,10 +29,7 @@ class ChangeForgottenCode extends Component {
     handleSubmit = () => {
         Keyboard.dismiss();
         this.props.changeForgottenCode(
-            this.props.code,
-            this.props.repeatedCode,
-            this.props.cprNumber,
-            this.props.activationCode, () => {
+            this.props, () => {
                 this.props.resetAuthState(() => {
                     this.props.navigation.pop(3);
                 });

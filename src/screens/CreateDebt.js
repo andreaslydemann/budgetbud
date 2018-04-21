@@ -12,14 +12,17 @@ import {
     expirationDateChanged,
     categoriesSelected,
     getCategories,
-    calculateDebtCategorySubtractions
+    calculateDebtCategorySubtractions,
+    resetDebtError
 } from "../actions";
 import {container} from "../style";
 
 class CreateDebt extends Component {
     componentWillReceiveProps(nextProps) {
-        if (nextProps.debtError)
+        if (nextProps.debtError) {
             showWarningToast(nextProps.debtError);
+            this.props.resetDebtError();
+        }
     }
 
     onContinuePress = () => {
@@ -103,7 +106,8 @@ const mapDispatchToProps = {
     categoriesSelected,
     getCategories,
     getDebts,
-    deleteDebt
+    deleteDebt,
+    resetDebtError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateDebt);

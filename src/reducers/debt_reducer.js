@@ -1,5 +1,7 @@
 import {
+    GET_INITIAL_STATE,
     RESET_DEBT_FORM,
+    RESET_DEBT_ERROR,
     DEBT_NAME_CHANGED,
     DEBT_AMOUNT_CHANGED,
     DEBT_EXPIRATION_DATE_CHANGED,
@@ -13,8 +15,14 @@ import {
     CREATE_DEBT_SUCCESS,
     EDIT_DEBT,
     EDIT_DEBT_SUCCESS,
-    DELETE_DEBT, CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS, CALCULATE_DEBT_CATEGORY_SUBTRACTIONS,
-    CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_FAIL, CATEGORIES_SELECTED, VALIDATE_DEBT_CATEGORIES_FAIL, GET_INITIAL_STATE
+    EDIT_DEBT_FAIL,
+    DELETE_DEBT,
+    DELETE_DEBT_FAIL,
+    CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS,
+    CALCULATE_DEBT_CATEGORY_SUBTRACTIONS,
+    CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_FAIL,
+    VALIDATE_DEBT_CATEGORIES_FAIL,
+    CREATE_DEBT_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -36,12 +44,14 @@ export default (state = INITIAL_STATE, action) => {
             return INITIAL_STATE;
         case RESET_DEBT_FORM:
             return {...INITIAL_STATE, debts: state.debts};
+        case RESET_DEBT_ERROR:
+            return {...state, debtError: ''};
         case DEBT_NAME_CHANGED:
-            return {...state, name: action.payload, debtError: ''};
+            return {...state, name: action.payload};
         case DEBT_AMOUNT_CHANGED:
-            return {...state, totalAmount: action.payload, debtError: ''};
+            return {...state, totalAmount: action.payload};
         case DEBT_EXPIRATION_DATE_CHANGED:
-            return {...state, expirationDate: action.payload, debtError: ''};
+            return {...state, expirationDate: action.payload};
         case VALIDATE_DEBT_NAME_FAIL:
             return {...state, debtError: 'Navn er ugyldigt.'};
         case VALIDATE_DEBT_AMOUNT_FAIL:
@@ -73,24 +83,28 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, debtLoading: true, debtError: ''};
         case CREATE_DEBT_SUCCESS:
             return {...state, debtLoading: false};
+        case CREATE_DEBT_FAIL:
+            return {...state, debtLoading: false, debtError: action.payload};
         case EDIT_DEBT:
             return {...state, debtLoading: true, debtError: ''};
         case EDIT_DEBT_SUCCESS:
             return {...state, debtLoading: false};
+        case EDIT_DEBT_FAIL:
+            return {...state, debtLoading: false, debtError: action.payload};
         case DELETE_DEBT:
             return {
                 ...state, debts: state.debts.filter(
                     (item) => item.id !== state.selectedDebt
                 )
             };
+        case DELETE_DEBT_FAIL:
+            return {...state, debtError: action.payload};
         case CALCULATE_DEBT_CATEGORY_SUBTRACTIONS:
             return {...state, debtLoading: true};
         case CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_SUCCESS:
             return {...state, debtLoading: false, categorySubtractions: action.payload};
         case CALCULATE_DEBT_CATEGORY_SUBTRACTIONS_FAIL:
             return {...state, debtLoading: false, debtError: action.payload};
-        case CATEGORIES_SELECTED:
-            return {...state, debtError: ''};
         default:
             return state;
     }

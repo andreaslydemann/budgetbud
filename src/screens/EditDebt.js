@@ -13,7 +13,8 @@ import {
     expirationDateChanged,
     getCategoriesOfDebt,
     categoriesSelected,
-    calculateDebtCategorySubtractions
+    calculateDebtCategorySubtractions,
+    resetDebtError
 } from "../actions";
 import {container} from "../style";
 
@@ -23,8 +24,10 @@ class EditDebt extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.debtError)
+        if (nextProps.debtError) {
             showWarningToast(nextProps.debtError);
+            this.props.resetDebtError();
+        }
     }
 
     onContinuePress = () => {
@@ -123,7 +126,8 @@ const mapDispatchToProps = {
     categoriesSelected,
     getCategoriesOfDebt,
     getDebts,
-    deleteDebt
+    deleteDebt,
+    resetDebtError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditDebt);

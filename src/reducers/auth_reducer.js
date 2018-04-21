@@ -1,7 +1,7 @@
 import {
+    GET_INITIAL_STATE,
     GET_INITIAL_AUTH_STATE,
     RESET_AUTH_ERROR,
-    RESET_ACTIVATION_CODE,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
@@ -15,7 +15,7 @@ import {
     SIGN_IN,
     SIGN_IN_FAIL,
     DELETE_USER,
-    GET_INITIAL_STATE,
+    DELETE_USER_FAIL,
     VALIDATE_CODE_MATCH_FAIL,
     GET_PHONE_NUMBER,
     GET_PHONE_NUMBER_SUCCESS,
@@ -55,8 +55,6 @@ export default (state = INITIAL_STATE, action) => {
             return INITIAL_STATE;
         case RESET_AUTH_ERROR:
             return {...state, authError: ''};
-        case RESET_ACTIVATION_CODE:
-            return {...state, activationCode: '', changeLoading: '', authError: ''};
         case CPR_NUMBER_CHANGED:
             return {...state, cprNumber: action.payload, authError: ''};
         case PHONE_NUMBER_CHANGED:
@@ -87,6 +85,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...INITIAL_STATE, authError: action.payload};
         case DELETE_USER:
             return {...state, authLoading: true};
+        case DELETE_USER_FAIL:
+            return {...state, authLoading: false, authError: action.payload};
         case REQUEST_ACTIVATION_CODE:
             return {...state, authLoading: true, authError: ''};
         case REQUEST_ACTIVATION_CODE_SUCCESS:

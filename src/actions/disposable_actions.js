@@ -4,6 +4,7 @@ import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
 import {
     RESET_DISPOSABLE_FORM,
+    RESET_DISPOSABLE_ERROR,
     DISPOSABLE_AMOUNT_CHANGED,
     CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES,
     CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
@@ -11,6 +12,7 @@ import {
     SET_TMP_DISPOSABLE,
     CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS,
     EDIT_DISPOSABLE_SUCCESS,
+    EDIT_DISPOSABLE_FAIL,
 } from './types';
 
 export const resetDisposableForm = (callback) => async dispatch => {
@@ -19,6 +21,12 @@ export const resetDisposableForm = (callback) => async dispatch => {
     });
 
     callback();
+};
+
+export const resetDisposableError = () => {
+    return {
+        type: RESET_DISPOSABLE_ERROR
+    };
 };
 
 export const disposableChanged = text => {
@@ -58,7 +66,7 @@ export const editDisposable = ({tmpDisposable, categoryDisposableItems, budgetID
 
     } catch (err) {
         let {data} = err.response;
-        console.log(data.error);
+        dispatch({type: EDIT_DISPOSABLE_FAIL, payload: data.error});
     }
 };
 

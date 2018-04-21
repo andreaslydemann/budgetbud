@@ -13,10 +13,18 @@ import {
 import {AppHeader, ConfirmDialog} from "../components/";
 import {connect} from "react-redux";
 import I18n from "../strings/i18n";
-import {deleteBudget} from "../actions";
+import {deleteBudget, resetBudgetError} from "../actions";
 import {container, color} from "../style";
+import {showWarningToast} from "../helpers";
 
 class Settings extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.budgetError) {
+            showWarningToast(nextProps.budgetError);
+            this.props.resetBudgetError();
+        }
+    }
+
     deleteBudget = () => {
         const {budgetID} = this.props;
         this.props.deleteBudget({budgetID}, () => {
@@ -96,11 +104,11 @@ class Settings extends Component {
 }
 
 const mapStateToProps = ({budget}) => {
-    return {budgetID} = budget;
+    return {budgetID, budgetError} = budget;
 };
 
 const mapDispatchToProps = {
-    deleteBudget
+    deleteBudget, resetBudgetError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

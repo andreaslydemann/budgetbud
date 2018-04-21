@@ -3,9 +3,9 @@ import firebase from 'firebase';
 import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
 import {
+    GET_INITIAL_STATE,
     GET_INITIAL_AUTH_STATE,
     RESET_AUTH_ERROR,
-    RESET_ACTIVATION_CODE,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
@@ -18,7 +18,8 @@ import {
     SIGN_IN_FAIL,
     SIGN_UP,
     SIGN_UP_FAIL,
-    DELETE_USER, GET_INITIAL_STATE,
+    DELETE_USER,
+    DELETE_USER_FAIL,
     CHANGE_CODE,
     CHANGE_CODE_SUCCESS,
     CHANGE_CODE_FAIL,
@@ -49,11 +50,6 @@ export const resetAuthError = () => {
     return {
         type: RESET_AUTH_ERROR
     };
-};
-
-export const resetActivationCode = callback => async dispatch => {
-    dispatch({type: RESET_ACTIVATION_CODE});
-    callback();
 };
 
 export const cprNumberChanged = text => {
@@ -110,12 +106,8 @@ export const signUp = ({cprNumber, phoneNumber}, callback) => async dispatch => 
         callback();
     } catch (err) {
         let {data} = err.response;
-        signUpFail(dispatch, data.error);
+        dispatch({type: SIGN_UP_FAIL, payload: data.error});
     }
-};
-
-const signUpFail = (dispatch, error) => {
-    dispatch({type: SIGN_UP_FAIL, payload: error});
 };
 
 export const signIn = ({cprNumber, code}) => async dispatch => {
@@ -135,7 +127,6 @@ export const signIn = ({cprNumber, code}) => async dispatch => {
         });
 
         await firebase.auth().signInWithCustomToken(data.token);
-        dispatch({type: GET_INITIAL_AUTH_STATE});
     } catch (err) {
         let {data} = err.response;
         dispatch({type: SIGN_IN_FAIL, payload: data.error});
@@ -143,14 +134,8 @@ export const signIn = ({cprNumber, code}) => async dispatch => {
 };
 
 export const signOut = () => async dispatch => {
-    try {
-        await firebase.auth().signOut();
-
-        dispatch({type: GET_INITIAL_STATE});
-    } catch (err) {
-        let {data} = err.response;
-        console.log(data.error);
-    }
+    await firebase.auth().signOut();
+    dispatch({type: GET_INITIAL_STATE});
 };
 
 export const deleteUser = (callback) => async dispatch => {
@@ -167,7 +152,7 @@ export const deleteUser = (callback) => async dispatch => {
         callback();
     } catch (err) {
         let {data} = err.response;
-        console.log(data.error);
+        dispatch({type: DELETE_USER_FAIL, payload: data.error});
     }
 };
 
@@ -279,7 +264,7 @@ export const changeCode = (code, repeatedCode, callback) => async dispatch => {
     }
 };
 
-export const changeForgottenCode = (code, repeatedCode, cprNumber, activationCode, callback) => async dispatch => {
+export const changeForgottenCode = ({code, repeatedCode, cprNumber, activationCode}, callback) => async dispatch => {
     if (code.length !== 4 || repeatedCode.length !== 4) {
         dispatch({type: VALIDATE_CODE_FAIL});
         return;
