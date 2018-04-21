@@ -19,6 +19,7 @@ class Intro extends Component {
     }
 
     render() {
+        console.log(this.props.linkedAccounts)
         return (
             <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
                 <ConfirmDialog

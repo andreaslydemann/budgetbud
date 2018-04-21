@@ -37,6 +37,7 @@ export class DebtForm extends Component {
     };
 
     onAmountChange = (amount) => {
+        amount = amount.replace(/,/g, '.');
         if (checkInputAmount(amount))
             this.props.amountChanged(amount);
     };

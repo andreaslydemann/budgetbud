@@ -31,7 +31,7 @@ export default {
     confirmDialogCancelButton: 'Afbryd',
     confirmDialogOkButton: 'Ok',
     createBudgetHeader: 'Opret budget',
-    createBudgetButton: 'Opret budget',
+    createBudgetButton: 'Gem',
     createDebtHeader: 'Opret gæld',
     currency: 'kr',
     datePickerCancelButton: 'Afbryd',

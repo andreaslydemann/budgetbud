@@ -28,6 +28,7 @@ class EditBudget extends Component {
     };
 
     onIncomeChange = (newIncome) => {
+        newIncome = newIncome.replace(/,/g, '.');
         if (checkInputAmount(newIncome)) {
             const incomeDiff = newIncome - this.state.tmpIncome;
             const newDisposable = this.state.tmpDisposable + incomeDiff;
@@ -40,6 +41,7 @@ class EditBudget extends Component {
     };
 
     onCategoryChange = (name, oldAmount, newAmount) => {
+        newAmount = newAmount.replace(/,/g, '.');
         if (checkInputAmount(newAmount)) {
             const categoryDiff = oldAmount - newAmount;
             const newDisposable = this.state.tmpDisposable + categoryDiff;

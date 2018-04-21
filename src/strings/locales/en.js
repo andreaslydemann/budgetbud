@@ -31,7 +31,7 @@ export default {
     confirmDialogCancelButton: 'Cancel',
     confirmDialogOkButton: 'Ok',
     createBudgetHeader: 'Create budget',
-    createBudgetButton: 'Create budget',
+    createBudgetButton: 'Save',
     createDebtHeader: 'Create Debt',
     currency: 'kr',
     datePickerCancelButton: 'Cancel',

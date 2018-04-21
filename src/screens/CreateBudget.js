@@ -14,8 +14,15 @@ import {
 } from '../actions';
 import {container} from "../style";
 import {showWarningToast} from "../helpers/toasts";
+import {checkInputAmount} from "../helpers/validators";
 
 class CreateBudget extends Component {
+    state = {
+        tmpIncome: this.props.income,
+        tmpDisposable: this.props.disposable,
+        tmpTotalGoalsAmount: this.props.totalGoalsAmount
+    };
+
     componentWillMount() {
         this.props.mapExpensesToBudget();
     };
@@ -26,11 +33,31 @@ class CreateBudget extends Component {
     }
 
     onIncomeChange = (newIncome) => {
-        this.props.incomeChanged(newIncome, this.props.income);
+        newIncome = newIncome.replace(/,/g, '.');
+        if (checkInputAmount(newIncome)) {
+            const incomeDiff = newIncome - this.state.tmpIncome;
+            const newDisposable = this.state.tmpDisposable + incomeDiff;
+
+            this.setState({
+                tmpIncome: newIncome,
+                tmpDisposable: newDisposable
+            })
+        }
     };
 
-    onCategoryChange = (newAmount, name, oldAmount) => {
-        this.props.categoryChanged(newAmount, name, oldAmount);
+    onCategoryChange = (name, oldAmount, newAmount) => {
+        newAmount = newAmount.replace(/,/g, '.');
+        if (checkInputAmount(newAmount)) {
+            const categoryDiff = oldAmount - newAmount;
+            const newDisposable = this.state.tmpDisposable + categoryDiff;
+            const newTotalGoalsAmount = this.state.tmpTotalGoalsAmount - categoryDiff;
+
+            this.props.categoryChanged(name, newAmount);
+            this.setState({
+                tmpDisposable: newDisposable,
+                tmpTotalGoalsAmount: newTotalGoalsAmount
+            })
+        }
     };
 
     handleSubmit = async () => {
@@ -56,8 +83,6 @@ class CreateBudget extends Component {
         return true;
     };
 
-
-
     render() {
         return (
             <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
@@ -71,9 +96,9 @@ class CreateBudget extends Component {
                             onCategoryChanged={this.onCategoryChange}
                             checkInput={this.checkInput}
                             budgetID={this.props.budgetID}
-                            income={this.props.income}
-                            totalGoalsAmount={this.props.totalGoalsAmount}
-                            disposable={this.props.disposable}
+                            tmpIncome={this.state.tmpIncome}
+                            tmpTotalGoalsAmount={this.state.tmpTotalGoalsAmount}
+                            tmpDisposable={this.state.tmpDisposable}
                             tmpCategories={this.props.tmpCategories}
                             debts={this.props.debts}
                             budgetLoading={this.props.budgetLoading}
@@ -97,7 +122,12 @@ const mapStateToProps = (state) => {
     const disposable = state.disposable.disposable;
 
     const linkedAccounts = state.account.linkedAccounts;
-    const {tmpCategories, categoriesLoading, categoriesError, totalGoalsAmount} = state.category;
+    const {
+        tmpCategories,
+        categoriesLoading,
+        categoriesError,
+        totalGoalsAmount
+    } = state.category;
 
     return {
         income,
