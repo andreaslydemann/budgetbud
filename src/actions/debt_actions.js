@@ -105,7 +105,7 @@ export const createDebt =
             dispatch({type: CREATE_DEBT_SUCCESS});
         } catch (err) {
             let {data} = err.response;
-            console.log(data.debtError);
+            console.log(data.error);
         }
     };
 
@@ -141,7 +141,7 @@ export const editDebt =
                 dispatch({type: EDIT_DEBT_SUCCESS});
             } catch (err) {
                 let {data} = err.response;
-                console.log(data.debtError);
+                console.log(data.error);
             }
         };
 
@@ -156,7 +156,7 @@ export const deleteDebt = (debtID) => async dispatch => {
         });
     } catch (err) {
         let {data} = err.response;
-        console.log(data.debtError);
+        console.log(data.error);
     }
 };
 
