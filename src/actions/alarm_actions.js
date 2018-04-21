@@ -17,7 +17,7 @@ import {
 import axios from "axios/index";
 import firebase from "firebase/index";
 import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
-import registerForPushNotificationsAsync from "../helpers/notifications";
+import {registerForPushNotificationsAsync} from "../helpers";
 
 export const resetAlarmsError = () => {
     return {

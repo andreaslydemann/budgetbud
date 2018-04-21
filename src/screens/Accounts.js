@@ -29,7 +29,7 @@ import {
     list,
     container, color
 } from "../style";
-import {showWarningToast} from "../helpers/toasts";
+import {showWarningToast} from "../helpers";
 
 class Accounts extends PureComponent {
     componentWillMount() {

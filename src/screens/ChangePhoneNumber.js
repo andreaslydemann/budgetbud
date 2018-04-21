@@ -18,7 +18,7 @@ import {
     changePhoneNumber,
     resetAuthError
 } from "../actions";
-import {renderInputIcon} from "../helpers/validators";
+import {renderInputIcon} from "../helpers";
 import {
     button,
     text,
@@ -26,7 +26,7 @@ import {
     color,
     input
 } from "../style";
-import {showWarningToast} from "../helpers/toasts";
+import {showWarningToast} from "../helpers";
 
 class ChangePhoneNumber extends PureComponent {
     componentWillMount() {

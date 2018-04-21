@@ -7,7 +7,10 @@ import getTheme from "../theme/components";
 import variables from "../theme/variables/commonColor";
 import {connect} from 'react-redux';
 import {getBudgetID} from "../actions/";
-import * as conn from '../helpers/connectivity';
+import {
+    removeConnectionChangeEventListener,
+    addConnectionChangeEventListener
+} from '../helpers';
 import App from "../App";
 
 class Setup extends Component {
@@ -18,11 +21,11 @@ class Setup extends Component {
     }
 
     componentWillUnmount() {
-        conn.removeConnectionChangeEventListener(this.handleConnectivityChange);
+        removeConnectionChangeEventListener(this.handleConnectivityChange);
     }
 
     componentDidMount() {
-        conn.addConnectionChangeEventListener(this.handleConnectivityChange);
+        addConnectionChangeEventListener(this.handleConnectivityChange);
         firebase.initializeApp(firebaseConfig);
 
         firebase.auth().onAuthStateChanged(user => {
@@ -39,7 +42,7 @@ class Setup extends Component {
     handleConnectivityChange = (connectionInfo) => {
         if (connectionInfo.type === 'none') {
             this.setState({...this.state, isReady: true, isOffline: true});
-            conn.removeConnectionChangeEventListener(this.handleConnectivityChange);
+            removeConnectionChangeEventListener(this.handleConnectivityChange);
         }
     };
 

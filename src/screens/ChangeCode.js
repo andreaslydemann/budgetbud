@@ -21,7 +21,7 @@ import {
     container,
     color
 } from "../style";
-import {showWarningToast} from "../helpers/toasts";
+import {showWarningToast} from "../helpers";
 import {ChangeCodeForm} from "../components";
 
 class ChangeCode extends Component {

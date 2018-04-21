@@ -13,7 +13,7 @@ import {
     input,
     text
 } from "../style";
-import {renderInputIcon} from "../helpers/validators";
+import {renderInputIcon} from "../helpers";
 
 export class ChangeCodeForm extends Component {
     render() {
