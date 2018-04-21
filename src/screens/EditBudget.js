@@ -9,12 +9,12 @@ import {
     incomeChanged,
     categoryChanged,
     setupEditBudget,
-    editCategories
+    editCategories,
+    getCategories,
+    getBudget
 } from "../actions";
 import {container} from "../style";
-import {getCategories} from "../actions/category_actions";
-import {getBudget} from "../actions/budget_actions";
-import {checkInputAmount} from "../helpers/validators";
+import {checkInputAmount} from "../helpers";
 
 class EditBudget extends Component {
     state = {

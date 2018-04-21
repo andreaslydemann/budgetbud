@@ -4,7 +4,7 @@ import {Notifications, Permissions} from "expo";
 import {BUDGETBUD_FUNCTIONS_URL} from "../config/firebase_config";
 
 // From expo-docs: https://docs.expo.io/versions/v25.0.0/guides/push-notifications.html#content
-export default registerForPushNotificationsAsync = async () => {
+export const registerForPushNotificationsAsync = async () => {
     const {status: existingStatus} = await Permissions.getAsync(
         Permissions.NOTIFICATIONS
     );

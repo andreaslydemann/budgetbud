@@ -10,7 +10,7 @@ import {
     Spinner
 } from "native-base";
 import {button, color, container, input, text} from "../style";
-import {renderInputIcon} from "../helpers/validators";
+import {renderInputIcon} from "../helpers";
 
 export class ChangeForgottenCodeForm extends Component {
     render() {

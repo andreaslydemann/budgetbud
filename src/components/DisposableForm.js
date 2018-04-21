@@ -16,10 +16,8 @@ import {
     CheckBox,
     Body,
     Right,
-    Icon,
     Spinner
 } from 'native-base';
-import DatePicker from 'react-native-datepicker';
 import {Separator} from '../components/';
 import {
     button,

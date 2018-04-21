@@ -3,7 +3,7 @@ import {Container} from 'native-base';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import I18n from "../strings/i18n";
-import {showWarningToast} from '../helpers/toasts';
+import {showWarningToast} from '../helpers';
 import {AppHeader, DebtForm} from "../components/";
 import {
     deleteDebt,

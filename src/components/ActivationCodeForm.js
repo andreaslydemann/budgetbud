@@ -10,7 +10,7 @@ import {
     View
 } from 'native-base';
 import I18n from "../strings/i18n";
-import {renderInputIcon} from "../helpers/validators";
+import {renderInputIcon} from "../helpers";
 
 export class ActivationCodeForm extends Component {
     render() {
