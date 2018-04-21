@@ -34,7 +34,8 @@ const INITIAL_STATE = {
     subtractionsLoading: false,
     categoriesError: '',
     tmpCategories: [],
-    totalGoalsAmount: 0
+    totalGoalsAmount: 0,
+    categoriesInitialized: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -50,7 +51,8 @@ export default (state = INITIAL_STATE, action) => {
         case MAP_EXPENSES:
             return {...state, categoriesLoading: true};
         case MAP_EXPENSES_SUCCESS:
-            return {...state, categoriesLoading: false,
+            return {
+                ...state, categoriesLoading: false,
                 tmpCategories: action.payload.categories,
                 totalGoalsAmount: action.payload.totalGoalsAmount
             };
@@ -75,7 +77,12 @@ export default (state = INITIAL_STATE, action) => {
             list = list.setIn([indexOfListToUpdate, 'amount'], action.payload.newAmount);
             return {...state, tmpCategories: list.toJS()};
         case GET_CATEGORIES_SUCCESS:
-            return {...state, categoriesLoading: false, categories: action.payload};
+            return {
+                ...state,
+                categoriesLoading: false,
+                categories: action.payload,
+                categoriesInitialized: true
+            };
         case GET_CATEGORIES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case GET_BUDGET_SUCCESS:

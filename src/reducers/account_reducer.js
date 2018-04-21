@@ -18,7 +18,8 @@ const INITIAL_STATE = {
     linkedAccounts: [],
     accountsLoading: false,
     linkLoading: false,
-    accountsError: ''
+    accountsError: '',
+    accountsInitialized: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -33,7 +34,8 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state, accountsLoading: false,
                 accounts: action.payload.eBankingAccounts,
-                linkedAccounts: action.payload.linkedAccounts
+                linkedAccounts: action.payload.linkedAccounts,
+                accountsInitialized: true
             };
         case GET_ACCOUNTS_FAIL:
             return {...state, accountsLoading: false, accountsError: action.payload};

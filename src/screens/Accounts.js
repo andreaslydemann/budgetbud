@@ -33,7 +33,8 @@ import {showWarningToast} from "../helpers/toasts";
 
 class Accounts extends PureComponent {
     componentWillMount() {
-        this.props.getAccounts();
+        if (!this.props.accountsInitialized)
+            this.props.getAccounts();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -130,7 +131,8 @@ const mapStateToProps = ({account}) => {
         linkedAccounts,
         accountsLoading,
         linkLoading,
-        accountsError
+        accountsError,
+        accountsInitialized
     } = account;
 
     const accountItems = _.map(accounts, (item, key) => {
@@ -142,7 +144,8 @@ const mapStateToProps = ({account}) => {
         linkedAccounts,
         accountsLoading,
         linkLoading,
-        accountsError
+        accountsError,
+        accountsInitialized
     };
 };
 

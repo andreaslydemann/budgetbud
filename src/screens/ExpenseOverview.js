@@ -20,8 +20,11 @@ class ExpenseOverview extends Component {
     async componentWillMount() {
         const promises = [];
 
-        promises.push(this.props.getCategoryAlarms(this.props.budgetID));
-        promises.push(this.props.getExpensesOfMonth());
+        if (!this.props.categoryAlarmsInitialized)
+            promises.push(this.props.getCategoryAlarms(this.props.budgetID));
+
+        if (!this.props.expensesInitialized)
+            promises.push(this.props.getExpensesOfMonth());
 
         await Promise.all(promises);
     }
@@ -183,12 +186,13 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
+    console.log("hello");
     const {budgetID} = state.budget;
     const {debts} = state.debt;
-    const {expenses, totalExpenses, expensesLoading} = state.expense;
+    const {expenses, totalExpenses, expensesLoading, expensesInitialized} = state.expense;
     const disposable = state.disposable.disposable;
     const {categories} = state.category;
-    const {categoryAlarms, toggleLoading} = state.alarm;
+    const {categoryAlarms, toggleLoading, categoryAlarmsInitialized} = state.alarm;
 
     let totalDebtPerMonth = 0;
     debts.forEach(d => totalDebtPerMonth += d.debtData.amountPerMonth);
@@ -209,6 +213,8 @@ const mapStateToProps = (state) => {
         }
     });
 
+    console.log("goodbye");
+
     return {
         budgetID,
         categoryAlarms,
@@ -218,7 +224,9 @@ const mapStateToProps = (state) => {
         expenses,
         totalExpenses,
         expensesLoading,
-        categoryItems
+        categoryItems,
+        expensesInitialized,
+        categoryAlarmsInitialized
     }
 };
 

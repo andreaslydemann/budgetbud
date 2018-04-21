@@ -1,14 +1,16 @@
 import {
+    GET_INITIAL_STATE,
     GET_EXPENSES_OF_MONTH,
     GET_EXPENSES_OF_MONTH_SUCCESS,
-    GET_EXPENSES_OF_MONTH_FAIL, GET_INITIAL_STATE
+    GET_EXPENSES_OF_MONTH_FAIL
 } from "../actions/types";
 
 const INITIAL_STATE = {
     expenses: [],
     totalExpenses: 0,
     expensesLoading: false,
-    expensesFail: ''
+    expensesFail: '',
+    expensesInitialized: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -22,7 +24,8 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 expenses: action.payload.expenses,
                 totalExpenses: action.payload.totalExpenses,
-                expensesLoading: false
+                expensesLoading: false,
+                expensesInitialized: true
             };
         case GET_EXPENSES_OF_MONTH_FAIL:
             return {...state, expensesLoading: false, expensesFail: action.payload};

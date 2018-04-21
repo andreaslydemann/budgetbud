@@ -19,7 +19,8 @@ const INITIAL_STATE = {
     income: 0,
     budgetError: '',
     budgetIDError: '',
-    budgetLoading: false
+    budgetLoading: false,
+    budgetInitialized: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -49,7 +50,8 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 budgetLoading: false,
-                income: action.payload.income
+                income: action.payload.income,
+                budgetInitialized: true
             };
         case GET_BUDGET_FAIL:
             return {...state, budgetError: action.payload};

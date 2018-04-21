@@ -43,7 +43,8 @@ const INITIAL_STATE = {
     activationCode: '',
     authError: '',
     authLoading: false,
-    changeLoading: false
+    changeLoading: false,
+    phoneNumberInitialized: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -101,7 +102,12 @@ export default (state = INITIAL_STATE, action) => {
         case GET_PHONE_NUMBER:
             return {...state, authLoading: true};
         case GET_PHONE_NUMBER_SUCCESS:
-            return {...state, authLoading: false, phoneNumber: action.payload};
+            return {
+                ...state,
+                authLoading: false,
+                phoneNumber: action.payload,
+                phoneNumberInitialized: true
+            };
         case GET_PHONE_NUMBER_FAIL:
             return {...state, authLoading: false, authError: action.payload};
         case CHANGE_PHONE_NUMBER:

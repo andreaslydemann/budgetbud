@@ -26,7 +26,8 @@ const INITIAL_STATE = {
     selectedDebt: '',
     categorySubtractions: [],
     debtLoading: false,
-    debtError: ''
+    debtError: '',
+    debtsInitialized: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -60,7 +61,12 @@ export default (state = INITIAL_STATE, action) => {
         case GET_DEBTS:
             return {...state, debtLoading: true, debtError: ''};
         case GET_DEBTS_SUCCESS:
-            return {...state, debtLoading: false, debts: action.payload};
+            return {
+                ...state,
+                debtLoading: false,
+                debts: action.payload,
+                debtsInitialized: true
+            };
         case GET_DEBTS_FAIL:
             return {...state, debtLoading: false, debtError: action.payload};
         case CREATE_DEBT:

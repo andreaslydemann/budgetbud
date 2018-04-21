@@ -33,7 +33,8 @@ import {showWarningToast} from "../helpers/toasts";
 
 class Alarms extends PureComponent {
     componentWillMount() {
-        this.props.getBudgetAlarms(this.props.budgetID);
+        if (!this.props.budgetAlarmsInitialized)
+            this.props.getBudgetAlarms(this.props.budgetID);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -135,7 +136,8 @@ const mapStateToProps = (state) => {
         toggleLoading,
         budgetExceeded,
         weeklyStatus,
-        alarmsError
+        alarmsError,
+        budgetAlarmsInitialized
     } = state.alarm;
 
     return {
@@ -144,7 +146,8 @@ const mapStateToProps = (state) => {
         toggleLoading,
         budgetExceeded,
         weeklyStatus,
-        alarmsError
+        alarmsError,
+        budgetAlarmsInitialized
     };
 };
 

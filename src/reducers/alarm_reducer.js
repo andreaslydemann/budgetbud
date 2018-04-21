@@ -24,6 +24,8 @@ const INITIAL_STATE = {
     alarmsLoading: false,
     toggleLoading: false,
     alarmsError: '',
+    budgetAlarmsInitialized: false,
+    categoryAlarmsInitialized: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -43,7 +45,8 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 budgetExceeded: action.payload.budgetExceeded,
                 weeklyStatus: action.payload.weeklyStatus,
-                alarmsLoading: false
+                alarmsLoading: false,
+                budgetAlarmsInitialized: true
             };
         case GET_BUDGET_ALARMS_FAIL:
             return {...state, alarmsLoading: false, alarmsError: action.payload};
@@ -53,7 +56,8 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 categoryAlarms: action.payload,
-                alarmsLoading: false
+                alarmsLoading: false,
+                categoryAlarmsInitialized: true
             };
         case GET_CATEGORY_ALARMS_FAIL:
             return {...state, alarmsLoading: false};

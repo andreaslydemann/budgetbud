@@ -20,13 +20,19 @@ import {
 } from "../style/";
 
 class MyBudget extends Component {
-    componentWillMount() {
-        if (!this.props.budgetID)
-            this.props.navigation.navigate("CreateBudget");
+    async componentWillMount() {
+        const promises = [];
 
-        this.props.getBudget(this.props.budgetID);
-        this.props.getCategories(this.props.budgetID);
-        this.props.getDebts(this.props.budgetID);
+        if (!this.props.budgetInitialized)
+            promises.push(this.props.getBudget(this.props.budgetID));
+
+        if (!this.props.categoriesInitialized)
+            promises.push(this.props.getCategories(this.props.budgetID));
+
+        if (!this.props.debtsInitialized)
+            promises.push(this.props.getDebts(this.props.budgetID));
+
+        await Promise.all(promises);
     }
 
     navigateUser = (destination) => {
@@ -225,13 +231,24 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const {categories, categoriesLoading, totalGoalsAmount} = state.category;
-    const debts = state.debt.debts;
+    const {
+        categories,
+        categoriesLoading,
+        totalGoalsAmount,
+        categoriesInitialized
+    } = state.category;
+
+    const {
+        debts,
+        debtsInitialized
+    } = state.debt;
+
     const {
         budgetLoading,
         income,
         destination,
-        budgetID
+        budgetID,
+        budgetInitialized
     } = state.budget;
 
     const disposable = state.disposable.disposable;
@@ -245,7 +262,10 @@ const mapStateToProps = (state) => {
         disposable,
         destination,
         budgetID,
-        categoriesLoading
+        categoriesLoading,
+        budgetInitialized,
+        categoriesInitialized,
+        debtsInitialized
     }
 };
 

@@ -30,7 +30,8 @@ import {showWarningToast} from "../helpers/toasts";
 
 class ChangePhoneNumber extends PureComponent {
     componentWillMount() {
-        this.props.getPhoneNumber();
+        if (!this.props.phoneNumberInitialized)
+            this.props.getPhoneNumber();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -115,7 +116,8 @@ const mapStateToProps = ({auth}) => {
         phoneNumber,
         authError,
         authLoading,
-        changeLoading
+        changeLoading,
+        phoneNumberInitialized
     } = auth;
 };
 
