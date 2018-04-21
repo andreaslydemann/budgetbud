@@ -24,6 +24,7 @@ import {
     VALIDATE_DEBT_CATEGORIES_FAIL,
     CREATE_DEBT_FAIL
 } from '../actions/types';
+import I18n from "../strings/i18n";
 
 const INITIAL_STATE = {
     name: '',
@@ -53,11 +54,11 @@ export default (state = INITIAL_STATE, action) => {
         case DEBT_EXPIRATION_DATE_CHANGED:
             return {...state, expirationDate: action.payload};
         case VALIDATE_DEBT_NAME_FAIL:
-            return {...state, debtError: 'Navn er ugyldigt.'};
+            return {...state, debtError: I18n.t('debtNameError')};
         case VALIDATE_DEBT_AMOUNT_FAIL:
-            return {...state, debtError: 'Beløb er ugyldigt.'};
+            return {...state, debtError: I18n.t('debtAmountError')};
         case VALIDATE_DEBT_CATEGORIES_FAIL:
-            return {...state, debtError: 'Ingen kategorier valgt.'};
+            return {...state, debtError: I18n.t('debtCategoriesError')};
         case DEBT_SELECTED:
             return {
                 ...state,

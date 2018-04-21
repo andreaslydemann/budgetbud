@@ -34,6 +34,7 @@ import {
     VERIFY_ACTIVATION_CODE_SUCCESS,
     VERIFY_ACTIVATION_CODE_FAIL
 } from '../actions/types';
+import I18n from "../strings/i18n";
 
 const INITIAL_STATE = {
     cprNumber: '',
@@ -66,15 +67,15 @@ export default (state = INITIAL_STATE, action) => {
         case ACTIVATION_CODE_CHANGED:
             return {...state, activationCode: action.payload, authError: ''};
         case VALIDATE_CPR_NUMBER_FAIL:
-            return {...state, authError: 'CPR-nummer skal være 10 cifre.'};
+            return {...state, authError: I18n.t('signInCprNumberError')};
         case VALIDATE_PHONE_NUMBER_FAIL:
-            return {...state, authError: 'Telefonnummer skal være 8 cifre.'};
+            return {...state, authError: I18n.t('signInPhoneNumberError')};
         case VALIDATE_CODE_FAIL:
-            return {...state, authError: 'Pinkode skal være 4 cifre.'};
+            return {...state, authError: I18n.t('signInCodeError')};
         case VALIDATE_ACTIVATION_CODE_FAIL:
-            return {...state, authError: 'Aktiveringskode skal være 4 cifre.'};
+            return {...state, authError: I18n.t('signInActivationCodeError')};
         case VALIDATE_CODE_MATCH_FAIL:
-            return {...state, authError: 'De indtastede pinkoder er ikke ens.'};
+            return {...state, authError: I18n.t('signInCodeMatchError')};
         case SIGN_UP:
             return {...state, authLoading: true, authError: ''};
         case SIGN_UP_FAIL:
