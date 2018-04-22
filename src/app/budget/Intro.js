@@ -9,7 +9,7 @@ import {
 import {AppHeader, ConfirmDialog} from "../../components";
 import {Image} from "react-native";
 import {connect} from "react-redux";
-import {color, container} from "../../style";
+import {color, container, text, button} from "../../style";
 import I18n from "../../strings/i18n";
 import {getLinkedAccounts} from "../../redux/actions";
 
@@ -20,7 +20,7 @@ class Intro extends Component {
 
     render() {
         return (
-            <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
+            <Container style={[container.signedInContainer]}>
                 <ConfirmDialog
                     title={I18n.t('introConfirmDialogHeader')}
                     text={I18n.t('introConfirmDialogBody')}
@@ -37,7 +37,7 @@ class Intro extends Component {
                 <AppHeader headerText={I18n.t('introHeader')}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}
                 />
-                <Container style={{justifyContent: 'center'}}>
+                <Container style={container.justifyCenter}>
                     {this.props.accountsLoading ? (
                         <Spinner style={{
                             alignItems: 'center',
@@ -46,7 +46,7 @@ class Intro extends Component {
                         <Container style={container.defaultFormStyle}>
                             <Container style={{flex: 1,}}>
                                 <Container style={{flex: 0.15, justifyContent: 'flex-end'}}>
-                                    <Text style={[styles.headerTextStyle, color.text]}>
+                                    <Text style={[text.headerText, color.text]}>
                                         {I18n.t('introCreateBudgetHeader')}
                                     </Text>
                                 </Container>
@@ -60,7 +60,7 @@ class Intro extends Component {
                                 </Container>
 
                                 <Container style={{flex: 0.15, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
-                                    <Text style={[styles.mainTextStyle, color.text]}>
+                                    <Text style={[text.bodyText, container.bodyContainer, color.text]}>
                                         {I18n.t('introCreateBudgetBody')}
                                     </Text>
                                 </Container>
@@ -69,7 +69,7 @@ class Intro extends Component {
                                     onPress={() => this.props.linkedAccounts.length === 0 ?
                                         (this.confirmDialog.showDialog()) :
                                         (this.props.navigation.navigate("CreateBudget"))}
-                                    style={[styles.buttonStyle]}
+                                    style={[button.defaultButton, color.button, {width: '100%'}]}
                             >
                                 {this.props.budgetLoading ? (
                                     <Spinner color='#D0D0D0'/>) : (
@@ -84,35 +84,6 @@ class Intro extends Component {
         );
     }
 }
-
-const styles = {
-    logoContainer: {
-        flex: 4,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    headerTextStyle: {
-        fontWeight: 'bold',
-        fontSize: 26,
-        alignSelf: 'center',
-        color: '#002940'
-    },
-    mainTextStyle: {
-        fontWeight: 'bold',
-        fontSize: 17,
-        justifyContent: 'center',
-        alignSelf: 'center',
-        width: 310
-    },
-    buttonStyle: {
-        width: '100%',
-        height: 40,
-        backgroundColor: '#1c313a',
-        marginTop: 20,
-        marginBottom: 20,
-        justifyContent: 'center'
-    },
-};
 
 const mapStateToProps = (state) => {
     const {budgetID} = state.budget;

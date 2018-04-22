@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, View, Platform, Dimensions} from "react-native";
+import {Image, View} from "react-native";
 import {connect} from "react-redux";
 import {
     Content,
@@ -11,11 +11,8 @@ import {
     Left
 } from "native-base";
 import I18n from "../../strings/i18n";
-import {color} from '../../style';
+import {color, container, text} from '../../style';
 import {screenChanged, signOut} from "../../redux/actions";
-
-const deviceHeight = Dimensions.get("window").height;
-const deviceWidth = Dimensions.get("window").width;
 
 const elements = [
     {
@@ -59,8 +56,8 @@ class SideBar extends Component {
                     bounces={false}
                     style={{flex: 1, backgroundColor: "#fff", top: -1}}
                 >
-                    <View style={styling.drawerCover}>
-                        <Image square style={styling.drawerImage}
+                    <View style={container.drawerCover}>
+                        <Image square style={container.drawerImage}
                                source={require("../../../assets/drawer-image.png")}/>
                     </View>
 
@@ -79,7 +76,7 @@ class SideBar extends Component {
                                         name={data.icon}
                                         style={[color.lightIcon, {fontSize: 26, width: 30, marginLeft: 5}]}
                                     />
-                                    <Text style={styling.text}>
+                                    <Text style={[text.sideBarText, color.text]}>
                                         {data.name}
                                     </Text>
                                 </Left>
@@ -90,30 +87,6 @@ class SideBar extends Component {
         );
     }
 }
-
-styling = {
-    drawerCover: {
-        alignSelf: "stretch",
-        height: deviceHeight / 7.5,
-        width: null,
-        position: "relative",
-        marginBottom: 10,
-        backgroundColor: '#03426A'
-    },
-    drawerImage: {
-        position: "absolute",
-        left: deviceWidth / 18,
-        top: deviceHeight / 23,
-        width: 204,
-        height: 46
-    },
-    text: {
-        fontWeight: Platform.OS === "ios" ? "500" : "400",
-        fontSize: 16,
-        marginLeft: 20,
-        color: '#003755'
-    }
-};
 
 const mapStateToProps = ({nav}) => {
     return {currentRoute} = nav;

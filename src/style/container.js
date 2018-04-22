@@ -1,4 +1,7 @@
-import {StyleSheet, Platform} from 'react-native';
+import {StyleSheet, Platform, Dimensions} from 'react-native';
+
+const deviceHeight = Dimensions.get("window").height;
+const deviceWidth = Dimensions.get("window").width;
 
 export const container = StyleSheet.create({
     parentBudgetSummary: {
@@ -111,5 +114,41 @@ export const container = StyleSheet.create({
         height: 0,
         borderRadius: 100,
         marginBottom: 15
-    }
+    },
+    bodyContainer: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+        width: 310
+    },
+    drawerCover: {
+        alignSelf: "stretch",
+        height: deviceHeight / 7.5,
+        width: null,
+        position: "relative",
+        marginBottom: 10,
+        backgroundColor: '#03426A'
+    },
+    drawerImage: {
+        position: "absolute",
+        left: deviceWidth / 18,
+        top: deviceHeight / 23,
+        width: 204,
+        height: 46
+    },
+    modalButtonContainer: {
+        justifyContent: 'flex-end',
+        alignSelf: 'flex-end',
+        paddingBottom: 10
+    },
+    amountSummaryContainer: {
+        paddingRight: 18,
+        paddingLeft: 15,
+        justifyContent: 'space-between',
+        flexDirection: 'row'
+    },
+    budgetSummary: {
+        marginBottom: 0,
+        justifyContent: 'space-between',
+        flex: 1
+    },
 });

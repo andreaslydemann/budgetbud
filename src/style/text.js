@@ -35,4 +35,19 @@ export const text = StyleSheet.create({
         alignSelf: 'center',
         color: 'white'
     },
+    headerText: {
+        fontWeight: 'bold',
+        fontSize: 26,
+        alignSelf: 'center',
+        color: '#002940'
+    },
+    bodyText: {
+        fontWeight: 'bold',
+        fontSize: 17
+    },
+    sideBarText: {
+        fontWeight: Platform.OS === "ios" ? "500" : "400",
+        fontSize: 16,
+        marginLeft: 20
+    }
 });

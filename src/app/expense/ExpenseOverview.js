@@ -10,10 +10,10 @@ import {
     Spinner
 } from "native-base";
 import {AppHeader, Separator} from "../../components";
-import {FlatList, StyleSheet, TouchableOpacity} from "react-native";
+import {FlatList, TouchableOpacity} from "react-native";
 import {connect} from "react-redux";
 import I18n from "../../strings/i18n";
-import {color, container} from "../../style";
+import {color, container, text} from "../../style";
 import {
     getCategoryAlarms,
     toggleCategoryAlarm,
@@ -54,28 +54,28 @@ class ExpenseOverview extends Component {
                                 <Separator/>
                             </View>
                             <View style={{flex: 0.18}}>
-                                <View style={[styles.budgetSummary, {paddingVertical: '5%',}]}>
-                                    <View style={[styles.incomeFormStyle, {flex: 1}]}>
-                                        <Text style={styles.listText}>
+                                <View style={[container.budgetSummary, {paddingVertical: '5%',}]}>
+                                    <View style={[container.amountSummaryContainer, {flex: 1}]}>
+                                        <Text style={[text.listText, color.text]}>
                                             {I18n.t('expenseOverviewTotalDebtsPerMonth')}
                                         </Text>
-                                        <Text style={styles.listText}>
+                                        <Text style={[text.listText, color.text]}>
                                             {this.props.totalDebtPerMonth} {I18n.t('currency')}
                                         </Text>
                                     </View>
-                                    <View style={[styles.incomeFormStyle, {flex: 1}]}>
-                                        <Text style={styles.listText}>
+                                    <View style={[container.amountSummaryContainer, {flex: 1}]}>
+                                        <Text style={[text.listText, color.text]}>
                                             {I18n.t('expenseOverviewTotalExpenses')}
                                         </Text>
-                                        <Text style={styles.listText}>
+                                        <Text style={[text.listText, color.text]}>
                                             {this.props.totalExpenses} {I18n.t('currency')}
                                         </Text>
                                     </View>
-                                    <View style={[styles.incomeFormStyle, {flex: 1}]}>
-                                        <Text style={styles.listText}>
+                                    <View style={[container.amountSummaryContainer, {flex: 1}]}>
+                                        <Text style={[text.listText, color.text]}>
                                             {I18n.t('expenseOverviewDisposable')}
                                         </Text>
-                                        <Text style={styles.listText}>
+                                        <Text style={[text.listText, color.text]}>
                                             {this.props.disposable} {I18n.t('currency')}
                                         </Text>
                                     </View>
@@ -125,65 +125,6 @@ class ExpenseOverview extends Component {
         );
     };
 }
-
-const styles = StyleSheet.create({
-    buttonStyle: {
-        justifyContent: 'flex-end',
-        alignSelf: 'flex-end',
-        paddingBottom: 10
-    },
-    incomeFormStyle: {
-        alignSelf: 'center',
-        width: '100%',
-        paddingRight: 18,
-        paddingLeft: 15,
-        justifyContent: 'space-between',
-        flexDirection: 'row'
-    },
-    expenseListStyle: {
-        alignSelf: 'center',
-        width: '90%',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        paddingTop: 23
-    },
-    itemStyle: {
-        fontWeight: '600',
-        alignSelf: 'flex-start',
-        color: 'white'
-    },
-    spacedText: {
-        flexGrow: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginHorizontal: '5%',
-        marginVertical: 10
-    },
-    budgetSummary: {
-        marginBottom: 0,
-        justifyContent: 'space-between',
-        flex: 1
-    },
-    textStyle: {
-        fontWeight: '400',
-        fontSize: 14,
-        alignSelf: 'flex-start',
-        marginLeft: 5,
-        color: '#00263A'
-    },
-    listText: {
-        marginLeft: 5,
-        alignSelf: 'flex-start',
-        fontSize: 16,
-        color: '#00263A'
-    },
-    modalButton: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-});
 
 const mapStateToProps = (state) => {
     const {budgetID} = state.budget;

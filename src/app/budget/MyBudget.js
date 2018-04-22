@@ -11,11 +11,13 @@ import {
     Spinner
 } from "native-base";
 import {AppHeader, Separator, Toolbox} from "../../components/index";
-import {FlatList, StyleSheet} from "react-native";
+import {FlatList} from "react-native";
 import {connect} from "react-redux";
 import I18n from "../../strings/i18n";
 import {
-    container
+    container,
+    color,
+    text
 } from "../../style";
 import {
     getDebts,
@@ -53,10 +55,10 @@ class MyBudget extends Component {
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }} color='#1c313a'/>) : (
-                            <View style={styles.incomeFormStyle}>
-                                <Text style={styles.listText}>{I18n.t('budgetIncome')}
+                            <View style={container.amountSummaryContainer}>
+                                <Text style={[text.listText, color.darkIcon]}>{I18n.t('budgetIncome')}
                                 </Text>
-                                <Text style={styles.listText}>{this.props.income} {I18n.t('currency')}
+                                <Text style={[text.listText, color.darkIcon]}>{this.props.income} {I18n.t('currency')}
                                 </Text>
                             </View>
                         )}
@@ -71,8 +73,8 @@ class MyBudget extends Component {
                                 flex: 1
                             }} color='#1c313a'/>) : (
                             <View style={{flex: 1, alignSelf: 'stretch', paddingTop: 20}}>
-                                <View style={styles.incomeFormStyle}>
-                                    <Label style={styles.textStyle}>
+                                <View style={container.amountSummaryContainer}>
+                                    <Label style={[text.defaultText, color.text]}>
                                         {I18n.t('budgetExpenses')}
                                     </Label>
                                 </View>
@@ -91,8 +93,8 @@ class MyBudget extends Component {
                         <View style={this.props.debts.length > 2 ?
                             {flex: 1, alignSelf: 'stretch', paddingTop: 20} :
                             {flex: 0.5, alignSelf: 'stretch', paddingTop: 20}}>
-                            <View style={styles.incomeFormStyle}>
-                                <Label style={styles.textStyle}>{I18n.t('budgetDebts')}</Label>
+                            <View style={container.amountSummaryContainer}>
+                                <Label style={[text.defaultText, color.text]}>{I18n.t('budgetDebts')}</Label>
                             </View>
                             <FlatList
                                 data={this.props.debts}
@@ -105,28 +107,28 @@ class MyBudget extends Component {
                     </View>
 
                     <View style={{flex: 0.2}}>
-                        <View style={styles.budgetSummary}>
-                            <View style={[styles.incomeFormStyle, {paddingTop: '5%', flex: 1}]}>
-                                <Text style={styles.listText}>
+                        <View style={container.budgetSummary}>
+                            <View style={[container.amountSummaryContainer, {paddingTop: '5%', flex: 1}]}>
+                                <Text style={[text.listText, color.text]}>
                                     {I18n.t('budgetTotalExpenses')}
                                 </Text>
-                                <Text style={styles.listText}>
+                                <Text style={[text.listText, color.text]}>
                                     {this.props.totalGoalsAmount} {I18n.t('currency')}
                                 </Text>
                             </View>
 
-                            <View style={[styles.incomeFormStyle, {flex: 1}]}>
-                                <Text style={styles.listText}>
+                            <View style={[container.amountSummaryContainer, {flex: 1}]}>
+                                <Text style={[text.listText, color.text]}>
                                     {I18n.t('budgetDisposable')}
                                 </Text>
-                                <Text style={styles.listText}>
+                                <Text style={[text.listText, color.text]}>
                                     {this.props.disposable} {I18n.t('currency')}
                                 </Text>
                             </View>
 
                             <Button transparent
                                     onPress={() => this.bottomModal.showModal()}
-                                    style={[styles.buttonStyle, {flex: 1}]}
+                                    style={[container.modalButtonContainer, {flex: 1}]}
                             >
                                 <Icon name="ios-arrow-dropup-circle"
                                       style={{color: "#00263A"}}/>
@@ -149,9 +151,9 @@ class MyBudget extends Component {
         return (
             <ListItem style={{paddingRight: 18}}>
                 <Body>
-                <Text style={styles.listText}>{item.name}</Text>
+                <Text style={[text.listText, color.text]}>{item.name}</Text>
                 </Body>
-                <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>
+                <Text style={[text.listText, color.text, {justifyContent: 'flex-end'}]}>
                     {item.amount} {I18n.t('currency')}
                 </Text>
             </ListItem>
@@ -162,73 +164,14 @@ class MyBudget extends Component {
         return (
             <ListItem style={{paddingRight: 18}}>
                 <Body>
-                <Text style={styles.listText}>{item.debtData.name}</Text>
+                <Text style={[text.listText, color.text]}>{item.debtData.name}</Text>
                 </Body>
-                <Text style={[styles.listText, {justifyContent: 'flex-end'}]}>
+                <Text style={[text.listText, color.text, {justifyContent: 'flex-end'}]}>
                     {item.debtData.amountPerMonth} {I18n.t('currency')}</Text>
             </ListItem>
         );
     };
 }
-
-const styles = StyleSheet.create({
-    buttonStyle: {
-        justifyContent: 'flex-end',
-        alignSelf: 'flex-end',
-        paddingBottom: 10
-    },
-    incomeFormStyle: {
-        alignSelf: 'center',
-        width: '100%',
-        paddingRight: 18,
-        paddingLeft: 15,
-        justifyContent: 'space-between',
-        flexDirection: 'row'
-    },
-    expenseListStyle: {
-        alignSelf: 'center',
-        width: '90%',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        paddingTop: 23
-    },
-    itemStyle: {
-        fontWeight: '600',
-        alignSelf: 'flex-start',
-        color: 'white'
-    },
-    spacedText: {
-        flexGrow: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginHorizontal: '5%',
-        marginVertical: 10
-    },
-    budgetSummary: {
-        marginBottom: 0,
-        justifyContent: 'space-between',
-        flex: 1
-    },
-    textStyle: {
-        fontWeight: '400',
-        fontSize: 14,
-        alignSelf: 'flex-start',
-        marginLeft: 5,
-        color: '#00263A'
-    },
-    listText: {
-        marginLeft: 5,
-        alignSelf: 'flex-start',
-        fontSize: 16,
-        color: '#00263A'
-    },
-    modalButton: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-});
 
 const mapStateToProps = (state) => {
     const {
