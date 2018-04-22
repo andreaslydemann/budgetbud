@@ -11,9 +11,8 @@ import {
     Left
 } from "native-base";
 import I18n from "../../strings/i18n";
-import {color} from '../../style/index';
-import {signOut} from "../auth/auth_actions";
-import {screenChanged} from "../navigation/navigation_actions";
+import {color} from '../../style';
+import {screenChanged, signOut} from "../../redux/actions";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;

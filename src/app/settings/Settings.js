@@ -10,12 +10,12 @@ import {
     Right,
     Icon
 } from "native-base";
-import {AppHeader, ConfirmDialog} from "../../components/index";
+import {AppHeader, ConfirmDialog} from "../../components";
 import {connect} from "react-redux";
 import I18n from "../../strings/i18n";
-import {container, color} from "../../style/index";
-import {showWarningToast} from "../../helpers/index";
-import {deleteBudget, resetBudgetError} from "../budget/budget_actions";
+import {container, color} from "../../style";
+import {showWarningToast} from "../../helpers";
+import {deleteBudget, resetBudgetError} from "../../redux/actions";
 
 class Settings extends Component {
     componentWillReceiveProps(nextProps) {

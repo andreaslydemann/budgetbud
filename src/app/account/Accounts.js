@@ -24,7 +24,12 @@ import {
     container, color
 } from "../../style/index";
 import {showWarningToast} from "../../helpers/index";
-import {accountsSelected, getAccounts, linkAccounts, resetAccountsError} from "./account_actions";
+import {
+    accountsSelected,
+    getAccounts,
+    linkAccounts,
+    resetAccountsError
+} from "../../redux/actions";
 
 class Accounts extends PureComponent {
     componentWillMount() {

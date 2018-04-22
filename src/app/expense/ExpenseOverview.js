@@ -9,13 +9,16 @@ import {
     Right,
     Spinner
 } from "native-base";
-import {AppHeader, Separator} from "../../components/index";
+import {AppHeader, Separator} from "../../components";
 import {FlatList, StyleSheet, TouchableOpacity} from "react-native";
 import {connect} from "react-redux";
 import I18n from "../../strings/i18n";
-import {color, container} from "../../style/index";
-import {getExpensesOfMonth} from "./expense_actions";
-import {getCategoryAlarms, toggleCategoryAlarm} from "../alarm/alarm_actions";
+import {color, container} from "../../style";
+import {
+    getCategoryAlarms,
+    toggleCategoryAlarm,
+    getExpensesOfMonth
+} from "../../redux/actions";
 
 class ExpenseOverview extends Component {
     async componentWillMount() {

@@ -14,7 +14,7 @@ import {
     cprNumberChanged,
     resetAuthState,
     signIn
-} from "./auth_actions";
+} from "../../redux/actions";
 
 class SignIn extends Component {
     onCprNumberChange = (text) => {

@@ -6,12 +6,12 @@ import {
     Spinner,
     Text
 } from "native-base";
-import {AppHeader, ConfirmDialog} from "../../components/index";
+import {AppHeader, ConfirmDialog} from "../../components";
 import {Image} from "react-native";
 import {connect} from "react-redux";
-import {color, container} from "../../style/index";
+import {color, container} from "../../style";
 import I18n from "../../strings/i18n";
-import {getLinkedAccounts} from "../account/account_actions";
+import {getLinkedAccounts} from "../../redux/actions";
 
 class Intro extends Component {
     componentWillMount() {

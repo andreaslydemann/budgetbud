@@ -4,7 +4,7 @@ import {Root} from 'native-base';
 
 import SignIn from './app/auth/SignIn';
 import SignUp from './app/auth/SignUp';
-import SideBar from "./app/general/SideBar";
+import SideBar from "./app/common/SideBar";
 import CreateBudget from "./app/budget/CreateBudget";
 import MyBudget from "./app/budget/MyBudget";
 import ExpenseOverview from "./app/expense/ExpenseOverview";
@@ -22,7 +22,7 @@ import ChangeCode from "./app/settings/ChangeCode";
 import Accounts from "./app/account/Accounts";
 import Alarms from "./app/alarm/Alarms";
 import DisposablePreview from "./app/disposable/DisposablePreview";
-import Offline from "./app/general/Offline";
+import Offline from "./app/common/Offline";
 import RequestActivationCode from "./app/auth/RequestActivationCode";
 import VerifyActivationCode from "./app/auth/VerifyActivationCode";
 import ChangeForgottenCode from "./app/auth/ChangeForgottenCode";

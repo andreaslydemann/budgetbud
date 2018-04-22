@@ -3,9 +3,9 @@ import {Container} from 'native-base';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import I18n from "../../strings/i18n";
-import {showWarningToast} from '../../helpers/index';
-import {AppHeader, DebtForm} from "../../components/index";
-import {container} from "../../style/index";
+import {showWarningToast} from '../../helpers';
+import {AppHeader, DebtForm} from "../../components";
+import {container} from "../../style";
 import {
     amountChanged,
     calculateDebtCategorySubtractions,
@@ -13,9 +13,10 @@ import {
     expirationDateChanged,
     getDebts,
     nameChanged,
-    resetDebtError
-} from "./debt_actions";
-import {categoriesSelected, getCategoriesOfDebt} from "../category/category_actions";
+    resetDebtError,
+    categoriesSelected,
+    getCategoriesOfDebt
+} from "../../redux/actions";
 
 class EditDebt extends Component {
     componentWillMount() {

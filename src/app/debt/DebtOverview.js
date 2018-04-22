@@ -6,8 +6,8 @@ import {
     AppHeader,
     ConfirmDialog,
     Separator
-} from "../../components/index";
-import {button, text} from "../../style/index";
+} from "../../components";
+import {button, text} from "../../style";
 import {
     Container,
     Button,
@@ -19,10 +19,15 @@ import {
     Spinner
 } from 'native-base';
 import I18n from "../../strings/i18n";
-import {container, color} from "../../style/index";
-import {showWarningToast} from "../../helpers/index";
-import {debtSelected, deleteDebt, resetDebtError, resetDebtForm} from "./debt_actions";
-import {getCategories} from "../category/category_actions";
+import {container, color} from "../../style";
+import {showWarningToast} from "../../helpers";
+import {
+    debtSelected,
+    deleteDebt,
+    resetDebtError,
+    resetDebtForm,
+    getCategories
+} from "../../redux/actions";
 
 class DebtOverview extends PureComponent {
     componentWillReceiveProps(nextProps) {

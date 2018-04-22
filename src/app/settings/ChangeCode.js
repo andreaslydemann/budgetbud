@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Keyboard, TouchableWithoutFeedback} from "react-native";
 import {connect} from 'react-redux';
-import {AppHeader, Separator} from "../../components/index";
+import {AppHeader, Separator} from "../../components";
 import {
     Container,
     Text,
@@ -14,10 +14,15 @@ import {
     text,
     container,
     color
-} from "../../style/index";
-import {showWarningToast} from "../../helpers/index";
-import {ChangeCodeForm} from "../../components/index";
-import {changeCode, codeChanged, repeatedCodeChanged, resetAuthState} from "../auth/auth_actions";
+} from "../../style";
+import {showWarningToast} from "../../helpers";
+import {ChangeCodeForm} from "../../components";
+import {
+    changeCode,
+    codeChanged,
+    repeatedCodeChanged,
+    resetAuthState
+} from "../../redux/actions";
 
 class ChangeCode extends Component {
     componentWillReceiveProps(nextProps) {

@@ -14,7 +14,7 @@ import {
     phoneNumberChanged,
     resetAuthState,
     signUp
-} from "./auth_actions";
+} from "../../redux/actions";
 
 class SignUp extends Component {
     onCprNumberChange = (text) => {

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Container} from 'native-base';
-import {AppHeader, DebtForm} from "../../components/index";
+import {AppHeader, DebtForm} from "../../components";
 import I18n from "../../strings/i18n";
-import {showWarningToast} from '../../helpers/index';
-import {container} from "../../style/index";
+import {showWarningToast} from '../../helpers';
+import {container} from "../../style";
 import {
     amountChanged,
     calculateDebtCategorySubtractions,
@@ -12,9 +12,10 @@ import {
     expirationDateChanged,
     getDebts,
     nameChanged,
-    resetDebtError
-} from "./debt_actions";
-import {categoriesSelected, getCategories} from "../category/category_actions";
+    resetDebtError,
+    categoriesSelected,
+    getCategories
+} from "../../redux/actions";
 
 class CreateDebt extends Component {
     componentWillReceiveProps(nextProps) {

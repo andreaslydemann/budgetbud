@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Keyboard, TouchableWithoutFeedback} from "react-native";
 import {connect} from 'react-redux';
-import {AppHeader, Separator} from "../../components/index";
+import {AppHeader, Separator} from "../../components";
 import {
     Container,
     Text,
@@ -12,16 +12,21 @@ import {
     Input,
 } from 'native-base';
 import I18n from "../../strings/i18n";
-import {renderInputIcon} from "../../helpers/index";
+import {renderInputIcon} from "../../helpers";
 import {
     button,
     text,
     container,
     color,
     input
-} from "../../style/index";
-import {showWarningToast} from "../../helpers/index";
-import {changePhoneNumber, getPhoneNumber, phoneNumberChanged, resetAuthError} from "../auth/auth_actions";
+} from "../../style";
+import {showWarningToast} from "../../helpers";
+import {
+    changePhoneNumber,
+    getPhoneNumber,
+    phoneNumberChanged,
+    resetAuthError
+} from "../../redux/actions";
 
 class ChangePhoneNumber extends PureComponent {
     componentWillMount() {

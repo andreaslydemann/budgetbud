@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {Logo, ChangeForgottenCodeForm, ErrorInfo} from '../../components/index';
+import {Logo, ChangeForgottenCodeForm, ErrorInfo} from '../../components';
 import I18n from "../../strings/i18n";
 import {button, container, color} from "../../style/index";
 import {
@@ -15,7 +15,7 @@ import {
     codeChanged,
     repeatedCodeChanged,
     resetAuthState
-} from "./auth_actions";
+} from "../../redux/actions";
 
 class ChangeForgottenCode extends Component {
     onCodeChange = (text) => {

@@ -11,7 +11,7 @@ import {Logo, ErrorInfo} from '../../components/index';
 import {button, color, container} from "../../style/index";
 import I18n from "../../strings/i18n";
 import {ActivationCodeForm} from "../../components/ActivationCodeForm";
-import {activationCodeChanged, resetAuthState, verifyActivationCode} from "./auth_actions";
+import {activationCodeChanged, resetAuthState, verifyActivationCode} from "../../redux/actions";
 
 class VerifyActivationCode extends Component {
     onActivationCodeChange = (text) => {

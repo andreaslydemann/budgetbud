@@ -2,13 +2,21 @@ import React, {Component} from 'react';
 import {Keyboard} from 'react-native';
 import {Container} from 'native-base';
 import {connect} from 'react-redux';
-import {BudgetForm, AppHeader} from "../../components/index";
+import {BudgetForm, AppHeader} from "../../components";
 import I18n from "../../strings/i18n";
-import {container} from "../../style/index";
-import {showWarningToast, checkInputAmount, correctConversion, setupNewCategoriesList} from "../../helpers/index";
-import {createBudget} from "./budget_actions";
-import {getLinkedAccounts} from "../account/account_actions";
-import {createCategories, mapExpensesToBudget} from "../category/category_actions";
+import {container} from "../../style";
+import {
+    showWarningToast,
+    checkInputAmount,
+    correctConversion,
+    setupNewCategoriesList
+} from "../../helpers";
+import {
+    createBudget,
+    getLinkedAccounts,
+    createCategories,
+    mapExpensesToBudget
+} from "../../redux/actions";
 
 class CreateBudget extends Component {
     state = {

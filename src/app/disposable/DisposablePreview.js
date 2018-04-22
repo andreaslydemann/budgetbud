@@ -11,13 +11,12 @@ import {
     Text
 } from "native-base";
 import _ from 'lodash';
-import {AppHeader, Separator} from "../../components/index";
+import {AppHeader, Separator} from "../../components";
 import {connect} from "react-redux";
 import I18n from "../../strings/i18n";
-import {button, text, container, color} from "../../style/index";
-import {showWarningToast} from "../../helpers/index";
-import {editDisposable, resetDisposableError} from "./disposable_actions";
-import {getCategories} from "../category/category_actions";
+import {button, text, container, color} from "../../style";
+import {showWarningToast} from "../../helpers";
+import {editDisposable, resetDisposableError, getCategories} from "../../redux/actions";
 
 class DisposablePreview extends Component {
     componentWillReceiveProps(nextProps) {

@@ -11,13 +11,12 @@ import {
     Text
 } from "native-base";
 import _ from 'lodash';
-import {AppHeader, Separator} from "../../components/index";
+import {AppHeader, Separator} from "../../components";
 import {connect} from "react-redux";
-import {button, text, container, color} from "../../style/index";
+import {button, text, container, color} from "../../style";
 import I18n from "../../strings/i18n";
-import {showWarningToast} from "../../helpers/index";
-import {createDebt, editDebt, getDebts, resetDebtError} from "./debt_actions";
-import {getCategories} from "../category/category_actions";
+import {showWarningToast} from "../../helpers";
+import {createDebt, editDebt, getDebts, resetDebtError, getCategories} from "../../redux/actions";
 
 class DebtPreview extends Component {
     componentWillReceiveProps(nextProps) {

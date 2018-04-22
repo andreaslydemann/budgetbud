@@ -2,18 +2,19 @@ import React, {Component} from 'react';
 import {Container} from 'native-base';
 import {connect} from "react-redux";
 import I18n from "../../strings/i18n";
-import {AppHeader, DisposableForm} from "../../components/index";
-import {container} from "../../style/index";
-import {showWarningToast} from "../../helpers/index";
-import {checkInputAmount, correctConversion} from "../../helpers/validators";
+import {AppHeader, DisposableForm} from "../../components";
+import {container} from "../../style";
+import {showWarningToast} from "../../helpers";
+import {checkInputAmount, correctConversion} from "../../helpers";
 import {
     calculateDisposableCategoryDifferences,
     disposableChanged,
     resetDisposableError,
     resetDisposableForm,
-    setTmpDisposable
-} from "./disposable_actions";
-import {categoriesSelected, getCategories} from "../category/category_actions";
+    setTmpDisposable,
+    categoriesSelected,
+    getCategories
+} from "../../redux/actions";
 
 class EditDisposable extends Component {
     componentWillMount() {

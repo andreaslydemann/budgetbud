@@ -29,7 +29,7 @@ import {
     resetAlarmsError,
     toggleBudgetAlarms,
     weeklyStatusToggled
-} from "./alarm_actions";
+} from "../../redux/actions";
 
 class Alarms extends PureComponent {
     componentWillMount() {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {AppHeader, ConfirmDialog} from "../../components/index";
+import {AppHeader, ConfirmDialog} from "../../components";
 import {NavigationActions} from "react-navigation";
 import {
     Container,
@@ -14,9 +14,9 @@ import {
     Icon
 } from "native-base";
 import I18n from '../../strings/i18n';
-import {color, container} from "../../style/index";
-import {showWarningToast} from "../../helpers/index";
-import {deleteUser, resetAuthError} from "../auth/auth_actions";
+import {color, container} from "../../style";
+import {showWarningToast} from "../../helpers";
+import {deleteUser, resetAuthError} from "../../redux/actions";
 
 class UserDetails extends Component {
     componentWillReceiveProps(nextProps) {

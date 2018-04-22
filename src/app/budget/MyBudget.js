@@ -16,10 +16,12 @@ import {connect} from "react-redux";
 import I18n from "../../strings/i18n";
 import {
     container
-} from "../../style/index";
-import {getBudget} from "./budget_actions";
-import {getCategories} from "../category/category_actions";
-import {getDebts} from "../debt/debt_actions";
+} from "../../style";
+import {
+    getDebts,
+    getCategories,
+    getBudget
+} from "../../redux/actions";
 
 class MyBudget extends Component {
     componentWillMount() {
