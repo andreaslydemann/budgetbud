@@ -74,7 +74,7 @@ export default {
     expenseOverviewRemaining: 'Remaining amount',
     introHeader: 'Welcome',
     introConfirmDialogHeader: 'Add account',
-    introConfirmDialogBody: 'You need to add an account. Do you want to do it now?',
+    introConfirmDialogBody: 'You need to link an account. Do you want to do it now?',
     introCreateBudgetHeader: 'Create a budget',
     introCreateBudgetBody:
     "You haven't created a budget yet. " +
