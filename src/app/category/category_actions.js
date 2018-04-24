@@ -5,8 +5,10 @@ import {BUDGETBUD_FUNCTIONS_URL} from "../../config/firebase_config";
 import {
     GET_CATEGORIES,
     GET_CATEGORIES_SUCCESS,
+    GET_CATEGORIES_FAIL,
     GET_CATEGORIES_OF_DEBT,
     GET_CATEGORIES_OF_DEBT_SUCCESS,
+    GET_CATEGORIES_OF_DEBT_FAIL,
     CATEGORIES_SELECTED,
     CREATE_CATEGORIES,
     CREATE_CATEGORIES_SUCCESS,
@@ -48,28 +50,37 @@ export const getCategories = (budgetID) => async dispatch => {
 
         const categories = [];
         const token = await firebase.auth().currentUser.getIdToken();
-        const {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategories?budgetID=${budgetID}`, {
+
+        const promises = [];
+
+        const categoriesPromise = axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategories?budgetID=${budgetID}`, {
             headers: {Authorization: 'Bearer ' + token}
         });
 
-        const categoryTypes = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
+        promises.push(categoriesPromise);
+
+        const categoryTypesPromise = axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoryTypes`,
             {headers: {Authorization: 'Bearer ' + token}});
 
-        data.forEach(category => {
-            const index = categoryTypes.data.findIndex(x => x.id === category.categoryData.categoryTypeID);
+        promises.push(categoryTypesPromise);
+
+        const values = await Promise.all(promises);
+
+        values[0].data.forEach(category => {
+            const index = values[1].data.findIndex(x => x.id === category.categoryData.categoryTypeID);
 
             categories.push({
                 categoryID: category.id,
-                name: categoryTypes.data[index].name,
+                name: values[1].data[index].name,
                 amount: category.categoryData.amount,
-                categoryTypeID: categoryTypes.data[index].id
+                categoryTypeID: values[1].data[index].id
             });
         });
 
         dispatch({type: GET_CATEGORIES_SUCCESS, payload: categories});
     } catch (err) {
         const {data} = err.response;
-        //getCategoriesFail(dispatch, data.error);
+        dispatch({type: GET_CATEGORIES_FAIL, payload: data.error});
     }
 };
 
@@ -79,8 +90,6 @@ export const editCategories = (budgetID, tmpCategories) => async dispatch => {
     try {
         const token = await firebase.auth().currentUser.getIdToken();
         const categories = tmpCategories;
-        console.log(budgetID)
-        console.log(tmpCategories)
 
         await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editCategories`,
             {budgetID, categories},
@@ -97,7 +106,6 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
     try {
         dispatch({type: GET_CATEGORIES_OF_DEBT});
 
-        // check for categories != null, else get categories first
         let token = await firebase.auth().currentUser.getIdToken();
 
         let {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getCategoriesOfDebt?debtID=${debtID}`, {
@@ -117,7 +125,7 @@ export const getCategoriesOfDebt = (debtID) => async dispatch => {
         });
     } catch (err) {
         let {data} = err.response;
-        //getCategoriesFail(dispatch, data.error);
+        dispatch({type: GET_CATEGORIES_OF_DEBT_FAIL, payload: data.error});
     }
 };
 
