@@ -31,16 +31,22 @@ export const getAccounts = () => async dispatch => {
         let token = await firebase.auth().currentUser.getIdToken();
         let userID = await firebase.auth().currentUser.uid;
 
-        let getAccountsResponse =
-            await axios.get(`${EBANKING_FUNCTIONS_URL}/getAccounts?userID=${userID}`);
+        const promises = [];
 
-        const eBankingAccounts = getAccountsResponse.data;
+        const getAccountsPromise =
+            axios.get(`${EBANKING_FUNCTIONS_URL}/getAccounts?userID=${userID}`);
 
-        let getLinkedAccountsResponse =
-            await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getLinkedAccounts?userID=${userID}`,
+        promises.push(getAccountsPromise);
+
+        let getLinkedAccountsPromise =
+            axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getLinkedAccounts?userID=${userID}`,
                 {headers: {Authorization: 'Bearer ' + token}});
 
-        const linkedAccounts = getLinkedAccountsResponse.data;
+        promises.push(getLinkedAccountsPromise);
+
+        const values = await Promise.all(promises);
+        const eBankingAccounts = values[0].data;
+        const linkedAccounts = values[1].data;
 
         dispatch({
             type: GET_ACCOUNTS_SUCCESS,
