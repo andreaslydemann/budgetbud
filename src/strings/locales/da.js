@@ -74,7 +74,7 @@ export default {
     expenseOverviewRemaining: 'Resterende beløb',
     introHeader: 'Velkommen',
     introConfirmDialogHeader: 'Tilføj konto',
-    introConfirmDialogBody: 'Du mangler at tilføje en konto. Vil du gøre det nu?',
+    introConfirmDialogBody: 'Du mangler at tilkoble en konto. Vil du gøre det nu?',
     introCreateBudgetHeader: 'Opret et budget',
     introCreateBudgetBody:
     "Du har ikke oprettet et budget endnu. " +
