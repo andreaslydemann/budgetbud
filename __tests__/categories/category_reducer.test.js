@@ -1,30 +1,10 @@
 import categoryReducer from '../../src/app/categories/category_reducer';
 import {
-    RESET_DEBT_FORM,
-    GET_CATEGORIES,
     GET_CATEGORIES_SUCCESS,
     GET_CATEGORIES_FAIL,
-    GET_CATEGORIES_OF_DEBT,
-    GET_CATEGORIES_OF_DEBT_SUCCESS,
-    GET_CATEGORIES_OF_DEBT_FAIL,
-    CATEGORIES_SELECTED,
     CREATE_CATEGORIES,
-    CREATE_CATEGORIES_SUCCESS,
-    CREATE_CATEGORIES_FAIL,
-    SETUP_EDIT_BUDGET,
-    SETUP_EDIT_BUDGET_SUCCESS,
-    SETUP_EDIT_BUDGET_FAIL,
-    MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
-    MAP_EXPENSES_FAIL,
-    CATEGORY_CHANGED,
-    GET_BUDGET_SUCCESS,
-    GET_INITIAL_STATE,
-    EDIT_CATEGORIES,
     EDIT_CATEGORIES_SUCCESS,
-    EDIT_CATEGORIES_FAIL,
-    EDIT_BUDGET_SUCCESS,
-    CREATE_BUDGET_SUCCESS
 } from '../../src/strings/types';
 
 describe('category_reducer', () => {
@@ -48,63 +28,70 @@ describe('category_reducer', () => {
         expect(categoryReducer(undefined, {type: 'unexpected'})).toEqual(initialState);
     });
 
-    it('can handle CREATE_BUDGET_SUCCESS', () => {
-        const budgetID = '1234';
-        const income = 20;
-        const createBudgetSuccessAction = {
-            type: CREATE_BUDGET_SUCCESS,
-            payload: {budgetID, income}
+    it('can handle CREATE_CATEGORIES', () => {
+        const createCategoriesAction = {
+            type: CREATE_CATEGORIES
         };
-        expect(categoryReducer({}, createBudgetSuccessAction)).toEqual({
-            budgetLoading: false,
-            income,
-            budgetID
+        expect(categoryReducer({}, createCategoriesAction)).toEqual({
+            categoriesLoading: true, categoriesError: ''
         })
     });
 
-    it('can handle GET_BUDGET_ID_SUCCESS', () => {
-        const budgetID = 1234;
-        const getBudgetIDSuccessAction = {
-            type: GET_BUDGET_ID_SUCCESS,
-            payload: budgetID
+    it('can handle GET_CATEGORIES_SUCCESS', () => {
+        const testCategories = [{name: 'test', amount: 10, categoryTypeID: '1234'}];
+        const getCategoriesSuccessAction = {
+            type: GET_CATEGORIES_SUCCESS,
+            payload: testCategories
         };
-        expect(categoryReducer({}, getBudgetIDSuccessAction)).toEqual({
-                budgetIDError: '',
-                budgetID
+        expect(categoryReducer({}, getCategoriesSuccessAction)).toEqual({
+                categoriesLoading: false,
+                categories: testCategories,
+                categoriesInitialized: true
             }
         )
     });
 
-    it('can handle EDIT_BUDGET_SUCCESS', () => {
-        const income = 20;
-        const editBudgetSuccessAction = {
-            type: EDIT_BUDGET_SUCCESS,
-            payload: {income}
+    it('can handle EDIT_CATEGORIES_SUCCESS', () => {
+        const testCategoryAccepted = {name: 'test1', amount: 10, categoryTypeID: '1234'};
+        const testCategoryDenied = {name: 'test2', amount: 0, categoryTypeID: '4321'};
+        const testCategories = [testCategoryAccepted, testCategoryDenied];
+        const editCategoriesSuccessAction = {
+            type: EDIT_CATEGORIES_SUCCESS,
+            payload: testCategories
         };
-        expect(categoryReducer({}, editBudgetSuccessAction)).toEqual({
-                budgetLoading: false,
-                income
+        expect(categoryReducer({}, editCategoriesSuccessAction)).toEqual({
+                categoriesLoading: false,
+                categories: [testCategoryAccepted] //Only the categories with relevant values should be added
             }
         )
     });
 
-    it('can handle DELETE_BUDGET', () => {
-        const deleteBudgetAction = {
-            type: DELETE_BUDGET
+    it('can handle MAP_EXPENSES_SUCCESS', () => {
+        const testTmpCategories = [{name: 'test', amount: 10, categoryTypeID: '1234'}];
+        const testTotalGoalsAmount = 25;
+        const mapExpensesSuccessAction = {
+            type: MAP_EXPENSES_SUCCESS,
+            payload: {
+                categories: testTmpCategories,
+                totalGoalsAmount: testTotalGoalsAmount
+            }
         };
-        expect(categoryReducer({}, deleteBudgetAction)).toEqual(
-            {budgetLoading: true, budgetError: ''}
+        expect(categoryReducer({}, mapExpensesSuccessAction)).toEqual({
+                categoriesLoading: false,
+                tmpCategories: testTmpCategories,
+                totalGoalsAmount: testTotalGoalsAmount
+            }
         )
     });
 
-    it('can handle CREATE_BUDGET_FAIL', () => {
-        const budgetError = 'testError';
-        const createBudgetFailAction = {
-            type: CREATE_BUDGET_FAIL,
-            payload: budgetError
+    it('can handle GET_CATEGORIES_FAIL', () => {
+        const testError = 'error';
+        const getCategoriesFailAction = {
+            type: GET_CATEGORIES_FAIL,
+            payload: testError
         };
-        expect(categoryReducer({}, createBudgetFailAction)).toEqual(
-            {budgetLoading: false, budgetError}
+        expect(categoryReducer({}, getCategoriesFailAction)).toEqual(
+            {categoriesLoading: false, categoriesError: testError}
         )
     });
 });

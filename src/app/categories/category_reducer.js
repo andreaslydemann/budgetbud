@@ -16,14 +16,12 @@ import {
     MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
     MAP_EXPENSES_FAIL,
-    CATEGORY_CHANGED,
     GET_BUDGET_SUCCESS,
     GET_INITIAL_STATE,
     EDIT_CATEGORIES,
     EDIT_CATEGORIES_SUCCESS,
     EDIT_CATEGORIES_FAIL, EDIT_BUDGET_SUCCESS, CREATE_BUDGET_SUCCESS
 } from '../../strings/types';
-import {fromJS} from "immutable";
 
 const INITIAL_STATE = {
     categories: [],
