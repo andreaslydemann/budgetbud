@@ -11,7 +11,7 @@ import {
     addConnectionChangeEventListener
 } from '../helpers';
 import App from "../App";
-import {getBudgetID} from "../app/budget/budget_actions";
+import {getBudgetID} from "../app/budgets/budget_actions";
 
 class Setup extends Component {
     state = {isReady: false, isAuthorized: false, isOffline: false};

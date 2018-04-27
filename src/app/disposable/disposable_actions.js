@@ -76,8 +76,8 @@ export const setTmpDisposable = () => {
 
 export const calculateDisposableCategoryDifferences = (disposable, tmpDisposable, categories, callback) => async dispatch => {
     let errorMsg;
-    if (disposable === tmpDisposable) {errorMsg = "Rådighedsbeløb uændret."}
-    else if(categories.length === 0) {errorMsg = "Ingen kategorier valgt."}
+    if (disposable === tmpDisposable) {errorMsg = I18n.t('disposableUnchangedError')}
+    else if(categories.length === 0) {errorMsg = I18n.t('noCategoriesChosenError')}
 
     if (errorMsg) {
         dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_FAIL, payload: errorMsg});

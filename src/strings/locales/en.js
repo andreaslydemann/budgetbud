@@ -61,6 +61,8 @@ export default {
     disposablePreviewHeader: 'Debt preview',
     disposablePreviewBefore: 'Before',
     disposablePreviewAfter: 'After',
+    disposableUnchangedError: 'Disposable unchanged.',
+    noCategoriesChosenError: 'No categories chosen.',
     editBudgetHeader: 'Edit budget',
     editBudgetButton: 'Save',
     editDebtHeader: 'Edit debt',

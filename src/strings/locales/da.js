@@ -61,6 +61,8 @@ export default {
     disposablePreviewHeader: 'Forhåndsvisning',
     disposablePreviewBefore: 'Før',
     disposablePreviewAfter: 'Efter',
+    disposableUnchangedError: 'Rådighedsbeløb uændret.',
+    noCategoriesChosenError: 'Ingen kategorier valgt.',
     editBudgetHeader: 'Redigér budget',
     editBudgetButton: 'Gem',
     editDebtHeader: 'Redigér gæld',

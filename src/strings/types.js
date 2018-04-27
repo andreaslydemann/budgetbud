@@ -53,6 +53,7 @@ export const EDIT_BUDGET = 'edit_budget';
 export const EDIT_BUDGET_SUCCESS = 'edit_budget_success';
 export const EDIT_BUDGET_FAIL = 'edit_budget_fail';
 export const DELETE_BUDGET = 'delete_budget';
+export const DELETE_BUDGET_SUCCESS = 'delete_budget_success';
 export const DELETE_BUDGET_FAIL = 'delete_budget_fail';
 export const INCOME_CHANGED = 'income_changed';
 export const CATEGORY_CHANGED = 'category_changed';

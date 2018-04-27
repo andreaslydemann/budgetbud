@@ -122,12 +122,13 @@ export const signIn = ({cprNumber, code}) => async dispatch => {
     dispatch({type: SIGN_IN});
 
     try {
-        let data = await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/verifyCode`, {
+        let {data} = await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/verifyCode`, {
             cprNumber, code
         });
 
         await firebase.auth().signInWithCustomToken(data.token);
     } catch (err) {
+        console.log(err)
         let {data} = err.response;
         dispatch({type: SIGN_IN_FAIL, payload: data.error});
     }

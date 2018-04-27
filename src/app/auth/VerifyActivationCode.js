@@ -10,7 +10,7 @@ import {Container, Button, Label} from 'native-base';
 import {Logo, ErrorInfo} from '../../components/index';
 import {button, color, container} from "../../style/index";
 import I18n from "../../strings/i18n";
-import {ActivationCodeForm} from "../../components/ActivationCodeForm";
+import {ActivationCodeForm} from "../../components/forms/ActivationCodeForm";
 import {activationCodeChanged, resetAuthState, verifyActivationCode} from "../../redux/actions";
 
 class VerifyActivationCode extends Component {

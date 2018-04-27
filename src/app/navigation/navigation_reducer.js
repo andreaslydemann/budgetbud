@@ -3,7 +3,7 @@ import {
     GET_INITIAL_AUTH_STATE,
     GET_BUDGET_ID_SUCCESS,
     CREATE_BUDGET_SUCCESS,
-    DELETE_BUDGET, GET_BUDGET_ID_FAIL
+    DELETE_BUDGET_SUCCESS, GET_BUDGET_ID_FAIL
 } from '../../strings/types';
 
 const INITIAL_STATE = {
@@ -22,7 +22,7 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, currentRoute: 'Intro'};
         case CREATE_BUDGET_SUCCESS:
             return INITIAL_STATE;
-        case DELETE_BUDGET:
+        case DELETE_BUDGET_SUCCESS:
             return INITIAL_STATE;
         default:
             return state;
