@@ -145,7 +145,6 @@ describe('signIn', () => {
             {type: SIGN_IN}
         ];
         const resp = {data: {token: testToken}};
-        jest.mock('axios');
         axios.post.mockResolvedValue(resp);
 
         return store.dispatch(await authActions.signIn({cprNumber, code})).then(() => {
