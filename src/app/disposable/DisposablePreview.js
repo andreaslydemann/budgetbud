@@ -27,9 +27,6 @@ class DisposablePreview extends Component {
     }
 
     onSavePress = async () => {
-        if (this.props.disposableLoading)
-            return;
-
         await this.props.editDisposable(this.props);
         this.props.navigation.pop(2);
         this.props.getCategories(this.props.budgetID);

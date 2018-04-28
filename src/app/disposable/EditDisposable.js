@@ -62,7 +62,11 @@ class EditDisposable extends Component {
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('editDisposableHeader')}
                            showBackButton={true}
-                           onLeftButtonPress={() => this.props.navigation.pop()}/>
+                           onLeftButtonPress={() => {
+                               if (!this.props.disposableCalculationLoading) {
+                                   this.props.navigation.pop();
+                               }
+                           }}/>
 
                 <DisposableForm disposableChanged={this.props.disposableChanged}
                                 categoriesSelected={this.props.categoriesSelected}
