@@ -49,7 +49,7 @@ class CreateBudget extends Component {
         newIncome = correctConversion(newIncome);
         if (checkInputAmount(newIncome)) {
             const incomeDiff = newIncome - this.state.tmpIncome;
-            const newDisposable = this.state.tmpDisposable + incomeDiff;
+            const newDisposable = Math.round((this.state.tmpDisposable + incomeDiff) * 100) / 100;
 
             this.setState({
                 tmpIncome: newIncome,
@@ -62,8 +62,8 @@ class CreateBudget extends Component {
         newAmount = correctConversion(newAmount);
         if (checkInputAmount(newAmount)) {
             const categoryDiff = oldAmount - newAmount;
-            const newDisposable = this.state.tmpDisposable + categoryDiff;
-            const newTotalGoalsAmount = this.state.tmpTotalGoalsAmount - categoryDiff;
+            const newDisposable = Math.round((this.state.tmpDisposable + categoryDiff) * 100) / 100;
+            const newTotalGoalsAmount = Math.round((this.state.tmpTotalGoalsAmount - categoryDiff) * 100) / 100;
             const newTmpCategories = setupNewCategoriesList(
                 this.state.tmpCategories,
                 name,

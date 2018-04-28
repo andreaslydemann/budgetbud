@@ -116,7 +116,9 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 categoriesLoading: false,
-                categories: categoryItems
+                categories: categoryItems,
+                selectedCategories: [],
+                categoriesOfDebt: [],
             };
         case EDIT_CATEGORIES_FAIL:
             return {...state, budgetError: action.payload, budgetLoading: false};

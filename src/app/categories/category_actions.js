@@ -29,6 +29,8 @@ export const createCategories = (budgetID, tmpCategories) =>
     async dispatch => {
         dispatch({type: CREATE_CATEGORIES});
 
+        tmpCategories.forEach(c => c.amount = Math.round(c.amount * 100) / 100);
+
         try {
             const token = await firebase.auth().currentUser.getIdToken();
             const categories = tmpCategories;
@@ -86,6 +88,8 @@ export const getCategories = (budgetID) => async dispatch => {
 
 export const editCategories = (budgetID, tmpCategories) => async dispatch => {
     dispatch({type: EDIT_CATEGORIES});
+
+    tmpCategories.forEach(c => c.amount = Math.round(c.amount * 100) / 100);
 
     try {
         const token = await firebase.auth().currentUser.getIdToken();
