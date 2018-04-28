@@ -138,7 +138,6 @@ export const container = StyleSheet.create({
     modalButtonContainer: {
         justifyContent: 'flex-end',
         alignSelf: 'flex-end',
-        paddingBottom: 10
     },
     amountSummaryContainer: {
         paddingRight: 18,

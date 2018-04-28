@@ -27,14 +27,14 @@ import {
 
 class MyBudget extends Component {
     componentWillMount() {
-        if (!this.props.budgetInitialized)
-            this.props.getBudget(this.props.budgetID);
+        if (!this.props.debtsInitialized)
+            this.props.getDebts(this.props.budgetID);
 
         if (!this.props.categoriesInitialized)
             this.props.getCategories(this.props.budgetID);
 
-        if (!this.props.debtsInitialized)
-            this.props.getDebts(this.props.budgetID);
+        if (!this.props.budgetInitialized)
+            this.props.getBudget(this.props.budgetID);
     }
 
     navigateUser = (destination) => {
@@ -64,14 +64,16 @@ class MyBudget extends Component {
                         )}
                     </View>
                     <Separator/>
-
-                    <View style={{flex: 0.7}}>
-                        {this.props.categoriesLoading ? (
+                    {this.props.categoriesLoading || this.props.debtLoading ? (
+                        <View style={{flex: 0.7}}>
                             <Spinner style={{
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 flex: 1
-                            }} color='#1c313a'/>) : (
+                            }} color='#1c313a'/>
+                            <Separator/>
+                        </View>) : (
+                        <View style={{flex: 0.7}}>
                             <View style={{flex: 1, alignSelf: 'stretch', paddingTop: 20}}>
                                 <View style={container.amountSummaryContainer}>
                                     <Label style={[text.defaultText, color.text]}>
@@ -85,50 +87,61 @@ class MyBudget extends Component {
                                 />
 
                             </View>
-                        )}
 
-                        <Separator/>
-
-                        {this.props.debts.length !== 0 &&
-                        <View style={this.props.debts.length > 2 ?
-                            {flex: 1, alignSelf: 'stretch', paddingTop: 20} :
-                            {flex: 0.5, alignSelf: 'stretch', paddingTop: 20}}>
-                            <View style={container.amountSummaryContainer}>
-                                <Label style={[text.defaultText, color.text]}>{I18n.t('budgetDebts')}</Label>
-                            </View>
-                            <FlatList
-                                data={this.props.debts}
-                                renderItem={this.renderDebt}
-                                keyExtractor={item => item.id}
-                            />
                             <Separator/>
+
+                            {this.props.debts.length !== 0 &&
+                            <View style={this.props.debts.length > 2 ?
+                                {flex: 1, alignSelf: 'stretch', paddingTop: 20} :
+                                {flex: 0.5, alignSelf: 'stretch', paddingTop: 20}}>
+                                <View style={container.amountSummaryContainer}>
+                                    <Label style={[text.defaultText, color.text]}>{I18n.t('budgetDebts')}</Label>
+                                </View>
+                                <FlatList
+                                    data={this.props.debts}
+                                    renderItem={this.renderDebt}
+                                    keyExtractor={item => item.id}
+                                />
+                                <Separator/>
+                            </View>
+                            }
                         </View>
-                        }
-                    </View>
+                    )}
 
                     <View style={{flex: 0.2}}>
                         <View style={container.budgetSummary}>
-                            <View style={[container.amountSummaryContainer, {paddingTop: '5%', flex: 1}]}>
-                                <Text style={[text.listText, color.text]}>
-                                    {I18n.t('budgetTotalExpenses')}
-                                </Text>
-                                <Text style={[text.listText, color.text]}>
-                                    {this.props.totalGoalsAmount} {I18n.t('currency')}
-                                </Text>
-                            </View>
 
-                            <View style={[container.amountSummaryContainer, {flex: 1}]}>
-                                <Text style={[text.listText, color.text]}>
-                                    {I18n.t('budgetDisposable')}
-                                </Text>
-                                <Text style={[text.listText, color.text]}>
-                                    {this.props.disposable} {I18n.t('currency')}
-                                </Text>
-                            </View>
+                            {this.props.budgetLoading ? (
+
+                                <Spinner style={{flex: 0.6, alignItems: 'center', justifyContent: 'center'}}
+                                         color='#1c313a'/>) : (
+                                <View style={{
+                                    justifyContent: 'space-between',
+                                    flex: 0.6
+                                }}>
+                                    <View style={[container.amountSummaryContainer, {paddingTop: '5%', flex: 1}]}>
+                                        <Text style={[text.listText, color.text]}>
+                                            {I18n.t('budgetTotalExpenses')}
+                                        </Text>
+                                        <Text style={[text.listText, color.text]}>
+                                            {this.props.totalGoalsAmount} {I18n.t('currency')}
+                                        </Text>
+                                    </View>
+
+                                    <View style={[container.amountSummaryContainer, {paddingTop: '4%', flex: 1}]}>
+                                        <Text style={[text.listText, color.text]}>
+                                            {I18n.t('budgetDisposable')}
+                                        </Text>
+                                        <Text style={[text.listText, color.text]}>
+                                            {this.props.disposable} {I18n.t('currency')}
+                                        </Text>
+                                    </View>
+                                </View>
+                            )}
 
                             <Button transparent
                                     onPress={() => this.bottomModal.showModal()}
-                                    style={[container.modalButtonContainer, {flex: 1}]}
+                                    style={[container.modalButtonContainer, {flex: 0.4}]}
                             >
                                 <Icon name="ios-arrow-dropup-circle"
                                       style={{color: "#00263A"}}/>
@@ -183,24 +196,26 @@ const mapStateToProps = (state) => {
 
     const {
         debts,
-        debtsInitialized
+        debtsInitialized,
+        debtLoading
     } = state.debt;
 
     const {
-        budgetLoading,
         income,
         destination,
         budgetID,
+        budgetLoading,
         budgetInitialized
     } = state.budget;
 
-    const disposable = state.disposable.disposable;
+    const {disposable} = state.disposable;
 
     return {
         categories,
         budgetLoading,
         income,
         debts,
+        debtLoading,
         totalGoalsAmount,
         disposable,
         destination,
