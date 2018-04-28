@@ -52,7 +52,7 @@ export const createBudget = (tmpIncome, tmpDisposable, tmpTotalGoalsAmount) =>
 
         dispatch({type: CREATE_BUDGET});
 
-        const income = tmpIncome;
+        const income = Math.round(tmpIncome * 100) / 100;
         const disposable = tmpDisposable;
         const totalGoalsAmount = tmpTotalGoalsAmount;
 
@@ -102,7 +102,7 @@ export const editBudget = (budgetID, tmpIncome, tmpDisposable, tmpTotalGoalsAmou
     dispatch({type: EDIT_BUDGET});
     const token = await firebase.auth().currentUser.getIdToken();
 
-    const income = tmpIncome;
+    const income = Math.round(tmpIncome * 100) / 100;
     const disposable = tmpDisposable;
     const totalGoalsAmount = tmpTotalGoalsAmount;
 
