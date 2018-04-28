@@ -18,6 +18,7 @@ import {
 
 class EditDisposable extends Component {
     componentWillMount() {
+        this.props.resetDisposableForm();
         this.props.setTmpDisposable();
     }
 

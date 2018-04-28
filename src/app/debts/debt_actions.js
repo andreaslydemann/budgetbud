@@ -28,17 +28,15 @@ import {
     VALIDATE_DEBT_CATEGORIES_FAIL,
 } from '../../strings/types';
 
-export const resetDebtForm = (callback) => async dispatch => {
-    dispatch({
+export const resetDebtForm = () => {
+    return {
         type: RESET_DEBT_FORM
-    });
-
-    callback();
+    };
 };
 
 export const resetDebtError = () => {
     return {
-        type: RESET_DEBT_ERROR,
+        type: RESET_DEBT_ERROR
     };
 };
 

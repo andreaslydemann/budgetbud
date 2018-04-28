@@ -25,7 +25,6 @@ import {
     debtSelected,
     deleteDebt,
     resetDebtError,
-    resetDebtForm,
     getCategories
 } from "../../redux/actions";
 
@@ -38,9 +37,7 @@ class DebtOverview extends PureComponent {
     }
 
     onCreateDebtPress = () => {
-        this.props.resetDebtForm(() => {
-            this.props.navigation.navigate('CreateDebt');
-        });
+        this.props.navigation.navigate('CreateDebt');
     };
 
     deleteDebt = async () => {
@@ -139,7 +136,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    resetDebtForm, debtSelected, deleteDebt, getCategories, resetDebtError
+    debtSelected, deleteDebt, getCategories, resetDebtError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DebtOverview);

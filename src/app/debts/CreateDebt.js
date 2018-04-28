@@ -13,11 +13,16 @@ import {
     getDebts,
     nameChanged,
     resetDebtError,
+    resetDebtForm,
     categoriesSelected,
     getCategories
 } from "../../redux/actions";
 
 class CreateDebt extends Component {
+    componentWillMount() {
+        this.props.resetDebtForm();
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.debtError) {
             showWarningToast(nextProps.debtError);
@@ -104,7 +109,8 @@ const mapDispatchToProps = {
     getCategories,
     getDebts,
     deleteDebt,
-    resetDebtError
+    resetDebtError,
+    resetDebtForm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateDebt);

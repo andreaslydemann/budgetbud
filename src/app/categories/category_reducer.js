@@ -1,5 +1,6 @@
 import {
     RESET_DEBT_FORM,
+    RESET_DISPOSABLE_FORM,
     GET_CATEGORIES,
     GET_CATEGORIES_SUCCESS,
     GET_CATEGORIES_FAIL,
@@ -20,7 +21,10 @@ import {
     GET_INITIAL_STATE,
     EDIT_CATEGORIES,
     EDIT_CATEGORIES_SUCCESS,
-    EDIT_CATEGORIES_FAIL, EDIT_BUDGET_SUCCESS, CREATE_BUDGET_SUCCESS, RESET_CATEGORIES_ERROR
+    EDIT_CATEGORIES_FAIL,
+    EDIT_BUDGET_SUCCESS,
+    CREATE_BUDGET_SUCCESS,
+    RESET_CATEGORIES_ERROR
 } from '../../strings/types';
 
 const INITIAL_STATE = {
@@ -46,6 +50,11 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 categoriesOfDebt: [],
+                selectedCategories: []
+            };
+        case RESET_DISPOSABLE_FORM:
+            return {
+                ...state,
                 selectedCategories: []
             };
         case RESET_CATEGORIES_ERROR:
