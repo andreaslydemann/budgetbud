@@ -15,12 +15,10 @@ import {
     EDIT_DISPOSABLE_FAIL,
 } from '../../strings/types';
 
-export const resetDisposableForm = (callback) => async dispatch => {
-    dispatch({
+export const resetDisposableForm = () => {
+    return {
         type: RESET_DISPOSABLE_FORM
-    });
-
-    callback();
+    };
 };
 
 export const resetDisposableError = () => {
