@@ -102,9 +102,11 @@ class CreateBudget extends Component {
         return (
             <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
                 <AppHeader headerText={I18n.t('createBudgetHeader')}
-                           onLeftButtonPress={
-                               () => this.props.navigation.navigate("DrawerOpen")}
-                />
+                           showBackButton={true}
+                           onLeftButtonPress={() => {
+                               if (!this.state.submitLoading)
+                                   this.props.navigation.pop()
+                           }}/>
 
                 <BudgetForm handleSubmit={this.handleSubmit}
                             onIncomeChanged={this.onIncomeChange}
