@@ -39,8 +39,25 @@ const elements = [
 
 class SideBar extends Component {
     navigate = (route) => {
-        if (route === "SignOut")
+        const intro = "Intro";
+        const introStack = "IntroStack";
+        const signOut = "SignOut";
+        const myBudget = "MyBudget";
+
+        if (route === signOut)
             this.props.signOut();
+
+        if (route === myBudget && this.props.initialRoute === introStack) {
+            if (intro === this.props.currentRoute) return;
+
+            if (introStack !== this.props.currentRoute) {
+                this.props.screenChanged(introStack, () => {
+                    this.props.navigation.navigate(introStack)
+                });
+            }
+
+            return;
+        }
 
         if (route !== this.props.currentRoute) {
             this.props.screenChanged(route, () => {
@@ -88,8 +105,11 @@ class SideBar extends Component {
     }
 }
 
-const mapStateToProps = ({nav}) => {
-    return {currentRoute} = nav;
+const mapStateToProps = (state) => {
+    const {currentRoute} = state.nav;
+    const {initialRoute} = state.init;
+
+    return {currentRoute, initialRoute};
 };
 
 const mapDispatchToProps = {
