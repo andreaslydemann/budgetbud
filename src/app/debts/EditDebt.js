@@ -31,9 +31,6 @@ class EditDebt extends Component {
     }
 
     onContinuePress = () => {
-        if (this.props.debtLoading)
-            return;
-
         this.props.calculateDebtCategorySubtractions(
             this.props.name,
             this.props.totalAmount,

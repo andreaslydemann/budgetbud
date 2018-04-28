@@ -11,9 +11,22 @@ import {Logo, ErrorInfo} from '../../components/index';
 import {button, color, container} from "../../style/index";
 import I18n from "../../strings/i18n";
 import {ActivationCodeForm} from "../../components/forms/ActivationCodeForm";
-import {activationCodeChanged, resetAuthState, verifyActivationCode} from "../../redux/actions";
+import {
+    activationCodeChanged,
+    resetAuthState,
+    verifyActivationCode,
+    resetAuthError
+} from "../../redux/actions";
+import {showWarningToast} from "../../helpers/toasts";
 
 class VerifyActivationCode extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.authError) {
+            showWarningToast(nextProps.authError);
+            this.props.resetAuthError();
+        }
+    }
+
     onActivationCodeChange = (text) => {
         this.props.activationCodeChanged(text);
     };
@@ -79,7 +92,8 @@ const mapStateToProps = ({auth}) => {
 const mapDispatchToProps = {
     verifyActivationCode,
     activationCodeChanged,
-    resetAuthState
+    resetAuthState,
+    resetAuthError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(VerifyActivationCode);

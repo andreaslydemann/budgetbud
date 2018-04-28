@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import initial_reducer from '../app/common/initial_reducer';
+import initial_reducer from '../app/navigation/initial_reducer';
 import navigation_reducer from '../app/navigation/navigation_reducer';
 import auth_reducer from '../app/auth/auth_reducer';
 import budget_reducer from '../app/budgets/budget_reducer';

@@ -48,9 +48,6 @@ class EditDisposable extends Component {
     };
 
     onContinuePress = async () => {
-        if (this.props.disposableCalculationLoading)
-            return;
-
         await this.props.calculateDisposableCategoryDifferences(
             this.props.disposable,
             this.props.tmpDisposable,

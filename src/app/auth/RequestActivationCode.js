@@ -13,10 +13,19 @@ import I18n from "../../strings/i18n";
 import {
     cprNumberChanged,
     requestActivationCode,
-    resetAuthState
+    resetAuthState,
+    resetAuthError
 } from "../../redux/actions";
+import {showWarningToast} from "../../helpers/toasts";
 
 class RequestActivationCode extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.authError) {
+            showWarningToast(nextProps.authError);
+            this.props.resetAuthError();
+        }
+    }
+
     onCprNumberChange = (text) => {
         this.props.cprNumberChanged(text);
     };
@@ -79,7 +88,8 @@ const mapStateToProps = ({auth}) => {
 const mapDispatchToProps = {
     requestActivationCode,
     cprNumberChanged,
-    resetAuthState
+    resetAuthState,
+    resetAuthError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestActivationCode);

@@ -13,10 +13,19 @@ import {
     cprNumberChanged,
     phoneNumberChanged,
     resetAuthState,
-    signUp
+    signUp,
+    resetAuthError
 } from "../../redux/actions";
+import {showWarningToast} from "../../helpers/toasts";
 
 class SignUp extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.authError) {
+            showWarningToast(nextProps.authError);
+            this.props.resetAuthError();
+        }
+    }
+
     onCprNumberChange = (text) => {
         this.props.cprNumberChanged(text);
     };
@@ -83,7 +92,8 @@ const mapDispatchToProps = {
     signUp,
     cprNumberChanged,
     phoneNumberChanged,
-    resetAuthState
+    resetAuthState,
+    resetAuthError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

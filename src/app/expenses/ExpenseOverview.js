@@ -17,8 +17,10 @@ import {color, container, text} from "../../style";
 import {
     getCategoryAlarms,
     toggleCategoryAlarm,
-    getExpensesOfMonth
+    getExpensesOfMonth,
+    resetExpensesError
 } from "../../redux/actions";
+import {showWarningToast} from "../../helpers/toasts";
 
 class ExpenseOverview extends Component {
     async componentWillMount() {
@@ -29,9 +31,15 @@ class ExpenseOverview extends Component {
             this.props.getExpensesOfMonth();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.expensesError) {
+            showWarningToast(nextProps.expensesError);
+            this.props.resetExpensesError();
+        }
+    }
+
     onAlarmPress = async ({categoryID}) => {
-        if (!this.props.toggleLoading)
-            this.props.toggleCategoryAlarm(categoryID, this.props.budgetID)
+        this.props.toggleCategoryAlarm(categoryID, this.props.budgetID)
     };
 
     render() {
@@ -99,7 +107,10 @@ class ExpenseOverview extends Component {
                         <Text style={color.text}>{item.name}</Text>
                         </Body>
                         <Right>
-                            <TouchableOpacity onPress={() => this.onAlarmPress(item)}>
+                            <TouchableOpacity onPress={() => {
+                                if (!this.props.toggleLoading)
+                                    this.onAlarmPress(item)
+                            }}>
                                 <Icon style={[color.darkIcon, {fontSize: 26}]}
                                       name={notificationsEnabled ? "ios-notifications" : "ios-notifications-outline"}/>
                             </TouchableOpacity>
@@ -129,7 +140,13 @@ class ExpenseOverview extends Component {
 const mapStateToProps = (state) => {
     const {budgetID} = state.budget;
     const {debts} = state.debt;
-    const {expenses, totalExpenses, expensesLoading, expensesInitialized} = state.expense;
+    const {
+        expenses,
+        totalExpenses,
+        expensesLoading,
+        expensesInitialized,
+        expensesError
+    } = state.expense;
     const disposable = state.disposable.disposable;
     const {categories} = state.category;
     const {categoryAlarms, toggleLoading, categoryAlarmsInitialized} = state.alarm;
@@ -164,10 +181,14 @@ const mapStateToProps = (state) => {
         expensesLoading,
         categoryItems,
         expensesInitialized,
-        categoryAlarmsInitialized
+        categoryAlarmsInitialized,
+        expensesError
     }
 };
 
 export default connect(mapStateToProps, {
-    getExpensesOfMonth, getCategoryAlarms, toggleCategoryAlarm
+    getExpensesOfMonth,
+    getCategoryAlarms,
+    toggleCategoryAlarm,
+    resetExpensesError
 })(ExpenseOverview);

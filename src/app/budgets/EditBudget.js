@@ -14,11 +14,13 @@ import {
     editBudget,
     getBudget,
     incomeChanged,
-    categoryChanged,
     editCategories,
     getCategories,
-    setupEditBudget
+    setupEditBudget,
+    resetCategoriesError,
+    resetBudgetError
 } from "../../redux/actions";
+import {showWarningToast} from "../../helpers/toasts";
 
 class EditBudget extends Component {
     state = {
@@ -34,6 +36,16 @@ class EditBudget extends Component {
             tmpCategories: await this.props.setupEditBudget(this.props.categories)
         })
     };
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.budgetError) {
+            showWarningToast(nextProps.budgetError);
+            this.props.resetBudgetError();
+        } else if (nextProps.categoriesError) {
+            showWarningToast(nextProps.categoriesError);
+            this.props.resetCategoriesError();
+        }
+    }
 
     onIncomeChange = (newIncome) => {
         newIncome = correctConversion(newIncome);
@@ -68,7 +80,6 @@ class EditBudget extends Component {
     };
 
     handleSubmit = async () => {
-        if (this.state.submitLoading) return;
         Keyboard.dismiss();
         this.setState({
             submitLoading: true
@@ -158,7 +169,9 @@ const mapDispatchToProps = {
     getBudget,
     getCategories,
     incomeChanged,
-    setupEditBudget
+    setupEditBudget,
+    resetBudgetError,
+    resetCategoriesError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditBudget);

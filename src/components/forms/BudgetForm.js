@@ -89,7 +89,10 @@ export class BudgetForm extends PureComponent {
 
                 <View>
                     <Button rounded
-                            onPress={this.props.handleSubmit}
+                            onPress={() => {
+                                if (!this.props.submitLoading)
+                                    this.props.handleSubmit()
+                            }}
                             style={[button.defaultButton, color.button]}
                     >
                         {this.props.submitLoading ? (

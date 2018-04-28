@@ -16,13 +16,13 @@ import {
     SETUP_EDIT_BUDGET,
     SETUP_EDIT_BUDGET_SUCCESS,
     SETUP_EDIT_BUDGET_FAIL,
-    CATEGORY_CHANGED,
     MAP_EXPENSES,
     MAP_EXPENSES_SUCCESS,
     MAP_EXPENSES_FAIL,
     EDIT_CATEGORIES,
     EDIT_CATEGORIES_SUCCESS,
-    EDIT_CATEGORIES_FAIL
+    EDIT_CATEGORIES_FAIL,
+    RESET_CATEGORIES_ERROR
 } from "../../strings/types";
 
 export const createCategories = (budgetID, tmpCategories) =>
@@ -184,6 +184,12 @@ export const setupEditBudget = (categories) => async dispatch => {
         dispatch({type: SETUP_EDIT_BUDGET_FAIL, payload: data.error});
     }
     return mappedCategories;
+};
+
+export const resetCategoriesError = () => {
+    return {
+        type: RESET_CATEGORIES_ERROR
+    };
 };
 
 const getAllCategoryTypes = async (currentCategories) => {

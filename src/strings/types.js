@@ -106,6 +106,7 @@ export const EDIT_CATEGORIES_FAIL = 'edit_categories_fail';
 export const VALIDATE_DEBT_CATEGORIES_FAIL = 'validate_debt_categories_fail';
 export const CALCULATE_CATEGORY_SUBTRACTIONS_FAIL = 'calculate_category_subtractions_fail';
 export const GET_TOTAL_GOALS_AMOUNT_SUCCESS = 'get_total_goals_amount';
+export const RESET_CATEGORIES_ERROR = 'reset_categories_error';
 
 // ----------ACCOUNT RELATED TYPES----------
 export const RESET_ACCOUNTS_ERROR = 'reset_accounts_error';
@@ -136,6 +137,7 @@ export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS = 'calculate_disp
 export const GET_EXPENSES_OF_MONTH = 'get_expenses_of_month';
 export const GET_EXPENSES_OF_MONTH_SUCCESS = 'get_expenses_of_month_success';
 export const GET_EXPENSES_OF_MONTH_FAIL = 'get_expenses_of_month_fail';
+export const RESET_EXPENSES_ERROR = 'reset_expenses_error';
 
 // ----------ALARM RELATED TYPES----------
 export const RESET_ALARMS_ERROR = 'reset_alarms_error';

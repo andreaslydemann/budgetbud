@@ -11,7 +11,7 @@ import {
     Left
 } from "native-base";
 import I18n from "../../strings/i18n";
-import {color, container, text} from '../../style';
+import {color, container, text} from '../../style/index';
 import {screenChanged, signOut} from "../../redux/actions";
 
 const elements = [

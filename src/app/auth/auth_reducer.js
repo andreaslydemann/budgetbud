@@ -55,8 +55,6 @@ export default (state = INITIAL_STATE, action) => {
         case GET_INITIAL_AUTH_STATE:
             return INITIAL_STATE;
         case RESET_AUTH_ERROR:
-            console.log(state)
-            console.log({...state, authError: ''})
             return {...state, authError: ''};
         case CPR_NUMBER_CHANGED:
             return {...state, cprNumber: action.payload, authError: ''};

@@ -84,7 +84,10 @@ export class DisposableForm extends Component {
                     </View>
 
                     <Button rounded
-                            onPress={this.props.onContinuePressed}
+                            onPress={() => {
+                                if (!this.props.disposableCalculationLoading)
+                                    this.props.onContinuePressed()
+                            }}
                             style={[button.defaultButton, color.button]}
                     >
                         {this.props.disposableCalculationLoading ? (

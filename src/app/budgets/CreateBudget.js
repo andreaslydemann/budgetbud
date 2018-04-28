@@ -17,6 +17,8 @@ import {
     createCategories,
     mapExpensesToBudget
 } from "../../redux/actions";
+import {resetBudgetError} from "./budget_actions";
+import {resetCategoriesError} from "../categories/category_actions";
 
 class CreateBudget extends Component {
     state = {
@@ -34,8 +36,13 @@ class CreateBudget extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.budgetError)
+        if (nextProps.budgetError) {
             showWarningToast(nextProps.budgetError);
+            this.props.resetBudgetError();
+        } else if (nextProps.categoriesError) {
+            showWarningToast(nextProps.categoriesError);
+            this.props.resetCategoriesError();
+        }
     }
 
     onIncomeChange = (newIncome) => {
@@ -71,7 +78,6 @@ class CreateBudget extends Component {
     };
 
     handleSubmit = async () => {
-        if (this.state.submitLoading) return;
         Keyboard.dismiss();
         this.setState({
             submitLoading: true
@@ -155,7 +161,9 @@ const mapDispatchToProps = {
     createBudget,
     getLinkedAccounts,
     mapExpensesToBudget,
-    createCategories
+    createCategories,
+    resetBudgetError,
+    resetCategoriesError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateBudget);

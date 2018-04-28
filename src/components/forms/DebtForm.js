@@ -149,7 +149,10 @@ export class DebtForm extends Component {
                     </View>
 
                     <Button rounded
-                            onPress={() => this.props.onContinuePress()}
+                            onPress={() => {
+                                if (!this.props.debtLoading)
+                                    this.props.onContinuePress()
+                            }}
                             style={[button.defaultButton, color.button]}
                     >
                         {this.props.debtLoading ? (

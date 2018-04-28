@@ -27,9 +27,6 @@ class DebtPreview extends Component {
     }
 
     onSavePress = async () => {
-        if (this.props.debtLoading)
-            return;
-
         if (this.props.selectedDebt)
             await this.props.editDebt(this.props);
         else
@@ -61,7 +58,10 @@ class DebtPreview extends Component {
                 <Separator/>
 
                 <Button rounded
-                        onPress={() => this.onSavePress()}
+                        onPress={() => {
+                            if (!this.props.debtLoading)
+                                this.onSavePress()
+                        }}
                         style={[button.defaultButton, color.button]}
                 >
                     {this.props.debtLoading ? (

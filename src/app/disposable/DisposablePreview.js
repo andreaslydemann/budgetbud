@@ -57,7 +57,10 @@ class DisposablePreview extends Component {
                 <Separator/>
 
                 <Button rounded
-                        onPress={() => this.onSavePress()}
+                        onPress={() => {
+                            if (!this.props.disposableLoading)
+                                this.onSavePress()
+                        }}
                         style={[button.defaultButton, color.button]}
                 >
                     {this.props.disposableLoading ? (

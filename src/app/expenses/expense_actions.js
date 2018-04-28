@@ -4,7 +4,8 @@ import {BUDGETBUD_FUNCTIONS_URL} from "../../config/firebase_config";
 import {
     GET_EXPENSES_OF_MONTH,
     GET_EXPENSES_OF_MONTH_SUCCESS,
-    GET_EXPENSES_OF_MONTH_FAIL
+    GET_EXPENSES_OF_MONTH_FAIL,
+    RESET_EXPENSES_ERROR
 } from "../../strings/types";
 
 export const getExpensesOfMonth = () => async dispatch => {
@@ -29,4 +30,10 @@ export const getExpensesOfMonth = () => async dispatch => {
         let {data} = err.response;
         dispatch({type: GET_EXPENSES_OF_MONTH_FAIL, payload: data.error});
     }
+};
+
+export const resetExpensesError = () => {
+    return {
+        type: RESET_EXPENSES_ERROR
+    };
 };

@@ -14,10 +14,19 @@ import {
     changeForgottenCode,
     codeChanged,
     repeatedCodeChanged,
-    resetAuthState
+    resetAuthState,
+    resetAuthError
 } from "../../redux/actions";
+import {showWarningToast} from "../../helpers/toasts";
 
 class ChangeForgottenCode extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.authError) {
+            showWarningToast(nextProps.authError);
+            this.props.resetAuthError();
+        }
+    }
+
     onCodeChange = (text) => {
         this.props.codeChanged(text);
     };
@@ -95,6 +104,7 @@ const mapDispatchToProps = {
     codeChanged,
     repeatedCodeChanged,
     changeForgottenCode,
-    resetAuthState
+    resetAuthState,
+    resetAuthError
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeForgottenCode);
