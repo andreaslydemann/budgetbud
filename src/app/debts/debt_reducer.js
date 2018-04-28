@@ -93,12 +93,6 @@ export default (state = INITIAL_STATE, action) => {
         case EDIT_DEBT_FAIL:
             return {...state, debtLoading: false, debtError: action.payload};
         case DELETE_DEBT:
-            const fisk = state.debts.filter(
-                (item) => item.id !== state.selectedDebt
-            )
-            console.log(state.debts);
-            console.log(state.selectedDebt)
-            console.log(fisk)
             return {
                 ...state, debts: state.debts.filter(
                     (item) => item.id !== state.selectedDebt

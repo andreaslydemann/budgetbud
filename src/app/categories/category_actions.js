@@ -25,7 +25,7 @@ import {
     RESET_CATEGORIES_ERROR
 } from "../../strings/types";
 
-export const createCategories = (budgetID, tmpCategories) =>
+export const createCategories = (budgetID, tmpCategories, callback) =>
     async dispatch => {
         dispatch({type: CREATE_CATEGORIES});
 
@@ -40,6 +40,7 @@ export const createCategories = (budgetID, tmpCategories) =>
                 {headers: {Authorization: 'Bearer ' + token}});
 
             dispatch({type: CREATE_CATEGORIES_SUCCESS, payload: categories});
+            callback();
         } catch (err) {
             const {data} = err.response;
             dispatch({type: CREATE_CATEGORIES_FAIL, payload: data.error});

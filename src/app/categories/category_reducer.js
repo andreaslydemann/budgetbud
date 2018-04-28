@@ -73,7 +73,12 @@ export default (state = INITIAL_STATE, action) => {
         case CREATE_CATEGORIES:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case CREATE_CATEGORIES_SUCCESS:
-            return {...state, categoriesLoading: false};
+            return {
+                ...state,
+                categories: action.payload,
+                categoriesLoading: false,
+                categoriesInitialized: true
+            };
         case CREATE_CATEGORIES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case GET_CATEGORIES:

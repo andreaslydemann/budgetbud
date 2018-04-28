@@ -83,19 +83,27 @@ class CreateBudget extends Component {
             submitLoading: true
         });
 
+        const categoryItems = this.state.tmpCategories.filter((obj) => {
+            return obj.amount > 0
+        });
+
         await this.props.createBudget(
             this.state.tmpIncome,
             this.state.tmpDisposable,
-            this.state.tmpTotalGoalsAmount);
-        await this.props.createCategories(
-            this.props.budgetID,
-            this.state.tmpCategories);
-
-        this.setState({
-            submitLoading: false
-        });
-        if (!this.props.budgetError && !this.props.categoriesError)
-            this.props.navigation.navigate('MyBudget');
+            this.state.tmpTotalGoalsAmount,
+            (budgetID) => {
+                this.props.createCategories
+                (
+                    budgetID,
+                    categoryItems,
+                    () => {
+                        this.setState({
+                            submitLoading: false
+                        });
+                    }
+                )
+            }
+        );
     };
 
     render() {

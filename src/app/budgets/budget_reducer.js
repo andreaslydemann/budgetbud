@@ -45,7 +45,8 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 budgetLoading: false,
                 income: action.payload.income,
-                budgetID: action.payload.budgetID
+                budgetID: action.payload.budgetID,
+                budgetInitialized: true
             };
         case CREATE_BUDGET_FAIL:
             return {...state, budgetLoading: false, budgetError: action.payload};
