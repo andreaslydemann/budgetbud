@@ -1,6 +1,7 @@
 import axios from 'axios';
 import firebase from 'firebase';
 import {BUDGETBUD_FUNCTIONS_URL} from "../../config/firebase_config";
+import I18n from "../../strings/i18n";
 
 import {
     RESET_DISPOSABLE_FORM,
@@ -78,7 +79,7 @@ export const calculateDisposableCategoryDifferences = (disposable, tmpDisposable
     else if(categories.length === 0) {errorMsg = I18n.t('noCategoriesChosenError')}
 
     if (errorMsg) {
-        dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_FAIL, payload: errorMsg});
+        dispatch({type: CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_FAIL, payload: errorMsg});
         return;
     }
 
