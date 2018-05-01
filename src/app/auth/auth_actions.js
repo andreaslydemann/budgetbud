@@ -6,6 +6,7 @@ import {
     GET_INITIAL_STATE,
     GET_INITIAL_AUTH_STATE,
     RESET_AUTH_ERROR,
+    RESET_AUTH_CODE,
     CPR_NUMBER_CHANGED,
     PHONE_NUMBER_CHANGED,
     CODE_CHANGED,
@@ -49,6 +50,12 @@ export const resetAuthState = (callback) => async dispatch => {
 export const resetAuthError = () => {
     return {
         type: RESET_AUTH_ERROR
+    };
+};
+
+export const resetAuthCode = () => {
+    return {
+        type: RESET_AUTH_CODE
     };
 };
 

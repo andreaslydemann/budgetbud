@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {Logo, AuthForm, ErrorInfo} from '../../components/index';
+import {Logo, AuthForm} from '../../components/index';
 import {container, button, color} from "../../style/index";
 import I18n from "../../strings/i18n";
 import {
@@ -43,9 +43,11 @@ class SignUp extends Component {
     };
 
     onGoToSignInButtonPress = () => {
-        this.props.resetAuthState(() => {
-            this.props.navigation.pop();
-        });
+        if (!this.props.authLoading) {
+            this.props.resetAuthState(() => {
+                this.props.navigation.pop();
+            });
+        }
     };
 
     render() {
@@ -73,8 +75,6 @@ class SignUp extends Component {
                                     <Label style={color.optionButton}>{I18n.t('signUpGoToSignIn')}</Label>
                                 </Button>
                             </Container>
-
-                            <ErrorInfo error={this.props.authError}/>
                         </Container>
 
                     </Container>

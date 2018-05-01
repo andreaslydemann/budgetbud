@@ -51,14 +51,11 @@ class MyBudget extends Component {
                 <Container>
                     <View style={{flex: 0.1, justifyContent: 'center'}}>
                         {this.props.budgetLoading ? (
-                            <Spinner style={{
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }} color='#1c313a'/>) : (
+                            <View style={container.amountSummaryContainer}/>) : (
                             <View style={container.amountSummaryContainer}>
-                                <Text style={[text.listText, color.darkIcon]}>{I18n.t('budgetIncome')}
+                                <Text style={[text.listText, color.text]}>{I18n.t('budgetIncome')}
                                 </Text>
-                                <Text style={[text.listText, color.darkIcon]}>{this.props.income} {I18n.t('currency')}
+                                <Text style={[text.listText, color.text]}>{this.props.income} {I18n.t('currency')}
                                 </Text>
                             </View>
                         )}
@@ -112,9 +109,9 @@ class MyBudget extends Component {
                         <View style={container.budgetSummary}>
 
                             {this.props.budgetLoading ? (
-
-                                <Spinner style={{flex: 0.6, alignItems: 'center', justifyContent: 'center'}}
-                                         color='#1c313a'/>) : (
+                                <View style={{
+                                    flex: 0.6
+                                }}/>) : (
                                 <View style={{
                                     justifyContent: 'space-between',
                                     flex: 0.6
@@ -153,6 +150,7 @@ class MyBudget extends Component {
                                 }}
                                 navigateUser={this.navigateUser}
                             />
+
                         </View>
                     </View>
                 </Container>

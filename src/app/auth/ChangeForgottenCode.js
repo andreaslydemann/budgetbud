@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {Logo, ChangeForgottenCodeForm, ErrorInfo} from '../../components';
+import {Logo, ChangeForgottenCodeForm} from '../../components';
 import I18n from "../../strings/i18n";
 import {button, container, color} from "../../style/index";
 import {
@@ -47,7 +47,8 @@ class ChangeForgottenCode extends Component {
     };
 
     onGoToVerifyActivationCodeButtonPress = () => {
-        this.props.navigation.pop();
+        if (!this.props.authLoading)
+            this.props.navigation.pop();
     };
 
     render() {
@@ -78,8 +79,6 @@ class ChangeForgottenCode extends Component {
                                     </Label>
                                 </Button>
                             </Container>
-
-                            <ErrorInfo error={this.props.authError}/>
                         </Container>
 
                     </Container>

@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {Logo, ErrorInfo, ActivationCodeForm} from '../../components';
+import {Logo, ActivationCodeForm} from '../../components';
 import {button, color, container} from "../../style/index";
 import I18n from "../../strings/i18n";
 import {
@@ -38,9 +38,11 @@ class RequestActivationCode extends Component {
     };
 
     onGoToSignInButtonPress = () => {
-        this.props.resetAuthState(() => {
-            this.props.navigation.pop();
-        });
+        if (!this.props.authLoading) {
+            this.props.resetAuthState(() => {
+                this.props.navigation.pop();
+            });
+        }
     };
 
     render() {
@@ -70,8 +72,6 @@ class RequestActivationCode extends Component {
                                     </Label>
                                 </Button>
                             </Container>
-
-                            <ErrorInfo error={this.props.authError}/>
                         </Container>
 
                     </Container>

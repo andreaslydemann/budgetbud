@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {AuthForm, ErrorInfo, Logo} from '../../components/index';
+import {AuthForm, Logo} from '../../components/index';
 import {container, button, color} from "../../style/index";
 import I18n from "../../strings/i18n";
 import {
@@ -41,15 +41,19 @@ class SignIn extends Component {
     };
 
     onForgotCodeButtonPress = () => {
-        this.props.resetAuthState(() => {
-            this.props.navigation.navigate('RequestActivationCode');
-        });
+        if (!this.props.authLoading) {
+            this.props.resetAuthState(() => {
+                this.props.navigation.navigate('RequestActivationCode');
+            });
+        }
     };
 
     onGoToSignUpButtonPress = () => {
-        this.props.resetAuthState(() => {
-            this.props.navigation.navigate('SignUp');
-        });
+        if (!this.props.authLoading) {
+            this.props.resetAuthState(() => {
+                this.props.navigation.navigate('SignUp');
+            });
+        }
     };
 
     render() {
@@ -83,8 +87,6 @@ class SignIn extends Component {
                                     <Label style={color.optionButton}>{I18n.t('signInGoToSignUp')}</Label>
                                 </Button>
                             </Container>
-
-                            <ErrorInfo error={this.props.authError}/>
                         </Container>
 
                     </Container>

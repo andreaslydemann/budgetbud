@@ -16,9 +16,13 @@ import {
 import I18n from '../../strings/i18n';
 import {color, container} from "../../style";
 import {showWarningToast} from "../../helpers";
-import {deleteUser, resetAuthError} from "../../redux/actions";
+import {deleteUser, resetAuthError, resetAuthCode} from "../../redux/actions";
 
 class UserDetails extends Component {
+    componentWillMount() {
+        this.props.resetAuthCode();
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.authError) {
             showWarningToast(nextProps.authError);
@@ -104,7 +108,7 @@ const mapStateToProps = ({auth}) => {
 };
 
 const mapDispatchToProps = {
-    deleteUser, resetAuthError
+    deleteUser, resetAuthError, resetAuthCode
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);

@@ -7,6 +7,7 @@ export const SCREEN_CHANGED = 'screen_changed';
 // ----------AUTH RELATED TYPES----------
 export const GET_INITIAL_AUTH_STATE = 'get_initial_auth_state';
 export const RESET_AUTH_ERROR = 'reset_auth_error';
+export const RESET_AUTH_CODE = 'reset_auth_code';
 export const CPR_NUMBER_CHANGED = 'cpr_number_changed';
 export const PHONE_NUMBER_CHANGED = 'phone_number_changed';
 export const VALIDATE_CPR_NUMBER_FAIL = 'validate_cpr_number_fail';

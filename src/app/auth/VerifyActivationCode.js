@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Container, Button, Label} from 'native-base';
-import {Logo, ErrorInfo} from '../../components/index';
+import {Logo} from '../../components/index';
 import {button, color, container} from "../../style/index";
 import I18n from "../../strings/i18n";
 import {ActivationCodeForm} from "../../components/forms/ActivationCodeForm";
@@ -42,9 +42,11 @@ class VerifyActivationCode extends Component {
     };
 
     onGoToRequestActivationButtonPress = () => {
-        this.props.resetAuthState(() => {
-            this.props.navigation.pop();
-        });
+        if (!this.props.authLoading) {
+            this.props.resetAuthState(() => {
+                this.props.navigation.pop();
+            });
+        }
     };
 
     render() {
@@ -74,8 +76,6 @@ class VerifyActivationCode extends Component {
                                     </Label>
                                 </Button>
                             </Container>
-
-                            <ErrorInfo error={this.props.authError}/>
                         </Container>
 
                     </Container>
