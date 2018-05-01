@@ -12,7 +12,7 @@ import {
     SET_TMP_DISPOSABLE,
     CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS,
     EDIT_DISPOSABLE_SUCCESS,
-    EDIT_DISPOSABLE_FAIL,
+    EDIT_DISPOSABLE_FAIL, CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_FAIL,
 } from '../../strings/types';
 
 export const resetDisposableForm = () => {
@@ -96,6 +96,6 @@ export const calculateDisposableCategoryDifferences = (disposable, tmpDisposable
         callback();
     } catch (err) {
         let {data} = err.response;
-        dispatch({type: CALCULATE_CATEGORY_SUBTRACTIONS_FAIL, payload: data.error});
+        dispatch({type: CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_FAIL, payload: data.error});
     }
 };

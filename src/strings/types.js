@@ -132,6 +132,7 @@ export const GET_DISPOSABLE_SUCCESS = 'get_disposable_success';
 export const SET_TMP_DISPOSABLE = 'set_tmp_disposable';
 export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES = 'calculate_disposable_category_differences';
 export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS = 'calculate_disposable_category_differences_success';
+export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_FAIL = 'calculate_disposable_category_differences_fail';
 
 // ----------EXPENSES RELATED TYPES----------
 export const GET_EXPENSES_OF_MONTH = 'get_expenses_of_month';
