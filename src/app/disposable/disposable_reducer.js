@@ -13,6 +13,7 @@ import {
     SETUP_EDIT_BUDGET_SUCCESS,
     EDIT_BUDGET_SUCCESS,
     CREATE_BUDGET_SUCCESS, RESET_DISPOSABLE_ERROR, CALCULATE_CATEGORY_SUBTRACTIONS_FAIL,
+    CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_FAIL,
 } from '../../strings/types';
 
 const INITIAL_STATE = {
@@ -61,8 +62,11 @@ export default (state = INITIAL_STATE, action) => {
                 disposableError: '',
                 disposableCategorySubtractions: action.payload
             };
-        case CALCULATE_CATEGORY_SUBTRACTIONS_FAIL:
-            return {...state, disposableError: action.payload};
+        case CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_FAIL:
+            return {...state,
+                disposableCalculationLoading: false,
+                disposableError: action.payload
+            };
         default:
             return state;
     }
