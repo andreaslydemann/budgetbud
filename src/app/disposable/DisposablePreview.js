@@ -36,6 +36,7 @@ class DisposablePreview extends Component {
         return (
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('disposablePreviewHeader')}
+                           infoText={I18n.t('disposablePreviewInfo')}
                            showBackButton={true}
                            onLeftButtonPress={() => {
                                if (!this.props.disposableLoading) {

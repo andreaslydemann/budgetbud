@@ -44,6 +44,7 @@ class CreateDebt extends Component {
         return (
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('createDebtHeader')}
+                           infoText={I18n.t('createDebtInfo')}
                            showBackButton={true}
                            onLeftButtonPress={() => {
                                if (!this.props.debtLoading) {

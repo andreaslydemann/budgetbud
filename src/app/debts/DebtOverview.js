@@ -65,6 +65,7 @@ class DebtOverview extends PureComponent {
 
                 <Container>
                     <AppHeader headerText={I18n.t('debtOverviewHeader')}
+                               infoText={I18n.t('debtOverviewInfo')}
                                showBackButton={true}
                                onLeftButtonPress={() => this.props.navigation.pop()}/>
 

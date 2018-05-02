@@ -62,6 +62,7 @@ class Alarms extends PureComponent {
         return (
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('alarmsHeader')}
+                           infoText={I18n.t('alarmsInfo')}
                            showBackButton={true}
                            onLeftButtonPress={() => {
                                if (!this.props.toggleLoading)

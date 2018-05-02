@@ -47,6 +47,7 @@ class Settings extends Component {
 
                 <Container>
                     <AppHeader headerText={I18n.t('settingsHeader')}
+                               infoText={I18n.t('settingsInfo')}
                                onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
 
                     <Content>

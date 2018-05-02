@@ -45,6 +45,7 @@ class MyBudget extends Component {
         return (
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('myBudgetHeader')}
+                           infoText={I18n.t('myBudgetInfo')}
                            onLeftButtonPress={
                                () => this.props.navigation.navigate("DrawerOpen")}
                 />

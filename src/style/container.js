@@ -66,7 +66,8 @@ export const container = StyleSheet.create({
     xyCenteredFullSpan: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginHorizontal: 10
     },
     dialogButtonTextContainer: {
         borderTopLeftRadius: 0,
@@ -76,7 +77,7 @@ export const container = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
-    dialogButtonTextContainer2: { //TODO
+    dialogButtonTextContainer2: {
         backgroundColor: '#002940',
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,

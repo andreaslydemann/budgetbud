@@ -66,6 +66,7 @@ class Accounts extends PureComponent {
         return (
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('accountsHeader')}
+                           infoText={I18n.t('accountsInfo')}
                            showBackButton={true}
                            onLeftButtonPress={() => {
                                if (!this.props.linkLoading)
