@@ -1,6 +1,7 @@
 import {Font, AppLoading} from 'expo';
 import React, {Component} from 'react';
 import firebase from 'firebase';
+import I18n from 'react-native-i18n';
 import firebaseConfig from "../config/firebase_config";
 import {StyleProvider} from 'native-base';
 import getTheme from "../theme/components";
