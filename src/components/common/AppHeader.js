@@ -65,7 +65,7 @@ export class AppHeader extends Component {
                     ]}
                 >
                     <Container style={container.xyCenteredFullSpan}>
-                        <Label style={color.text}>{this.props.infoButtonText}</Label>
+                        <Label style={color.text}>{this.props.infoText}</Label>
                     </Container>
                 </PopupDialog>
             </View>

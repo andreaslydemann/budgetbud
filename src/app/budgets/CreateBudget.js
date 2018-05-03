@@ -110,6 +110,7 @@ class CreateBudget extends Component {
         return (
             <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
                 <AppHeader headerText={I18n.t('createBudgetHeader')}
+                           infoText={I18n.t('createBudgetInfo')}
                            showBackButton={true}
                            onLeftButtonPress={() => {
                                if (!this.state.submitLoading)

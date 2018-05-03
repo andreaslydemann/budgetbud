@@ -106,6 +106,7 @@ class EditBudget extends Component {
         return (
             <Container style={[container.signedInContainer, {alignItems: 'stretch'}]}>
                 <AppHeader headerText={I18n.t('editBudgetHeader')}
+                           infoText={I18n.t('editBudgetInfo')}
                            showBackButton={true}
                            onLeftButtonPress={() => {
                                if (!this.state.submitLoading || !this.props.budgetLoading)

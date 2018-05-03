@@ -54,6 +54,7 @@ class ChangeCode extends Component {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <Container style={container.signedInContainer}>
                     <AppHeader headerText={I18n.t('changeCodeHeader')}
+                               infoText={I18n.t('changeCodeInfo')}
                                showBackButton={true}
                                onLeftButtonPress={() => {
                                    if (!this.props.changeLoading) {

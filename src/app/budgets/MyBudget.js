@@ -11,7 +11,7 @@ import {
     Spinner
 } from "native-base";
 import {AppHeader, Separator, Toolbox} from "../../components/index";
-import {FlatList} from "react-native";
+import {FlatList, SectionList} from "react-native";
 import {connect} from "react-redux";
 import I18n from "../../strings/i18n";
 import {
@@ -45,6 +45,7 @@ class MyBudget extends Component {
         return (
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('myBudgetHeader')}
+                           infoText={I18n.t('myBudgetInfo')}
                            onLeftButtonPress={
                                () => this.props.navigation.navigate("DrawerOpen")}
                 />
@@ -71,37 +72,15 @@ class MyBudget extends Component {
                             <Separator/>
                         </View>) : (
                         <View style={{flex: 0.7}}>
-                            <View style={{flex: 1, alignSelf: 'stretch', paddingTop: 20}}>
-                                <View style={container.amountSummaryContainer}>
-                                    <Label style={[text.defaultText, color.text]}>
-                                        {I18n.t('budgetExpenses')}
-                                    </Label>
-                                </View>
-                                <FlatList
-                                    data={this.props.categories}
-                                    renderItem={this.renderCategory}
-                                    keyExtractor={item => item.categoryTypeID}
-                                />
-
-                            </View>
-
+                            <SectionList
+                                renderItem={this.renderSection}
+                                renderSectionHeader={this.renderSectionHeader}
+                                sections={this.sectionList()}
+                                keyExtractor={item => {
+                                    return (item.categoryTypeID ? item.categoryTypeID : item.id)
+                                }}
+                            />
                             <Separator/>
-
-                            {this.props.debts.length !== 0 &&
-                            <View style={this.props.debts.length > 2 ?
-                                {flex: 1, alignSelf: 'stretch', paddingTop: 20} :
-                                {flex: 0.5, alignSelf: 'stretch', paddingTop: 20}}>
-                                <View style={container.amountSummaryContainer}>
-                                    <Label style={[text.defaultText, color.text]}>{I18n.t('budgetDebts')}</Label>
-                                </View>
-                                <FlatList
-                                    data={this.props.debts}
-                                    renderItem={this.renderDebt}
-                                    keyExtractor={item => item.id}
-                                />
-                                <Separator/>
-                            </View>
-                            }
                         </View>
                     )}
 
@@ -158,27 +137,37 @@ class MyBudget extends Component {
         );
     }
 
-    renderCategory = ({item}) => {
+    sectionList = () => {
+        return ([
+            {data: this.props.categories, key: "ccc", title: I18n.t('budgetExpenses'), isCategorySection: true},
+            {data: this.props.debts, key: "bbb", title: I18n.t('budgetDebts'), isCategorySection: false},
+        ])
+    };
+
+    renderSectionHeader = ({section}) => {
         return (
-            <ListItem style={{paddingRight: 18}}>
-                <Body>
-                <Text style={[text.listText, color.text]}>{item.name}</Text>
-                </Body>
-                <Text style={[text.listText, color.text, {justifyContent: 'flex-end'}]}>
-                    {item.amount} {I18n.t('currency')}
-                </Text>
-            </ListItem>
+            (this.props.debts.length || section.isCategorySection) ?
+                <View
+                    style={[container.amountSummaryContainer, color.sectionHeader, {paddingVertical: 5}]}>
+                    <Label style={[text.defaultText, color.white]}>{section.title}</Label>
+                </View> :
+                <View/>
         );
     };
 
-    renderDebt = ({item}) => {
+    renderSection = (sectionElement) => {
+        const section = sectionElement.section;
+        const item = sectionElement.item;
+
         return (
             <ListItem style={{paddingRight: 18}}>
                 <Body>
-                <Text style={[text.listText, color.text]}>{item.debtData.name}</Text>
+                <Text
+                    style={[text.listText, color.text]}>{section.isCategorySection ? item.name : item.debtData.name}</Text>
                 </Body>
                 <Text style={[text.listText, color.text, {justifyContent: 'flex-end'}]}>
-                    {item.debtData.amountPerMonth} {I18n.t('currency')}</Text>
+                    {section.isCategorySection ? item.amount : item.debtData.amountPerMonth} {I18n.t('currency')}
+                </Text>
             </ListItem>
         );
     };

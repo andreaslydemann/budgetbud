@@ -58,6 +58,7 @@ class ChangePhoneNumber extends PureComponent {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <Container style={container.signedInContainer}>
                     <AppHeader headerText={I18n.t('changePhoneNumberHeader')}
+                               infoText={I18n.t('changePhoneNumberInfo')}
                                showBackButton={true}
                                onLeftButtonPress={() => {
                                    if (!this.props.changeLoading) {

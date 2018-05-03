@@ -41,6 +41,7 @@ class DebtPreview extends Component {
         return (
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('debtPreviewHeader')}
+                           infoText={I18n.t('debtPreviewInfo')}
                            showBackButton={true}
                            onLeftButtonPress={() => {
                                if (!this.props.debtLoading) {

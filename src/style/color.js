@@ -38,6 +38,9 @@ export const color = StyleSheet.create({
     cover: {
         color: '#03426A'
     },
+    sectionHeader: {
+        backgroundColor: '#03426A'
+    },
     checkboxChecked: {
         borderColor: '#003755',
         backgroundColor: '#295E80'

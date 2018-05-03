@@ -39,6 +39,7 @@ class Intro extends Component {
                 />
 
                 <AppHeader headerText={I18n.t('introHeader')}
+                           infoText={I18n.t('introInfo')}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}
                 />
 

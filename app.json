@@ -15,7 +15,11 @@
       "backgroundColor": "#002940"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.andreaslydemann.budgetbud"
+    },
+    "android": {
+      "package": "com.andreaslydemann.budgetbud"
     }
   }
 }

@@ -1,6 +1,7 @@
 import {Font, AppLoading} from 'expo';
 import React, {Component} from 'react';
 import firebase from 'firebase';
+import I18n from 'ex-react-native-i18n';
 import firebaseConfig from "../config/firebase_config";
 import {StyleProvider} from 'native-base';
 import getTheme from "../theme/components";
@@ -16,8 +17,8 @@ import {getBudgetID} from "../app/budgets/budget_actions";
 class Setup extends Component {
     state = {isReady: false, isAuthorized: false, isOffline: false};
 
-    componentWillMount() {
-        this.loadFonts();
+    async componentWillMount() {
+        await Promise.all([I18n.initAsync(), this.loadFonts()])
     }
 
     componentWillUnmount() {

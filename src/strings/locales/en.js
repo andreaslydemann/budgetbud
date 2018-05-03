@@ -2,6 +2,10 @@ export default {
     accountsHeader: 'Accounts',
     accountsSaveButton: 'Save',
     alarmsHeader: 'Alarms',
+    alarmsInfo: 'Here you can choose which alarms you want enabled. If an alarm is ' +
+    'activated, you will receive a notification. Press [Save] to save the changes.',
+    accountsInfo: 'Here you can choose which accounts ' +
+    'you want expenses from. Press [Save] to save the changes',
     alarmsNotifyBudgetExceeded: 'Notify if budget is exceeded',
     alarmsNotifyWeeklyStatus: 'Notify weekly status',
     alarmsSaveButton: 'Save',
@@ -15,10 +19,13 @@ export default {
     budgetDisposable: 'Disposable',
     budgetPreviewHeader: 'Budget preview',
     changePhoneNumberHeader: 'Change phone number',
+    changePhoneNumberInfo: 'Here you can edit your phone number. Press [Save] to save the changes.',
     changePhoneNumberLabel: 'Enter phone number',
     changePhoneNumberPlaceholder: '12 34 56 78',
     changePhoneNumberSaveButton : 'Save',
     changeCodeHeader: 'Change code',
+    changeCodeInfo: 'Here you can edit your code. The entered ' +
+    'codes must be identical. Press [Save] to save the changes.',
     changeCodeLabel: 'Enter new code',
     changeRepeatedCodeLabel: 'Repeat new code',
     changeCodePlaceholder: '1234',
@@ -31,8 +38,12 @@ export default {
     confirmDialogCancelButton: 'Cancel',
     confirmDialogOkButton: 'Ok',
     createBudgetHeader: 'Create budget',
+    createBudgetInfo: 'Here you can create a new budget. The expense goals can be ' +
+    'pre-filled based on your expenses for the last three months from your connected accounts.',
     createBudgetButton: 'Save',
     createDebtHeader: 'Create Debt',
+    createDebtInfo: 'Here you can create a debt item. Choose when the debt must be paid off and from which ' +
+    'expense goals the debt should be subtracted. Press [Continue] to see a preview of the changes.',
     currency: 'kr',
     datePickerCancelButton: 'Cancel',
     datePickerOkButton: 'Ok',
@@ -44,9 +55,13 @@ export default {
     debtCategories: 'Specify where the debt is to be deducted.',
     debtContinueButton: 'Continue',
     debtOverviewHeader: 'Debt overview',
+    debtOverviewInfo: 'Here you can see all your created debt items. [Create debt] allows you to add a new debt ' +
+    'item. Edit a debt item by pressing the pencil icon and delete the debt item by pressing the trash can icon.',
     debtOverviewConfirmDialogBody: 'Do you want to delete the selected debt?',
     debtOverviewCreateDebtButton: 'Create debt',
     debtPreviewHeader: 'Debt preview',
+    debtPreviewInfo: 'Here is a preview of how your changes affect your budget. ' +
+    'Press [Save] to save these changes.',
     debtPreviewBefore: 'Before',
     debtPreviewAfter: 'After',
     debtPreviewSaveButton: 'Save',
@@ -59,15 +74,25 @@ export default {
     disposableContinueButton: 'Continue',
     disposablePreviewSaveButton: 'Save',
     disposablePreviewHeader: 'Debt preview',
+    disposablePreviewInfo: 'Here is a preview of how your changes ' +
+    'affect your budget. Press [Save] to save these changes.',
     disposablePreviewBefore: 'Before',
     disposablePreviewAfter: 'After',
     disposableUnchangedError: 'Disposable unchanged.',
     noCategoriesChosenError: 'No categories chosen.',
     editBudgetHeader: 'Edit budget',
+    editBudgetInfo: 'Here you can edit your budget by updating the amounts in the input fields and ' +
+    'pressing [Save]. Expense goals will only be added if they have an amount greater than 0.',
     editBudgetButton: 'Save',
     editDebtHeader: 'Edit debt',
+    editDebtInfo: 'Here you can edit a debt item. Choose when the debt must be paid off and from which' +
+    ' expense goals the debt should be subtracted. Press [Continue] to see a preview of the changes.',
     editDisposableHeader: 'Disposable',
+    editDisposableInfo: 'Here you can edit your disposable and select which goals for' +
+    ' expenses your changes will affect. Press [Continue] to see a preview of the changes.',
     expenseOverviewHeader: 'Expense overview',
+    expenseOverviewInfo: 'Here you see an overview of your spending compared to your budget. Press the ' +
+    'bell icon on any expense item to get a notification if your spendings exceed the expense goal.',
     expenseOverviewBudget: 'Budget',
     expenseOverviewDisposable: 'Disposable',
     expenseOverviewTotalDebtsPerMonth: 'Total debt per month',
@@ -78,11 +103,15 @@ export default {
     introConfirmDialogHeader: 'Add account',
     introConfirmDialogBody: 'You need to link an account. Do you want to do it now?',
     introCreateBudgetHeader: 'Create a budget',
+    introInfo: 'Here you can get help creating a budget and connect to the accounts ' +
+    'you want the budget to be based on. This is done by pressing [Get started].',
     introCreateBudgetBody:
     "You haven't created a budget yet. " +
     "Creating one will help you reach financial stability.",
     introGetStarted: 'Get started',
     myBudgetHeader: 'My budget',
+    myBudgetInfo: 'Here you can get an overview of your budget. Press the arrow icon to open the toolbox. ' +
+    'The three buttons in the toolbox navigate to editing screens where you can manage parts of your budget.',
     myBudgetToolboxBudget: 'Budget',
     myBudgetToolboxDisposable: 'Disposable',
     myBudgetToolboxDebt: 'Debt',
@@ -96,6 +125,8 @@ export default {
     verifyActivationCprNumberPlaceholder: 'Activation code',
     verifyActivationCodeDescription: 'Get the option to change your code by entering the activation code.',
     settingsHeader: 'Settings',
+    settingsInfo: 'Here you can navigate to user details, accounts, and ' +
+    'alarm settings, or delete your budget by pressing the trash can icon.',
     settingsConfirmDialogBody: 'Do you want to delete your budget?',
     settingsUserDetails: 'User details',
     settingsAccounts: 'Accounts',
@@ -121,6 +152,8 @@ export default {
     signUpGoToSignIn: 'Already signed up?',
     toastCloseButton: 'Close',
     userDetailsHeader: 'User details',
+    userDetailsInfo: 'Here you can navigate to edit screens for the ' +
+    'phone number and code. Press the trash can icon to delete your user.',
     userDetailsConfirmDialogHeader: 'Confirm deletion',
     userDetailsConfirmDialogBody: 'Do you want to delete your user?',
     userDetailsChangePhoneNumber: 'Change phone number',

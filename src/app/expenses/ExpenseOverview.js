@@ -46,6 +46,7 @@ class ExpenseOverview extends Component {
         return (
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('expenseOverviewHeader')}
+                           infoText={I18n.t('expenseOverviewInfo')}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
                 <Container>
                     {this.props.expensesLoading ? (

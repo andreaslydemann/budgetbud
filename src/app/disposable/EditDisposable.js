@@ -61,6 +61,7 @@ class EditDisposable extends Component {
         return (
             <Container style={container.signedInContainer}>
                 <AppHeader headerText={I18n.t('editDisposableHeader')}
+                           infoText={I18n.t('editDisposableInfo')}
                            showBackButton={true}
                            onLeftButtonPress={() => {
                                if (!this.props.disposableCalculationLoading) {

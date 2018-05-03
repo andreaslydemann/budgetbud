@@ -57,6 +57,7 @@ class UserDetails extends Component {
 
                 <Container>
                     <AppHeader headerText={I18n.t('userDetailsHeader')}
+                               infoText={I18n.t('userDetailsInfo')}
                                showBackButton={true}
                                onLeftButtonPress={() => this.props.navigation.pop()}/>
 
