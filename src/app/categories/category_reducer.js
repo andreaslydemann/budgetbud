@@ -128,7 +128,7 @@ export default (state = INITIAL_STATE, action) => {
         case EDIT_CATEGORIES_FAIL:
             return {...state, budgetError: action.payload, budgetLoading: false};
         case EDIT_BUDGET_SUCCESS:
-            return {totalGoalsAmount: action.payload.totalGoalsAmount};
+            return {...state, totalGoalsAmount: action.payload.totalGoalsAmount};
         default:
             return state;
     }

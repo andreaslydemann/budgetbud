@@ -91,15 +91,16 @@ class EditBudget extends Component {
             this.state.tmpDisposable,
             this.state.tmpTotalGoalsAmount
         );
+
         await this.props.editCategories(
             this.props.budgetID,
-            this.state.tmpCategories);
+            this.state.tmpCategories, () => {
+                this.props.navigation.pop();
+            });
 
         this.setState({
             submitLoading: false
         });
-        if(!this.props.budgetError && !this.props.categoriesError)
-            this.props.navigation.pop();
     };
 
     render() {
