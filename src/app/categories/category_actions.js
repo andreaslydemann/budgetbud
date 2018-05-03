@@ -87,7 +87,7 @@ export const getCategories = (budgetID) => async dispatch => {
     }
 };
 
-export const editCategories = (budgetID, tmpCategories) => async dispatch => {
+export const editCategories = (budgetID, tmpCategories, callback) => async dispatch => {
     dispatch({type: EDIT_CATEGORIES});
 
     tmpCategories.forEach(c => c.amount = Math.round(c.amount * 100) / 100);
@@ -101,6 +101,7 @@ export const editCategories = (budgetID, tmpCategories) => async dispatch => {
             {headers: {Authorization: 'Bearer ' + token}});
 
         dispatch({type: EDIT_CATEGORIES_SUCCESS, payload: categories});
+        callback();
     } catch (err) {
         let {data} = err.response;
         dispatch({type: EDIT_CATEGORIES_FAIL, payload: data.error});
