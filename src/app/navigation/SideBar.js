@@ -14,45 +14,46 @@ import I18n from "../../strings/i18n";
 import {color, container, text} from '../../style/index';
 import {screenChanged, signOut} from "../../redux/actions";
 
-const elements = [
-    {
-        name: I18n.t('sideBarMyBudget'),
-        route: "MyBudget",
-        icon: "md-clipboard"
-    },
-    {
-        name: I18n.t('sideBarExpenseOverview'),
-        route: "ExpenseOverview",
-        icon: "md-stats"
-    },
-    {
-        name: I18n.t('sideBarSettings'),
-        route: "Settings",
-        icon: "md-options"
-    },
-    {
-        name: I18n.t('sideBarSignOut'),
-        route: "SignOut",
-        icon: "md-exit"
-    }
-];
-
 class SideBar extends Component {
-    navigate = (route) => {
-        const intro = "Intro";
-        const introStack = "IntroStack";
-        const signOut = "SignOut";
-        const myBudget = "MyBudget";
+    state = {
+        elements: [
+            {
+                name: I18n.t('sideBarMyBudget'),
+                route: "MyBudget",
+                icon: "md-clipboard"
+            },
+            {
+                name: I18n.t('sideBarExpenseOverview'),
+                route: "ExpenseOverview",
+                icon: "md-stats"
+            },
+            {
+                name: I18n.t('sideBarSettings'),
+                route: "Settings",
+                icon: "md-options"
+            },
+            {
+                name: I18n.t('sideBarSignOut'),
+                route: "SignOut",
+                icon: "md-exit"
+            }
+        ],
+        intro: "Intro",
+        introStack: "IntroStack",
+        signOut: "SignOut",
+        myBudget: "MyBudget"
+    };
 
+    navigate = (route) => {
         if (route === signOut)
             this.props.signOut();
 
-        if (route === myBudget && this.props.initialRoute === introStack) {
-            if (intro === this.props.currentRoute) return;
+        if (route === this.state.myBudget && this.props.initialRoute === this.state.introStack) {
+            if (this.state.intro === this.props.currentRoute) return;
 
-            if (introStack !== this.props.currentRoute) {
-                this.props.screenChanged(introStack, () => {
-                    this.props.navigation.navigate(introStack)
+            if (this.state.introStack !== this.props.currentRoute) {
+                this.props.screenChanged(this.state.introStack, () => {
+                    this.props.navigation.navigate(this.state.introStack)
                 });
             }
 
@@ -80,7 +81,7 @@ class SideBar extends Component {
 
                     <List
                         scrollEnabled={false}
-                        dataArray={elements}
+                        dataArray={this.state.elements}
                         renderRow={data =>
                             <ListItem
                                 button
