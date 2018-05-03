@@ -91,6 +91,7 @@ class EditBudget extends Component {
             this.state.tmpDisposable,
             this.state.tmpTotalGoalsAmount
         );
+
         await this.props.editCategories(
             this.props.budgetID,
             this.state.tmpCategories, () => {
