@@ -144,7 +144,7 @@ export const categoriesSelected = (selectedCategories) => {
 
 export const mapExpensesToBudget = () => async dispatch => {
     dispatch({type: MAP_EXPENSES});
-    let categories;
+    let categories = [];
 
     try {
         let token = await firebase.auth().currentUser.getIdToken();
@@ -155,14 +155,8 @@ export const mapExpensesToBudget = () => async dispatch => {
 
         categories = await getAllCategoryTypes(data);
 
-        let totalGoalsAmount = 0;
-        categories.forEach(category => {
-            totalGoalsAmount += category.amount
-        });
-
         dispatch({
-            type: MAP_EXPENSES_SUCCESS,
-            payload: {categories, totalGoalsAmount}
+            type: MAP_EXPENSES_SUCCESS
         });
     }
     catch

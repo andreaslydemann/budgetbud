@@ -44,9 +44,6 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, disposableLoading: false, disposableError: action.payload};
         case GET_BUDGET_SUCCESS:
             return {...state, disposable: action.payload.disposable};
-        case MAP_EXPENSES_SUCCESS:
-            const totalWithdrawal = action.payload.totalGoalsAmount * (-1);
-            return {...state, disposable: totalWithdrawal};
         case SETUP_EDIT_BUDGET_SUCCESS:
             return {...state, tmpDisposable: state.disposable};
         case DISPOSABLE_AMOUNT_CHANGED:

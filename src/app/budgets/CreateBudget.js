@@ -30,8 +30,16 @@ class CreateBudget extends Component {
     };
 
     async componentWillMount() {
+        const newTmpCategories = await this.props.mapExpensesToBudget();
+        let newTmpTotalGoalsAmount = 0;
+        newTmpCategories.forEach(category => {
+            newTmpTotalGoalsAmount += category.amount
+        });
+        const totalWithdrawal = newTmpTotalGoalsAmount * (-1);
         this.setState({
-            tmpCategories: await this.props.mapExpensesToBudget()
+            tmpCategories: newTmpCategories,
+            tmpTotalGoalsAmount: newTmpTotalGoalsAmount,
+            tmpDisposable: this.state.tmpDisposable + totalWithdrawal
         })
     };
 
