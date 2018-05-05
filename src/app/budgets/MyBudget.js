@@ -139,8 +139,8 @@ class MyBudget extends Component {
 
     sectionList = () => {
         return ([
-            {data: this.props.categories, key: "ccc", title: I18n.t('budgetExpenses'), isCategorySection: true},
-            {data: this.props.debts, key: "bbb", title: I18n.t('budgetDebts'), isCategorySection: false},
+            {data: this.props.categories, title: I18n.t('budgetExpenses'), isCategorySection: true},
+            {data: this.props.debts, title: I18n.t('budgetDebts'), isCategorySection: false},
         ])
     };
 
