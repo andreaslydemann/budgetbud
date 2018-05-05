@@ -15,10 +15,10 @@ import {
     createBudget,
     getLinkedAccounts,
     createCategories,
-    mapExpensesToBudget
+    mapExpensesToBudget,
+    resetBudgetError,
+    resetCategoriesError
 } from "../../redux/actions";
-import {resetBudgetError} from "./budget_actions";
-import {resetCategoriesError} from "../categories/category_actions";
 
 class CreateBudget extends Component {
     state = {

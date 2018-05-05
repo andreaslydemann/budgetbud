@@ -45,7 +45,7 @@ class SideBar extends Component {
     };
 
     navigate = (route) => {
-        if (route === signOut)
+        if (route === this.state.signOut)
             this.props.signOut();
 
         if (route === this.state.myBudget && this.props.initialRoute === this.state.introStack) {
