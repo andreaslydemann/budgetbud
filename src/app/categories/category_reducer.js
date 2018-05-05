@@ -59,7 +59,7 @@ export default (state = INITIAL_STATE, action) => {
         case RESET_CATEGORIES_ERROR:
             return {...state, categoriesError: ''};
         case MAP_EXPENSES:
-            return {...state, categoriesLoading: true};
+            return {...state, categoriesLoading: true, categoriesError: ''};
         case MAP_EXPENSES_SUCCESS:
             return {...state,categoriesLoading: false};
         case MAP_EXPENSES_FAIL:

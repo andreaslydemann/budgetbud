@@ -14,7 +14,7 @@ import {
     EDIT_BUDGET_FAIL,
     GET_BUDGET_ID_SUCCESS,
     GET_BUDGET_ID_FAIL,
-    RESET_BUDGET_ERROR, DELETE_BUDGET
+    RESET_BUDGET_ERROR, DELETE_BUDGET, MAP_EXPENSES
 } from "../../strings/types";
 
 const INITIAL_STATE = {
@@ -32,6 +32,8 @@ export default (state = INITIAL_STATE, action) => {
             return INITIAL_STATE;
         case GET_INITIAL_BUDGET_STATE:
             return INITIAL_STATE;
+        case MAP_EXPENSES:
+            return {...state, budgetError: '', budgetIDError: ''};
         case RESET_BUDGET_ERROR:
             return {...state, budgetError: ''};
         case GET_BUDGET_ID_SUCCESS:
