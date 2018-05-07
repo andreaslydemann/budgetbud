@@ -81,9 +81,7 @@ class EditBudget extends Component {
 
     handleSubmit = async () => {
         Keyboard.dismiss();
-        this.setState({
-            submitLoading: true
-        });
+        this.setState({submitLoading: true});
 
         await this.props.editBudget(
             this.props.budgetID,
@@ -98,9 +96,7 @@ class EditBudget extends Component {
                 this.props.navigation.pop();
             });
 
-        this.setState({
-            submitLoading: false
-        });
+        this.setState({submitLoading: false});
     };
 
     render() {
