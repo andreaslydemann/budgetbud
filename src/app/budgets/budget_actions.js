@@ -36,7 +36,7 @@ export const getBudgetID = (user, callback) => async dispatch => {
 
         dispatch({type: GET_BUDGET_ID_SUCCESS, payload: data});
 
-        callback();
+        callback(data);
     } catch (err) {
         if (err.response) {
             callback();

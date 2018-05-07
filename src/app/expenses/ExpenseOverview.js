@@ -23,7 +23,7 @@ import {
 import {showWarningToast} from "../../helpers/toasts";
 
 class ExpenseOverview extends Component {
-    async componentWillMount() {
+    componentWillMount() {
         if (!this.props.categoryAlarmsInitialized)
             this.props.getCategoryAlarms(this.props.budgetID);
 
@@ -49,7 +49,8 @@ class ExpenseOverview extends Component {
                            infoText={I18n.t('expenseOverviewInfo')}
                            onLeftButtonPress={() => this.props.navigation.navigate("DrawerOpen")}/>
                 <Container>
-                    {this.props.expensesLoading ? (
+                    {((this.props.expensesLoading || this.props.alarmsLoading)
+                        && (!this.props.expensesInitialized && !this.props.categoriesInitialized)) ? (
                         <Spinner style={{
                             flex: 1
                         }} color='#1c313a'/>) : (
@@ -59,6 +60,8 @@ class ExpenseOverview extends Component {
                                     data={this.props.categoryItems}
                                     renderItem={this.renderCategory}
                                     keyExtractor={item => item.categoryID}
+                                    refreshing={this.props.expensesLoading}
+                                    onRefresh={() => this.props.getExpensesOfMonth()}
                                 />
                                 <Separator/>
                             </View>
@@ -150,7 +153,7 @@ const mapStateToProps = (state) => {
     } = state.expense;
     const disposable = state.disposable.disposable;
     const {categories} = state.category;
-    const {categoryAlarms, toggleLoading, categoryAlarmsInitialized} = state.alarm;
+    const {categoryAlarms, toggleLoading, alarmsLoading, categoryAlarmsInitialized} = state.alarm;
 
     let totalDebtPerMonth = 0;
     debts.forEach(d => totalDebtPerMonth += d.debtData.amountPerMonth);
@@ -183,7 +186,8 @@ const mapStateToProps = (state) => {
         categoryItems,
         expensesInitialized,
         categoryAlarmsInitialized,
-        expensesError
+        expensesError,
+        alarmsLoading
     }
 };
 

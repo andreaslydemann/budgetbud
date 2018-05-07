@@ -15,9 +15,22 @@ import {connect} from "react-redux";
 import I18n from "../../strings/i18n";
 import {container, color} from "../../style";
 import {showWarningToast} from "../../helpers";
-import {deleteBudget, resetBudgetError} from "../../redux/actions";
+import {
+    deleteBudget,
+    resetBudgetError,
+    getBudgetAlarms,
+    getAccounts
+} from "../../redux/actions";
 
 class Settings extends Component {
+    componentWillMount() {
+        if (!this.props.budgetAlarmsInitialized)
+            this.props.getBudgetAlarms(this.props.budgetID);
+
+        if (!this.props.accountsInitialized)
+            this.props.getAccounts();
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.budgetError) {
             showWarningToast(nextProps.budgetError);
@@ -92,7 +105,7 @@ class Settings extends Component {
                                 <Body>
                                 <Label style={color.text}>{I18n.t('settingsDeleteBudget')}</Label>
                                 </Body>
-                                <Right >
+                                <Right>
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </ListItem>
@@ -104,12 +117,24 @@ class Settings extends Component {
     }
 }
 
-const mapStateToProps = ({budget}) => {
-    return {budgetID, budgetError} = budget;
+const mapStateToProps = (state) => {
+    const {accountsInitialized} = state.account;
+    const {budgetAlarmsInitialized} = state.alarm;
+    const {budgetID, budgetError} = state.budget;
+
+    return {
+        budgetID,
+        budgetError,
+        budgetAlarmsInitialized,
+        accountsInitialized
+    };
 };
 
 const mapDispatchToProps = {
-    deleteBudget, resetBudgetError
+    deleteBudget,
+    resetBudgetError,
+    getBudgetAlarms,
+    getAccounts
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
