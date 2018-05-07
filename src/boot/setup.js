@@ -12,7 +12,11 @@ import {
     addConnectionChangeEventListener
 } from '../helpers';
 import App from "../App";
-import {getBudgetID} from "../app/budgets/budget_actions";
+import {
+    getBudgetID,
+    getCategoryAlarms,
+    getExpensesOfMonth
+} from "../redux/actions";
 
 class Setup extends Component {
     state = {isReady: false, isAuthorized: false, isOffline: false};
@@ -31,7 +35,12 @@ class Setup extends Component {
 
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                this.props.getBudgetID(user, () => {
+                this.props.getBudgetID(user, (budgetID) => {
+                    if (budgetID) {
+                        this.props.getCategoryAlarms(budgetID);
+                        this.props.getExpensesOfMonth();
+                    }
+
                     this.setState({...this.state, isReady: true, isAuthorized: true});
                 });
             } else {
@@ -70,7 +79,7 @@ class Setup extends Component {
 }
 
 const mapDispatchToProps = {
-    getBudgetID
+    getBudgetID, getExpensesOfMonth, getCategoryAlarms
 };
 
 export default connect(null, mapDispatchToProps)(Setup);
