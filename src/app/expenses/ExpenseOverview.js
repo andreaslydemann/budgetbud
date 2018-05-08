@@ -29,7 +29,7 @@ class ExpenseOverview extends Component {
 
         console.log(this.props.linkedAccounts)
 
-        if (!this.props.expensesInitialized && this.props.linkedAccounts.length > 0) {
+        if (!this.props.expensesInitialized && this.props.linkedAccounts.length) {
             this.props.getExpensesOfMonth();
         }
         else {
