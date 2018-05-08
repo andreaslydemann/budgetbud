@@ -27,12 +27,11 @@ class ExpenseOverview extends Component {
         if (!this.props.categoryAlarmsInitialized)
             this.props.getCategoryAlarms(this.props.budgetID);
 
-        console.log(this.props.linkedAccounts)
-
-        if (!this.props.expensesInitialized && this.props.linkedAccounts.length) {
-            this.props.getExpensesOfMonth();
-        }
-        else {
+        if (this.props.linkedAccounts.length) {
+            if (!this.props.expensesInitialized) {
+                this.props.getExpensesOfMonth();
+            }
+        } else {
             showWarningToast(I18n.t('noAccountsLinked'))
         }
     }
