@@ -40,9 +40,7 @@ class Settings extends Component {
 
     deleteBudget = () => {
         const {budgetID} = this.props;
-        this.props.deleteBudget({budgetID}, () => {
-            this.props.navigation.navigate('CreateBudget');
-        });
+        this.props.deleteBudget({budgetID});
     };
 
     render() {

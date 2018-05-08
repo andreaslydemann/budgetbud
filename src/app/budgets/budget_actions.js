@@ -121,7 +121,7 @@ export const editBudget = (budgetID, tmpIncome, tmpDisposable, tmpTotalGoalsAmou
     }
 };
 
-export const deleteBudget = ({budgetID}, callback) => async dispatch => {
+export const deleteBudget = ({budgetID}) => async dispatch => {
     try {
         dispatch({type: DELETE_BUDGET});
         const token = await firebase.auth().currentUser.getIdToken();
@@ -133,7 +133,6 @@ export const deleteBudget = ({budgetID}, callback) => async dispatch => {
 
         dispatch({type: DELETE_BUDGET_SUCCESS});
         dispatch({type: GET_INITIAL_STATE});
-        callback();
     } catch (err) {
         const {data} = err.response;
         dispatch({type: DELETE_BUDGET_FAIL, payload: data.error});
