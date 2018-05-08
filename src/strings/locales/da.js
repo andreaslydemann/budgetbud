@@ -116,6 +116,7 @@ export default {
     myBudgetToolboxDisposable: 'Rådighedsbeløb',
     myBudgetToolboxDebt: 'Gæld',
     noConnection: 'Mistet forbindelse til internettet',
+    noBudgetCreated: 'Du mangler at oprette et budget',
     requestActivationCodeNextButton: 'Næste',
     requestActivationCodeReturnButton: 'Vend tilbage?',
     requestActivationCprNumberPlaceholder: 'CPR-nummer',

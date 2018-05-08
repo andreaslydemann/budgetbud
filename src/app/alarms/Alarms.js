@@ -33,7 +33,7 @@ import {
 
 class Alarms extends PureComponent {
     componentWillMount() {
-        if (!this.props.budgetAlarmsInitialized)
+        if (!this.props.budgetAlarmsInitialized && this.props.budgetID)
             this.props.getBudgetAlarms(this.props.budgetID);
     }
 
@@ -45,9 +45,13 @@ class Alarms extends PureComponent {
     }
 
     onSavePress = () => {
-        this.props.toggleBudgetAlarms(this.props, () => {
-            this.props.navigation.pop();
-        });
+        if (!this.props.budgetID) {
+            showWarningToast(I18n.t('noBudgetCreated'));
+        } else {
+            this.props.toggleBudgetAlarms(this.props, () => {
+                this.props.navigation.pop();
+            });
+        }
     };
 
     onBudgetExceededPress = () => {
