@@ -109,13 +109,10 @@ export default (state = INITIAL_STATE, action) => {
         case EDIT_CATEGORIES:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case EDIT_CATEGORIES_SUCCESS:
-            const categoryItems = action.payload.filter((obj) => {
-                return obj.amount > 0
-            });
             return {
                 ...state,
                 categoriesLoading: false,
-                categories: categoryItems,
+                categories: action.payload,
                 selectedCategories: [],
                 categoriesOfDebt: [],
             };

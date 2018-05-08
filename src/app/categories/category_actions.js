@@ -94,11 +94,14 @@ export const editCategories = (budgetID, tmpCategories, callback) => async dispa
 
     try {
         const token = await firebase.auth().currentUser.getIdToken();
-        const categories = tmpCategories;
 
         await axios.post(`${BUDGETBUD_FUNCTIONS_URL}/editCategories`,
-            {budgetID, categories},
+            {budgetID, categories: tmpCategories},
             {headers: {Authorization: 'Bearer ' + token}});
+
+        const categories = tmpCategories.filter((obj) => {
+            return obj.amount > 0
+        });
 
         dispatch({type: EDIT_CATEGORIES_SUCCESS, payload: categories});
         callback();
