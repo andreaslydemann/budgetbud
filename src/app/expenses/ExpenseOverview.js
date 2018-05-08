@@ -27,8 +27,14 @@ class ExpenseOverview extends Component {
         if (!this.props.categoryAlarmsInitialized)
             this.props.getCategoryAlarms(this.props.budgetID);
 
-        if (!this.props.expensesInitialized)
+        console.log(this.props.linkedAccounts)
+
+        if (!this.props.expensesInitialized && this.props.linkedAccounts.length > 0) {
             this.props.getExpensesOfMonth();
+        }
+        else {
+            showWarningToast(I18n.t('noAccountsLinked'))
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -160,6 +166,8 @@ const mapStateToProps = (state) => {
 
     const categoryItems = [];
 
+    const linkedAccounts = state.account.linkedAccounts;
+
     categories.forEach(category => {
         const index = expenses.findIndex(x => x.categoryTypeID === category.categoryTypeID);
 
@@ -187,7 +195,8 @@ const mapStateToProps = (state) => {
         expensesInitialized,
         categoryAlarmsInitialized,
         expensesError,
-        alarmsLoading
+        alarmsLoading,
+        linkedAccounts
     }
 };
 

@@ -115,6 +115,7 @@ export default {
     myBudgetToolboxBudget: 'Budget',
     myBudgetToolboxDisposable: 'Disposable',
     myBudgetToolboxDebt: 'Debt',
+    noAccountsLinked: 'No accounts added',
     noBudgetCreated: 'You need to create a budget',
     noConnection: 'Lost connection to the internet',
     requestActivationCodeNextButton: 'Next',

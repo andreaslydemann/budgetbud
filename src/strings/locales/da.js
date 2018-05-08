@@ -115,6 +115,7 @@ export default {
     myBudgetToolboxBudget: 'Budget',
     myBudgetToolboxDisposable: 'Rådighedsbeløb',
     myBudgetToolboxDebt: 'Gæld',
+    noAccountsLinked: 'Ingen konti tilføjet',
     noConnection: 'Mistet forbindelse til internettet',
     noBudgetCreated: 'Du mangler at oprette et budget',
     requestActivationCodeNextButton: 'Næste',
