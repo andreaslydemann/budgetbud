@@ -17,7 +17,8 @@ import {
     createCategories,
     mapExpensesToBudget,
     resetBudgetError,
-    resetCategoriesError
+    resetCategoriesError,
+    getCategories
 } from "../../redux/actions";
 
 class CreateBudget extends Component {
@@ -99,8 +100,8 @@ class CreateBudget extends Component {
             this.state.tmpIncome,
             this.state.tmpDisposable,
             this.state.tmpTotalGoalsAmount,
-            (budgetID) => {
-                this.props.createCategories
+            async (budgetID) => {
+                await this.props.createCategories
                 (
                     budgetID,
                     categoryItems,
@@ -109,7 +110,9 @@ class CreateBudget extends Component {
                             submitLoading: false
                         });
                     }
-                )
+                );
+
+                this.props.getCategories(budgetID);
             }
         );
     };
@@ -182,7 +185,8 @@ const mapDispatchToProps = {
     mapExpensesToBudget,
     createCategories,
     resetBudgetError,
-    resetCategoriesError
+    resetCategoriesError,
+    getCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateBudget);
