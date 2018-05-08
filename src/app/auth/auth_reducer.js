@@ -117,7 +117,7 @@ export default (state = INITIAL_STATE, action) => {
         case CHANGE_PHONE_NUMBER:
             return {...state, changeLoading: true};
         case CHANGE_PHONE_NUMBER_SUCCESS:
-            return {...state, changeLoading: false, phoneNumber: ''};
+            return {...state, changeLoading: false};
         case CHANGE_PHONE_NUMBER_FAIL:
             return {...state, changeLoading: false, authError: action.payload};
         case CHANGE_CODE:
