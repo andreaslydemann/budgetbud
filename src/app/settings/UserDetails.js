@@ -44,7 +44,7 @@ class UserDetails extends Component {
                 index: 0,
                 key: null,
                 actions: [NavigationActions.navigate({
-                    routeName: "SignIn"
+                    routeName: "AuthStack"
                 })],
             }));
         });
@@ -57,7 +57,7 @@ class UserDetails extends Component {
                     title={I18n.t('confirmDialogDeletionHeader')}
                     text={I18n.t('userDetailsConfirmDialogBody')}
                     confirmCallback={() => this.deleteUser()}
-                    authLoading={this.props.authLoading}
+                    loading={this.props.authLoading}
                     ref={(confirmDialog) => {
                         this.confirmDialog = confirmDialog
                     }}

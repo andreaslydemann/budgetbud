@@ -52,7 +52,7 @@ class Settings extends Component {
                     title={I18n.t('confirmDialogDeletionHeader')}
                     text={I18n.t('settingsConfirmDialogBody')}
                     confirmCallback={() => this.deleteBudget()}
-                    budgetLoading={this.props.budgetLoading}
+                    loading={this.props.budgetLoading}
                     ref={(confirmDialog) => {
                         this.confirmDialog = confirmDialog
                     }}
@@ -120,13 +120,14 @@ class Settings extends Component {
 const mapStateToProps = (state) => {
     const {accountsInitialized} = state.account;
     const {budgetAlarmsInitialized} = state.alarm;
-    const {budgetID, budgetError} = state.budget;
+    const {budgetID, budgetError, budgetLoading} = state.budget;
 
     return {
         budgetID,
         budgetError,
         budgetAlarmsInitialized,
-        accountsInitialized
+        accountsInitialized,
+        budgetLoading
     };
 };
 
