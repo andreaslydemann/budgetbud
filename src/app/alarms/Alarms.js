@@ -33,7 +33,7 @@ import {
 
 class Alarms extends PureComponent {
     componentWillMount() {
-        if (!this.props.budgetAlarmsInitialized)
+        if (!this.props.budgetAlarmsInitialized && this.props.budgetID)
             this.props.getBudgetAlarms(this.props.budgetID);
     }
 
