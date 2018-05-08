@@ -20,7 +20,8 @@ export class ActivationCodeForm extends Component {
             <Container style={[container.parentContainer, {flex: 0.2}]}>
                 <View style={{width: '80%'}}>
                     <Item rounded style={input.authInputItem}>
-                        <Input value={this.props.inputValue}
+                        <Input secureTextEntry={!this.props.isRequestActivationCode}
+                               value={this.props.inputValue}
                                onChangeText={this.props.onInputValueChange}
                                keyboardType="numeric"
                                maxLength={maxLength}
