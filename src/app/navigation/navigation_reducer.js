@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SCREEN_CHANGED:
-            return {currentRoute: action.payload};
+            return {...state, currentRoute: action.payload};
         case GET_INITIAL_AUTH_STATE:
             return INITIAL_STATE;
         case GET_BUDGET_ID_SUCCESS:

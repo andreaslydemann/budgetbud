@@ -64,7 +64,8 @@ class Settings extends Component {
 
                     <Content>
                         <List>
-                            <ListItem icon onPress={() => this.props.navigation.navigate("UserDetails")}>
+                            <ListItem icon onPress={debounce(() => {
+                                this.props.navigation.navigate("UserDetails")}, 400)}>
                                 <Left>
                                     <Icon style={color.darkIcon} name="md-person"/>
                                 </Left>
@@ -75,7 +76,8 @@ class Settings extends Component {
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </ListItem>
-                            <ListItem icon onPress={() => this.props.navigation.navigate("Accounts")}>
+                            <ListItem icon onPress={debounce(() => {
+                                this.props.navigation.navigate("Accounts")}, 400)}>
                                 <Left>
                                     <Icon style={color.darkIcon} name="md-card"/>
                                 </Left>
@@ -86,7 +88,8 @@ class Settings extends Component {
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </ListItem>
-                            <ListItem icon onPress={() => this.props.navigation.navigate("Alarms")}>
+                            <ListItem icon onPress={debounce(() => {
+                                this.props.navigation.navigate("Alarms")}, 400)}>
                                 <Left>
                                     <Icon style={color.darkIcon} name="md-notifications-outline"/>
                                 </Left>

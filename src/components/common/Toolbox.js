@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import Modal from 'react-native-modalbox';
 import {Button, Icon, Label, View} from "native-base";
-import {button, text, color} from "../../style/index";
+import {button, text} from "../../style/index";
 import I18n from "../../strings/i18n";
+import {debounce} from "lodash";
 
 export class Toolbox extends Component {
     showModal() {
@@ -23,10 +24,10 @@ export class Toolbox extends Component {
                     }}>
                         <Button
                             transparent
-                            onPress={() => {
+                            onPress={debounce(() => {
                                 this.props.navigateUser("EditBudget");
                                 this.refs.bottomModal.close();
-                            }}
+                            }, 400)}
 
                         >
                             <View style={button.modalButton}>
@@ -40,10 +41,10 @@ export class Toolbox extends Component {
 
                         <Button
                             transparent
-                            onPress={() => {
+                            onPress={debounce(() => {
                                 this.props.navigateUser("EditDisposable");
                                 this.refs.bottomModal.close();
-                            }}
+                            }, 400)}
                         >
                             <View style={button.modalButton}>
                                 <Icon name="logo-usd" style={{color: "#00263A"}}/>
@@ -55,10 +56,10 @@ export class Toolbox extends Component {
 
                         <Button
                             transparent
-                            onPress={() => {
+                            onPress={debounce(() => {
                                 this.props.navigateUser("DebtOverview");
                                 this.refs.bottomModal.close();
-                            }}
+                            }, 400)}
                         >
                             <View style={button.modalButton}>
                                 <Icon name="ios-archive" style={{color: "#00263A"}}/>

@@ -22,6 +22,7 @@ import {
     resetAuthCode,
     getPhoneNumber
 } from "../../redux/actions";
+import {debounce} from "lodash";
 
 class UserDetails extends Component {
     componentWillMount() {
@@ -57,7 +58,7 @@ class UserDetails extends Component {
                     title={I18n.t('confirmDialogDeletionHeader')}
                     text={I18n.t('userDetailsConfirmDialogBody')}
                     confirmCallback={() => this.deleteUser()}
-                    loading={this.props.authLoading}
+                    loading={this.props.deleteUserLoading}
                     ref={(confirmDialog) => {
                         this.confirmDialog = confirmDialog
                     }}
@@ -71,7 +72,9 @@ class UserDetails extends Component {
 
                     <Content>
                         <List>
-                            <ListItem icon onPress={() => this.props.navigation.navigate("ChangePhoneNumber")}>
+                            <ListItem icon onPress={debounce(() => {
+                                this.props.navigation.navigate("ChangePhoneNumber")
+                            }, 400)}>
                                 <Left>
                                     <Icon style={color.darkIcon} name="md-phone-portrait"/>
                                 </Left>
@@ -82,7 +85,9 @@ class UserDetails extends Component {
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </ListItem>
-                            <ListItem icon onPress={() => this.props.navigation.navigate("ChangeCode")}>
+                            <ListItem icon onPress={debounce(() => {
+                                this.props.navigation.navigate("ChangeCode")
+                            }, 400)}>
                                 <Left>
                                     <Icon style={color.darkIcon} name="md-lock"/>
                                 </Left>
@@ -115,7 +120,7 @@ class UserDetails extends Component {
 const mapStateToProps = ({auth}) => {
     return {
         phoneNumberInitialized,
-        authLoading,
+        deleteUserLoading,
         authError
     } = auth;
 };

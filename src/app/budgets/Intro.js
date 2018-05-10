@@ -14,12 +14,17 @@ import I18n from "../../strings/i18n";
 import {getLinkedAccounts} from "../../redux/actions";
 
 class Intro extends Component {
+    state = {loadingInitialData: false};
+
+
     onContinuePress = async () => {
+        this.setState({loadingInitialData: true});
         await this.props.getLinkedAccounts();
 
         this.props.linkedAccounts.length === 0 ?
             (this.confirmDialog.showDialog()) :
-            (this.props.navigation.navigate("CreateBudget"))
+            (this.props.navigation.navigate("CreateBudget"));
+        this.setState({loadingInitialData: false});
     };
 
     render() {
@@ -67,10 +72,12 @@ class Intro extends Component {
                             </Container>
                         </Container>
                         <Button rounded
-                                onPress={() => this.onContinuePress()}
+                                onPress={() =>
+                                    this.onContinuePress()
+                                }
                                 style={[button.defaultButton, color.button, {width: '100%'}]}
                         >
-                            {this.props.accountsLoading ? (
+                            {this.state.loadingInitialData ? (
                                 <Spinner color='#D0D0D0'/>) : (
                                 <Label style={color.white}>
                                     {I18n.t('introGetStarted')}

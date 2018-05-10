@@ -45,6 +45,7 @@ const INITIAL_STATE = {
     activationCode: '',
     authError: '',
     authLoading: false,
+    deleteUserLoading: false,
     changeLoading: false,
     phoneNumberInitialized: false
 };
@@ -88,9 +89,9 @@ export default (state = INITIAL_STATE, action) => {
         case SIGN_IN_FAIL:
             return {...INITIAL_STATE, authError: action.payload};
         case DELETE_USER:
-            return {...state, authLoading: true};
+            return {...state, deleteUserLoading: true};
         case DELETE_USER_FAIL:
-            return {...state, authLoading: false, authError: action.payload};
+            return {...state, deleteUserLoading: false, authError: action.payload};
         case REQUEST_ACTIVATION_CODE:
             return {...state, authLoading: true, authError: ''};
         case REQUEST_ACTIVATION_CODE_SUCCESS:

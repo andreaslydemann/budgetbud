@@ -3,6 +3,8 @@ export const GET_INITIAL_STATE = 'get_initial_state';
 
 // ----------NAVIGATION RELATED TYPES----------
 export const SCREEN_CHANGED = 'screen_changed';
+export const START_NAVIGATION = 'start_navigation';
+export const END_NAVIGATION = 'end_navigation';
 
 // ----------AUTH RELATED TYPES----------
 export const GET_INITIAL_AUTH_STATE = 'get_initial_auth_state';
