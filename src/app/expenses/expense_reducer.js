@@ -3,7 +3,7 @@ import {
     GET_EXPENSES_OF_MONTH,
     GET_EXPENSES_OF_MONTH_SUCCESS,
     GET_EXPENSES_OF_MONTH_FAIL,
-    RESET_EXPENSES_ERROR
+    RESET_EXPENSES_ERROR, LINK_ACCOUNTS_SUCCESS
 } from "../../strings/types";
 
 const INITIAL_STATE = {
@@ -32,6 +32,13 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, expensesLoading: false, expensesError: action.payload};
         case RESET_EXPENSES_ERROR:
             return {...state, expensesError: ''};
+        case LINK_ACCOUNTS_SUCCESS:
+            return {
+                ...state,
+                expenses: [],
+                totalExpenses: 0,
+                expensesInitialized: false
+            };
         default:
             return state;
     }
