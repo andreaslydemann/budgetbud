@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {View, FlatList} from 'react-native';
 import {connect} from 'react-redux';
-import _ from 'lodash';
+import _, {debounce} from 'lodash';
 import {
     AppHeader,
     ConfirmDialog,
@@ -85,7 +85,9 @@ class DebtOverview extends PureComponent {
                     <Separator/>
 
                     <Button rounded
-                            onPress={() => this.onCreateDebtPress()}
+                            onPress={debounce(() => {
+                                this.onCreateDebtPress()
+                            }, 400)}
                             style={[button.defaultButton, color.button]}
                     >
                         <Text style={text.submitButtonText}>{I18n.t('debtOverviewCreateDebtButton')}</Text>
@@ -105,10 +107,10 @@ class DebtOverview extends PureComponent {
                 <Right>
                     <View style={{flexDirection: 'row'}}>
                         <Icon
-                            onPress={() => {
+                            onPress={debounce(() => {
                                 this.onDebtSelect(item);
                                 this.props.navigation.navigate('EditDebt');
-                            }}
+                            }, 400)}
                             style={{marginRight: 7, fontSize: 30}}
                             name="md-create"/>
                         <Icon

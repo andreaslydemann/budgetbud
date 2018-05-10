@@ -27,7 +27,7 @@ class ExpenseOverview extends Component {
         if (!this.props.categoryAlarmsInitialized)
             this.props.getCategoryAlarms(this.props.budgetID);
 
-        if (this.props.linkedAccounts.length) {
+        if (this.props.linkedAccounts.length === 0) {
             if (!this.props.expensesInitialized) {
                 this.props.getExpensesOfMonth();
             }

@@ -17,6 +17,7 @@ import {
     resetAuthError
 } from "../../redux/actions";
 import {showWarningToast} from "../../helpers/toasts";
+import {debounce} from "lodash";
 
 class SignIn extends Component {
     componentWillReceiveProps(nextProps) {
@@ -78,12 +79,16 @@ class SignIn extends Component {
                         <Container>
                             <Container style={container.optionContainer}>
                                 <Button transparent style={button.optionButton}
-                                        onPress={() => this.onForgotCodeButtonPress()}>
+                                        onPress={debounce(() => {
+                                            this.onForgotCodeButtonPress()
+                                        }, 400)}>
                                     <Label style={color.optionButton}>{I18n.t('signInForgotCode')}</Label>
                                 </Button>
 
                                 <Button transparent style={button.optionButton}
-                                        onPress={() => this.onGoToSignUpButtonPress()}>
+                                        onPress={debounce(() => {
+                                            this.onGoToSignUpButtonPress()
+                                        }, 400)}>
                                     <Label style={color.optionButton}>{I18n.t('signInGoToSignUp')}</Label>
                                 </Button>
                             </Container>
