@@ -61,7 +61,7 @@ export default (state = INITIAL_STATE, action) => {
         case MAP_EXPENSES:
             return {...state, categoriesLoading: true, categoriesError: ''};
         case MAP_EXPENSES_SUCCESS:
-            return {...state,categoriesLoading: false};
+            return {...state, categoriesLoading: false};
         case MAP_EXPENSES_FAIL:
             return {...state, categoriesLoading: false, categoriesError: action.payload};
         case CREATE_CATEGORIES:

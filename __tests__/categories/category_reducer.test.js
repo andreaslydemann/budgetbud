@@ -18,7 +18,6 @@ describe('category_reducer', () => {
             categoriesLoading: false,
             subtractionsLoading: false,
             categoriesError: '',
-            tmpCategories: [],
             totalGoalsAmount: 0,
             categoriesInitialized: false
         };
@@ -52,34 +51,28 @@ describe('category_reducer', () => {
     });
 
     it('can handle EDIT_CATEGORIES_SUCCESS', () => {
-        const testCategoryAccepted = {name: 'test1', amount: 10, categoryTypeID: '1234'};
-        const testCategoryDenied = {name: 'test2', amount: 0, categoryTypeID: '4321'};
-        const testCategories = [testCategoryAccepted, testCategoryDenied];
+        const testCategoryOne = {name: 'test1', amount: 10, categoryTypeID: '1234'};
+        const testCategoryTwo = {name: 'test2', amount: 0, categoryTypeID: '4321'};
+        const testCategories = [testCategoryOne, testCategoryTwo];
         const editCategoriesSuccessAction = {
             type: EDIT_CATEGORIES_SUCCESS,
             payload: testCategories
         };
         expect(categoryReducer({}, editCategoriesSuccessAction)).toEqual({
                 categoriesLoading: false,
-                categories: [testCategoryAccepted] //Only the categories with relevant values should be added
+                categories: [testCategoryOne, testCategoryTwo], //Only the categories with relevant values should be added
+                selectedCategories: [],
+                categoriesOfDebt: []
             }
         )
     });
 
     it('can handle MAP_EXPENSES_SUCCESS', () => {
-        const testTmpCategories = [{name: 'test', amount: 10, categoryTypeID: '1234'}];
-        const testTotalGoalsAmount = 25;
         const mapExpensesSuccessAction = {
-            type: MAP_EXPENSES_SUCCESS,
-            payload: {
-                categories: testTmpCategories,
-                totalGoalsAmount: testTotalGoalsAmount
-            }
+            type: MAP_EXPENSES_SUCCESS
         };
         expect(categoryReducer({}, mapExpensesSuccessAction)).toEqual({
-                categoriesLoading: false,
-                tmpCategories: testTmpCategories,
-                totalGoalsAmount: testTotalGoalsAmount
+                categoriesLoading: false
             }
         )
     });

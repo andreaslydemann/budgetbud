@@ -18,6 +18,7 @@ describe('authReducer', () => {
             activationCode: '',
             authError: '',
             authLoading: false,
+            deleteUserLoading: false,
             changeLoading: false,
             phoneNumberInitialized: false
         };

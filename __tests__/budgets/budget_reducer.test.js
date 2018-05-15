@@ -33,6 +33,7 @@ describe('budget_reducer', () => {
         };
         expect(budgetReducer({}, createBudgetSuccessAction)).toEqual({
             budgetLoading: false,
+            budgetInitialized: true,
             income,
             budgetID
         })

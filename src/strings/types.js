@@ -108,7 +108,6 @@ export const EDIT_CATEGORIES_SUCCESS = 'edit_categories_success';
 export const EDIT_CATEGORIES_FAIL = 'edit_categories_fail';
 export const VALIDATE_DEBT_CATEGORIES_FAIL = 'validate_debt_categories_fail';
 export const CALCULATE_CATEGORY_SUBTRACTIONS_FAIL = 'calculate_category_subtractions_fail';
-export const GET_TOTAL_GOALS_AMOUNT_SUCCESS = 'get_total_goals_amount';
 export const RESET_CATEGORIES_ERROR = 'reset_categories_error';
 
 // ----------ACCOUNT RELATED TYPES----------
