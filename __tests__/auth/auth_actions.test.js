@@ -1,46 +1,17 @@
 import {
-    GET_INITIAL_STATE,
     GET_INITIAL_AUTH_STATE,
     RESET_AUTH_ERROR,
-    CPR_NUMBER_CHANGED,
-    PHONE_NUMBER_CHANGED,
-    CODE_CHANGED,
-    REPEATED_CODE_CHANGED,
     VALIDATE_CPR_NUMBER_FAIL,
     VALIDATE_PHONE_NUMBER_FAIL,
-    VALIDATE_ACTIVATION_CODE_FAIL,
-    VALIDATE_CODE_FAIL,
     SIGN_UP,
-    SIGN_UP_FAIL,
     SIGN_IN,
-    SIGN_IN_FAIL,
-    DELETE_USER,
-    DELETE_USER_FAIL,
-    VALIDATE_CODE_MATCH_FAIL,
-    GET_PHONE_NUMBER,
-    GET_PHONE_NUMBER_SUCCESS,
-    GET_PHONE_NUMBER_FAIL,
-    CHANGE_PHONE_NUMBER,
-    CHANGE_PHONE_NUMBER_SUCCESS,
-    CHANGE_PHONE_NUMBER_FAIL,
-    CHANGE_CODE,
-    CHANGE_CODE_SUCCESS,
-    CHANGE_CODE_FAIL,
-    REQUEST_ACTIVATION_CODE_SUCCESS,
-    REQUEST_ACTIVATION_CODE_FAIL,
-    REQUEST_ACTIVATION_CODE,
-    ACTIVATION_CODE_CHANGED,
-    VERIFY_ACTIVATION_CODE,
-    VERIFY_ACTIVATION_CODE_SUCCESS,
-    VERIFY_ACTIVATION_CODE_FAIL
 } from '../../src/strings/types';
-import authReducer from '../../src/app/auth/auth_reducer';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import {BUDGETBUD_FUNCTIONS_URL} from "../../src/config/firebase_config";
 import axios from "axios";
 import firebase from 'firebase';
 
+const baseURL = "https://us-central1-budgetbud-4950d.cloudfunctions.net";
 const authActions = require('../../src/app/auth/auth_actions');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -69,10 +40,10 @@ describe('signUp', () => {
             {type: GET_INITIAL_AUTH_STATE}
         ];
         const store = mockStore({});
-        const url1 = `${BUDGETBUD_FUNCTIONS_URL}/createUser`;
+        const url1 = `${baseURL}/createUser`;
         const param1 = {cprNumber};
 
-        const url2 = `${BUDGETBUD_FUNCTIONS_URL}/requestCode`;
+        const url2 = `${baseURL}/requestCode`;
         const param2 = {cprNumber, phoneNumber};
 
         const mockCallback = jest.fn();
