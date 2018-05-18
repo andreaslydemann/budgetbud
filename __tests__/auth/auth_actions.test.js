@@ -91,16 +91,7 @@ describe('signUp', () => {
 
 describe('signIn', () => {
     it('should sign in with returned token', async () => {
-        // adminInitStub = firebase.initializeApp = jest.fn(() => {});
         const signInWithCustomToken = jest.fn()
-        const initializeApp = jest
-            .spyOn(firebase, 'initializeApp')
-            .mockImplementation(() => {
-                return {
-                    auth: () => {}
-                }
-            });
-
         jest.spyOn(firebase, 'auth').mockImplementation(() => {
             return {
                 signInWithCustomToken

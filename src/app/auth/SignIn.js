@@ -78,7 +78,7 @@ class SignIn extends Component {
 
                         <Container>
                             <Container style={container.optionContainer}>
-                                <Button transparent style={button.optionButton}
+                                <Button id={'submitButton'} transparent style={button.optionButton}
                                         onPress={debounce(() => {
                                             this.onForgotCodeButtonPress()
                                         }, 400)}>

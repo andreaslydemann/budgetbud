@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing SignIn renders as expected 1`] = `
+exports[`Integrationtest - Testing SignIn renders as expected 1`] = `
 <KeyboardAvoidingView
   behavior="padding"
   keyboardVerticalOffset={0}
@@ -42,12 +42,12 @@ exports[`Testing SignIn renders as expected 1`] = `
         />
       </View>
       <AuthForm
-        cprNumber=""
+        cprNumber="1234567890"
         handleSubmit={[Function]}
         isSignIn={true}
         onCprNumberChange={[Function]}
         onSecondInputChange={[Function]}
-        secondInput=""
+        secondInput="1234"
       />
       <Styled(Container)>
         <Styled(Container)
