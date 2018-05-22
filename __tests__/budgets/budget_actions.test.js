@@ -1,10 +1,10 @@
 import {
     GET_INITIAL_AUTH_STATE,
-    RESET_AUTH_ERROR,
+    RESET_BUDGET_ERROR,
     VALIDATE_CPR_NUMBER_FAIL,
     VALIDATE_PHONE_NUMBER_FAIL,
     SIGN_UP,
-    SIGN_IN, CREATE_BUDGET, CREATE_BUDGET_SUCCESS,
+    SIGN_IN, CREATE_BUDGET, CREATE_BUDGET_SUCCESS, CREATE_BUDGET_FAIL,
 } from '../../src/strings/types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -16,27 +16,46 @@ const budgetActions = require('../../src/app/budgets/budget_actions');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+describe('reset', () => {
+    it('should create an action to reset budget error', () => {
+        const expectedAction = {
+            type: RESET_BUDGET_ERROR
+        };
+        expect(budgetActions.resetBudgetError()).toEqual(expectedAction)
+    });
+});
+
 describe('createBudget', () => {
     it('should create a budget and initialize state', async () => {
         const tmpIncome = 25;
         const tmpDisposable = 50;
         const tmpTotalGoalsAmount = 80;
+        const postResult = {data: {id: 123}};
 
-        const currentUser = jest.fn()
+        const getIdToken = jest.fn(() => {
+            return Promise.resolve("TESTTOKEN")
+        });
+
         jest.spyOn(firebase, 'auth').mockImplementation(() => {
             return {
-                currentUser
+                currentUser: {getIdToken}
             }
-        })
+        });
 
         const postMock = axios.post;
         postMock.mockImplementationOnce(() =>
-            Promise.resolve({})
+            Promise.resolve(postResult)
         );
 
         const expectedAction = [
             {type: CREATE_BUDGET},
-            {type: CREATE_BUDGET_SUCCESS}
+            {type: CREATE_BUDGET_SUCCESS,
+            payload: {
+                income: tmpIncome,
+                totalGoalsAmount: tmpTotalGoalsAmount,
+                disposable: tmpDisposable,
+                budgetID: postResult.data.id
+            }}
         ];
         const store = mockStore({});
 
@@ -48,20 +67,34 @@ describe('createBudget', () => {
             expect(store.getActions()).toEqual(expectedAction)
             expect(mockCallback).toHaveBeenCalled()
         });
-        // expect(authActions.signUp({cprNumber, phoneNumber}, mockCallback)).toEqual(expectedAction);
     })
 
-    it('should fail if cpr number is too short', () => {
-        const cprNumber = '1'; //Too short
-        const phoneNumber = '1'; //Too short
+    it('should fail if cpr number is too short', async () => {
+        const getIdToken = jest.fn(() => {
+            return Promise.resolve("TESTTOKEN")
+        });
+
+        jest.spyOn(firebase, 'auth').mockImplementation(() => {
+            return {
+                currentUser: {getIdToken}
+            }
+        });
+
+        const postMock = axios.post;
+        postMock.mockImplementationOnce(() =>
+            Promise.reject({err: {response: 123}})
+        );
 
         const expectedAction = [
-            {type: VALIDATE_CPR_NUMBER_FAIL}
+            {type: CREATE_BUDGET},
+            {type: CREATE_BUDGET_FAIL}
         ];
+
         const store = mockStore({});
 
-        const mockCallback = jest.fn();
-        return store.dispatch(authActions.signUp({cprNumber, phoneNumber}, mockCallback)).then(() => {
+        return store.dispatch(await budgetActions.createBudget()).then(() => {
+            // return of async actions
+            expect(postMock).toHaveBeenCalledTimes(1);
             expect(store.getActions()).toEqual(expectedAction)
         });
     })

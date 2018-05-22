@@ -69,7 +69,7 @@ export const createBudget = (tmpIncome, tmpDisposable, tmpTotalGoalsAmount, call
             });
             callback(data.id)
         } catch (err) {
-            const {data} = err.response;
+            // const {data} = err.response;
             dispatch({type: CREATE_BUDGET_FAIL, payload: data.error});
         }
     };
