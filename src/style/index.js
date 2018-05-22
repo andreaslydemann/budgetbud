@@ -6,4 +6,3 @@ export * from './input';
 export * from './list';
 export * from './spinner';
 export * from './text';
-export * from './separator'

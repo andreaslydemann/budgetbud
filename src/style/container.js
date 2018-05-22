@@ -151,4 +151,14 @@ export const container = StyleSheet.create({
         justifyContent: 'space-between',
         flex: 1
     },
+    separatorContainer: {
+        height: 2,
+        width: '100%',
+        backgroundColor: '#777777',
+        shadowColor: '#4c4c4c',
+        shadowOffset: { width: 1, height: 3 },
+        shadowOpacity: 0.1,
+        borderBottomColor: '#DBE0DE',
+        borderBottomWidth: 2
+    }
 });
