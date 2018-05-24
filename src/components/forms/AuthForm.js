@@ -43,7 +43,7 @@ export class AuthForm extends Component {
                         {renderInputIcon(this.props.secondInput, (this.props.isSignIn ? 4 : 8))}
                     </Item>
 
-                    <Button id={submitButton} rounded
+                    <Button rounded
                             onPress={() => {
                                 if (!this.props.authLoading)
                                     this.props.handleSubmit()

@@ -1,8 +1,19 @@
 import {
+    GET_BUDGET_ALARMS,
+    GET_BUDGET_ALARMS_SUCCESS,
+    GET_LINKED_ACCOUNTS,
+    GET_LINKED_ACCOUNTS_SUCCESS,
     RESET_ALARMS_ERROR
 } from '../../src/strings/types';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import axios from "axios";
+const middlewares = [thunk];
+import {setupFirebaseMock} from "../test_helper/firebase_mock";
+const mockStore = configureMockStore(middlewares);
 
 const alarmActions = require('../../src/app/alarms/alarm_actions');
+const accountActions = require('../../src/app/accounts/account_actions');
 
 describe('reset', () => {
     it('should create an action to reset alarm error', () => {
@@ -11,4 +22,53 @@ describe('reset', () => {
         };
         expect(alarmActions.resetAlarmsError()).toEqual(expectedAction);
     });
+});
+
+describe('getBudgetAlarms', () => {
+    beforeEach(() => {
+        setupFirebaseMock();
+    });
+
+    it('should get budget alarms then return them', async () => {
+        const testBudgetID = "123";
+        const eBankingAccounts = {data: ["Acc1", "Acc2"]};
+        axios.get.mockResolvedValueOnce(eBankingAccounts);
+
+        const store = mockStore({});
+        const expectedAction = [
+            {type: GET_BUDGET_ALARMS},
+            {
+                type: GET_BUDGET_ALARMS_SUCCESS,
+                payload: eBankingAccounts.data
+            }
+        ];
+
+        return store.dispatch(await alarmActions.getBudgetAlarms(testBudgetID)).then(() => {
+            expect(store.getActions()).toEqual(expectedAction);
+        });
+    })
+});
+
+describe('getLinkedAccounts', () => {
+    beforeEach(() => {
+        setupFirebaseMock();
+    });
+
+    it('should get linked accounts then return them', async () => {
+        const linkedAccounts = {data: ["LinkAcc1", "LinkAcc2"]};
+        axios.get.mockResolvedValueOnce(linkedAccounts);
+
+        const store = mockStore({});
+        const expectedAction = [
+            {type: GET_LINKED_ACCOUNTS},
+            {
+                type: GET_LINKED_ACCOUNTS_SUCCESS,
+                payload: linkedAccounts.data
+            }
+        ];
+
+        return store.dispatch(await accountActions.getLinkedAccounts()).then(() => {
+            expect(store.getActions()).toEqual(expectedAction);
+        });
+    })
 });

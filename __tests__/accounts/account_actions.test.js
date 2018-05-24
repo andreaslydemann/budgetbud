@@ -1,42 +1,104 @@
 import {
-    GET_ACCOUNTS_SUCCESS, GET_LINKED_ACCOUNTS, GET_LINKED_ACCOUNTS_SUCCESS,
+    GET_ACCOUNTS, GET_ACCOUNTS_SUCCESS,
+    GET_LINKED_ACCOUNTS,
+    GET_LINKED_ACCOUNTS_SUCCESS,
+    LINK_ACCOUNTS,
+    LINK_ACCOUNTS_SUCCESS,
     RESET_ACCOUNTS_ERROR
 } from '../../src/strings/types';
-import axios from 'axios';
-
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import axios from "axios";
+const middlewares = [thunk];
+import {setupFirebaseMock} from "../test_helper/firebase_mock";
+const mockStore = configureMockStore(middlewares);
 const accountActions = require('../../src/app/accounts/account_actions');
 
 describe('reset', () => {
     it('should create an action to reset account error', () => {
-        const expectedAction = {
-            type: RESET_ACCOUNTS_ERROR
-        };
+        const expectedAction = {type: RESET_ACCOUNTS_ERROR};
         expect(accountActions.resetAccountsError()).toEqual(expectedAction)
     });
 });
 
 describe('getAccounts', () => {
-    it('should sign in with returned token', async () => {
-        const signInWithCustomToken = jest.fn()
-        jest.spyOn(firebase, 'auth').mockImplementation(() => {
-            return {
-                signInWithCustomToken
+    beforeEach(() => {
+        setupFirebaseMock();
+    });
+
+    it('should get accounts and linked account then return them', async () => {
+        const eBankingAccounts = {data: ["Acc1", "Acc2"]};
+        axios.get.mockResolvedValueOnce(eBankingAccounts);
+
+        const linkedAccounts = {data: ["LinkAcc1", "LinkAcc2"]};
+        axios.get.mockResolvedValueOnce(linkedAccounts);
+
+        const store = mockStore({});
+        const expectedAction = [
+            {type: GET_ACCOUNTS},
+            {
+                type: GET_ACCOUNTS_SUCCESS,
+                payload: {
+                    eBankingAccounts: eBankingAccounts.data,
+                    linkedAccounts: linkedAccounts.data
+                }
             }
-        })
+        ];
+
+        return store.dispatch(await accountActions.getAccounts()).then(() => {
+            expect(store.getActions()).toEqual(expectedAction);
+        });
+    })
+});
+
+describe('getLinkedAccounts', () => {
+    beforeEach(() => {
+        setupFirebaseMock();
+    });
+
+    it('should get linked accounts then return them', async () => {
+        const linkedAccounts = {data: ["LinkAcc1", "LinkAcc2"]};
+        axios.get.mockResolvedValueOnce(linkedAccounts);
 
         const store = mockStore({});
         const expectedAction = [
             {type: GET_LINKED_ACCOUNTS},
-            {type: GET_LINKED_ACCOUNTS_SUCCESS}
+            {
+                type: GET_LINKED_ACCOUNTS_SUCCESS,
+                payload: linkedAccounts.data
+            }
         ];
 
-        const resp = {data: {token: testToken}};
-        axios.get.mockResolvedValue(resp);
+        return store.dispatch(await accountActions.getLinkedAccounts()).then(() => {
+            expect(store.getActions()).toEqual(expectedAction);
+        });
+    })
+});
 
-        return store.dispatch(await authActions.signIn({cprNumber, code})).then(() => {
+describe('linkAccounts', () => {
+    beforeEach(() => {
+        setupFirebaseMock();
+    });
+
+    it('should link accounts and envoke callback', async () => {
+        const selectedAccounts = ["acc1", "acc2"];
+        const postMock = axios.post;
+        postMock.mockImplementationOnce(() =>
+            Promise.resolve()
+        );
+
+        const expectedAction = [
+            {type: LINK_ACCOUNTS},
+            {type: LINK_ACCOUNTS_SUCCESS}
+        ];
+        const store = mockStore({});
+
+        const mockCallback = jest.fn();
+        return store.dispatch(await accountActions.linkAccounts(
+            selectedAccounts, mockCallback)).then(() => {
+            expect(postMock).toHaveBeenCalledTimes(1);
             expect(store.getActions()).toEqual(expectedAction)
-            expect(firebase.auth).toHaveBeenCalledTimes(1);
-            expect(signInWithCustomToken).toHaveBeenCalledWith(testToken);
+            expect(mockCallback).toHaveBeenCalled()
         });
     })
 });

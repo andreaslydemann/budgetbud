@@ -62,7 +62,7 @@ class MyBudget extends Component {
                         )}
                     </View>
                     <Separator/>
-                    {this.props.categoriesLoading || this.props.debtLoading ? (
+                    {this.props.categoriesLoading || this.props.debtLoading || this.props.budgetLoading ? (
                         <View style={{flex: 0.7}}>
                             <Spinner style={{
                                 alignItems: 'center',
