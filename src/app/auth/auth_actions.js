@@ -1,7 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
 import {BUDGETBUD_FUNCTIONS_URL} from "../../config/firebase_config";
-
 import {
     GET_INITIAL_STATE,
     GET_INITIAL_AUTH_STATE,

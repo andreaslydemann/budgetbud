@@ -32,7 +32,6 @@ export const getAccounts = () => async dispatch => {
         let userID = await firebase.auth().currentUser.uid;
 
         const promises = [];
-
         const getAccountsPromise =
             axios.get(`${EBANKING_FUNCTIONS_URL}/getAccounts?userID=${userID}`);
 

@@ -130,7 +130,6 @@ export const DISPOSABLE_AMOUNT_CHANGED = 'disposable_amount_changed';
 export const EDIT_DISPOSABLE = 'edit_disposable';
 export const EDIT_DISPOSABLE_SUCCESS = 'edit_disposable_success';
 export const EDIT_DISPOSABLE_FAIL = 'edit_disposable_fail';
-export const GET_DISPOSABLE_SUCCESS = 'get_disposable_success';
 export const SET_TMP_DISPOSABLE = 'set_tmp_disposable';
 export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES = 'calculate_disposable_category_differences';
 export const CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS = 'calculate_disposable_category_differences_success';

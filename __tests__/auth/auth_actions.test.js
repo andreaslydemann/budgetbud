@@ -55,7 +55,6 @@ describe('signUp', () => {
             expect(postMock).toHaveBeenCalledWith(url2, param2);
             expect(postMock).toHaveBeenCalledWith(url1, param1);
         });
-        // expect(authActions.signUp({cprNumber, phoneNumber}, mockCallback)).toEqual(expectedAction);
     })
 
     it('should fail if cpr number is too short', () => {
