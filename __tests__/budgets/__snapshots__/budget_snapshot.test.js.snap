@@ -1,5 +1,611 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Budget renders CreateBudget as expected 1`] = `
+<Styled(Container)
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#ffffff",
+      },
+      Object {
+        "alignItems": "stretch",
+      },
+    ]
+  }
+>
+  <AppHeader
+    headerText="Create budget"
+    infoText="Here you can create a new budget. The expense goals can be pre-filled based on your expenses for the last three months from your connected accounts."
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <BudgetForm
+    budgetError=""
+    budgetID=""
+    budgetLoading={false}
+    categoriesLoading={false}
+    handleSubmit={[Function]}
+    onCategoryChanged={[Function]}
+    onIncomeChanged={[Function]}
+    submitLoading={false}
+    tmpCategories={Array []}
+    tmpDisposable={0}
+    tmpIncome={0}
+    tmpTotalGoalsAmount={0}
+  />
+</Styled(Container)>
+`;
+
+exports[`Budget renders EditBudget as expected 1`] = `
+<Styled(Container)
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#ffffff",
+      },
+      Object {
+        "alignItems": "stretch",
+      },
+    ]
+  }
+>
+  <AppHeader
+    headerText="Edit budget"
+    infoText="Here you can edit your budget by updating the amounts in the input fields and pressing [Save]. Expense goals will only be added if they have an amount greater than 0."
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <BudgetForm
+    budgetError=""
+    budgetID=""
+    budgetLoading={false}
+    categoriesLoading={false}
+    handleSubmit={[Function]}
+    onCategoryChanged={[Function]}
+    onIncomeChanged={[Function]}
+    submitLoading={false}
+    tmpCategories={Array []}
+    tmpDisposable={0}
+    tmpIncome={0}
+    tmpTotalGoalsAmount={0}
+  />
+</Styled(Container)>
+`;
+
+exports[`Budget renders Intro as expected 1`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <AppHeader
+    headerText="My budget"
+    infoText="Here you can get an overview of your budget. Press the arrow icon to open the toolbox. The three buttons in the toolbox navigate to editing screens where you can manage parts of your budget."
+    onLeftButtonPress={[Function]}
+  />
+  <Styled(Container)>
+    <Styled(ViewNB)
+      style={
+        Object {
+          "flex": 0.1,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Styled(ViewNB)
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingLeft": 15,
+            "paddingRight": 18,
+          }
+        }
+      >
+        <Styled(Text)
+          style={
+            Array [
+              Object {
+                "alignSelf": "flex-start",
+                "fontSize": 16,
+                "marginLeft": 5,
+              },
+              Object {
+                "color": "#003755",
+              },
+            ]
+          }
+        >
+          Income
+        </Styled(Text)>
+        <Styled(Text)
+          style={
+            Array [
+              Object {
+                "alignSelf": "flex-start",
+                "fontSize": 16,
+                "marginLeft": 5,
+              },
+              Object {
+                "color": "#003755",
+              },
+            ]
+          }
+        >
+          0
+           
+          kr
+        </Styled(Text)>
+      </Styled(ViewNB)>
+    </Styled(ViewNB)>
+    <Separator />
+    <Styled(ViewNB)
+      style={
+        Object {
+          "flex": 0.7,
+        }
+      }
+    >
+      <SectionList
+        data={Array []}
+        disableVirtualization={false}
+        horizontal={false}
+        initialNumToRender={10}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={10}
+        onEndReachedThreshold={2}
+        renderItem={[Function]}
+        renderSectionHeader={[Function]}
+        scrollEventThrottle={50}
+        sections={
+          Array [
+            Object {
+              "data": Array [],
+              "isCategorySection": true,
+              "title": "Goals for expenses",
+            },
+            Object {
+              "data": Array [],
+              "isCategorySection": false,
+              "title": "Goals for debts",
+            },
+          ]
+        }
+        stickySectionHeadersEnabled={true}
+        updateCellsBatchingPeriod={50}
+        windowSize={21}
+      />
+      <Separator />
+    </Styled(ViewNB)>
+    <Styled(ViewNB)
+      style={
+        Object {
+          "flex": 0.2,
+        }
+      }
+    >
+      <Styled(ViewNB)
+        style={
+          Object {
+            "flex": 1,
+            "justifyContent": "space-between",
+            "marginBottom": 0,
+          }
+        }
+      >
+        <Styled(ViewNB)
+          style={
+            Object {
+              "flex": 0.6,
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <Styled(ViewNB)
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingLeft": 15,
+                  "paddingRight": 18,
+                },
+                Object {
+                  "flex": 1,
+                  "paddingTop": "5%",
+                },
+              ]
+            }
+          >
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              Total expense goals
+            </Styled(Text)>
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              0
+               
+              kr
+            </Styled(Text)>
+          </Styled(ViewNB)>
+          <Styled(ViewNB)
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingLeft": 15,
+                  "paddingRight": 18,
+                },
+                Object {
+                  "flex": 1,
+                  "paddingTop": "4%",
+                },
+              ]
+            }
+          >
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              Disposable
+            </Styled(Text)>
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              0
+               
+              kr
+            </Styled(Text)>
+          </Styled(ViewNB)>
+        </Styled(ViewNB)>
+        <Styled(Button)
+          onPress={[Function]}
+          style={
+            Array [
+              Object {
+                "alignSelf": "flex-end",
+                "justifyContent": "flex-end",
+              },
+              Object {
+                "flex": 0.4,
+              },
+            ]
+          }
+          transparent={true}
+        >
+          <Styled(Icon)
+            name="ios-arrow-dropup-circle"
+            style={
+              Object {
+                "color": "#00263A",
+              }
+            }
+          />
+        </Styled(Button)>
+        <Toolbox
+          navigateUser={[Function]}
+        />
+      </Styled(ViewNB)>
+    </Styled(ViewNB)>
+  </Styled(Container)>
+</Styled(Container)>
+`;
+
+exports[`Budget renders MyBudget as expected 1`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <AppHeader
+    headerText="My budget"
+    infoText="Here you can get an overview of your budget. Press the arrow icon to open the toolbox. The three buttons in the toolbox navigate to editing screens where you can manage parts of your budget."
+    onLeftButtonPress={[Function]}
+  />
+  <Styled(Container)>
+    <Styled(ViewNB)
+      style={
+        Object {
+          "flex": 0.1,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Styled(ViewNB)
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingLeft": 15,
+            "paddingRight": 18,
+          }
+        }
+      >
+        <Styled(Text)
+          style={
+            Array [
+              Object {
+                "alignSelf": "flex-start",
+                "fontSize": 16,
+                "marginLeft": 5,
+              },
+              Object {
+                "color": "#003755",
+              },
+            ]
+          }
+        >
+          Income
+        </Styled(Text)>
+        <Styled(Text)
+          style={
+            Array [
+              Object {
+                "alignSelf": "flex-start",
+                "fontSize": 16,
+                "marginLeft": 5,
+              },
+              Object {
+                "color": "#003755",
+              },
+            ]
+          }
+        >
+          0
+           
+          kr
+        </Styled(Text)>
+      </Styled(ViewNB)>
+    </Styled(ViewNB)>
+    <Separator />
+    <Styled(ViewNB)
+      style={
+        Object {
+          "flex": 0.7,
+        }
+      }
+    >
+      <SectionList
+        data={Array []}
+        disableVirtualization={false}
+        horizontal={false}
+        initialNumToRender={10}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={10}
+        onEndReachedThreshold={2}
+        renderItem={[Function]}
+        renderSectionHeader={[Function]}
+        scrollEventThrottle={50}
+        sections={
+          Array [
+            Object {
+              "data": Array [],
+              "isCategorySection": true,
+              "title": "Goals for expenses",
+            },
+            Object {
+              "data": Array [],
+              "isCategorySection": false,
+              "title": "Goals for debts",
+            },
+          ]
+        }
+        stickySectionHeadersEnabled={true}
+        updateCellsBatchingPeriod={50}
+        windowSize={21}
+      />
+      <Separator />
+    </Styled(ViewNB)>
+    <Styled(ViewNB)
+      style={
+        Object {
+          "flex": 0.2,
+        }
+      }
+    >
+      <Styled(ViewNB)
+        style={
+          Object {
+            "flex": 1,
+            "justifyContent": "space-between",
+            "marginBottom": 0,
+          }
+        }
+      >
+        <Styled(ViewNB)
+          style={
+            Object {
+              "flex": 0.6,
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <Styled(ViewNB)
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingLeft": 15,
+                  "paddingRight": 18,
+                },
+                Object {
+                  "flex": 1,
+                  "paddingTop": "5%",
+                },
+              ]
+            }
+          >
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              Total expense goals
+            </Styled(Text)>
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              0
+               
+              kr
+            </Styled(Text)>
+          </Styled(ViewNB)>
+          <Styled(ViewNB)
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingLeft": 15,
+                  "paddingRight": 18,
+                },
+                Object {
+                  "flex": 1,
+                  "paddingTop": "4%",
+                },
+              ]
+            }
+          >
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              Disposable
+            </Styled(Text)>
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              0
+               
+              kr
+            </Styled(Text)>
+          </Styled(ViewNB)>
+        </Styled(ViewNB)>
+        <Styled(Button)
+          onPress={[Function]}
+          style={
+            Array [
+              Object {
+                "alignSelf": "flex-end",
+                "justifyContent": "flex-end",
+              },
+              Object {
+                "flex": 0.4,
+              },
+            ]
+          }
+          transparent={true}
+        >
+          <Styled(Icon)
+            name="ios-arrow-dropup-circle"
+            style={
+              Object {
+                "color": "#00263A",
+              }
+            }
+          />
+        </Styled(Button)>
+        <Toolbox
+          navigateUser={[Function]}
+        />
+      </Styled(ViewNB)>
+    </Styled(ViewNB)>
+  </Styled(Container)>
+</Styled(Container)>
+`;
+
 exports[`Testing Budget renders CreateBudget as expected 1`] = `
 <Styled(Container)
   style={

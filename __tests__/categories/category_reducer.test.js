@@ -60,7 +60,7 @@ describe('category_reducer', () => {
         };
         expect(categoryReducer({}, editCategoriesSuccessAction)).toEqual({
                 categoriesLoading: false,
-                categories: [testCategoryOne, testCategoryTwo], //Only the categories with relevant values should be added
+                categories: [testCategoryOne, testCategoryTwo], //Only the category with relevant values should be added
                 selectedCategories: [],
                 categoriesOfDebt: []
             }

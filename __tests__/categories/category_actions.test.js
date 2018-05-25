@@ -30,7 +30,7 @@ describe('createCategories', () => {
         jest.resetAllMocks();
     });
 
-    it('should create categories and initialize state', async () => {
+    it('should create category and initialize state', async () => {
         const budgetID = 123;
         const categories = [{amount: 123}, {amount: 456}];
         const postResult = {data: {id: 123}};

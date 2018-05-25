@@ -6,6 +6,13 @@ import CreateBudget from "../../src/app/budgets/CreateBudget";
 import EditBudget from "../../src/app/budgets/EditBudget";
 import MyBudget from "../../src/app/budgets/MyBudget";
 import thunk from 'redux-thunk';
+import {
+    INITIAL_BUDGET_STATE,
+    INITIAL_DISPOSABLE_STATE,
+    INITIAL_ACCOUNT_STATE,
+    INITIAL_CATEGORY_STATE,
+    INITIAL_DEBT_STATE
+} from '../test_helper/initial_state'
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -13,67 +20,16 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Budget', () => {
-    const budgetState = {
-        budgetID: '',
-        income: 0,
-        budgetError: '',
-        budgetIDError: '',
-        budgetLoading: false,
-        budgetInitialized: false
-    };
-
-    const categoriesState = {
-        categories: [],
-        categoriesOfDebt: [],
-        selectedCategories: [],
-        categorySubtractions: [],
-        categoriesLoading: false,
-        subtractionsLoading: false,
-        categoriesError: '',
-        totalGoalsAmount: 0,
-        categoriesInitialized: false
-    };
-
-    const disposableState = {
-        disposable: 0,
-        disposableLoading: false,
-        disposableError: '',
-        disposableCalculationLoading: false,
-        disposableCategorySubtractions: []
-    };
-
-    const accountState = {
-        accounts: [],
-        linkedAccounts: [],
-        accountsLoading: false,
-        linkLoading: false,
-        accountsError: '',
-        accountsInitialized: false,
-    };
-
-    const debtState = {
-        name: '',
-        totalAmount: '',
-        amountPerMonth: '',
-        expirationDate: '',
-        debts: [],
-        selectedDebt: '',
-        categorySubtractions: [],
-        debtLoading: false,
-        debtError: '',
-        debtsInitialized: false
-    };
-
     it('renders CreateBudget as expected', () => {
         const wrapper = shallow(
             <CreateBudget/>,
             {
                 context: {
                     store: mockStore({
-                        budget: budgetState,
-                        disposable: disposableState,
-                        account: accountState,
-                        category: categoriesState
+                        budget: INITIAL_BUDGET_STATE,
+                        disposable: INITIAL_DISPOSABLE_STATE,
+                        account: INITIAL_ACCOUNT_STATE,
+                        category: INITIAL_CATEGORY_STATE
                     })
                 }
             },
@@ -87,10 +43,10 @@ describe('Budget', () => {
             {
                 context: {
                     store: mockStore({
-                        budget: budgetState,
-                        disposable: disposableState,
-                        account: accountState,
-                        category: categoriesState
+                        budget: INITIAL_BUDGET_STATE,
+                        disposable: INITIAL_DISPOSABLE_STATE,
+                        account: INITIAL_ACCOUNT_STATE,
+                        category: INITIAL_CATEGORY_STATE
                     })
                 }
             },
@@ -104,10 +60,10 @@ describe('Budget', () => {
             {
                 context: {
                     store: mockStore({
-                        budget: budgetState,
-                        category: categoriesState,
-                        debt: debtState,
-                        disposable: disposableState
+                        budget: INITIAL_BUDGET_STATE,
+                        category: INITIAL_CATEGORY_STATE,
+                        debt: INITIAL_DEBT_STATE,
+                        disposable: INITIAL_DISPOSABLE_STATE
                     })
                 }
             },
@@ -121,10 +77,10 @@ describe('Budget', () => {
             {
                 context: {
                     store: mockStore({
-                        budget: budgetState,
-                        category: categoriesState,
-                        debt: debtState,
-                        disposable: disposableState
+                        budget: INITIAL_BUDGET_STATE,
+                        category: INITIAL_CATEGORY_STATE,
+                        debt: INITIAL_DEBT_STATE,
+                        disposable: INITIAL_DISPOSABLE_STATE
                     })
                 }
             },
