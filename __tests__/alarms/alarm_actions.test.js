@@ -29,10 +29,13 @@ describe('getBudgetAlarms', () => {
         setupFirebaseMock();
     });
 
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
+
     it('should get budget alarms then return them', async () => {
         const testBudgetID = "123";
-        const eBankingAccounts = {data: ["Acc1", "Acc2"]};
-        axios.get.mockResolvedValueOnce(eBankingAccounts);
+        const eBankingAccounts = {data: ["test1", "test2"]};
 
         const store = mockStore({});
         const expectedAction = [
@@ -47,8 +50,26 @@ describe('getBudgetAlarms', () => {
             expect(store.getActions()).toEqual(expectedAction);
         });
     })
-});
 
+    it('should get linked accounts then return them', async () => {
+        const linkedAccounts = {data: ["LinkAcc1", "LinkAcc2"]};
+        axios.get.mockResolvedValueOnce(linkedAccounts);
+
+        const store = mockStore({});
+        const expectedAction = [
+            {type: GET_BUDGET_ALARMS},
+            {
+                type: GET_BUDGET_ALARMS_SUCCESS,
+                payload: linkedAccounts.data
+            }
+        ];
+
+        return store.dispatch(await alarmActions.getBudgetAlarms()).then(() => {
+            expect(store.getActions()).toEqual(expectedAction);
+        });
+    })
+});
+//TODO
 describe('getLinkedAccounts', () => {
     beforeEach(() => {
         setupFirebaseMock();

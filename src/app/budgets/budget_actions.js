@@ -30,7 +30,6 @@ export const resetBudgetError = () => {
 export const getBudgetID = (user, callback) => async dispatch => {
     try {
         let token = await user.getIdToken();
-        console.log(token)
 
         const {data} = await axios.get(`${BUDGETBUD_FUNCTIONS_URL}/getBudgetID?userID=${user.uid}`,
             {headers: {Authorization: 'Bearer ' + token}});
@@ -70,7 +69,7 @@ export const createBudget = (tmpIncome, tmpDisposable, tmpTotalGoalsAmount, call
             });
             callback(data.id)
         } catch (err) {
-            // const {data} = err.response;
+            const {data} = err.response;
             dispatch({type: CREATE_BUDGET_FAIL, payload: data.error});
         }
     };

@@ -1,20 +1,16 @@
 import {
-    GET_INITIAL_AUTH_STATE,
     RESET_BUDGET_ERROR,
-    VALIDATE_CPR_NUMBER_FAIL,
-    VALIDATE_PHONE_NUMBER_FAIL,
-    SIGN_UP,
-    SIGN_IN, CREATE_BUDGET, CREATE_BUDGET_SUCCESS, CREATE_BUDGET_FAIL,
+    SIGN_IN, CREATE_BUDGET,
+    CREATE_BUDGET_SUCCESS,
+    CREATE_BUDGET_FAIL,
 } from '../../src/strings/types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from "axios";
-import firebase from 'firebase';
-
-const baseURL = "https://us-central1-budgetbud-4950d.cloudfunctions.net";
-const budgetActions = require('../../src/app/budgets/budget_actions');
 const middlewares = [thunk];
+import {setupFirebaseMock} from "../test_helper/firebase_mock";
 const mockStore = configureMockStore(middlewares);
+const budgetActions = require('../../src/app/budgets/budget_actions');
 
 describe('reset', () => {
     it('should create an action to reset budget error', () => {
@@ -26,36 +22,34 @@ describe('reset', () => {
 });
 
 describe('createBudget', () => {
+    beforeEach(() => {
+        setupFirebaseMock();
+    });
+
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
+
     it('should create a budget and initialize state', async () => {
         const tmpIncome = 25;
         const tmpDisposable = 50;
         const tmpTotalGoalsAmount = 80;
         const postResult = {data: {id: 123}};
 
-        const getIdToken = jest.fn(() => {
-            return Promise.resolve("TESTTOKEN")
-        });
-
-        jest.spyOn(firebase, 'auth').mockImplementation(() => {
-            return {
-                currentUser: {getIdToken}
-            }
-        });
-
         const postMock = axios.post;
-        postMock.mockImplementationOnce(() =>
+        postMock.mockImplementation(() =>
             Promise.resolve(postResult)
         );
 
         const expectedAction = [
             {type: CREATE_BUDGET},
             {type: CREATE_BUDGET_SUCCESS,
-            payload: {
-                income: tmpIncome,
-                totalGoalsAmount: tmpTotalGoalsAmount,
-                disposable: tmpDisposable,
-                budgetID: postResult.data.id
-            }}
+                payload: {
+                    income: tmpIncome,
+                    totalGoalsAmount: tmpTotalGoalsAmount,
+                    disposable: tmpDisposable,
+                    budgetID: postResult.data.id
+                }}
         ];
         const store = mockStore({});
 
@@ -70,20 +64,16 @@ describe('createBudget', () => {
     })
 
     it('should fail if cpr number is too short', async () => {
-        const getIdToken = jest.fn(() => {
-            return Promise.resolve("TESTTOKEN")
-        });
+        const tmpIncome = 25;
+        const tmpDisposable = 50;
+        const tmpTotalGoalsAmount = 80;
+        const postResult = {data: {id: 123}};
 
-        jest.spyOn(firebase, 'auth').mockImplementation(() => {
-            return {
-                currentUser: {getIdToken}
-            }
-        });
-
-        const postMock = axios.post;
-        postMock.mockImplementationOnce(() =>
-            Promise.reject({err: {response: 123}})
-        );
+        // jest.mock('axios');
+        // const postMock = axios.post;
+        // postMock.mockImplementationOnce(() =>
+        //     Promise.reject(postResult)
+        // );
 
         const expectedAction = [
             {type: CREATE_BUDGET},
@@ -91,25 +81,11 @@ describe('createBudget', () => {
         ];
 
         const store = mockStore({});
-
-        return store.dispatch(await budgetActions.createBudget()).then(() => {
-            // return of async actions
-            expect(postMock).toHaveBeenCalledTimes(1);
-            expect(store.getActions()).toEqual(expectedAction)
-        });
-    })
-
-    it('should fail if phone number is too short', () => {
-        const cprNumber = '1234567890'; //Too short
-        const phoneNumber = '1'; //Too short
-
-        const expectedAction = [
-            {type: VALIDATE_PHONE_NUMBER_FAIL}
-        ];
-        const store = mockStore({});
-
         const mockCallback = jest.fn();
-        return store.dispatch(authActions.signUp({cprNumber, phoneNumber}, mockCallback)).then(() => {
+        return store.dispatch(await budgetActions.createBudget(
+            tmpIncome, tmpDisposable, tmpTotalGoalsAmount, mockCallback)).then(() => {
+            // return of async actions
+            // expect(postMock).toHaveBeenCalledTimes(1);
             expect(store.getActions()).toEqual(expectedAction)
         });
     })
@@ -134,6 +110,9 @@ describe('signIn', () => {
         ];
         const resp = {data: {token: testToken}};
         axios.post.mockResolvedValue(resp);
+        postMock.mockImplementationOnce(() =>
+            Promise.resolve(resp)
+        );
 
         return store.dispatch(await authActions.signIn({cprNumber, code})).then(() => {
             expect(store.getActions()).toEqual(expectedAction)
