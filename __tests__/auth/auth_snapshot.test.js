@@ -8,6 +8,7 @@ import SignUp from "../../src/app/auth/SignUp";
 import RequestActivationCode from "../../src/app/auth/RequestActivationCode";
 import VerifyActivationCode from "../../src/app/auth/VerifyActivationCode";
 import ChangeForgottenCode from "../../src/app/auth/ChangeForgottenCode";
+import {AuthForm} from "../../src/components/forms/AuthForm";
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -51,6 +52,17 @@ describe('Auth', () => {
         const wrapper = shallow(
             <VerifyActivationCode/>,
             {context: {store: mockStore({auth: INITIAL_AUTH_STATE})}},
+        );
+        expect(wrapper.dive()).toMatchSnapshot();
+    });
+
+    it('renders Authform in loading state as expected', () => {
+        let newState = INITIAL_AUTH_STATE;
+        newState.authLoading = true;
+        newState.cprNumber = "abc";
+        const wrapper = shallow(
+            <AuthForm cprNumber="abc"/>,
+            {context: {store: mockStore({auth: newState})}},
         );
         expect(wrapper.dive()).toMatchSnapshot();
     });

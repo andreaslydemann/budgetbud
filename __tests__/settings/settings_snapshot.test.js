@@ -28,10 +28,20 @@ describe('Settings', () => {
         expect(wrapper.dive()).toMatchSnapshot();
     });
 
-    it('renders ChangeCode as expected', () => {
+    it('renders ChangePhoneNumber as expected', () => {
         const wrapper = shallow(
             <ChangePhoneNumber/>,
             {context: {store: mockStore({auth: INITIAL_AUTH_STATE})}},
+        );
+        expect(wrapper.dive()).toMatchSnapshot();
+    });
+
+    it('renders ChangePhoneNumber as expected', () => {
+        let newState = INITIAL_AUTH_STATE;
+        newState.authLoading = true;
+        const wrapper = shallow(
+            <ChangePhoneNumber/>,
+            {context: {store: mockStore({auth: newState})}},
         );
         expect(wrapper.dive()).toMatchSnapshot();
     });

@@ -5,6 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import EditDisposable from "../../src/app/disposable/EditDisposable";
 import DisposablePreview from "../../src/app/disposable/DisposablePreview";
 import {INITIAL_BUDGET_STATE, INITIAL_CATEGORY_STATE, INITIAL_DISPOSABLE_STATE} from "../test_helper/initial_state";
+import {DisposableForm} from "../../src/components/forms/DisposableForm";
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -40,6 +41,13 @@ describe('Disposable', () => {
                     })
                 }
             },
+        );
+        expect(wrapper.dive()).toMatchSnapshot();
+    });
+
+    it('renders DisposableForm in loading state as expected', () => {
+        const wrapper = shallow(
+            <DisposableForm categoriesLoading={true}/>
         );
         expect(wrapper.dive()).toMatchSnapshot();
     });

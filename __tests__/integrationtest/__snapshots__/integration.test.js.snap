@@ -62,7 +62,6 @@ exports[`Integrationtest - Testing SignIn renders as expected 1`] = `
           }
         >
           <Styled(Button)
-            id="submitButton"
             onPress={[Function]}
             style={
               Object {

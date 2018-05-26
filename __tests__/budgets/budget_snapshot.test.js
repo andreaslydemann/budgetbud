@@ -13,6 +13,8 @@ import {
     INITIAL_DEBT_STATE,
     INITIAL_DISPOSABLE_STATE
 } from '../test_helper/initial_state'
+import {BudgetForm} from "../../src/components/forms/BudgetForm";
+import Intro from "../../src/app/budgets/Intro";
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -73,7 +75,7 @@ describe('Budget', () => {
 
     it('renders Intro as expected', () => {
         const wrapper = shallow(
-            <MyBudget/>,
+            <Intro/>,
             {
                 context: {
                     store: mockStore({
@@ -84,6 +86,13 @@ describe('Budget', () => {
                     })
                 }
             },
+        );
+        expect(wrapper.dive()).toMatchSnapshot();
+    });
+
+    it('renders Budgetform in loading state as expected', () => {
+        const wrapper = shallow(
+            <BudgetForm tmpTotalGoalsAmount={12} categoriesLoading={true}/>
         );
         expect(wrapper.dive()).toMatchSnapshot();
     });

@@ -1,0 +1,247 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Alarms renders budgetExceeded = true as expected 1`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <AppHeader
+    headerText="Alarms"
+    infoText="Here you can choose which alarms you want enabled. If an alarm is activated, you will receive a notification. Press [Save] to save the changes."
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <Styled(Container)
+    style={
+      Object {
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Styled(Content)>
+      <Styled(List)>
+        <Styled(ListItem)>
+          <Styled(Body)>
+            <Styled(Text)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              Notify if budget is exceeded
+            </Styled(Text)>
+          </Styled(Body)>
+          <Styled(Right)
+            style={
+              Object {
+                "paddingRight": 15,
+              }
+            }
+          >
+            <Styled(CheckBox)
+              checked={true}
+              onPress={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "#295E80",
+                  "borderColor": "#003755",
+                }
+              }
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+        <Styled(ListItem)>
+          <Styled(Body)>
+            <Styled(Text)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              Notify weekly status
+            </Styled(Text)>
+          </Styled(Body)>
+          <Styled(Right)
+            style={
+              Object {
+                "paddingRight": 15,
+              }
+            }
+          >
+            <Styled(CheckBox)
+              checked={false}
+              onPress={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "#F6F7F9",
+                  "borderColor": "#003755",
+                }
+              }
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+      </Styled(List)>
+    </Styled(Content)>
+  </Styled(Container)>
+  <Separator />
+  <Styled(Button)
+    onPress={[Function]}
+    rounded={true}
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "marginTop": 20,
+          "width": "90%",
+        },
+        Object {
+          "backgroundColor": "#00263A",
+        },
+      ]
+    }
+  >
+    <Styled(Text)
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "white",
+          "fontWeight": "600",
+        }
+      }
+    >
+      Save
+    </Styled(Text)>
+  </Styled(Button)>
+</Styled(Container)>
+`;
+
+exports[`Alarms renders initially as expected 1`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <AppHeader
+    headerText="Alarms"
+    infoText="Here you can choose which alarms you want enabled. If an alarm is activated, you will receive a notification. Press [Save] to save the changes."
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <Styled(Container)
+    style={
+      Object {
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Styled(Content)>
+      <Styled(List)>
+        <Styled(ListItem)>
+          <Styled(Body)>
+            <Styled(Text)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              Notify if budget is exceeded
+            </Styled(Text)>
+          </Styled(Body)>
+          <Styled(Right)
+            style={
+              Object {
+                "paddingRight": 15,
+              }
+            }
+          >
+            <Styled(CheckBox)
+              checked={false}
+              onPress={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "#F6F7F9",
+                  "borderColor": "#003755",
+                }
+              }
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+        <Styled(ListItem)>
+          <Styled(Body)>
+            <Styled(Text)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              Notify weekly status
+            </Styled(Text)>
+          </Styled(Body)>
+          <Styled(Right)
+            style={
+              Object {
+                "paddingRight": 15,
+              }
+            }
+          >
+            <Styled(CheckBox)
+              checked={false}
+              onPress={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "#F6F7F9",
+                  "borderColor": "#003755",
+                }
+              }
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+      </Styled(List)>
+    </Styled(Content)>
+  </Styled(Container)>
+  <Separator />
+  <Styled(Button)
+    onPress={[Function]}
+    rounded={true}
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "marginTop": 20,
+          "width": "90%",
+        },
+        Object {
+          "backgroundColor": "#00263A",
+        },
+      ]
+    }
+  >
+    <Styled(Text)
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "white",
+          "fontWeight": "600",
+        }
+      }
+    >
+      Save
+    </Styled(Text)>
+  </Styled(Button)>
+</Styled(Container)>
+`;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing Accounts renders initially as expected 1`] = `
+exports[`Testing Accounts renders enters loading state 1`] = `
 <Styled(Container)
   style={
     Object {
@@ -56,22 +56,14 @@ exports[`Testing Accounts renders initially as expected 1`] = `
       ]
     }
   >
-    <Styled(Text)
-      style={
-        Object {
-          "alignSelf": "center",
-          "color": "white",
-          "fontWeight": "600",
-        }
-      }
-    >
-      Save
-    </Styled(Text)>
+    <Styled(Spinner)
+      color="#D0D0D0"
+    />
   </Styled(Button)>
 </Styled(Container)>
 `;
 
-exports[`Testing SignIn renders as expected 1`] = `
+exports[`Testing Accounts renders initially as expected 1`] = `
 <Styled(Container)
   style={
     Object {

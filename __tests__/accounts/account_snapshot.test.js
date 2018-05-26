@@ -18,4 +18,15 @@ describe('Testing Accounts', () => {
         );
         expect(wrapper.dive()).toMatchSnapshot();
     });
+
+    it('renders enters loading state', () => {
+        let loadingState = INITIAL_ACCOUNT_STATE;
+        loadingState.linkLoading = true;
+        const wrapper = shallow(
+            <Accounts/>,
+            {context: {store: mockStore({account: loadingState})}},
+        );
+        expect(wrapper.dive()).toMatchSnapshot();
+    });
+
 });

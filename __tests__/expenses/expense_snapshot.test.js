@@ -39,4 +39,26 @@ describe('Expenses', () => {
         );
         expect(wrapper.dive()).toMatchSnapshot();
     });
+
+    it('renders ExpenseOverview, filled total expenses, as expected', () => {
+        let newExpenseState = INITIAL_EXPENSE_STATE;
+        newExpenseState.totalExpenses = 50;
+        const wrapper = shallow(
+            <ExpenseOverview/>,
+            {
+                context: {
+                    store: mockStore({
+                        expense: newExpenseState,
+                        budget: INITIAL_BUDGET_STATE,
+                        debt: INITIAL_DEBT_STATE,
+                        disposable: INITIAL_DISPOSABLE_STATE,
+                        category: INITIAL_CATEGORY_STATE,
+                        alarm: INITIAL_ALARM_STATE,
+                        account: INITIAL_ACCOUNT_STATE
+                    })
+                }
+            },
+        );
+        expect(wrapper.dive()).toMatchSnapshot();
+    });
 });

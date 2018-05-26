@@ -9,7 +9,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from "axios";
 import {setupFirebaseMock} from "../test_helper/firebase_mock";
-
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 

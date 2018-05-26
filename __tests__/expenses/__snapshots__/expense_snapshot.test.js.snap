@@ -217,3 +217,221 @@ exports[`Expenses renders ExpenseOverview as expected 1`] = `
   </Styled(Container)>
 </Styled(Container)>
 `;
+
+exports[`Expenses renders ExpenseOverview, filled total expenses, as expected 1`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <AppHeader
+    headerText="Expense overview"
+    infoText="Here you see an overview of your spending compared to your budget. Press the bell icon on any expense item to get a notification if your spendings exceed the expense goal."
+    onLeftButtonPress={[Function]}
+  />
+  <Styled(Container)>
+    <Styled(Container)>
+      <Styled(ViewNB)
+        style={
+          Object {
+            "flex": 0.82,
+          }
+        }
+      >
+        <FlatList
+          data={Array []}
+          disableVirtualization={false}
+          horizontal={false}
+          initialNumToRender={10}
+          keyExtractor={[Function]}
+          maxToRenderPerBatch={10}
+          numColumns={1}
+          onEndReachedThreshold={2}
+          onRefresh={[Function]}
+          refreshing={false}
+          renderItem={[Function]}
+          scrollEventThrottle={50}
+          updateCellsBatchingPeriod={50}
+          windowSize={21}
+        />
+        <Separator />
+      </Styled(ViewNB)>
+      <Styled(ViewNB)
+        style={
+          Object {
+            "flex": 0.18,
+          }
+        }
+      >
+        <Styled(ViewNB)
+          style={
+            Array [
+              Object {
+                "flex": 1,
+                "justifyContent": "space-between",
+                "marginBottom": 0,
+              },
+              Object {
+                "paddingVertical": "5%",
+              },
+            ]
+          }
+        >
+          <Styled(ViewNB)
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingLeft": 15,
+                  "paddingRight": 18,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              Total debt per month
+            </Styled(Text)>
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              0
+               
+              kr
+            </Styled(Text)>
+          </Styled(ViewNB)>
+          <Styled(ViewNB)
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingLeft": 15,
+                  "paddingRight": 18,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              Total expenses
+            </Styled(Text)>
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              50
+               
+              kr
+            </Styled(Text)>
+          </Styled(ViewNB)>
+          <Styled(ViewNB)
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingLeft": 15,
+                  "paddingRight": 18,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              Disposable
+            </Styled(Text)>
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              0
+               
+              kr
+            </Styled(Text)>
+          </Styled(ViewNB)>
+        </Styled(ViewNB)>
+      </Styled(ViewNB)>
+    </Styled(Container)>
+  </Styled(Container)>
+</Styled(Container)>
+`;

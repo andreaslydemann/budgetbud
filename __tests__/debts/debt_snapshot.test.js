@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import EditDebt from "../../src/app/debts/EditDebt";
 import DebtOverview from "../../src/app/debts/DebtOverview";
 import DebtPreview from "../../src/app/debts/DebtPreview";
+import {DebtForm} from "../../src/components/forms/DebtForm";
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -75,6 +76,13 @@ describe('Debt', () => {
                     })
                 }
             },
+        );
+        expect(wrapper.dive()).toMatchSnapshot();
+    });
+
+    it('renders DebtForm in loading state as expected', () => {
+        const wrapper = shallow(
+            <DebtForm debtLoading={true}/>
         );
         expect(wrapper.dive()).toMatchSnapshot();
     });
