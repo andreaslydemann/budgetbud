@@ -1,14 +1,16 @@
 import {
-    RESET_BUDGET_ERROR,
-    SIGN_IN, CREATE_BUDGET,
-    CREATE_BUDGET_SUCCESS,
+    CREATE_BUDGET,
     CREATE_BUDGET_FAIL,
+    CREATE_BUDGET_SUCCESS,
+    RESET_BUDGET_ERROR,
+    SIGN_IN,
 } from '../../src/strings/types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from "axios";
-const middlewares = [thunk];
 import {setupFirebaseMock} from "../test_helper/firebase_mock";
+
+const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const budgetActions = require('../../src/app/budgets/budget_actions');
 
@@ -43,13 +45,15 @@ describe('createBudget', () => {
 
         const expectedAction = [
             {type: CREATE_BUDGET},
-            {type: CREATE_BUDGET_SUCCESS,
+            {
+                type: CREATE_BUDGET_SUCCESS,
                 payload: {
                     income: tmpIncome,
                     totalGoalsAmount: tmpTotalGoalsAmount,
                     disposable: tmpDisposable,
                     budgetID: postResult.data.id
-                }}
+                }
+            }
         ];
         const store = mockStore({});
 

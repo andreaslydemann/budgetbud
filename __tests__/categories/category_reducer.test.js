@@ -1,10 +1,10 @@
 import categoryReducer from '../../src/app/categories/category_reducer';
 import {
-    GET_CATEGORIES_SUCCESS,
-    GET_CATEGORIES_FAIL,
     CREATE_CATEGORIES,
-    MAP_EXPENSES_SUCCESS,
     EDIT_CATEGORIES_SUCCESS,
+    GET_CATEGORIES_FAIL,
+    GET_CATEGORIES_SUCCESS,
+    MAP_EXPENSES_SUCCESS,
 } from '../../src/strings/types';
 
 describe('category_reducer', () => {

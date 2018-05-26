@@ -1,5 +1,479 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Auth renders ChangeForgottenCode as expected 1`] = `
+<KeyboardAvoidingView
+  behavior="padding"
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#03426A",
+      "flex": 2,
+      "justifyContent": "center",
+    }
+  }
+>
+  <TouchableWithoutFeedback
+    accessible={false}
+    onPress={[Function]}
+  >
+    <Styled(Container)
+      style={
+        Object {
+          "alignSelf": "stretch",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "justifyContent": "flex-end",
+            },
+            Object {
+              "flex": 2,
+            },
+          ]
+        }
+      >
+        <Logo
+          logoText="Fill out input fields below."
+          style={
+            Object {
+              "flex": 2,
+            }
+          }
+        />
+      </View>
+      <ChangeForgottenCodeForm
+        changeLoading={false}
+        code=""
+        handleSubmit={[Function]}
+        onCodeChange={[Function]}
+        onRepeatedCodeChange={[Function]}
+        repeatedCode=""
+      />
+      <Styled(Container)>
+        <Styled(Container)
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "alignSelf": "center",
+              "flexShrink": 1,
+              "paddingTop": 13,
+              "width": "80%",
+            }
+          }
+        >
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              Return?
+            </Styled(Label)>
+          </Styled(Button)>
+        </Styled(Container)>
+      </Styled(Container)>
+    </Styled(Container)>
+  </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+`;
+
+exports[`Auth renders RequestActivationCode as expected 1`] = `
+<KeyboardAvoidingView
+  behavior="padding"
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#03426A",
+      "flex": 2,
+      "justifyContent": "center",
+    }
+  }
+>
+  <TouchableWithoutFeedback
+    accessible={false}
+    onPress={[Function]}
+  >
+    <Styled(Container)
+      style={
+        Object {
+          "alignSelf": "stretch",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 0.55,
+            "justifyContent": "flex-end",
+          }
+        }
+      >
+        <Logo
+          logoText="Enter your CPR-number and receive an activation code via SMS."
+        />
+      </View>
+      <ActivationCodeForm
+        authLoading={false}
+        handleSubmit={[Function]}
+        inputValue=""
+        isRequestActivationCode={true}
+        onInputValueChange={[Function]}
+      />
+      <Styled(Container)
+        style={
+          Object {
+            "flex": 0.25,
+          }
+        }
+      >
+        <Styled(Container)
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "alignSelf": "center",
+              "flexShrink": 1,
+              "paddingTop": 13,
+              "width": "80%",
+            }
+          }
+        >
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              Return?
+            </Styled(Label)>
+          </Styled(Button)>
+        </Styled(Container)>
+      </Styled(Container)>
+    </Styled(Container)>
+  </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+`;
+
+exports[`Auth renders SignIn as expected 1`] = `
+<KeyboardAvoidingView
+  behavior="padding"
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#03426A",
+      "flex": 2,
+      "justifyContent": "center",
+    }
+  }
+>
+  <TouchableWithoutFeedback
+    accessible={false}
+    onPress={[Function]}
+  >
+    <Styled(Container)
+      style={
+        Object {
+          "alignSelf": "stretch",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "justifyContent": "flex-end",
+            },
+            Object {
+              "flex": 2,
+            },
+          ]
+        }
+      >
+        <Logo
+          logoText="Welcome to BudgetBud"
+        />
+      </View>
+      <AuthForm
+        authLoading={false}
+        cprNumber=""
+        handleSubmit={[Function]}
+        isSignIn={true}
+        onCprNumberChange={[Function]}
+        onSecondInputChange={[Function]}
+        secondInput=""
+      />
+      <Styled(Container)>
+        <Styled(Container)
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "alignSelf": "center",
+              "flexShrink": 1,
+              "paddingTop": 13,
+              "width": "80%",
+            }
+          }
+        >
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              Forgot code?
+            </Styled(Label)>
+          </Styled(Button)>
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              New user?
+            </Styled(Label)>
+          </Styled(Button)>
+        </Styled(Container)>
+      </Styled(Container)>
+    </Styled(Container)>
+  </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+`;
+
+exports[`Auth renders SignUp as expected 1`] = `
+<KeyboardAvoidingView
+  behavior="padding"
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#03426A",
+      "flex": 2,
+      "justifyContent": "center",
+    }
+  }
+>
+  <TouchableWithoutFeedback
+    accessible={false}
+    onPress={[Function]}
+  >
+    <Styled(Container)
+      style={
+        Object {
+          "alignSelf": "stretch",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "justifyContent": "flex-end",
+            },
+            Object {
+              "flex": 2,
+            },
+          ]
+        }
+      >
+        <Logo
+          logoText="Welcome to BudgetBud"
+          style={
+            Object {
+              "flex": 2,
+            }
+          }
+        />
+      </View>
+      <AuthForm
+        authLoading={false}
+        cprNumber=""
+        handleSubmit={[Function]}
+        isSignIn={false}
+        onCprNumberChange={[Function]}
+        onSecondInputChange={[Function]}
+        secondInput=""
+      />
+      <Styled(Container)>
+        <Styled(Container)
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "alignSelf": "center",
+              "flexShrink": 1,
+              "paddingTop": 13,
+              "width": "80%",
+            }
+          }
+        >
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              Already signed up?
+            </Styled(Label)>
+          </Styled(Button)>
+        </Styled(Container)>
+      </Styled(Container)>
+    </Styled(Container)>
+  </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+`;
+
+exports[`Auth renders VerifyActivationCode as expected 1`] = `
+<KeyboardAvoidingView
+  behavior="padding"
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#03426A",
+      "flex": 2,
+      "justifyContent": "center",
+    }
+  }
+>
+  <TouchableWithoutFeedback
+    accessible={false}
+    onPress={[Function]}
+  >
+    <Styled(Container)
+      style={
+        Object {
+          "alignSelf": "stretch",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 0.55,
+            "justifyContent": "flex-end",
+          }
+        }
+      >
+        <Logo
+          logoText="Get the option to change your code by entering the activation code."
+        />
+      </View>
+      <ActivationCodeForm
+        authLoading={false}
+        handleSubmit={[Function]}
+        inputValue=""
+        isRequestActivationCode={false}
+        onInputValueChange={[Function]}
+      />
+      <Styled(Container)
+        style={
+          Object {
+            "flex": 0.25,
+          }
+        }
+      >
+        <Styled(Container)
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "alignSelf": "center",
+              "flexShrink": 1,
+              "paddingTop": 13,
+              "width": "80%",
+            }
+          }
+        >
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              Return?
+            </Styled(Label)>
+          </Styled(Button)>
+        </Styled(Container)>
+      </Styled(Container)>
+    </Styled(Container)>
+  </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+`;
+
 exports[`Testing SignIn renders as expected 1`] = `
 <KeyboardAvoidingView
   behavior="padding"

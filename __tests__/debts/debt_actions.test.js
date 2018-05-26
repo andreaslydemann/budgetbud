@@ -1,13 +1,16 @@
 import {
-    CREATE_DEBT, CREATE_DEBT_SUCCESS,
-    GET_DEBTS, GET_DEBTS_SUCCESS,
+    CREATE_DEBT,
+    CREATE_DEBT_SUCCESS,
+    GET_DEBTS,
+    GET_DEBTS_SUCCESS,
     RESET_DEBT_ERROR
 } from '../../src/strings/types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from "axios";
-const middlewares = [thunk];
 import {setupFirebaseMock} from "../test_helper/firebase_mock";
+
+const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const debtActions = require('../../src/app/debts/debt_actions');

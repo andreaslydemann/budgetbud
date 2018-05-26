@@ -3,13 +3,6 @@ import configureStore from 'redux-mock-store';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import SignIn from '../../src/app/auth/SignIn';
-import {
-    SIGN_IN,
-} from '../../src/strings/types';
-import axios from "axios";
-import firebase from 'firebase';
-import {Button} from "native-base";
-import {AuthForm} from "../../src/components/forms/AuthForm";
 
 
 Enzyme.configure({adapter: new Adapter()});

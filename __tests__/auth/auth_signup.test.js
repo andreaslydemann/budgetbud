@@ -1,47 +1,57 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import Enzyme, {mount, shallow} from 'enzyme';
+import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import SignIn from '../../src/app/auth/SignIn';
+import {INITIAL_AUTH_STATE} from "../test_helper/initial_state";
+import SignUp from "../../src/app/auth/SignUp";
+import RequestActivationCode from "../../src/app/auth/RequestActivationCode";
+import VerifyActivationCode from "../../src/app/auth/VerifyActivationCode";
+import ChangeForgottenCode from "../../src/app/auth/ChangeForgottenCode";
 
 Enzyme.configure({adapter: new Adapter()});
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe('Testing SignIn', () => {
-    it('renders as expected', () => {
-        const state = {
-            cprNumber: '',
-            code: '',
-            error: '',
-            budgetLoading: false
-        };
-
+describe('Auth', () => {
+    it('renders SignIn as expected', () => {
         const wrapper = shallow(
             <SignIn/>,
-            {context: {store: mockStore({auth: state})}},
+            {context: {store: mockStore({auth: INITIAL_AUTH_STATE})}},
         );
         expect(wrapper.dive()).toMatchSnapshot();
     });
-});
 
-describe('Testing SignInClick', () => {
-    it('renders and clicks as expected', () => {
-        const state = {
-            cprNumber: '',
-            code: '',
-            error: '',
-            budgetLoading: false
-        };
-
-        const component = mount(
-            <SignIn/>,
-            {context: {store: mockStore({auth: state})}},
+    it('renders SignUp as expected', () => {
+        const wrapper = shallow(
+            <SignUp/>,
+            {context: {store: mockStore({auth: INITIAL_AUTH_STATE})}},
         );
-        // const component = mount(<SignIn/>)
-        const button = component.find('Button');
-        console.log(button);
-        expect(component.state()).toMatchSnapshot();
+        expect(wrapper.dive()).toMatchSnapshot();
+    });
+
+    it('renders ChangeForgottenCode as expected', () => {
+        const wrapper = shallow(
+            <ChangeForgottenCode/>,
+            {context: {store: mockStore({auth: INITIAL_AUTH_STATE})}},
+        );
+        expect(wrapper.dive()).toMatchSnapshot();
+    });
+
+    it('renders RequestActivationCode as expected', () => {
+        const wrapper = shallow(
+            <RequestActivationCode/>,
+            {context: {store: mockStore({auth: INITIAL_AUTH_STATE})}},
+        );
+        expect(wrapper.dive()).toMatchSnapshot();
+    });
+
+    it('renders VerifyActivationCode as expected', () => {
+        const wrapper = shallow(
+            <VerifyActivationCode/>,
+            {context: {store: mockStore({auth: INITIAL_AUTH_STATE})}},
+        );
+        expect(wrapper.dive()).toMatchSnapshot();
     });
 });

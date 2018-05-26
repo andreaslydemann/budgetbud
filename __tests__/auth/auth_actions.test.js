@@ -1,10 +1,10 @@
 import {
     GET_INITIAL_AUTH_STATE,
     RESET_AUTH_ERROR,
+    SIGN_IN,
+    SIGN_UP,
     VALIDATE_CPR_NUMBER_FAIL,
     VALIDATE_PHONE_NUMBER_FAIL,
-    SIGN_UP,
-    SIGN_IN,
 } from '../../src/strings/types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';

@@ -1,10 +1,10 @@
 import accountReducer from '../../src/app/accounts/account_reducer';
 import {
-    RESET_ACCOUNTS_ERROR,
-    GET_ACCOUNTS_SUCCESS,
     GET_ACCOUNTS_FAIL,
+    GET_ACCOUNTS_SUCCESS,
     GET_LINKED_ACCOUNTS_SUCCESS,
-    LINK_ACCOUNTS
+    LINK_ACCOUNTS,
+    RESET_ACCOUNTS_ERROR
 } from '../../src/strings/types';
 
 describe('account_reducer', () => {
@@ -70,7 +70,7 @@ describe('account_reducer', () => {
         expect(accountReducer({}, getLinkedAccountsSuccessAction)).toEqual(
             {linkedAccounts: ['linkedAccounts'], accountsLoading: false}
         )
-    })
+    });
 
     it('can handle LINK_ACCOUNTS', () => {
         const getLinkedAccountsSuccessAction = {

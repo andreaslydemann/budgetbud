@@ -1,11 +1,5 @@
 import expenseReducer from '../../src/app/expenses/expense_reducer';
-import {
-    DEBT_AMOUNT_CHANGED,
-    DEBT_SELECTED,
-    GET_DEBTS_SUCCESS,
-    DELETE_DEBT, GET_EXPENSES_OF_MONTH_SUCCESS, GET_EXPENSES_OF_MONTH_FAIL
-} from '../../src/strings/types';
-import * as datetime from "lodash/date";
+import {GET_EXPENSES_OF_MONTH_FAIL, GET_EXPENSES_OF_MONTH_SUCCESS} from '../../src/strings/types';
 
 describe('debt_reducer', () => {
     let initialState;

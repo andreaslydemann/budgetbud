@@ -1,10 +1,5 @@
 import authReducer from '../../src/app/auth/auth_reducer';
-import {
-    RESET_AUTH_ERROR,
-    PHONE_NUMBER_CHANGED,
-    CODE_CHANGED,
-    REPEATED_CODE_CHANGED
-} from '../../src/strings/types';
+import {CODE_CHANGED, PHONE_NUMBER_CHANGED, REPEATED_CODE_CHANGED, RESET_AUTH_ERROR} from '../../src/strings/types';
 
 describe('authReducer', () => {
 

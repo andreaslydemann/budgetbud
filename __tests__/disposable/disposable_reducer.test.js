@@ -1,11 +1,5 @@
 import disposableReducer from '../../src/app/disposable/disposable_reducer';
-import {
-    DEBT_AMOUNT_CHANGED,
-    DEBT_SELECTED,
-    GET_DEBTS_SUCCESS,
-    DELETE_DEBT, EDIT_DISPOSABLE_SUCCESS, CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS
-} from '../../src/strings/types';
-import * as datetime from "lodash/date";
+import {CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS, EDIT_DISPOSABLE_SUCCESS} from '../../src/strings/types';
 
 describe('debt_reducer', () => {
     let initialState;

@@ -1,7 +1,4 @@
-import {
-    CREATE_CATEGORIES, CREATE_CATEGORIES_SUCCESS,
-    RESET_CATEGORIES_ERROR
-} from '../../src/strings/types';
+import {CREATE_CATEGORIES, CREATE_CATEGORIES_SUCCESS, RESET_CATEGORIES_ERROR} from '../../src/strings/types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockAxios from 'axios';
@@ -41,8 +38,10 @@ describe('createCategories', () => {
 
         const expectedAction = [
             {type: CREATE_CATEGORIES},
-            {type: CREATE_CATEGORIES_SUCCESS,
-                payload: {categories}}
+            {
+                type: CREATE_CATEGORIES_SUCCESS,
+                payload: {categories}
+            }
         ];
         const store = mockStore({});
 

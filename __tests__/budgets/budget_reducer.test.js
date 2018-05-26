@@ -1,10 +1,10 @@
 import budgetReducer from '../../src/app/budgets/budget_reducer';
 import {
+    CREATE_BUDGET_FAIL,
     CREATE_BUDGET_SUCCESS,
+    DELETE_BUDGET,
     EDIT_BUDGET_SUCCESS,
     GET_BUDGET_ID_SUCCESS,
-    DELETE_BUDGET, CREATE_BUDGET_FAIL,
-
 } from '../../src/strings/types';
 
 describe('budget_reducer', () => {

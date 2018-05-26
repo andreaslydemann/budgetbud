@@ -1,0 +1,462 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Settings renders ChangeCode as expected 1`] = `
+<TouchableWithoutFeedback
+  accessible={false}
+  onPress={[Function]}
+>
+  <Styled(Container)
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+      }
+    }
+  >
+    <AppHeader
+      headerText="Change code"
+      infoText="Here you can edit your code. The entered codes must be identical. Press [Save] to save the changes."
+      onLeftButtonPress={[Function]}
+      showBackButton={true}
+    />
+    <ChangeCodeForm
+      code=""
+      onCodeChange={[Function]}
+      onRepeatedCodeChange={[Function]}
+      repeatedCode=""
+    />
+    <Separator />
+    <Styled(Button)
+      onPress={[Function]}
+      rounded={true}
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "height": 40,
+            "justifyContent": "center",
+            "marginBottom": 20,
+            "marginTop": 20,
+            "width": "90%",
+          },
+          Object {
+            "backgroundColor": "#00263A",
+          },
+        ]
+      }
+    >
+      <Styled(Text)
+        style={
+          Object {
+            "alignSelf": "center",
+            "color": "white",
+            "fontWeight": "600",
+          }
+        }
+      >
+        Save
+      </Styled(Text)>
+    </Styled(Button)>
+  </Styled(Container)>
+</TouchableWithoutFeedback>
+`;
+
+exports[`Settings renders ChangeCode as expected 2`] = `
+<TouchableWithoutFeedback
+  accessible={false}
+  onPress={[Function]}
+>
+  <Styled(Container)
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+      }
+    }
+  >
+    <AppHeader
+      headerText="Change phone number"
+      infoText="Here you can edit your phone number. Press [Save] to save the changes."
+      onLeftButtonPress={[Function]}
+      showBackButton={true}
+    />
+    <Styled(Container)
+      style={
+        Object {
+          "flex": 4,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Styled(Container)
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+              "marginBottom": 5,
+              "marginTop": 10,
+              "width": "90%",
+            },
+            Object {
+              "paddingTop": 10,
+            },
+          ]
+        }
+      >
+        <Styled(Label)
+          style={
+            Array [
+              Object {
+                "alignSelf": "flex-start",
+                "fontSize": 14,
+                "fontWeight": "400",
+                "marginLeft": 5,
+              },
+              Object {
+                "color": "#003755",
+              },
+            ]
+          }
+        >
+          Enter phone number
+        </Styled(Label)>
+        <Styled(Item)
+          rounded={true}
+          style={
+            Array [
+              Object {
+                "alignSelf": "center",
+                "height": 40,
+                "marginVertical": 5,
+                "paddingVertical": 0,
+              },
+              Object {
+                "backgroundColor": "#F6F7F9",
+                "borderColor": "#003755",
+              },
+            ]
+          }
+        >
+          <Styled(Input)
+            keyboardType="numeric"
+            maxLength={8}
+            onChangeText={[Function]}
+            placeholder="12 34 56 78"
+            placeholderTextColor="#7F9BAA"
+            style={
+              Object {
+                "color": "#003755",
+              }
+            }
+            value=""
+          />
+        </Styled(Item)>
+      </Styled(Container)>
+    </Styled(Container)>
+    <Separator />
+    <Styled(Button)
+      onPress={[Function]}
+      rounded={true}
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "height": 40,
+            "justifyContent": "center",
+            "marginBottom": 20,
+            "marginTop": 20,
+            "width": "90%",
+          },
+          Object {
+            "backgroundColor": "#00263A",
+          },
+        ]
+      }
+    >
+      <Styled(Text)
+        style={
+          Object {
+            "alignSelf": "center",
+            "color": "white",
+            "fontWeight": "600",
+          }
+        }
+      >
+        Save
+      </Styled(Text)>
+    </Styled(Button)>
+  </Styled(Container)>
+</TouchableWithoutFeedback>
+`;
+
+exports[`Settings renders Settings as expected 1`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <ConfirmDialog
+    confirmCallback={[Function]}
+    loading={false}
+    text="Do you want to delete your budget?"
+    title="Confirm deletion"
+  />
+  <Styled(Container)>
+    <AppHeader
+      headerText="Settings"
+      infoText="Here you can navigate to user details, accounts, and alarm settings, or delete your budget by pressing the trash can icon."
+      onLeftButtonPress={[Function]}
+    />
+    <Styled(Content)>
+      <Styled(List)>
+        <Styled(ListItem)
+          icon={true}
+          onPress={[Function]}
+        >
+          <Styled(Left)>
+            <Styled(Icon)
+              name="md-person"
+              style={
+                Object {
+                  "color": "#00263A",
+                }
+              }
+            />
+          </Styled(Left)>
+          <Styled(Body)>
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              User details
+            </Styled(Label)>
+          </Styled(Body)>
+          <Styled(Right)>
+            <Styled(Icon)
+              name="arrow-forward"
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+        <Styled(ListItem)
+          icon={true}
+          onPress={[Function]}
+        >
+          <Styled(Left)>
+            <Styled(Icon)
+              name="md-card"
+              style={
+                Object {
+                  "color": "#00263A",
+                }
+              }
+            />
+          </Styled(Left)>
+          <Styled(Body)>
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              Accounts
+            </Styled(Label)>
+          </Styled(Body)>
+          <Styled(Right)>
+            <Styled(Icon)
+              name="arrow-forward"
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+        <Styled(ListItem)
+          icon={true}
+          onPress={[Function]}
+        >
+          <Styled(Left)>
+            <Styled(Icon)
+              name="md-notifications-outline"
+              style={
+                Object {
+                  "color": "#00263A",
+                }
+              }
+            />
+          </Styled(Left)>
+          <Styled(Body)>
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              Alarms
+            </Styled(Label)>
+          </Styled(Body)>
+          <Styled(Right)>
+            <Styled(Icon)
+              name="arrow-forward"
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+        <Styled(ListItem)
+          icon={true}
+          onPress={[Function]}
+        >
+          <Styled(Left)>
+            <Styled(Icon)
+              name="md-trash"
+              style={
+                Object {
+                  "color": "#00263A",
+                }
+              }
+            />
+          </Styled(Left)>
+          <Styled(Body)>
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              Delete budget
+            </Styled(Label)>
+          </Styled(Body)>
+          <Styled(Right)>
+            <Styled(Icon)
+              name="arrow-forward"
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+      </Styled(List)>
+    </Styled(Content)>
+  </Styled(Container)>
+</Styled(Container)>
+`;
+
+exports[`Settings renders UserDetails as expected 1`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <ConfirmDialog
+    confirmCallback={[Function]}
+    loading={false}
+    text="Do you want to delete your user?"
+    title="Confirm deletion"
+  />
+  <Styled(Container)>
+    <AppHeader
+      headerText="User details"
+      infoText="Here you can navigate to edit screens for the phone number and code. Press the trash can icon to delete your user."
+      onLeftButtonPress={[Function]}
+      showBackButton={true}
+    />
+    <Styled(Content)>
+      <Styled(List)>
+        <Styled(ListItem)
+          icon={true}
+          onPress={[Function]}
+        >
+          <Styled(Left)>
+            <Styled(Icon)
+              name="md-phone-portrait"
+              style={
+                Object {
+                  "color": "#00263A",
+                }
+              }
+            />
+          </Styled(Left)>
+          <Styled(Body)>
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              Change phone number
+            </Styled(Label)>
+          </Styled(Body)>
+          <Styled(Right)>
+            <Styled(Icon)
+              name="arrow-forward"
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+        <Styled(ListItem)
+          icon={true}
+          onPress={[Function]}
+        >
+          <Styled(Left)>
+            <Styled(Icon)
+              name="md-lock"
+              style={
+                Object {
+                  "color": "#00263A",
+                }
+              }
+            />
+          </Styled(Left)>
+          <Styled(Body)>
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              Change code
+            </Styled(Label)>
+          </Styled(Body)>
+          <Styled(Right)>
+            <Styled(Icon)
+              name="arrow-forward"
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+        <Styled(ListItem)
+          icon={true}
+          onPress={[Function]}
+        >
+          <Styled(Left)>
+            <Styled(Icon)
+              name="md-trash"
+              style={
+                Object {
+                  "color": "#00263A",
+                }
+              }
+            />
+          </Styled(Left)>
+          <Styled(Body)>
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "#003755",
+                }
+              }
+            >
+              Delete user
+            </Styled(Label)>
+          </Styled(Body)>
+          <Styled(Right)>
+            <Styled(Icon)
+              name="arrow-forward"
+            />
+          </Styled(Right)>
+        </Styled(ListItem)>
+      </Styled(List)>
+    </Styled(Content)>
+  </Styled(Container)>
+</Styled(Container)>
+`;

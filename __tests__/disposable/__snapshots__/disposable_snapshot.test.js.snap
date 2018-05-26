@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Disposable renders DisposablePreview as expected 1`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <AppHeader
+    headerText="Debt preview"
+    infoText="Here is a preview of how your changes affect your budget. Press [Save] to save these changes."
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <Styled(Content)
+    style={
+      Object {
+        "flex": 4,
+      }
+    }
+  >
+    <FlatList
+      data={
+        Array [
+          Object {
+            "afterAmount": undefined,
+            "amountDiff": NaN,
+            "beforeAmount": 0,
+            "categoryID": "disposable",
+            "name": "Disposable",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onEndReachedThreshold={2}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      updateCellsBatchingPeriod={50}
+      windowSize={21}
+    />
+  </Styled(Content)>
+  <Separator />
+  <Styled(Button)
+    onPress={[Function]}
+    rounded={true}
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "marginTop": 20,
+          "width": "90%",
+        },
+        Object {
+          "backgroundColor": "#00263A",
+        },
+      ]
+    }
+  >
+    <Styled(Text)
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "white",
+          "fontWeight": "600",
+        }
+      }
+    >
+      Save
+    </Styled(Text)>
+  </Styled(Button)>
+</Styled(Container)>
+`;
+
+exports[`Disposable renders EditDisposable as expected 1`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <AppHeader
+    headerText="Disposable"
+    infoText="Here you can edit your disposable and select which goals for expenses your changes will affect. Press [Continue] to see a preview of the changes."
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <DisposableForm
+    budgetLoading={false}
+    categoriesLoading={false}
+    categoriesSelected={[Function]}
+    categoryItems={Array []}
+    disposable={0}
+    disposableCalculationLoading={false}
+    disposableChanged={[Function]}
+    disposableError=""
+    disposableLoading={false}
+    onCheckBoxPressed={[Function]}
+    onContinuePressed={[Function]}
+    onDisposableChanged={[Function]}
+    selectedCategories={Array []}
+    subtractionsLoading={false}
+  />
+</Styled(Container)>
+`;

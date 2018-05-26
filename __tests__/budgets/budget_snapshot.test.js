@@ -7,11 +7,11 @@ import EditBudget from "../../src/app/budgets/EditBudget";
 import MyBudget from "../../src/app/budgets/MyBudget";
 import thunk from 'redux-thunk';
 import {
-    INITIAL_BUDGET_STATE,
-    INITIAL_DISPOSABLE_STATE,
     INITIAL_ACCOUNT_STATE,
+    INITIAL_BUDGET_STATE,
     INITIAL_CATEGORY_STATE,
-    INITIAL_DEBT_STATE
+    INITIAL_DEBT_STATE,
+    INITIAL_DISPOSABLE_STATE
 } from '../test_helper/initial_state'
 
 Enzyme.configure({adapter: new Adapter()});

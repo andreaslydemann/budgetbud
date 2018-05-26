@@ -1,27 +1,12 @@
 import debtReducer from '../../src/app/debts/debt_reducer';
-import {
-    DEBT_AMOUNT_CHANGED,
-    DEBT_SELECTED,
-    GET_DEBTS_SUCCESS,
-    DELETE_DEBT
-} from '../../src/strings/types';
+import {DEBT_AMOUNT_CHANGED, DEBT_SELECTED, DELETE_DEBT, GET_DEBTS_SUCCESS} from '../../src/strings/types';
 import * as datetime from "lodash/date";
+import {INITIAL_DEBT_STATE} from "../test_helper/initial_state";
 
 describe('debt_reducer', () => {
     let initialState;
     beforeEach(() => {
-        initialState = {
-            name: '',
-            totalAmount: '',
-            amountPerMonth: '',
-            expirationDate: '',
-            debts: [],
-            selectedDebt: '',
-            categorySubtractions: [],
-            debtLoading: false,
-            debtError: '',
-            debtsInitialized: false
-        };
+        initialState = INITIAL_DEBT_STATE;
     });
 
     it('has default state', () => {

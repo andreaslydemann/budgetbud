@@ -1,5 +1,6 @@
 import {
-    GET_ACCOUNTS, GET_ACCOUNTS_SUCCESS,
+    GET_ACCOUNTS,
+    GET_ACCOUNTS_SUCCESS,
     GET_LINKED_ACCOUNTS,
     GET_LINKED_ACCOUNTS_SUCCESS,
     LINK_ACCOUNTS,
@@ -9,8 +10,9 @@ import {
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from "axios";
-const middlewares = [thunk];
 import {setupFirebaseMock} from "../test_helper/firebase_mock";
+
+const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const accountActions = require('../../src/app/accounts/account_actions');
 

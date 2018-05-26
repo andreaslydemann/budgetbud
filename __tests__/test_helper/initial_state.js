@@ -48,3 +48,35 @@ export const INITIAL_DEBT_STATE = {
     debtError: '',
     debtsInitialized: false
 };
+
+export const INITIAL_ALARM_STATE = {
+    categoryAlarms: [],
+    budgetExceeded: false,
+    weeklyStatus: false,
+    alarmsLoading: false,
+    toggleLoading: false,
+    alarmsError: '',
+    budgetAlarmsInitialized: false,
+    categoryAlarmsInitialized: false
+};
+
+export const INITIAL_AUTH_STATE = {
+    cprNumber: '',
+    phoneNumber: '',
+    code: '',
+    repeatedCode: '',
+    activationCode: '',
+    authError: '',
+    authLoading: false,
+    deleteUserLoading: false,
+    changeLoading: false,
+    phoneNumberInitialized: false
+};
+
+export const INITIAL_EXPENSE_STATE = {
+    expenses: [],
+    totalExpenses: 0,
+    expensesLoading: false,
+    expensesError: '',
+    expensesInitialized: false
+};

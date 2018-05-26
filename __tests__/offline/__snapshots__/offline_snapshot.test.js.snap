@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expenses renders ExpenseOverview as expected 1`] = `
+<Container
+  style={
+    Array [
+      Object {
+        "flex": 1,
+        "height": 1334,
+      },
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#03426A",
+        "flex": 2,
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <Image
+    source={1}
+    style={
+      Object {
+        "height": 200,
+        "width": 200,
+      }
+    }
+  />
+  <View>
+    <Styled(Label)
+      style={
+        Object {
+          "color": "rgba(255, 255, 255, 1)",
+          "marginBottom": 74.11111111111111,
+          "marginTop": 20,
+        }
+      }
+    >
+      Lost connection to the internet
+    </Styled(Label)>
+  </View>
+</Container>
+`;
+
+exports[`Offline renders Offline as expected 1`] = `
+<Container
+  style={
+    Array [
+      Object {
+        "flex": 1,
+        "height": 1334,
+      },
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#03426A",
+        "flex": 2,
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <Image
+    source={1}
+    style={
+      Object {
+        "height": 200,
+        "width": 200,
+      }
+    }
+  />
+  <View>
+    <Styled(Label)
+      style={
+        Object {
+          "color": "rgba(255, 255, 255, 1)",
+          "marginBottom": 74.11111111111111,
+          "marginTop": 20,
+        }
+      }
+    >
+      Lost connection to the internet
+    </Styled(Label)>
+  </View>
+</Container>
+`;
