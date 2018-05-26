@@ -1,12 +1,15 @@
 import {
     CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES,
-    CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS, EDIT_DISPOSABLE, EDIT_DISPOSABLE_SUCCESS,
+    CALCULATE_DISPOSABLE_CATEGORY_DIFFERENCES_SUCCESS,
+    EDIT_DISPOSABLE,
+    EDIT_DISPOSABLE_SUCCESS,
     RESET_DISPOSABLE_ERROR
 } from '../../src/strings/types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from "axios";
 import {setupFirebaseMock} from "../test_helper/firebase_mock";
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const disposableActions = require('../../src/app/disposable/disposable_actions');

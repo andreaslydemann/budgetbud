@@ -4,7 +4,6 @@ import thunk from 'redux-thunk';
 import {setupFirebaseMock} from "../test_helper/firebase_mock";
 import axios from "axios";
 
-const baseURL = "https://us-central1-budgetbud-4950d.cloudfunctions.net";
 const expenseActions = require('../../src/app/expenses/expense_actions');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
