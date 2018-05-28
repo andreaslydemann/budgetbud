@@ -95,7 +95,7 @@ describe('signIn', () => {
             return {
                 signInWithCustomToken
             }
-        })
+        });
 
         const testToken = '1234';
         const cprNumber = '1234567890';

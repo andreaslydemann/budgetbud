@@ -62,7 +62,7 @@ describe('Auth', () => {
         newState.cprNumber = "abc";
         const wrapper = shallow(
             <AuthForm cprNumber="abc"/>,
-            {context: {store: mockStore({auth: newState})}},
+            {context: {store: mockStore({auth: newState})}}
         );
         expect(wrapper.dive()).toMatchSnapshot();
     });

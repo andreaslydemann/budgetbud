@@ -1,6 +1,287 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Integrationtest - Testing SignIn renders as expected 1`] = `
+exports[`Accounts renders SignIn, envoke sign in action, update state and rerender SignIn 1`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <AppHeader
+    headerText="Accounts"
+    infoText="Here you can choose which accounts you want expenses from. Press [Save] to save the changes"
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <Styled(Container)
+    style={
+      Object {
+        "justifyContent": "center",
+      }
+    }
+  >
+    <FlatList
+      data={Array []}
+      disableVirtualization={false}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onEndReachedThreshold={2}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      updateCellsBatchingPeriod={50}
+      windowSize={21}
+    />
+  </Styled(Container)>
+  <Separator />
+  <Styled(Button)
+    onPress={[Function]}
+    rounded={true}
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "marginTop": 20,
+          "width": "90%",
+        },
+        Object {
+          "backgroundColor": "#00263A",
+        },
+      ]
+    }
+  >
+    <Styled(Text)
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "white",
+          "fontWeight": "600",
+        }
+      }
+    >
+      Save
+    </Styled(Text)>
+  </Styled(Button)>
+</Styled(Container)>
+`;
+
+exports[`Accounts renders SignIn, envoke sign in action, update state and rerender SignIn 2`] = `
+<Styled(Container)
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
+>
+  <AppHeader
+    headerText="Accounts"
+    infoText="Here you can choose which accounts you want expenses from. Press [Save] to save the changes"
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <Styled(Container)
+    style={
+      Object {
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Styled(Spinner)
+      color="#1c313a"
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        }
+      }
+    />
+  </Styled(Container)>
+  <Separator />
+  <Styled(Button)
+    onPress={[Function]}
+    rounded={true}
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "marginTop": 20,
+          "width": "90%",
+        },
+        Object {
+          "backgroundColor": "#00263A",
+        },
+      ]
+    }
+  >
+    <Styled(Text)
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "white",
+          "fontWeight": "600",
+        }
+      }
+    >
+      Save
+    </Styled(Text)>
+  </Styled(Button)>
+</Styled(Container)>
+`;
+
+exports[`CreateBudget renders CreateBudget, envoke sign in action, update state and rerender CreateBudget 1`] = `
+<Styled(Container)
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#ffffff",
+      },
+      Object {
+        "alignItems": "stretch",
+      },
+    ]
+  }
+>
+  <AppHeader
+    headerText="Create budget"
+    infoText="Here you can create a new budget. The expense goals can be pre-filled based on your expenses for the last three months from your connected accounts."
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <BudgetForm
+    budgetError=""
+    budgetID=""
+    budgetLoading={false}
+    categoriesLoading={false}
+    handleSubmit={[Function]}
+    onCategoryChanged={[Function]}
+    onIncomeChanged={[Function]}
+    submitLoading={false}
+    tmpCategories={Array []}
+    tmpDisposable={0}
+    tmpIncome={0}
+    tmpTotalGoalsAmount={0}
+  />
+</Styled(Container)>
+`;
+
+exports[`CreateBudget renders CreateBudget, envoke sign in action, update state and rerender CreateBudget 2`] = `
+<Styled(Container)
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#ffffff",
+      },
+      Object {
+        "alignItems": "stretch",
+      },
+    ]
+  }
+>
+  <AppHeader
+    headerText="Create budget"
+    infoText="Here you can create a new budget. The expense goals can be pre-filled based on your expenses for the last three months from your connected accounts."
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <BudgetForm
+    budgetError=""
+    budgetID=""
+    budgetLoading={true}
+    categoriesLoading={true}
+    handleSubmit={[Function]}
+    onCategoryChanged={[Function]}
+    onIncomeChanged={[Function]}
+    submitLoading={false}
+    tmpCategories={Array []}
+    tmpDisposable={0}
+    tmpIncome={0}
+    tmpTotalGoalsAmount={0}
+  />
+</Styled(Container)>
+`;
+
+exports[`CreateBudget renders as expected 1`] = `
+<Styled(Container)
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#ffffff",
+      },
+      Object {
+        "alignItems": "stretch",
+      },
+    ]
+  }
+>
+  <AppHeader
+    headerText="Create budget"
+    infoText="Here you can create a new budget. The expense goals can be pre-filled based on your expenses for the last three months from your connected accounts."
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <BudgetForm
+    budgetError=""
+    budgetID=""
+    budgetLoading={false}
+    categoriesLoading={false}
+    handleSubmit={[Function]}
+    onCategoryChanged={[Function]}
+    onIncomeChanged={[Function]}
+    submitLoading={false}
+    tmpCategories={Array []}
+    tmpDisposable={0}
+    tmpIncome={0}
+    tmpTotalGoalsAmount={0}
+  />
+</Styled(Container)>
+`;
+
+exports[`CreateBudget renders as expected 2`] = `
+<Styled(Container)
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#ffffff",
+      },
+      Object {
+        "alignItems": "stretch",
+      },
+    ]
+  }
+>
+  <AppHeader
+    headerText="Create budget"
+    infoText="Here you can create a new budget. The expense goals can be pre-filled based on your expenses for the last three months from your connected accounts."
+    onLeftButtonPress={[Function]}
+    showBackButton={true}
+  />
+  <BudgetForm
+    budgetError=""
+    budgetID=""
+    budgetLoading={true}
+    categoriesLoading={true}
+    handleSubmit={[Function]}
+    onCategoryChanged={[Function]}
+    onIncomeChanged={[Function]}
+    submitLoading={false}
+    tmpCategories={Array []}
+    tmpDisposable={0}
+    tmpIncome={0}
+    tmpTotalGoalsAmount={0}
+  />
+</Styled(Container)>
+`;
+
+exports[`SignIn render SignIn, fire sign in action, update state and rerender SignIn 1`] = `
 <KeyboardAvoidingView
   behavior="padding"
   keyboardVerticalOffset={0}
@@ -42,12 +323,340 @@ exports[`Integrationtest - Testing SignIn renders as expected 1`] = `
         />
       </View>
       <AuthForm
-        cprNumber="1234567890"
+        authLoading={false}
+        cprNumber=""
         handleSubmit={[Function]}
         isSignIn={true}
         onCprNumberChange={[Function]}
         onSecondInputChange={[Function]}
-        secondInput="1234"
+        secondInput=""
+      />
+      <Styled(Container)>
+        <Styled(Container)
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "alignSelf": "center",
+              "flexShrink": 1,
+              "paddingTop": 13,
+              "width": "80%",
+            }
+          }
+        >
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              Forgot code?
+            </Styled(Label)>
+          </Styled(Button)>
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              New user?
+            </Styled(Label)>
+          </Styled(Button)>
+        </Styled(Container)>
+      </Styled(Container)>
+    </Styled(Container)>
+  </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+`;
+
+exports[`SignIn render SignIn, fire sign in action, update state and rerender SignIn 2`] = `
+<KeyboardAvoidingView
+  behavior="padding"
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#03426A",
+      "flex": 2,
+      "justifyContent": "center",
+    }
+  }
+>
+  <TouchableWithoutFeedback
+    accessible={false}
+    onPress={[Function]}
+  >
+    <Styled(Container)
+      style={
+        Object {
+          "alignSelf": "stretch",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "justifyContent": "flex-end",
+            },
+            Object {
+              "flex": 2,
+            },
+          ]
+        }
+      >
+        <Logo
+          logoText="Welcome to BudgetBud"
+        />
+      </View>
+      <AuthForm
+        authLoading={true}
+        cprNumber=""
+        handleSubmit={[Function]}
+        isSignIn={true}
+        onCprNumberChange={[Function]}
+        onSecondInputChange={[Function]}
+        secondInput=""
+      />
+      <Styled(Container)>
+        <Styled(Container)
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "alignSelf": "center",
+              "flexShrink": 1,
+              "paddingTop": 13,
+              "width": "80%",
+            }
+          }
+        >
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              Forgot code?
+            </Styled(Label)>
+          </Styled(Button)>
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              New user?
+            </Styled(Label)>
+          </Styled(Button)>
+        </Styled(Container)>
+      </Styled(Container)>
+    </Styled(Container)>
+  </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+`;
+
+exports[`SignIn renders SignIn, envoke sign in action, update state and rerender SignIn 1`] = `
+<KeyboardAvoidingView
+  behavior="padding"
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#03426A",
+      "flex": 2,
+      "justifyContent": "center",
+    }
+  }
+>
+  <TouchableWithoutFeedback
+    accessible={false}
+    onPress={[Function]}
+  >
+    <Styled(Container)
+      style={
+        Object {
+          "alignSelf": "stretch",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "justifyContent": "flex-end",
+            },
+            Object {
+              "flex": 2,
+            },
+          ]
+        }
+      >
+        <Logo
+          logoText="Welcome to BudgetBud"
+        />
+      </View>
+      <AuthForm
+        authLoading={false}
+        cprNumber=""
+        handleSubmit={[Function]}
+        isSignIn={true}
+        onCprNumberChange={[Function]}
+        onSecondInputChange={[Function]}
+        secondInput=""
+      />
+      <Styled(Container)>
+        <Styled(Container)
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "alignSelf": "center",
+              "flexShrink": 1,
+              "paddingTop": 13,
+              "width": "80%",
+            }
+          }
+        >
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              Forgot code?
+            </Styled(Label)>
+          </Styled(Button)>
+          <Styled(Button)
+            onPress={[Function]}
+            style={
+              Object {
+                "height": 30,
+                "paddingLeft": 5,
+              }
+            }
+            transparent={true}
+          >
+            <Styled(Label)
+              style={
+                Object {
+                  "color": "rgba(255,255,255,0.6)",
+                }
+              }
+            >
+              New user?
+            </Styled(Label)>
+          </Styled(Button)>
+        </Styled(Container)>
+      </Styled(Container)>
+    </Styled(Container)>
+  </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+`;
+
+exports[`SignIn renders SignIn, envoke sign in action, update state and rerender SignIn 2`] = `
+<KeyboardAvoidingView
+  behavior="padding"
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#03426A",
+      "flex": 2,
+      "justifyContent": "center",
+    }
+  }
+>
+  <TouchableWithoutFeedback
+    accessible={false}
+    onPress={[Function]}
+  >
+    <Styled(Container)
+      style={
+        Object {
+          "alignSelf": "stretch",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "justifyContent": "flex-end",
+            },
+            Object {
+              "flex": 2,
+            },
+          ]
+        }
+      >
+        <Logo
+          logoText="Welcome to BudgetBud"
+        />
+      </View>
+      <AuthForm
+        authLoading={true}
+        cprNumber=""
+        handleSubmit={[Function]}
+        isSignIn={true}
+        onCprNumberChange={[Function]}
+        onSecondInputChange={[Function]}
+        secondInput=""
       />
       <Styled(Container)>
         <Styled(Container)

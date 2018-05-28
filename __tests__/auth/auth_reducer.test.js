@@ -1,22 +1,12 @@
 import authReducer from '../../src/app/auth/auth_reducer';
 import {CODE_CHANGED, PHONE_NUMBER_CHANGED, REPEATED_CODE_CHANGED, RESET_AUTH_ERROR} from '../../src/strings/types';
+import {INITIAL_AUTH_STATE} from "../test_helper/initial_state";
 
 describe('authReducer', () => {
 
     let initialState;
     beforeEach(() => {
-        initialState = {
-            cprNumber: '',
-            phoneNumber: '',
-            code: '',
-            repeatedCode: '',
-            activationCode: '',
-            authError: '',
-            authLoading: false,
-            deleteUserLoading: false,
-            changeLoading: false,
-            phoneNumberInitialized: false
-        };
+        initialState = INITIAL_AUTH_STATE;
     });
 
     it('has default state', () => {

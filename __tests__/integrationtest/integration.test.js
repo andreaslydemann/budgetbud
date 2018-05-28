@@ -1,54 +1,160 @@
 import React from 'react';
-import configureStore from 'redux-mock-store';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import SignIn from '../../src/app/auth/SignIn';
+import {INITIAL_ACCOUNT_STATE, INITIAL_AUTH_STATE, INITIAL_BUDGET_STATE} from "../test_helper/initial_state";
+import {
+    CREATE_BUDGET,
+    CREATE_BUDGET_SUCCESS,
+    GET_LINKED_ACCOUNTS,
+    GET_LINKED_ACCOUNTS_SUCCESS,
+    SIGN_IN
+} from "../../src/strings/types";
+import firebase from 'firebase';
+import axios from "axios";
+import store from '../../src/redux/index';
+import authReducer from '../../src/app/auth/auth_reducer';
+import accountReducer from '../../src/app/accounts/account_reducer';
+import CreateBudget from "../../src/app/budgets/CreateBudget";
+import SignIn from "../../src/app/auth/SignIn";
+import Accounts from "../../src/app/accounts/Accounts";
+import {setupFirebaseMock} from "../test_helper/firebase_mock";
 
+const authActions = require('../../src/app/auth/auth_actions');
+const budgetActions = require('../../src/app/budgets/budget_actions');
+const accountActions = require('../../src/app/accounts/account_actions');
 
 Enzyme.configure({adapter: new Adapter()});
 
-const middlewares = [];
-const mockStore = configureStore(middlewares);
-
-describe('Integrationtest - Testing SignIn', () => {
-    it('renders as expected', async () => {
-        const flushAllPromises = () => new Promise(resolve => setImmediate(resolve));
-        const state = {
-            cprNumber: '1234567890',
-            code: '1234',
-            error: '',
-            budgetLoading: false
-        };
-
-        const wrapper = shallow(
+describe('SignIn', () => {
+    it('renders SignIn, envoke sign in action, update state and rerender SignIn', async () => {
+        // Setup initial screen
+        const initialWrapper = shallow(
             <SignIn/>,
-            {context: {store: mockStore({auth: state})}},
+            {context: {store}}
         );
-        expect(wrapper.dive()).toMatchSnapshot();
+        expect(initialWrapper.dive()).toMatchSnapshot();
 
-        const submitButton = wrapper.findWhere(n => n.prop("id") === "submitButton");
-        submitButton.simulate('click');
+        const signInWithCustomToken = jest.fn();
+        jest.spyOn(firebase, 'auth').mockImplementation(() => {
+            return {signInWithCustomToken}
+        });
 
-        // const signInWithCustomToken = jest.fn();
-        // jest.spyOn(firebase, 'auth').mockImplementation(() => {
-        //     return {
-        //         signInWithCustomToken
-        //     }
-        // })
-        //
-        // const testToken = '1234';
-        //
-        // const store = mockStore({});
-        // const expectedAction = [
-        //     {type: SIGN_IN}
-        // ];
-        // const resp = {data: {token: testToken}};
-        // axios.post.mockResolvedValue(resp);
-        //
-        // return flushAllPromises().then(() => {
-        //     expect(store.getActions()).toEqual(expectedAction)
-        //     expect(firebase.auth).toHaveBeenCalledTimes(1);
-        //     expect(signInWithCustomToken).toHaveBeenCalledWith(testToken);
-        // });
+        // Fire action
+        const testToken = '1234';
+        const cprNumber = '1234567890';
+        const code = '1234';
+
+        const expectedAction = [
+            {type: SIGN_IN}
+        ];
+        const resp = {data: {token: testToken}};
+        axios.post.mockResolvedValue(resp);
+        let newState = INITIAL_AUTH_STATE;
+
+        store.dispatch(await authActions.signIn({cprNumber, code})).then(() => {
+            newState = authReducer(newState, expectedAction[0]);
+            expect(store.getState().auth).toEqual(newState)
+            expect(firebase.auth).toHaveBeenCalledTimes(1);
+            expect(signInWithCustomToken).toHaveBeenCalledWith(testToken);
+        });
+
+        const afterWrapper = shallow(
+            <SignIn/>,
+            {context: {store}},
+        );
+        expect(afterWrapper.dive()).toMatchSnapshot();
+    });
+});
+
+describe('CreateBudget', () => {
+    beforeEach(() => {
+        setupFirebaseMock();
+    });
+
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
+
+    it('renders CreateBudget, envoke sign in action, update state and rerender CreateBudget', async () => {
+        // Setup initial screen
+        const initialWrapper = shallow(
+            <CreateBudget/>,
+            {context: {store}}
+        );
+        expect(initialWrapper.dive()).toMatchSnapshot();
+
+        const tmpIncome = 25;
+        const tmpDisposable = 50;
+        const tmpTotalGoalsAmount = 80;
+        const postResult = {data: {id: 123}};
+
+        const postMock = axios.post;
+        postMock.mockImplementation(() =>
+            Promise.resolve(postResult)
+        );
+
+        const expectedAction = [
+            {type: CREATE_BUDGET},
+            {
+                type: CREATE_BUDGET_SUCCESS,
+                payload: {
+                    income: tmpIncome,
+                    totalGoalsAmount: tmpTotalGoalsAmount,
+                    disposable: tmpDisposable,
+                    budgetID: postResult.data.id
+                }
+            }
+        ];
+
+        let newState = INITIAL_BUDGET_STATE;
+        const mockCallback = jest.fn();
+        store.dispatch(await budgetActions.createBudget(
+            tmpIncome, tmpDisposable, tmpTotalGoalsAmount, mockCallback)).then(() => {
+            newState = authReducer(newState, expectedAction[1]);
+            expect(store.getState().auth).toEqual(newState);
+        });
+
+        const afterWrapper = shallow(
+            <CreateBudget/>,
+            {context: {store}}
+        );
+        expect(afterWrapper.dive()).toMatchSnapshot();
+    });
+});
+
+describe('Accounts', () => {
+    beforeEach(() => {
+        setupFirebaseMock();
+    });
+
+    it('renders SignIn, envoke sign in action, update state and rerender SignIn', async () => {
+        // Setup initial screen
+        const initialWrapper = shallow(
+            <Accounts/>,
+            {context: {store}}
+        );
+        expect(initialWrapper.dive()).toMatchSnapshot();
+
+        // Fire action
+        const expectedAction = [
+            {type: GET_LINKED_ACCOUNTS},
+            {
+                type: GET_LINKED_ACCOUNTS_SUCCESS,
+                payload: ["TEST_ACCOUNT"]
+            }
+        ];
+
+        let newState = INITIAL_ACCOUNT_STATE;
+        store.dispatch(await accountActions.getLinkedAccounts()).then(() => {
+            newState = accountReducer(newState, expectedAction[1]);
+            console.log(store.getState());
+            expect(store.getActions()).toEqual(expectedAction);
+        });
+
+        const afterWrapper = shallow(
+            <Accounts/>,
+            {context: {store}},
+        );
+        expect(afterWrapper.dive()).toMatchSnapshot();
     });
 });

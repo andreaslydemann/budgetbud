@@ -5,7 +5,7 @@ export const setupFirebaseMock = () => {
     const getIdToken = jest.fn(() => {
         return Promise.resolve(testToken)
     });
-    const testUserID = "TESTUSER";
+    const testUserID = "TEST_USER";
 
     const signInWithCustomToken = jest.fn();
     firebase.auth = jest.fn();
