@@ -11,7 +11,7 @@ import {
     Spinner
 } from "native-base";
 import {AppHeader, Separator, Toolbox} from "../../components/index";
-import {FlatList, SectionList} from "react-native";
+import {SectionList} from "react-native";
 import {connect} from "react-redux";
 import I18n from "../../strings/i18n";
 import {

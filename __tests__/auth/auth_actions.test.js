@@ -73,7 +73,7 @@ describe('signUp', () => {
     })
 
     it('should fail if phone number is too short', () => {
-        const cprNumber = '1234567890'; //Too short
+        const cprNumber = '1234567890'; //Correct length
         const phoneNumber = '1'; //Too short
 
         const expectedAction = [

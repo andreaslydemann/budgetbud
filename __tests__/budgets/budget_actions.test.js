@@ -1,10 +1,4 @@
-import {
-    CREATE_BUDGET,
-    CREATE_BUDGET_FAIL,
-    CREATE_BUDGET_SUCCESS,
-    RESET_BUDGET_ERROR,
-    SIGN_IN,
-} from '../../src/strings/types';
+import {CREATE_BUDGET, CREATE_BUDGET_FAIL, CREATE_BUDGET_SUCCESS, RESET_BUDGET_ERROR,} from '../../src/strings/types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from "axios";
@@ -73,11 +67,11 @@ describe('createBudget', () => {
         const tmpTotalGoalsAmount = 80;
         const postResult = {data: {id: 123}};
 
-        // jest.mock('axios');
-        // const postMock = axios.post;
-        // postMock.mockImplementationOnce(() =>
-        //     Promise.reject(postResult)
-        // );
+        jest.mock('axios');
+        const postMock = axios.post;
+        postMock.mockImplementationOnce(() =>
+            Promise.reject(postResult)
+        );
 
         const expectedAction = [
             {type: CREATE_BUDGET},
@@ -95,33 +89,3 @@ describe('createBudget', () => {
     })
 });
 
-describe('signIn', () => {
-    it('should sign in with returned token', async () => {
-        const signInWithCustomToken = jest.fn()
-        jest.spyOn(firebase, 'auth').mockImplementation(() => {
-            return {
-                signInWithCustomToken
-            }
-        })
-
-        const testToken = '1234';
-        const cprNumber = '1234567890';
-        const code = '1234';
-
-        const store = mockStore({});
-        const expectedAction = [
-            {type: SIGN_IN}
-        ];
-        const resp = {data: {token: testToken}};
-        axios.post.mockResolvedValue(resp);
-        postMock.mockImplementationOnce(() =>
-            Promise.resolve(resp)
-        );
-
-        return store.dispatch(await authActions.signIn({cprNumber, code})).then(() => {
-            expect(store.getActions()).toEqual(expectedAction)
-            expect(firebase.auth).toHaveBeenCalledTimes(1);
-            expect(signInWithCustomToken).toHaveBeenCalledWith(testToken);
-        });
-    })
-});

@@ -70,7 +70,7 @@ describe('getBudgetAlarms', () => {
         });
     })
 });
-//TODO
+
 describe('getLinkedAccounts', () => {
     beforeEach(() => {
         setupFirebaseMock();

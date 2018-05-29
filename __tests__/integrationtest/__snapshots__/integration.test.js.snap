@@ -209,294 +209,315 @@ exports[`CreateBudget renders CreateBudget, envoke sign in action, update state 
 </Styled(Container)>
 `;
 
-exports[`CreateBudget renders as expected 1`] = `
+exports[`EditDisposable renders EditDisposable, envoke editDisposable action, update state and rerender EditDisposable 1`] = `
 <Styled(Container)
   style={
-    Array [
-      Object {
-        "backgroundColor": "#ffffff",
-      },
-      Object {
-        "alignItems": "stretch",
-      },
-    ]
+    Object {
+      "backgroundColor": "#ffffff",
+    }
   }
 >
   <AppHeader
-    headerText="Create budget"
-    infoText="Here you can create a new budget. The expense goals can be pre-filled based on your expenses for the last three months from your connected accounts."
+    headerText="Disposable"
+    infoText="Here you can edit your disposable and select which goals for expenses your changes will affect. Press [Continue] to see a preview of the changes."
     onLeftButtonPress={[Function]}
     showBackButton={true}
   />
-  <BudgetForm
-    budgetError=""
-    budgetID=""
+  <DisposableForm
     budgetLoading={false}
-    categoriesLoading={false}
-    handleSubmit={[Function]}
-    onCategoryChanged={[Function]}
-    onIncomeChanged={[Function]}
-    submitLoading={false}
-    tmpCategories={Array []}
-    tmpDisposable={0}
-    tmpIncome={0}
-    tmpTotalGoalsAmount={0}
+    categoriesLoading={true}
+    categoriesSelected={[Function]}
+    categoryItems={Array []}
+    disposable={50}
+    disposableCalculationLoading={false}
+    disposableChanged={[Function]}
+    disposableError=""
+    disposableLoading={false}
+    onCheckBoxPressed={[Function]}
+    onContinuePressed={[Function]}
+    onDisposableChanged={[Function]}
+    selectedCategories={Array []}
+    subtractionsLoading={false}
   />
 </Styled(Container)>
 `;
 
-exports[`CreateBudget renders as expected 2`] = `
+exports[`EditDisposable renders EditDisposable, envoke editDisposable action, update state and rerender EditDisposable 2`] = `
 <Styled(Container)
   style={
-    Array [
-      Object {
-        "backgroundColor": "#ffffff",
-      },
-      Object {
-        "alignItems": "stretch",
-      },
-    ]
+    Object {
+      "backgroundColor": "#ffffff",
+    }
   }
 >
   <AppHeader
-    headerText="Create budget"
-    infoText="Here you can create a new budget. The expense goals can be pre-filled based on your expenses for the last three months from your connected accounts."
+    headerText="Disposable"
+    infoText="Here you can edit your disposable and select which goals for expenses your changes will affect. Press [Continue] to see a preview of the changes."
     onLeftButtonPress={[Function]}
     showBackButton={true}
   />
-  <BudgetForm
-    budgetError=""
-    budgetID=""
-    budgetLoading={true}
+  <DisposableForm
+    budgetLoading={false}
     categoriesLoading={true}
-    handleSubmit={[Function]}
-    onCategoryChanged={[Function]}
-    onIncomeChanged={[Function]}
-    submitLoading={false}
-    tmpCategories={Array []}
-    tmpDisposable={0}
-    tmpIncome={0}
-    tmpTotalGoalsAmount={0}
+    categoriesSelected={[Function]}
+    categoryItems={Array []}
+    disposable={50}
+    disposableCalculationLoading={false}
+    disposableChanged={[Function]}
+    disposableError=""
+    disposableLoading={true}
+    onCheckBoxPressed={[Function]}
+    onContinuePressed={[Function]}
+    onDisposableChanged={[Function]}
+    selectedCategories={Array []}
+    subtractionsLoading={false}
+    tmpDisposable={50}
   />
 </Styled(Container)>
 `;
 
-exports[`SignIn render SignIn, fire sign in action, update state and rerender SignIn 1`] = `
-<KeyboardAvoidingView
-  behavior="padding"
-  keyboardVerticalOffset={0}
+exports[`ExpenseOverview renders ExpenseOverview, envoke getExpensesOfMonth action, update state and rerender ExpenseOverview 1`] = `
+<Styled(Container)
   style={
     Object {
-      "alignItems": "center",
-      "backgroundColor": "#03426A",
-      "flex": 2,
-      "justifyContent": "center",
+      "backgroundColor": "#ffffff",
     }
   }
 >
-  <TouchableWithoutFeedback
-    accessible={false}
-    onPress={[Function]}
-  >
-    <Styled(Container)
-      style={
-        Object {
-          "alignSelf": "stretch",
-        }
-      }
-    >
-      <View
+  <AppHeader
+    headerText="Expense overview"
+    infoText="Here you see an overview of your spending compared to your budget. Press the bell icon on any expense item to get a notification if your spendings exceed the expense goal."
+    onLeftButtonPress={[Function]}
+  />
+  <Styled(Container)>
+    <Styled(Container)>
+      <Styled(ViewNB)
         style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "justifyContent": "flex-end",
-            },
-            Object {
-              "flex": 2,
-            },
-          ]
+          Object {
+            "flex": 0.82,
+          }
         }
       >
-        <Logo
-          logoText="Welcome to BudgetBud"
+        <FlatList
+          data={Array []}
+          disableVirtualization={false}
+          horizontal={false}
+          initialNumToRender={10}
+          keyExtractor={[Function]}
+          maxToRenderPerBatch={10}
+          numColumns={1}
+          onEndReachedThreshold={2}
+          onRefresh={[Function]}
+          refreshing={false}
+          renderItem={[Function]}
+          scrollEventThrottle={50}
+          updateCellsBatchingPeriod={50}
+          windowSize={21}
         />
-      </View>
-      <AuthForm
-        authLoading={false}
-        cprNumber=""
-        handleSubmit={[Function]}
-        isSignIn={true}
-        onCprNumberChange={[Function]}
-        onSecondInputChange={[Function]}
-        secondInput=""
-      />
-      <Styled(Container)>
-        <Styled(Container)
+        <Separator />
+      </Styled(ViewNB)>
+      <Styled(ViewNB)
+        style={
+          Object {
+            "flex": 0.18,
+          }
+        }
+      >
+        <Styled(ViewNB)
           style={
-            Object {
-              "alignItems": "flex-start",
-              "alignSelf": "center",
-              "flexShrink": 1,
-              "paddingTop": 13,
-              "width": "80%",
-            }
+            Array [
+              Object {
+                "flex": 1,
+                "justifyContent": "space-between",
+                "marginBottom": 0,
+              },
+              Object {
+                "paddingVertical": "5%",
+              },
+            ]
           }
         >
-          <Styled(Button)
-            onPress={[Function]}
+          <Styled(ViewNB)
             style={
-              Object {
-                "height": 30,
-                "paddingLeft": 5,
-              }
-            }
-            transparent={true}
-          >
-            <Styled(Label)
-              style={
+              Array [
                 Object {
-                  "color": "rgba(255,255,255,0.6)",
-                }
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingLeft": 15,
+                  "paddingRight": 18,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
               }
             >
-              Forgot code?
-            </Styled(Label)>
-          </Styled(Button)>
-          <Styled(Button)
-            onPress={[Function]}
-            style={
-              Object {
-                "height": 30,
-                "paddingLeft": 5,
-              }
-            }
-            transparent={true}
-          >
-            <Styled(Label)
+              Total debt per month
+            </Styled(Text)>
+            <Styled(Text)
               style={
-                Object {
-                  "color": "rgba(255,255,255,0.6)",
-                }
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
               }
             >
-              New user?
-            </Styled(Label)>
-          </Styled(Button)>
-        </Styled(Container)>
-      </Styled(Container)>
+              0
+               
+              kr
+            </Styled(Text)>
+          </Styled(ViewNB)>
+          <Styled(ViewNB)
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingLeft": 15,
+                  "paddingRight": 18,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              Total expenses
+            </Styled(Text)>
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              0
+               
+              kr
+            </Styled(Text)>
+          </Styled(ViewNB)>
+          <Styled(ViewNB)
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingLeft": 15,
+                  "paddingRight": 18,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              Disposable
+            </Styled(Text)>
+            <Styled(Text)
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "flex-start",
+                    "fontSize": 16,
+                    "marginLeft": 5,
+                  },
+                  Object {
+                    "color": "#003755",
+                  },
+                ]
+              }
+            >
+              50
+               
+              kr
+            </Styled(Text)>
+          </Styled(ViewNB)>
+        </Styled(ViewNB)>
+      </Styled(ViewNB)>
     </Styled(Container)>
-  </TouchableWithoutFeedback>
-</KeyboardAvoidingView>
+  </Styled(Container)>
+</Styled(Container)>
 `;
 
-exports[`SignIn render SignIn, fire sign in action, update state and rerender SignIn 2`] = `
-<KeyboardAvoidingView
-  behavior="padding"
-  keyboardVerticalOffset={0}
+exports[`ExpenseOverview renders ExpenseOverview, envoke getExpensesOfMonth action, update state and rerender ExpenseOverview 2`] = `
+<Styled(Container)
   style={
     Object {
-      "alignItems": "center",
-      "backgroundColor": "#03426A",
-      "flex": 2,
-      "justifyContent": "center",
+      "backgroundColor": "#ffffff",
     }
   }
 >
-  <TouchableWithoutFeedback
-    accessible={false}
-    onPress={[Function]}
-  >
-    <Styled(Container)
+  <AppHeader
+    headerText="Expense overview"
+    infoText="Here you see an overview of your spending compared to your budget. Press the bell icon on any expense item to get a notification if your spendings exceed the expense goal."
+    onLeftButtonPress={[Function]}
+  />
+  <Styled(Container)>
+    <Styled(Spinner)
+      color="#1c313a"
       style={
         Object {
-          "alignSelf": "stretch",
+          "flex": 1,
         }
       }
-    >
-      <View
-        style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "justifyContent": "flex-end",
-            },
-            Object {
-              "flex": 2,
-            },
-          ]
-        }
-      >
-        <Logo
-          logoText="Welcome to BudgetBud"
-        />
-      </View>
-      <AuthForm
-        authLoading={true}
-        cprNumber=""
-        handleSubmit={[Function]}
-        isSignIn={true}
-        onCprNumberChange={[Function]}
-        onSecondInputChange={[Function]}
-        secondInput=""
-      />
-      <Styled(Container)>
-        <Styled(Container)
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "alignSelf": "center",
-              "flexShrink": 1,
-              "paddingTop": 13,
-              "width": "80%",
-            }
-          }
-        >
-          <Styled(Button)
-            onPress={[Function]}
-            style={
-              Object {
-                "height": 30,
-                "paddingLeft": 5,
-              }
-            }
-            transparent={true}
-          >
-            <Styled(Label)
-              style={
-                Object {
-                  "color": "rgba(255,255,255,0.6)",
-                }
-              }
-            >
-              Forgot code?
-            </Styled(Label)>
-          </Styled(Button)>
-          <Styled(Button)
-            onPress={[Function]}
-            style={
-              Object {
-                "height": 30,
-                "paddingLeft": 5,
-              }
-            }
-            transparent={true}
-          >
-            <Styled(Label)
-              style={
-                Object {
-                  "color": "rgba(255,255,255,0.6)",
-                }
-              }
-            >
-              New user?
-            </Styled(Label)>
-          </Styled(Button)>
-        </Styled(Container)>
-      </Styled(Container)>
-    </Styled(Container)>
-  </TouchableWithoutFeedback>
-</KeyboardAvoidingView>
+    />
+  </Styled(Container)>
+</Styled(Container)>
 `;
 
 exports[`SignIn renders SignIn, envoke sign in action, update state and rerender SignIn 1`] = `

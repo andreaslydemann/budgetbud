@@ -82,7 +82,8 @@ describe('Budget', () => {
                         budget: INITIAL_BUDGET_STATE,
                         category: INITIAL_CATEGORY_STATE,
                         debt: INITIAL_DEBT_STATE,
-                        disposable: INITIAL_DISPOSABLE_STATE
+                        disposable: INITIAL_DISPOSABLE_STATE,
+                        account: INITIAL_ACCOUNT_STATE
                     })
                 }
             },

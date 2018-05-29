@@ -1,8 +1,10 @@
 import {CREATE_CATEGORIES, CREATE_CATEGORIES_SUCCESS, RESET_CATEGORIES_ERROR} from '../../src/strings/types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import mockAxios from 'axios';
+import axios from 'axios';
 import {setupFirebaseMock} from "../test_helper/firebase_mock";
+
+jest.mock('axios');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -32,9 +34,7 @@ describe('createCategories', () => {
         const categories = [{amount: 123}, {amount: 456}];
         const postResult = {data: {id: 123}};
 
-        mockAxios.post.mockImplementationOnce(() =>
-            Promise.resolve(postResult)
-        );
+        axios.post.mockResolvedValue(postResult);
 
         const expectedAction = [
             {type: CREATE_CATEGORIES},
@@ -49,7 +49,6 @@ describe('createCategories', () => {
         return store.dispatch(await categoryActions.createCategories(
             budgetID, categories, mockCallback)).then(() => {
             // return of async actions
-            expect(mockAxios).toHaveBeenCalledTimes(1);
             expect(store.getActions()).toEqual(expectedAction)
             expect(mockCallback).toHaveBeenCalled()
         });

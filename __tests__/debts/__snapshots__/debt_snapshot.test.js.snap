@@ -234,7 +234,7 @@ exports[`Debt renders DebtForm in loading state as expected 1`] = `
         />
       }
       iconSource={1}
-      minDate={2018-05-26T17:11:15.668Z}
+      minDate={2018-05-29T16:45:44.577Z}
       modalOnResponderTerminationRequest={[Function]}
       mode="date"
       onDateChange={[Function]}
