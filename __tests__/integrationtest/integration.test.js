@@ -32,8 +32,6 @@ const expenseActions = require('../../src/app/expenses/expense_actions');
 const disposableActions = require('../../src/app/disposable/disposable_actions');
 
 Enzyme.configure({adapter: new Adapter()});
-const originState = store.getState();
-
 describe('SignIn', () => {
     it('renders SignIn, envoke sign in action, update state and rerender SignIn', async () => {
         // Setup initial screen

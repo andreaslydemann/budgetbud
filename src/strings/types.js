@@ -3,8 +3,6 @@ export const GET_INITIAL_STATE = 'get_initial_state';
 
 // ----------NAVIGATION RELATED TYPES----------
 export const SCREEN_CHANGED = 'screen_changed';
-export const START_NAVIGATION = 'start_navigation';
-export const END_NAVIGATION = 'end_navigation';
 
 // ----------AUTH RELATED TYPES----------
 export const GET_INITIAL_AUTH_STATE = 'get_initial_auth_state';
@@ -59,7 +57,6 @@ export const DELETE_BUDGET = 'delete_budget';
 export const DELETE_BUDGET_SUCCESS = 'delete_budget_success';
 export const DELETE_BUDGET_FAIL = 'delete_budget_fail';
 export const INCOME_CHANGED = 'income_changed';
-export const CATEGORY_CHANGED = 'category_changed';
 export const RESET_BUDGET_ERROR = 'reset_budget_error';
 
 // ----------DEBT RELATED TYPES----------
@@ -107,7 +104,6 @@ export const EDIT_CATEGORIES = 'edit_categories';
 export const EDIT_CATEGORIES_SUCCESS = 'edit_categories_success';
 export const EDIT_CATEGORIES_FAIL = 'edit_categories_fail';
 export const VALIDATE_DEBT_CATEGORIES_FAIL = 'validate_debt_categories_fail';
-export const CALCULATE_CATEGORY_SUBTRACTIONS_FAIL = 'calculate_category_subtractions_fail';
 export const RESET_CATEGORIES_ERROR = 'reset_categories_error';
 
 // ----------ACCOUNT RELATED TYPES----------
