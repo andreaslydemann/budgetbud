@@ -27,11 +27,6 @@ Developed using React Native and Expo. Navigation is performed by React Navigati
 </p>
 
 <p align="center">
-<img width="350" hspace="20" src ="assets/mockups/create debt.png"/>
-<img width="350" hspace="20" src ="assets/mockups/create debt date.png"/>
-</p>
-
-<p align="center">
 <img width="230" hspace="10" src ="assets/mockups/create debt.png"/>
 <img width="230" hspace="10" src ="assets/mockups/create debt date.png"/>
 <img width="230" hspace="10" src ="assets/mockups/debt preview.png"/>
