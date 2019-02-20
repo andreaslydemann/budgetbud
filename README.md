@@ -1,4 +1,4 @@
-# <p align="center"><img width="33%" src ="assets/drawer-image.png"/>
+# <p align="center"><img width="33%" src ="assets/readme-title-image.png"/>
 
 BudgetBud is a budget management app for people having difficulities managing their economy and administering a budget on their own. It helps you manage your personal finances by allowing you to create a budget based on your current debt and desired monthly disposable amount. BudgetBud simply helps you live your life without worrying about your money.
 
